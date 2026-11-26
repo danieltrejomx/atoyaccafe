@@ -1,0 +1,1 @@
+{"event_id":"e1","event_type":"orders.notification","event_time":1766000000,"meta":{"resource_id":"u-100","status":"created","user_id":"x"},"resource_href":"https://api.uber.com/v2/eats/order/u-100"}

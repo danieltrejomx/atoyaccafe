@@ -4,6 +4,9 @@ import { getDb, schema } from './db';
 
 const { productos, opciones, recetas, insumos } = schema;
 
+/** Producto comodín para SKUs desconocidos de las apps; nunca se muestra en el catálogo público. */
+export const GENERICO_APP = 'Artículo de app (revisar)';
+
 /** Catálogo con opciones. `soloActivos` para kiosco y sitio; el portal los ve todos. */
 export function listarProductos(soloActivos = true): Producto[] {
 	const db = getDb();
@@ -23,7 +26,9 @@ export function listarProductos(soloActivos = true): Producto[] {
 			.all()
 			.map((r) => r.id)
 	);
-	return filas.map((p) => ({
+	return filas
+		.filter((p) => !soloActivos || p.nombre !== GENERICO_APP)
+		.map((p) => ({
 		id: p.id,
 		nombre: p.nombre,
 		descripcion: p.descripcion,

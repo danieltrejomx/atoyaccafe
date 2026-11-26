@@ -355,7 +355,7 @@ Lienzo fijo de 1080x1920 escalado con `transform: scale()` para llenar la ventan
 +--------------------------------------------------+  1920
 ```
 
-Banda de turno (padding 48px, rejilla de 3 columnas: `390px 1fr 200px`, separación 32px):
+Banda de turno (padding 48px, rejilla de 3 columnas: `390px 1fr 240px`, separación 32px):
 - **Izquierda:** "TURNO" en Outfit 700, 88px, color hoja, con tracking. Debajo el número en Outfit 700, 320px, `line-height: .9`, color hoja (el verde de la maqueta). Con 3 dígitos baja a 220px.
 - **Centro:** productos del turno, Figtree 600 a 44px, color bosque, máximo 3 líneas; si hay más, "+2 más". Nombre del cliente arriba en texto-suave 40px si existe.
 - **Derecha:** logo de 96px arriba; "PRÓXIMOS" en 40px bosque con tracking; 3 números en Outfit 700 a 96px color hoja, uno por línea. Los próximos son los pedidos en `preparando`, en orden de turno.

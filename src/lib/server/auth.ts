@@ -85,7 +85,7 @@ export function rolesPermitidos(metodo: string, ruta: string): readonly Rol[] | 
 	if (ruta.startsWith('/portal')) return TODOS;
 	if (!ruta.startsWith('/api/')) return null;
 	if (/^\/api\/(login|logout|stream|turnos)$/.test(ruta)) return null;
-	if (/^\/api\/(webhooks|cobro|whatsapp)(\/|$)/.test(ruta)) return null;
+	if (/^\/api\/(webhooks|canales|cobro|whatsapp)(\/|$)/.test(ruta)) return null;
 	if (ruta === '/api/productos' && !escribe) return null;
 	if (ruta === '/api/pedidos' && metodo === 'POST') return null; // kiosco; el endpoint limita el canal
 	if (/^\/api\/(recetas|productos)(\/|$)/.test(ruta) && escribe) return ['admin'];

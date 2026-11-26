@@ -1,0 +1,1 @@
+{"event":"NEW_ORDER","order_detail":{"order_id":"r-200","comments":"Tocar timbre","items":[{"sku":"sku-panini","name":"Panini Jamón","quantity":1,"unit_price":65,"comments":"","subitems":[{"name":"Croissant"}]}]},"customer":{"first_name":"Luis","last_name":"Pérez","phone_number":"5215598765432"}}

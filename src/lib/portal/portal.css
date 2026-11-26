@@ -1,0 +1,34 @@
+/* Estilos compartidos del portal. Solo tokens de src/lib/ui/tokens.css. */
+.portal { font-family: var(--f-texto); color: var(--c-texto); background: var(--c-papel); min-height: 100vh; line-height: var(--lh-texto); }
+.portal h1, .portal h2, .portal h3 { font-family: var(--f-titulo); line-height: var(--lh-titulo); margin: 0; }
+.portal .etiqueta { font-family: var(--f-titulo); font-weight: 600; text-transform: uppercase; letter-spacing: var(--ls-etiqueta); font-size: var(--fs-12); color: var(--c-texto-suave); }
+.portal .btn { font: 600 var(--fs-16) var(--f-titulo); min-height: var(--toque); padding: 0 var(--sp-4); border-radius: var(--r-pill); border: 1px solid transparent; background: var(--c-hoja-fuerte); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2); text-decoration: none; transition: transform var(--dur-1), filter var(--dur-1); }
+.portal .btn:hover { filter: brightness(.94); }
+.portal .btn:active { transform: scale(.97); }
+.portal .btn:focus-visible, .portal .tab:focus-visible, .portal input:focus-visible, .portal select:focus-visible { outline: none; box-shadow: var(--foco); }
+.portal .btn:disabled { opacity: .45; cursor: not-allowed; }
+.portal .btn.pago { background: var(--c-barro); }
+.portal .btn.sec { background: transparent; color: var(--c-texto); border-color: var(--c-linea-fuerte); }
+.portal .btn.quieto { background: transparent; color: var(--c-hoja); }
+.portal .btn.peligro { background: transparent; color: var(--c-cancelado); border-color: var(--c-cancelado); }
+.portal .btn.chico { min-height: 36px; padding: 0 var(--sp-3); font-size: var(--fs-14); }
+.portal input, .portal select { font: var(--fs-16) var(--f-texto); min-height: var(--toque); padding: 0 var(--sp-3); border: 1px solid var(--c-linea-fuerte); border-radius: var(--r-sm); background: var(--c-blanco); color: var(--c-texto); }
+.portal .chip { display: inline-flex; align-items: center; gap: var(--sp-2); height: 28px; padding: 0 var(--sp-3); border-radius: var(--r-pill); font: 600 var(--fs-14) var(--f-titulo); text-transform: capitalize; white-space: nowrap; }
+.portal .chip::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.portal .chip.nuevo { background: var(--c-nuevo-bg); color: var(--c-nuevo); }
+.portal .chip.preparando { background: var(--c-preparando-bg); color: var(--c-preparando); }
+.portal .chip.listo { background: var(--c-listo-bg); color: var(--c-listo); }
+.portal .chip.entregado { background: var(--c-entregado-bg); color: var(--c-entregado); }
+.portal .chip.cancelado { background: var(--c-cancelado-bg); color: var(--c-cancelado); }
+.portal .panel { background: var(--c-blanco); border-radius: var(--r-lg); box-shadow: var(--sh-1); padding: var(--sp-5); }
+.portal .error { color: var(--c-peligro); font-size: var(--fs-14); margin: var(--sp-2) 0; }
+.portal .vacio { color: var(--c-texto-suave); padding: var(--sp-6) 0; text-align: center; }
+.portal .pagina { max-width: 1280px; margin: 0 auto; padding: var(--sp-5); display: grid; gap: var(--sp-4); }
+.portal table { width: 100%; border-collapse: collapse; }
+.portal th { text-align: left; }
+.portal th, .portal td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--c-linea); }
+.portal .num { text-align: right; font-variant-numeric: tabular-nums; }
+.portal .fila { display: flex; gap: var(--sp-3); align-items: center; flex-wrap: wrap; }
+.portal .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.modal-fondo { position: fixed; inset: 0; background: rgba(31,45,36,.45); z-index: var(--z-modal); display: grid; place-items: center; padding: var(--sp-4); }
+.modal { background: var(--c-papel); border-radius: var(--r-lg); box-shadow: var(--sh-3); width: min(720px, 100%); max-height: 90vh; overflow: auto; padding: var(--sp-5); }

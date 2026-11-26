@@ -125,3 +125,14 @@
     --dur-4: 0ms;
   }
 }
+
+/* Base mínima común a las tres pantallas y al sitio. */
+body {
+  margin: 0;
+  background: var(--c-papel);
+  color: var(--c-texto);
+  font-family: var(--f-texto);
+  -webkit-font-smoothing: antialiased;
+}
+/* Los controles no heredan la letra por defecto: sin esto salen en la del sistema. */
+button, input, select, textarea { font-family: inherit; }
