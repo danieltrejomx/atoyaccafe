@@ -104,10 +104,12 @@ export function crearPedido(input: CrearPedidoInput): { pedido: Pedido; creado: 
 			let total = 0;
 			const lineas = input.items.map((it) => {
 				const p = prods.find((x) => x.id === it.productoId);
-				if (!p || !p.activo) throw new ErrorNegocio(`El producto ${it.productoId} no está disponible`);
+				if (!p)
+					throw new ErrorNegocio('Un producto del ticket ya no existe en el menú (el catálogo se actualizó). Quítalo y vuelve a agregarlo.');
+				if (!p.activo) throw new ErrorNegocio(`${p.nombre} está pausado en el menú. Quítalo del ticket o actívalo en el portal.`);
 				const elegidas = it.opcionIds.map((oid) => {
 					const o = ops.find((x) => x.id === oid && x.productoId === p.id);
-					if (!o) throw new ErrorNegocio(`La opción ${oid} no es de ${p.nombre}`);
+					if (!o) throw new ErrorNegocio(`Una opción de ${p.nombre} ya no existe en el menú. Quita ${p.nombre} y vuelve a agregarlo.`);
 					return o;
 				});
 				const unicas = elegidas.filter((o) => o.tipo === 'unica').map((o) => o.grupo);

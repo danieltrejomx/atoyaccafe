@@ -43,7 +43,7 @@ export function guardarReceta(productoId: number, input: RecetaInput): RecetaRes
 		.all()
 		.map((o) => o.id);
 	const ajena = input.opciones.find((o) => !propias.includes(o.opcionId));
-	if (ajena) throw new ErrorNegocio(`La opción ${ajena.opcionId} no es de este producto`);
+	if (ajena) throw new ErrorNegocio('Una de las opciones ya no pertenece a este producto. Recarga la página e intenta de nuevo.');
 	const usados = [...input.base, ...input.opciones.flatMap((o) => o.lineas)].map((l) => l.insumoId);
 	const existentes = usados.length
 		? db.select({ id: insumos.id }).from(insumos).where(inArray(insumos.id, usados)).all()

@@ -56,7 +56,7 @@ describe('recetas e inventario', () => {
 
 	it('rechaza dos opciones del mismo grupo y opciones de otro producto', () => {
 		expect(() => crearPedido(kiosco({ items: [{ productoId: f.panini.id, cantidad: 1, opcionIds: [f.opCroissant.id, f.opArtesanal.id] }] }))).toThrow(/una opción por grupo/);
-		expect(() => crearPedido(kiosco({ items: [{ productoId: f.jugo.id, cantidad: 1, opcionIds: [f.opCroissant.id] }] }))).toThrow(/no es de/);
+		expect(() => crearPedido(kiosco({ items: [{ productoId: f.jugo.id, cantidad: 1, opcionIds: [f.opCroissant.id] }] }))).toThrow(/Una opción de Jugo ya no existe/);
 	});
 });
 
@@ -102,5 +102,12 @@ describe('cobro manda a cocina', () => {
 		expect(confirmarPago(pedido.id, 'efectivo').estado).toBe('preparando');
 		const app = crearPedido({ canal: 'interno', items: [{ productoId: f.jugo.id, cantidad: 1, opcionIds: [] }] }).pedido;
 		expect(app.estado).toBe('preparando');
+	});
+});
+
+describe('mensajes de error', () => {
+	it('nombran el producto y el motivo, nunca el id', () => {
+		expect(() => crearPedido(kiosco({ items: [{ productoId: 99999, cantidad: 1, opcionIds: [] }] }))).toThrow(/ya no existe en el menú/);
+		expect(() => crearPedido(kiosco({ items: [{ productoId: 99999, cantidad: 1, opcionIds: [] }] }))).not.toThrow(/99999/);
 	});
 });
