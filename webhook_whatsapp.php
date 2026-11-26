@@ -218,28 +218,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
         }
         file_put_contents($chatsFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-        // Enviar a Firebase Firestore REST (Proyecto: atoyac-kitchen)
-        $firestoreUrl = "https://firestore.googleapis.com/v1/projects/atoyac-kitchen/databases/(default)/documents/atoyac_whatsapp_chats/" . urlencode($fromPhone) . "?key=AIzaSyB-og7jsZleSXKpbFUYCiHTQnQ6tXjMwy4&updateMask.fieldPaths=name&updateMask.fieldPaths=phone&updateMask.fieldPaths=lastMessage&updateMask.fieldPaths=lastTime&updateMask.fieldPaths=unread&updateMask.fieldPaths=updatedAt";
-        $firestorePayload = [
-            "fields" => [
-                "name" => ["stringValue" => $contactName],
-                "phone" => ["stringValue" => $fromPhone],
-                "lastMessage" => ["stringValue" => $msgText],
-                "lastTime" => ["stringValue" => $timeStr],
-                "unread" => ["integerValue" => 1],
-                "updatedAt" => ["integerValue" => $timestamp]
-            ]
-        ];
-
-        $ch = curl_init($firestoreUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($firestorePayload));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-        curl_exec($ch);
-        curl_close($ch);
     }
 
     // Parsear actualizaciones de estado de entrega y lectura de Meta (statuses)
