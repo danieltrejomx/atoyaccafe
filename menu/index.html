@@ -44,12 +44,11 @@
       overflow-x: hidden;
     }
 
-    /* TOP NAVBAR */
+    /* TOP NAVBAR SÓLIDO (SIN TRASLAPE DE TEXTO AL SCROLLEAR) */
     .menu-navbar {
-      background: rgba(250, 248, 245, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #FAF8F5;
       border-bottom: 1px solid var(--card-border);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
       height: 72px;
       padding: 0 1.5rem;
       display: flex;
@@ -111,11 +110,11 @@
     }
 
     /* ===================================================================
-       1. PORTADA & HERO
+       1. PORTADA & HERO COMPACTO
        =================================================================== */
     .menu-hero {
       text-align: center;
-      padding: 2.25rem 1.25rem 1.25rem;
+      padding: 1.5rem 1.25rem 0.75rem;
       max-width: 860px;
       margin: 0 auto;
       width: 100%;
@@ -134,7 +133,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--forest-sage);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.75rem;
     }
 
     .hero-title {
@@ -144,16 +143,16 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--forest-dark);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
       padding-left: 0.22em;
       line-height: 1.1;
     }
 
     .hero-subtitle {
       font-size: clamp(0.95rem, 2.8vw, 1.15rem);
-      font-weight: 400;
+      font-weight: 500;
       color: var(--forest-sage);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
       letter-spacing: 0.02em;
     }
 
@@ -169,8 +168,8 @@
     .quote-hero-banner {
       background: var(--forest-dark);
       border-radius: 18px;
-      padding: 1.15rem 1.4rem;
-      margin: 1.6rem auto 1.8rem;
+      padding: 1.1rem 1.35rem;
+      margin: 1.35rem auto 1.5rem;
       max-width: 680px;
       text-align: center;
       box-shadow: 0 10px 25px -5px rgba(30, 45, 34, 0.16);
@@ -183,7 +182,7 @@
       font-style: italic;
       color: #F0FDF4;
       line-height: 1.25;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
     .quote-hero-banner span {
@@ -247,10 +246,10 @@
       box-shadow: 0 6px 18px rgba(30, 45, 34, 0.2);
     }
 
-    /* BARRA DE INFORMACIÓN DE CATEGORÍA ACTIVA + TOGGLE DE VISTA */
+    /* BARRA DE INFORMACIÓN DE CATEGORÍA + TOGGLE DE VISTA */
     .category-header-bar {
       max-width: 1080px;
-      margin: 1.25rem auto 0.75rem;
+      margin: 1.15rem auto 0.6rem;
       padding: 0 1.25rem;
       display: flex;
       align-items: center;
@@ -322,8 +321,8 @@
     .category-quote-banner {
       background: #233428;
       border-radius: 14px;
-      padding: 0.85rem 1.25rem;
-      margin: 0.75rem auto 1.5rem;
+      padding: 0.8rem 1.25rem;
+      margin: 0.65rem auto 1.15rem;
       max-width: 1040px;
       width: calc(100% - 2.5rem);
       display: flex;
@@ -336,7 +335,7 @@
 
     .category-quote-banner p {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-style: italic;
       color: #E2F5E7;
       margin: 0;
@@ -352,49 +351,41 @@
     }
 
     /* ===================================================================
-       CARRUSEL INTERACTIVO: SE MUEVE LENTO, SE PAUSA AL CURSOR Y SE JALA
+       CARRUSEL: SE MUEVE SOLO 3 SEGUNDOS PARA INDICAR QUE ES SLIDER
+       Y LUEGO ES 100% MANIPULABLE POR EL USUARIO
        =================================================================== */
     .carousel-section {
       width: 100%;
       overflow: hidden;
-      padding: 0.5rem 0 2.5rem;
+      padding: 0.25rem 0 1.5rem;
       position: relative;
     }
 
-    .carousel-section::before,
-    .carousel-section::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50px;
-      z-index: 10;
-      pointer-events: none;
-    }
-    .carousel-section::before {
-      left: 0;
-      background: linear-gradient(to right, var(--bg-cream) 20%, rgba(250, 248, 245, 0) 100%);
-    }
-    .carousel-section::after {
-      right: 0;
-      background: linear-gradient(to left, var(--bg-cream) 20%, rgba(250, 248, 245, 0) 100%);
+    .carousel-swipe-hint {
+      text-align: center;
+      margin: 0 auto 0.5rem;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--forest-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      opacity: 0.85;
+      transition: opacity 0.5s ease;
     }
 
     .carousel-track-wrapper {
       width: 100%;
       overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
       display: flex;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: pan-y;
-      scroll-behavior: auto;
-    }
-
-    .carousel-track-wrapper.grabbing {
-      cursor: grabbing;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding: 0.5rem 0 1rem;
     }
 
     .carousel-track-wrapper::-webkit-scrollbar {
@@ -403,26 +394,27 @@
 
     .carousel-track {
       display: flex;
-      gap: 1.35rem;
+      gap: 1.25rem;
       width: max-content;
-      padding: 0.5rem 1.5rem 1.5rem;
+      padding: 0.25rem 1.25rem 0.5rem;
     }
 
-    /* MODO CUADRÍCULA (GRID VIEW) */
+    /* MODO CUADRÍCULA (GRID VIEW / VER TODO) */
     .grid-section {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0.5rem 1.25rem 3rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.35rem;
       width: 100%;
     }
 
     /* TARJETA DE PRODUCTO */
     .dish-card {
-      width: 310px;
+      width: 320px;
       flex-shrink: 0;
+      scroll-snap-align: start;
       background: var(--bg-white);
       border-radius: 20px;
       border: 1.5px solid var(--card-border);
@@ -435,20 +427,16 @@
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
     }
 
-    .grid-section .dish-card {
-      width: 100%;
-    }
-
     .dish-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 30px rgba(30, 45, 34, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(30, 45, 34, 0.09);
       border-color: rgba(30, 45, 34, 0.16);
     }
 
-    /* ESPACIO PARA FOTOGRAFÍA (CON SOPORTE PARA AGREGAR TU FOTO) */
+    /* ESPACIO PARA FOTOGRAFÍA (LISTO PARA AGREGAR FOTOGRAFÍAS) */
     .dish-img-box {
       width: 100%;
-      height: 190px;
+      height: 195px;
       overflow: hidden;
       position: relative;
       background: #EDEAE2;
@@ -581,6 +569,61 @@
       background: #25D366;
       border-color: #25D366;
       color: #FFFFFF;
+    }
+
+    /* CONTROLES Y PUNTOS INDICADORES DEL SLIDER */
+    .carousel-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      padding: 0.25rem 1rem 1.25rem;
+    }
+
+    .carousel-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-white);
+      border: 1.5px solid var(--btn-border);
+      color: var(--forest-dark);
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .carousel-arrow:hover {
+      background: var(--forest-dark);
+      color: #FFFFFF;
+      border-color: var(--forest-dark);
+      transform: scale(1.06);
+    }
+
+    .carousel-dots-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #CBD5E1;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      width: 22px;
+      background: var(--forest-dark);
     }
 
     /* ===================================================================
@@ -941,20 +984,40 @@
       transform: translateY(-2px);
     }
 
+    /* RESPONSIVE MÓVIL: ANCHO TOTAL Y VISIBILIDAD PERFECTA */
     @media (max-width: 640px) {
-      .dish-card {
-        width: 280px;
-      }
-      .dish-img-box {
-        height: 170px;
+      .menu-hero {
+        padding: 1rem 1rem 0.5rem;
       }
       .hero-title {
         font-size: 1.85rem;
       }
       .category-pills-wrap {
         justify-content: flex-start;
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .carousel-track {
+        padding: 0.25rem 1rem 0.5rem;
+        gap: 0.85rem;
+      }
+      /* CADA TARJETA EN CARRUSEL OCUPA EL ANCHO COMPLETO CON PEEK SUTIL */
+      .dish-card {
+        width: calc(100vw - 42px);
+        max-width: 345px;
+        scroll-snap-align: center;
+      }
+      .dish-img-box {
+        height: 185px;
+      }
+      /* EN MODO CUADRÍCULA (VER TODO), OCUPA EL 100% DE ANCHO */
+      .grid-section {
+        grid-template-columns: 1fr !important;
+        padding: 0.5rem 1rem 2.5rem !important;
+        gap: 1.25rem !important;
+      }
+      .grid-section .dish-card {
+        width: 100% !important;
       }
       .dish-modal-card {
         max-width: 100%;
@@ -1054,16 +1117,26 @@
 
     <!-- VISTA 1: CARRUSEL INTERACTIVO -->
     <section class="carousel-section" id="carousel-viewport">
-      <div class="carousel-track-wrapper" id="carousel-track-wrapper" title="Arrastra hacia los lados o haz clic en cualquier platillo">
+      <div class="carousel-swipe-hint" id="carouselSwipeHint">
+        <span>👈 Desliza para explorar platillos 👉</span>
+      </div>
+      <div class="carousel-track-wrapper" id="carousel-track-wrapper" title="Desliza para ver todos los platillos">
         <div class="carousel-track" id="carousel-track">
           <!-- Tarjetas renderizadas dinámicamente -->
         </div>
       </div>
+
+      <!-- CONTROLES Y PUNTOS INDICADORES -->
+      <div class="carousel-nav-bar" id="carouselNavBar">
+        <button class="carousel-arrow" onclick="navigateCarousel(-1)" aria-label="Platillo anterior">‹</button>
+        <div class="carousel-dots-wrap" id="carouselDots"></div>
+        <button class="carousel-arrow" onclick="navigateCarousel(1)" aria-label="Platillo siguiente">›</button>
+      </div>
     </section>
 
-    <!-- VISTA 2: CUADRÍCULA (OCULTA POR DEFECTO) -->
+    <!-- VISTA 2: CUADRÍCULA (VER TODO) -->
     <section class="grid-section" id="grid-viewport" style="display: none;">
-      <!-- Tarjetas renderizadas dinámicamente en cuadrícula -->
+      <!-- Tarjetas renderizadas dinámicamente al 100% de ancho en móvil -->
     </section>
 
     <!-- POPUP MODAL DETALLE DE PLATILLO -->
@@ -1141,7 +1214,7 @@
 
   <script>
     // ===================================================================
-    // METADATOS Y FRASES OFICIALES (DEL GUION DE VIDEO OFICIAL)
+    // METADATOS Y FRASES OFICIALES
     // ===================================================================
     const CATEGORY_META = {
       favoritos: {
@@ -1191,7 +1264,7 @@
     // ===================================================================
     // BASE DE DATOS DE PRODUCTOS OFICIALES DE ATOYAC
     // Cada producto cuenta con su ruta de fotografía dedicada (image)
-    // y su fallback automático (fallback) para que puedas subir tus fotos
+    // y su fallback automático (fallback) para que agregues tus fotos
     // ===================================================================
     const PRODUCTS = {
       favoritos: [
@@ -1522,18 +1595,15 @@
     const gridViewport = document.getElementById('grid-viewport');
     const carouselViewport = document.getElementById('carousel-viewport');
 
-    let isHovered = false;
-    let isPointerDown = false;
-    let hasDragged = false;
-    let startX = 0;
-    let scrollLeftStart = 0;
-    const SCROLL_SPEED = 0.35;
-    let animId = null;
+    // CONTROL DEL HINT DE 3 SEGUNDOS
+    let hintAnimFrame = null;
+    let hintTimer = null;
+    let userInteracted = false;
 
     // Renderizar tarjeta individual
-    function createCardHTML(item, categoryKey, realIndex) {
+    function createCardHTML(item, categoryKey, index) {
       return `
-        <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${realIndex})">
+        <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${index})">
           <div class="dish-img-box">
             <img 
               src="${item.image}" 
@@ -1555,7 +1625,7 @@
                 <span class="dish-price-label">Precio</span>
                 <div class="dish-price">$${item.price} <span>MXN</span></div>
               </div>
-              <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${realIndex})">
+              <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${index})">
                 <span>Ver detalle</span>
                 <span>↗</span>
               </button>
@@ -1565,7 +1635,7 @@
       `;
     }
 
-    // Renderizar según categoría activa
+    // Renderizar según categoría activa (SIN DUPLICADOS)
     function renderCategory(categoryKey) {
       const items = PRODUCTS[categoryKey] || PRODUCTS['favoritos'];
       const meta = CATEGORY_META[categoryKey] || CATEGORY_META['favoritos'];
@@ -1577,25 +1647,22 @@
       document.getElementById('catQuoteText').textContent = meta.quote;
       document.getElementById('catQuoteAuthor').textContent = meta.author;
 
-      // 1. Renderizar Carrusel (Duplicado 4 veces para scroll infinito)
-      const duplicated = [...items, ...items, ...items, ...items];
-      track.innerHTML = duplicated.map((item, idx) => {
-        const realIndex = idx % items.length;
-        return createCardHTML(item, categoryKey, realIndex);
-      }).join('');
+      // 1. Renderizar Carrusel: Lista exacta ordenada (sin duplicados confusos)
+      track.innerHTML = items.map((item, idx) => createCardHTML(item, categoryKey, idx)).join('');
 
-      // 2. Renderizar Cuadrícula completa
-      gridViewport.innerHTML = items.map((item, idx) => {
-        return createCardHTML(item, categoryKey, idx);
-      }).join('');
+      // 2. Renderizar Cuadrícula (Ver Todo)
+      gridViewport.innerHTML = items.map((item, idx) => createCardHTML(item, categoryKey, idx)).join('');
 
-      // Centrar posición inicial del carrusel en el segundo tercio
-      requestAnimationFrame(() => {
-        if (trackWrapper) {
-          const segment = trackWrapper.scrollWidth / 4;
-          trackWrapper.scrollLeft = segment;
-        }
-      });
+      // 3. Renderizar puntos indicadores
+      renderDots(items.length);
+
+      // Posicionar en 0 (el primer platillo siempre visible al inicio)
+      if (trackWrapper) {
+        trackWrapper.scrollLeft = 0;
+      }
+
+      // Reiniciar y ejecutar el hint demostrativo de exactamente 3 segundos
+      start3SecondHint();
     }
 
     function switchCategory(catKey) {
@@ -1603,6 +1670,7 @@
       document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === catKey);
       });
+      userInteracted = false;
       renderCategory(catKey);
     }
 
@@ -1614,10 +1682,129 @@
       if (mode === 'carousel') {
         carouselViewport.style.display = 'block';
         gridViewport.style.display = 'none';
+        userInteracted = false;
+        start3SecondHint();
       } else {
         carouselViewport.style.display = 'none';
         gridViewport.style.display = 'grid';
+        stopHint();
       }
+    }
+
+    // ===================================================================
+    // MOVIMIENTO INICIAL DE 3 SEGUNDOS (DEMOSTRATIVO)
+    // Luego se detiene por completo y queda 100% en control manual
+    // ===================================================================
+    function start3SecondHint() {
+      stopHint();
+      if (userInteracted || !trackWrapper) return;
+
+      const hintEl = document.getElementById('carouselSwipeHint');
+      if (hintEl) hintEl.style.opacity = '0.85';
+
+      // Espera 350ms antes de mover para que el usuario contemple el 1er platillo
+      hintTimer = setTimeout(() => {
+        if (userInteracted || !trackWrapper) return;
+        const startTime = performance.now();
+        const duration = 2650; // Total 3000ms con la pausa inicial
+        const maxPeek = 90; // Muestra un sutil asomo de 90px
+
+        function step(now) {
+          if (userInteracted || !trackWrapper) return;
+          const elapsed = now - startTime;
+          if (elapsed < duration) {
+            const progress = elapsed / duration;
+            // Movimiento sinusoidal suave que asoma el siguiente y regresa
+            const offset = Math.sin(progress * Math.PI) * maxPeek;
+            trackWrapper.scrollLeft = offset;
+            hintAnimFrame = requestAnimationFrame(step);
+          } else {
+            // Fin de los 3 segundos: regresa suavemente a 0 y se queda quieto
+            trackWrapper.scrollTo({ left: 0, behavior: 'smooth' });
+            hintAnimFrame = null;
+          }
+        }
+        hintAnimFrame = requestAnimationFrame(step);
+      }, 350);
+    }
+
+    function stopHint() {
+      userInteracted = true;
+      if (hintAnimFrame) {
+        cancelAnimationFrame(hintAnimFrame);
+        hintAnimFrame = null;
+      }
+      if (hintTimer) {
+        clearTimeout(hintTimer);
+        hintTimer = null;
+      }
+      const hintEl = document.getElementById('carouselSwipeHint');
+      if (hintEl) hintEl.style.opacity = '0';
+    }
+
+    // Detectar interacción manual y ceder control total de inmediato
+    ['touchstart', 'pointerdown', 'mousedown', 'wheel'].forEach(evt => {
+      if (trackWrapper) {
+        trackWrapper.addEventListener(evt, stopHint, { passive: true });
+      }
+    });
+
+    if (trackWrapper) {
+      trackWrapper.addEventListener('scroll', () => {
+        stopHint();
+        syncDotsOnScroll();
+      }, { passive: true });
+    }
+
+    // ===================================================================
+    // CONTROLES Y PUNTOS INDICADORES
+    // ===================================================================
+    function navigateCarousel(direction) {
+      stopHint();
+      if (!trackWrapper) return;
+      const firstCard = trackWrapper.querySelector('.dish-card');
+      const cardWidth = firstCard ? (firstCard.offsetWidth + 14) : 320;
+      trackWrapper.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+    }
+
+    function renderDots(count) {
+      const dotsWrap = document.getElementById('carouselDots');
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = Array.from({ length: count }, (_, i) => `
+        <button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToCard(${i})" aria-label="Platillo ${i + 1}"></button>
+      `).join('');
+    }
+
+    function goToCard(index) {
+      stopHint();
+      if (!trackWrapper) return;
+      const cards = trackWrapper.querySelectorAll('.dish-card');
+      if (cards[index]) {
+        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    function syncDotsOnScroll() {
+      if (!trackWrapper) return;
+      const cards = trackWrapper.querySelectorAll('.dish-card');
+      if (!cards.length) return;
+      const wrapperCenter = trackWrapper.scrollLeft + trackWrapper.offsetWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+
+      cards.forEach((card, idx) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const diff = Math.abs(wrapperCenter - cardCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+
+      const dots = document.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === closestIdx);
+      });
     }
 
     // ===================================================================
@@ -1655,7 +1842,6 @@
     }
 
     function handleCardClick(e, categoryKey, index) {
-      if (hasDragged) return;
       const item = PRODUCTS[categoryKey][index];
       openDishModal(item);
     }
@@ -1674,73 +1860,8 @@
       if (e.key === 'Escape') closeDishModal();
     });
 
-    // ===================================================================
-    // AUTO-SCROLL LOOP + PAUSA AL CURSOR + JALAR ADELANTE Y ATRÁS
-    // ===================================================================
-    function autoScrollLoop() {
-      if (currentViewMode === 'carousel' && !isHovered && !isPointerDown && trackWrapper) {
-        trackWrapper.scrollLeft += SCROLL_SPEED;
-
-        const segment = trackWrapper.scrollWidth / 4;
-        if (trackWrapper.scrollLeft >= segment * 3) {
-          trackWrapper.scrollLeft -= segment;
-        }
-      }
-      animId = requestAnimationFrame(autoScrollLoop);
-    }
-
-    trackWrapper.addEventListener('mouseenter', () => { isHovered = true; });
-    trackWrapper.addEventListener('mouseleave', () => { 
-      if (!isPointerDown) isHovered = false; 
-    });
-
-    trackWrapper.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('button') || e.target.closest('a')) return;
-      isPointerDown = true;
-      hasDragged = false;
-      startX = e.pageX - trackWrapper.offsetLeft;
-      scrollLeftStart = trackWrapper.scrollLeft;
-      trackWrapper.classList.add('grabbing');
-    });
-
-    window.addEventListener('pointermove', (e) => {
-      if (!isPointerDown) return;
-      const currentX = e.pageX - trackWrapper.offsetLeft;
-      const walk = (currentX - startX);
-      if (Math.abs(walk) > 6) {
-        hasDragged = true;
-      }
-      trackWrapper.scrollLeft = scrollLeftStart - walk;
-
-      const segment = trackWrapper.scrollWidth / 4;
-      if (trackWrapper.scrollLeft >= segment * 3) {
-        trackWrapper.scrollLeft -= segment;
-        scrollLeftStart -= segment;
-      } else if (trackWrapper.scrollLeft <= 20) {
-        trackWrapper.scrollLeft += segment;
-        scrollLeftStart += segment;
-      }
-    });
-
-    window.addEventListener('pointerup', () => {
-      if (isPointerDown) {
-        isPointerDown = false;
-        trackWrapper.classList.remove('grabbing');
-        setTimeout(() => {
-          isHovered = false;
-        }, 700);
-      }
-    });
-
-    window.addEventListener('pointercancel', () => {
-      isPointerDown = false;
-      trackWrapper.classList.remove('grabbing');
-      isHovered = false;
-    });
-
-    // Inicializar carrusel y animación
+    // Inicializar carrusel en Favoritos
     renderCategory('favoritos');
-    animId = requestAnimationFrame(autoScrollLoop);
   </script>
 
 </body>
