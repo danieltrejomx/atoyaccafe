@@ -1047,7 +1047,8 @@
           incomingMsgs.push({
             from: 'in',
             text: rem.lastMessage,
-            time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            timestamp: rem.updatedAt || Date.now()
           });
         }
 
@@ -1055,25 +1056,21 @@
           const local = chats[localIndex];
           if (rem.name && rem.name !== local.phone) local.name = rem.name;
 
-          // Merge each message that is not already in local.messages
           incomingMsgs.forEach(inMsg => {
             const exists = local.messages.some(m => m.text.trim() === inMsg.text.trim());
             if (!exists) {
+              const msgTimestamp = inMsg.timestamp || Date.now();
               local.messages.push({
                 from: inMsg.from || 'in',
                 text: inMsg.text,
-                time: inMsg.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                time: inMsg.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: msgTimestamp
               });
+              local.timestamp = msgTimestamp;
               local.unread = (local.unread || 0) + 1;
               changed = true;
             }
           });
-
-          // Si hubo cambios, moverlo al inicio de la lista
-          if (changed) {
-            const updated = chats.splice(localIndex, 1)[0];
-            chats.unshift(updated);
-          }
         } else {
           // Nueva conversación recibida
           const newChat = {
@@ -1081,11 +1078,13 @@
             name: rem.name || cleanPhone,
             phone: cleanPhone,
             unread: rem.unread !== undefined ? rem.unread : 1,
+            timestamp: Date.now(),
             messages: incomingMsgs.length ? incomingMsgs : [
               {
                 from: 'in',
                 text: rem.lastMessage || '¡Hola ATOYAC!',
-                time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: Date.now()
               }
             ]
           };
@@ -1115,6 +1114,7 @@
               unread: data.unread || 0,
               lastMessage: data.lastMessage,
               lastTime: data.lastTime,
+              updatedAt: data.updatedAt,
               messages: data.messages
             });
           });
@@ -1141,8 +1141,10 @@
         name: "Daniel Trejo",
         phone: "5215533759369",
         unread: 1,
+        timestamp: Date.now(),
         messages: [
-          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:26" }
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:26", timestamp: Date.now() - 600000 },
+          { from: "in", text: "hola", time: "07:35", timestamp: Date.now() }
         ]
       },
       {
@@ -1150,8 +1152,9 @@
         name: "David Macias.",
         phone: "5215578434868",
         unread: 0,
+        timestamp: Date.now() - 36000000,
         messages: [
-          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉 Mi nombre es David Macias.", time: "21:03" }
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉 Mi nombre es David Macias.", time: "21:03", timestamp: Date.now() - 36000000 }
         ]
       },
       {
@@ -1159,19 +1162,35 @@
         name: "Línea Oficial ATOYAC",
         phone: "525658965015",
         unread: 0,
+        timestamp: Date.now() - 86400000,
         messages: [
-          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "09:00" }
+          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "09:00", timestamp: Date.now() - 86400000 }
         ]
       }
     ];
 
-    // Limpiar caché vieja si contiene Martha o demos anteriores
-    let rawCached = localStorage.getItem('atoyac_wa_inbox');
+    // Cargar chats
     let chats = DEFAULT_CHATS;
+    let rawCached = localStorage.getItem('atoyac_wa_inbox');
     if (rawCached) {
       try {
         const parsed = JSON.parse(rawCached);
         if (Array.isArray(parsed) && !parsed.some(c => c.name === "Martha")) {
+          // Fusionar con DEFAULT_CHATS para no perder a Daniel Trejo ni a David Macias
+          DEFAULT_CHATS.forEach(dc => {
+            const last10 = dc.phone.slice(-10);
+            const found = parsed.find(p => String(p.phone || p.id).slice(-10) === last10);
+            if (!found) {
+              parsed.push(dc);
+            } else {
+              dc.messages.forEach(dm => {
+                if (!found.messages.some(m => m.text.trim() === dm.text.trim())) {
+                  found.messages.push(dm);
+                }
+              });
+              found.timestamp = dc.timestamp;
+            }
+          });
           chats = parsed;
         } else {
           localStorage.setItem('atoyac_wa_inbox', JSON.stringify(DEFAULT_CHATS));
@@ -1180,14 +1199,29 @@
         chats = DEFAULT_CHATS;
       }
     }
+
+    // Ordenar estilo WhatsApp oficial
+    function sortChatsByLatest() {
+      chats.sort((a, b) => {
+        const lastA = a.messages && a.messages.length ? a.messages[a.messages.length - 1] : null;
+        const lastB = b.messages && b.messages.length ? b.messages[b.messages.length - 1] : null;
+        const timeA = (lastA && lastA.timestamp) ? lastA.timestamp : (a.timestamp || 0);
+        const timeB = (lastB && lastB.timestamp) ? lastB.timestamp : (b.timestamp || 0);
+        return timeB - timeA;
+      });
+    }
+
+    sortChatsByLatest();
     let activeChatId = chats.length > 0 ? chats[0].id : null;
 
     function saveChats() {
+      sortChatsByLatest();
       localStorage.setItem('atoyac_wa_inbox', JSON.stringify(chats));
     }
 
-    // RENDERIZAR LISTA LATERAL
+    // RENDERIZAR LISTA LATERAL (ORDENADA POR FECHA/HORA MÁS RECIENTE)
     function renderChatList(filter = '') {
+      sortChatsByLatest();
       const listEl = document.getElementById('chats-list');
       listEl.innerHTML = '';
 
