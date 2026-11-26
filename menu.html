@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Google Analytics 4 (GA4) + Conversion Tracking -->
+  <script src="/js/analytics.js" defer></script>
+
   <style>
     :root {
       --bg-cream: #FAF8F5;
@@ -1672,6 +1675,9 @@
       });
       userInteracted = false;
       renderCategory(catKey);
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('select_menu_category', { category: catKey });
+      }
     }
 
     function setViewMode(mode) {
@@ -1833,6 +1839,14 @@
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('view_dish_detail', {
+          dish_name: item.name,
+          dish_price: item.price,
+          dish_category: activeCat
+        });
+      }
     }
 
     function openDishModalFromBtn(e, categoryKey, index) {
