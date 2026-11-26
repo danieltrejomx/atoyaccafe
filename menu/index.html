@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Digital Oficial | ATOYAC · All Day Healthy Food</title>
-  <meta name="description" content="Menú oficial de ATOYAC: Chilaquiles verdes, chapatas, baguettes, café de especialidad y bebidas. Precios oficiales y pedidos por WhatsApp." />
+  <title>Menú Oficial | ATOYAC · Healthy Kitchen · Coffee</title>
+  <meta name="description" content="Menú oficial de ATOYAC — Healthy Kitchen · Coffee. Comida real. Café de verdad. Ensaladas, chilaquiles verdes, chapatas, molletes, café de especialidad y promos. Santa Cruz Atoyac, CDMX." />
   
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
   
-  <!-- Google Fonts: Montserrat + Instrument Serif + Outfit -->
+  <!-- Google Fonts: Montserrat + Instrument Serif -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-cream: #FBF9F5;
+      --bg-cream: #FAF8F5;
       --bg-white: #FFFFFF;
       --forest-dark: #1E2D22;
       --forest-mid: #2C3E31;
       --forest-sage: #5A6D5F;
       --icon-green: #1EA355;
       --card-border: rgba(30, 45, 34, 0.08);
-      --btn-border: #D1D5DB;
+      --btn-border: #E2E8F0;
       --font-montserrat: 'Montserrat', sans-serif;
       --font-serif: 'Instrument Serif', Georgia, serif;
     }
@@ -46,8 +46,9 @@
 
     /* TOP NAVBAR */
     .menu-navbar {
-      background: rgba(251, 249, 245, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--card-border);
       height: 72px;
       padding: 0 1.5rem;
@@ -83,7 +84,7 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
     .btn-nav-wa {
@@ -93,13 +94,14 @@
       background: var(--bg-white);
       border: 1.5px solid var(--btn-border);
       border-radius: 999px;
-      padding: 0.45rem 1rem;
+      padding: 0.45rem 0.95rem;
       font-family: var(--font-montserrat);
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--forest-dark);
       text-decoration: none;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .btn-nav-wa:hover {
@@ -108,24 +110,90 @@
       transform: translateY(-1px);
     }
 
-    /* HERO SECTION */
+    /* ===================================================================
+       1. PORTADA & HERO
+       =================================================================== */
     .menu-hero {
       text-align: center;
-      padding: 2.25rem 1.25rem 1rem;
-      max-width: 900px;
+      padding: 2.25rem 1.25rem 1.25rem;
+      max-width: 860px;
       margin: 0 auto;
+      width: 100%;
     }
 
-    .menu-title {
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1px solid var(--btn-border);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--forest-sage);
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-title {
       font-family: var(--font-montserrat);
-      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-size: clamp(2rem, 5.5vw, 2.9rem);
       font-weight: 300;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--forest-dark);
-      margin-bottom: 1.75rem;
-      padding-left: 0.24em;
-      line-height: 1;
+      margin-bottom: 0.4rem;
+      padding-left: 0.22em;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+      font-weight: 400;
+      color: var(--forest-sage);
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-location {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #94A3B8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* [2] FRASE HERO CON FONDO VERDE */
+    .quote-hero-banner {
+      background: var(--forest-dark);
+      border-radius: 18px;
+      padding: 1.15rem 1.4rem;
+      margin: 1.6rem auto 1.8rem;
+      max-width: 680px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(30, 45, 34, 0.16);
+      border: 1px solid rgba(127, 224, 160, 0.2);
+    }
+
+    .quote-hero-banner p {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 4vw, 1.65rem);
+      font-style: italic;
+      color: #F0FDF4;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+
+    .quote-hero-banner span {
+      display: inline-block;
+      font-family: var(--font-montserrat);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7FE0A0;
     }
 
     /* BOTONES DE CATEGORÍAS EN UNA SOLA FILA */
@@ -137,9 +205,8 @@
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      gap: 0.65rem;
-      margin-bottom: 2rem;
-      padding: 0.25rem 1rem 0.75rem;
+      gap: 0.6rem;
+      padding: 0.25rem 1rem 0.5rem;
       width: 100%;
     }
 
@@ -152,13 +219,13 @@
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       background: var(--bg-white);
       border: 1.5px solid var(--btn-border);
       border-radius: 999px;
-      padding: 0.65rem 1.25rem;
+      padding: 0.6rem 1.15rem;
       font-family: var(--font-montserrat);
-      font-size: clamp(0.8rem, 2.2vw, 0.88rem);
+      font-size: clamp(0.78rem, 2.2vw, 0.86rem);
       font-weight: 500;
       letter-spacing: 0.02em;
       color: var(--forest-dark);
@@ -167,20 +234,10 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
-    .cat-btn svg {
-      width: 17px;
-      height: 17px;
-      color: var(--icon-green);
-      stroke: var(--icon-green);
-      stroke-width: 2;
-      fill: none;
-      flex-shrink: 0;
-    }
-
     .cat-btn:hover {
-      border-color: #9CA3AF;
+      border-color: #94A3B8;
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
     .cat-btn.active {
@@ -190,17 +247,108 @@
       box-shadow: 0 6px 18px rgba(30, 45, 34, 0.2);
     }
 
-    .cat-btn.active svg {
-      color: #7FE0A0;
-      stroke: #7FE0A0;
+    /* BARRA DE INFORMACIÓN DE CATEGORÍA ACTIVA + TOGGLE DE VISTA */
+    .category-header-bar {
+      max-width: 1080px;
+      margin: 1.25rem auto 0.75rem;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.85rem;
     }
 
-    @media (max-width: 720px) {
-      .category-pills-wrap {
-        justify-content: flex-start;
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
+    .cat-info-block {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .cat-part-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--icon-green);
+      margin-bottom: 0.15rem;
+    }
+
+    .cat-title-text {
+      font-size: clamp(1.2rem, 3.5vw, 1.45rem);
+      font-weight: 700;
+      color: var(--forest-dark);
+      line-height: 1.2;
+    }
+
+    .cat-subtitle-text {
+      font-size: 0.84rem;
+      color: var(--forest-sage);
+      font-weight: 400;
+    }
+
+    .view-toggle-btns {
+      display: inline-flex;
+      background: var(--bg-white);
+      border: 1.5px solid var(--btn-border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .view-toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-montserrat);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--forest-sage);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .view-toggle-btn.active {
+      background: var(--forest-dark);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* FRASE DINÁMICA DE LA CATEGORÍA CON FONDO VERDE */
+    .category-quote-banner {
+      background: #233428;
+      border-radius: 14px;
+      padding: 0.85rem 1.25rem;
+      margin: 0.75rem auto 1.5rem;
+      max-width: 1040px;
+      width: calc(100% - 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      text-align: center;
+      border-left: 3px solid #7FE0A0;
+    }
+
+    .category-quote-banner p {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #E2F5E7;
+      margin: 0;
+    }
+
+    .category-quote-banner span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7FE0A0;
+      white-space: nowrap;
     }
 
     /* ===================================================================
@@ -209,28 +357,27 @@
     .carousel-section {
       width: 100%;
       overflow: hidden;
-      padding: 0.5rem 0 3.5rem;
+      padding: 0.5rem 0 2.5rem;
       position: relative;
     }
 
-    /* Sombras laterales para desvanecer bordes */
     .carousel-section::before,
     .carousel-section::after {
       content: '';
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 60px;
+      width: 50px;
       z-index: 10;
       pointer-events: none;
     }
     .carousel-section::before {
       left: 0;
-      background: linear-gradient(to right, var(--bg-cream) 20%, rgba(251, 249, 245, 0) 100%);
+      background: linear-gradient(to right, var(--bg-cream) 20%, rgba(250, 248, 245, 0) 100%);
     }
     .carousel-section::after {
       right: 0;
-      background: linear-gradient(to left, var(--bg-cream) 20%, rgba(251, 249, 245, 0) 100%);
+      background: linear-gradient(to left, var(--bg-cream) 20%, rgba(250, 248, 245, 0) 100%);
     }
 
     .carousel-track-wrapper {
@@ -256,14 +403,25 @@
 
     .carousel-track {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.35rem;
       width: max-content;
       padding: 0.5rem 1.5rem 1.5rem;
     }
 
+    /* MODO CUADRÍCULA (GRID VIEW) */
+    .grid-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.5rem 1.25rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.35rem;
+      width: 100%;
+    }
+
     /* TARJETA DE PRODUCTO */
     .dish-card {
-      width: 320px;
+      width: 310px;
       flex-shrink: 0;
       background: var(--bg-white);
       border-radius: 20px;
@@ -272,34 +430,28 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
       cursor: pointer;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
     }
 
+    .grid-section .dish-card {
+      width: 100%;
+    }
+
     .dish-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 14px 34px rgba(30, 45, 34, 0.12);
-      border-color: rgba(30, 45, 34, 0.16);
-    }
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .dish-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(30, 45, 34, 0.1);
+      box-shadow: 0 14px 30px rgba(30, 45, 34, 0.1);
       border-color: rgba(30, 45, 34, 0.16);
     }
 
+    /* ESPACIO PARA FOTOGRAFÍA (CON SOPORTE PARA AGREGAR TU FOTO) */
     .dish-img-box {
       width: 100%;
-      height: 195px;
+      height: 190px;
       overflow: hidden;
       position: relative;
-      background: #eeebe3;
+      background: #EDEAE2;
     }
 
     .dish-img {
@@ -310,26 +462,46 @@
     }
 
     .dish-card:hover .dish-img {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     .dish-tag {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(255, 255, 255, 0.92);
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(6px);
       padding: 0.25rem 0.65rem;
       border-radius: 999px;
       font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       color: var(--forest-dark);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
+    .dish-photo-slot-hint {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(30, 45, 34, 0.75);
+      backdrop-filter: blur(4px);
+      color: #FAF8F5;
+      font-size: 0.65rem;
+      padding: 0.18rem 0.45rem;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      font-family: monospace;
+      pointer-events: none;
+    }
+
+    .dish-card:hover .dish-photo-slot-hint {
+      opacity: 1;
+    }
+
     .dish-info {
-      padding: 1.25rem 1.35rem 1.35rem;
+      padding: 1.15rem 1.25rem 1.25rem;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -338,10 +510,10 @@
 
     .dish-name {
       font-family: var(--font-montserrat);
-      font-size: 1.15rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--forest-dark);
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
       line-height: 1.25;
     }
 
@@ -349,8 +521,8 @@
       font-size: 0.82rem;
       color: var(--forest-sage);
       line-height: 1.45;
-      margin-bottom: 1.25rem;
-      min-height: 48px;
+      margin-bottom: 1.15rem;
+      min-height: 44px;
     }
 
     /* PIE DE TARJETA CON EL PRECIO Y BOTÓN */
@@ -358,7 +530,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 1rem;
+      padding-top: 0.9rem;
       border-top: 1px dashed rgba(30, 45, 34, 0.1);
     }
 
@@ -372,19 +544,19 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #9CA3AF;
+      color: #94A3B8;
     }
 
     .dish-price {
       font-family: var(--font-montserrat);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: var(--forest-dark);
       letter-spacing: -0.02em;
     }
 
     .dish-price span {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 500;
       color: var(--forest-sage);
     }
@@ -392,7 +564,7 @@
     .dish-order-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       background: #F0FDF4;
       border: 1.5px solid #BBF7D0;
       color: #15803D;
@@ -401,6 +573,7 @@
       font-size: 0.78rem;
       font-weight: 600;
       text-decoration: none;
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
@@ -419,7 +592,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(26, 40, 31, 0.65);
+      background: rgba(26, 40, 31, 0.68);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 1000;
@@ -460,7 +633,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid rgba(0, 0, 0, 0.08);
       color: var(--forest-dark);
       font-size: 1.15rem;
@@ -483,7 +656,7 @@
       width: 100%;
       height: 230px;
       position: relative;
-      background: #EFECE6;
+      background: #EDEAE2;
     }
 
     .dish-modal-img {
@@ -505,6 +678,19 @@
       letter-spacing: 0.04em;
       color: var(--forest-dark);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .dish-modal-slot-guide {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(30, 45, 34, 0.85);
+      color: #A7F3D0;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-family: monospace;
+      letter-spacing: 0.02em;
     }
 
     .dish-modal-body {
@@ -546,7 +732,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #9CA3AF;
+      color: #94A3B8;
     }
 
     .dish-modal-price {
@@ -572,7 +758,7 @@
       border-radius: 999px;
       padding: 0.7rem 1.25rem;
       font-family: var(--font-montserrat);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.2s ease;
@@ -586,42 +772,199 @@
       box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
     }
 
-    /* FOOTER DISCRETO */
-    .menu-footer-bar {
+    /* ===================================================================
+       [19] CIERRE & FOOTER OFICIAL
+       =================================================================== */
+    .menu-footer {
       margin-top: auto;
-      text-align: center;
-      padding: 2rem 1.25rem;
+      padding: 3rem 1.25rem 2.5rem;
+      background: #FAF8F5;
       border-top: 1px solid var(--card-border);
-      font-size: 0.82rem;
-      color: var(--forest-sage);
     }
 
-    .menu-footer-bar a {
+    .cierre-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1.5px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.25rem 1.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      text-align: center;
+    }
+
+    .cierre-quote {
+      background: var(--forest-dark);
+      border-radius: 14px;
+      padding: 1rem 1.35rem;
+      margin-bottom: 1.75rem;
+      border: 1px solid rgba(127, 224, 160, 0.2);
+    }
+
+    .cierre-quote p {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 3.5vw, 1.45rem);
+      font-style: italic;
+      color: #F0FDF4;
+      margin-bottom: 0.25rem;
+    }
+
+    .cierre-quote span {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7FE0A0;
+    }
+
+    .cierre-brand {
+      font-family: var(--font-montserrat);
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--forest-dark);
+      margin-bottom: 0.25rem;
+      padding-left: 0.22em;
+    }
+
+    .cierre-tagline {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--forest-sage);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .cierre-motto {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+
+    .cierre-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      text-align: left;
+      padding: 1.25rem 0;
+      border-top: 1px dashed rgba(30, 45, 34, 0.12);
+      border-bottom: 1px dashed rgba(30, 45, 34, 0.12);
+      margin-bottom: 1.75rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.84rem;
+    }
+
+    .detail-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .detail-item strong {
+      display: block;
       color: var(--forest-dark);
       font-weight: 600;
-      text-decoration: underline;
+      margin-bottom: 0.2rem;
     }
 
-    @media (max-width: 600px) {
+    .detail-item p {
+      color: var(--forest-sage);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .detail-item a {
+      color: var(--forest-dark);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .cierre-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .btn-cierre-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #FFFFFF;
+      border: 1.5px solid var(--btn-border);
+      border-radius: 999px;
+      padding: 0.75rem 1.4rem;
+      color: var(--forest-dark);
+      font-family: var(--font-montserrat);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .btn-cierre-wa:hover {
+      border-color: #25D366;
+      color: #075E54;
+      transform: translateY(-2px);
+    }
+
+    .btn-cierre-uber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #000000;
+      border: 1.5px solid #000000;
+      border-radius: 999px;
+      padding: 0.75rem 1.4rem;
+      color: #FFFFFF;
+      font-family: var(--font-montserrat);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-cierre-uber:hover {
+      background: #1F2937;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
       .dish-card {
         width: 280px;
       }
       .dish-img-box {
-        height: 175px;
+        height: 170px;
       }
-      .menu-title {
-        font-size: 2.1rem;
+      .hero-title {
+        font-size: 1.85rem;
       }
-      .cat-btn {
-        padding: 0.55rem 1.1rem;
-        font-size: 0.82rem;
+      .category-pills-wrap {
+        justify-content: flex-start;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
       }
       .dish-modal-card {
         max-width: 100%;
         border-radius: 20px;
       }
-      .dish-modal-img-wrap {
-        height: 200px;
+      .cierre-card {
+        padding: 1.75rem 1.25rem;
+      }
+      .cierre-details {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -642,61 +985,95 @@
     </div>
   </header>
 
-  <!-- SECCIÓN HEADER -->
   <main>
+    <!-- [1] PORTADA & HERO -->
     <section class="menu-hero">
-      <h1 class="menu-title">MENÚ</h1>
+      <span class="hero-badge">Menú Oficial</span>
+      <h1 class="hero-title">ATOYAC</h1>
+      <p class="hero-subtitle">Healthy Kitchen · Coffee</p>
+      <p class="hero-location">Comida real. Café de verdad. · Santa Cruz Atoyac · CDMX</p>
 
-      <!-- BOTONES DE CATEGORÍA EN UNA SOLA FILA -->
+      <!-- [2] FRASE CON FONDO VERDE -->
+      <div class="quote-hero-banner" role="banner">
+        <p>“Hoy va a ser un gran día.”</p>
+        <span>Empieza con un buen café</span>
+      </div>
+
+      <!-- BOTONES DE CATEGORÍAS EN UNA SOLA FILA -->
       <nav class="category-pills-wrap" aria-label="Categorías del Menú">
-        <!-- 1. Chilaquiles -->
-        <button class="cat-btn active" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-          <span>Chilaquiles</span>
+        <button class="cat-btn active" data-category="favoritos" onclick="switchCategory('favoritos')">
+          <span>⭐</span>
+          <span>Favoritos</span>
         </button>
-
-        <!-- 2. Baguettes / Chapatas -->
-        <button class="cat-btn" data-category="baguettes" onclick="switchCategory('baguettes')">
-          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-          <span>Baguettes & Chapatas</span>
-        </button>
-
-        <!-- 3. Bebidas -->
-        <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">
-          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-          <span>Bebidas</span>
-        </button>
-
-        <!-- 4. Ensaladas -->
         <button class="cat-btn" data-category="ensaladas" onclick="switchCategory('ensaladas')">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+          <span>🥗</span>
           <span>Ensaladas</span>
         </button>
-
-        <!-- 5. Postres -->
+        <button class="cat-btn" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">
+          <span>🥑</span>
+          <span>Chilaquiles</span>
+        </button>
+        <button class="cat-btn" data-category="chapatas" onclick="switchCategory('chapatas')">
+          <span>🥪</span>
+          <span>Chapatas & Molletes</span>
+        </button>
+        <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">
+          <span>☕</span>
+          <span>Café & Bebidas</span>
+        </button>
         <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">
-          <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"></path><path d="M12 3a4 4 0 0 0-4 4v5h8V7a4 4 0 0 0-4-4z"></path></svg>
-          <span>Postres</span>
+          <span>🍰</span>
+          <span>Postres & Promos</span>
         </button>
       </nav>
     </section>
 
-    <!-- CARRUSEL INTERACTIVO QUE SE MUEVE LENTO, SE DETIENE Y SE PUEDE JALAR -->
+    <!-- BARRA DE INFORMACIÓN DE CATEGORÍA + TOGGLE DE MODO -->
+    <div class="category-header-bar">
+      <div class="cat-info-block">
+        <span class="cat-part-tag" id="catPartTag">PARTE 1 · PARA COMER</span>
+        <h2 class="cat-title-text" id="catTitleText">Los Favoritos</h2>
+        <span class="cat-subtitle-text" id="catSubtitleText">Recién salidos de la cocina.</span>
+      </div>
+
+      <div class="view-toggle-btns" role="group" aria-label="Cambiar vista">
+        <button class="view-toggle-btn active" id="btnModeCarousel" onclick="setViewMode('carousel')">
+          <span>↔</span> Carrusel
+        </button>
+        <button class="view-toggle-btn" id="btnModeGrid" onclick="setViewMode('grid')">
+          <span>⊞</span> Ver todo
+        </button>
+      </div>
+    </div>
+
+    <!-- FRASE VERDE DE LA CATEGORÍA SEGÚN EL GUION -->
+    <div class="category-quote-banner" id="catQuoteBanner">
+      <p id="catQuoteText">“Un buen día empieza con un buen desayuno.”</p>
+      <span id="catQuoteAuthor">— Café Atoyac</span>
+    </div>
+
+    <!-- VISTA 1: CARRUSEL INTERACTIVO -->
     <section class="carousel-section" id="carousel-viewport">
       <div class="carousel-track-wrapper" id="carousel-track-wrapper" title="Arrastra hacia los lados o haz clic en cualquier platillo">
         <div class="carousel-track" id="carousel-track">
-          <!-- Tarjetas insertadas dinámicamente -->
+          <!-- Tarjetas renderizadas dinámicamente -->
         </div>
       </div>
     </section>
 
-    <!-- POPUP MODAL DETALLE DE PRODUCTO -->
+    <!-- VISTA 2: CUADRÍCULA (OCULTA POR DEFECTO) -->
+    <section class="grid-section" id="grid-viewport" style="display: none;">
+      <!-- Tarjetas renderizadas dinámicamente en cuadrícula -->
+    </section>
+
+    <!-- POPUP MODAL DETALLE DE PLATILLO -->
     <div class="dish-modal-overlay" id="dishModal" onclick="closeDishModal(event)" aria-hidden="true">
       <div class="dish-modal-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
         <button class="dish-modal-close" onclick="closeDishModal()" aria-label="Cerrar ventana">✕</button>
         <div class="dish-modal-img-wrap">
           <img id="modalDishImg" src="" alt="" class="dish-modal-img" />
           <span id="modalDishTag" class="dish-modal-tag"></span>
+          <span id="modalDishSlot" class="dish-modal-slot-guide" title="Nombre de archivo de la fotografía en assets/img/dishes/"></span>
         </div>
         <div class="dish-modal-body">
           <h3 id="modalDishName" class="dish-modal-title"></h3>
@@ -715,263 +1092,504 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="menu-footer-bar">
-    <p>☕ ¿Prefieres pedir con anticipación? <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20para%20recoger%20en%20barra%20%E2%98%95%F0%9F%A5%A0">Escríbenos por WhatsApp al 56 5896 5015</a></p>
+  <!-- [19] CIERRE -->
+  <footer class="menu-footer">
+    <div class="cierre-card">
+      <div class="cierre-quote">
+        <p>“Que tu día sea tan bueno como tu café.”</p>
+        <span>— Café Atoyac</span>
+      </div>
+
+      <h2 class="cierre-brand">ATOYAC</h2>
+      <p class="cierre-tagline">Healthy Kitchen · Coffee</p>
+      <p class="cierre-motto">Comida real. Café de verdad. · Te esperamos con el café listo.</p>
+
+      <div class="cierre-details">
+        <div class="detail-item">
+          <span class="detail-icon">📍</span>
+          <div>
+            <strong>Visítanos</strong>
+            <p>Av. Popocatépetl 289, Local A, Santa Cruz Atoyac, CDMX</p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">⏰</span>
+          <div>
+            <strong>Horario</strong>
+            <p>Lunes a sábado, 8:00 a. m. a 8:00 p. m.<br />Domingo cerrado</p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">📱</span>
+          <div>
+            <strong>Síguenos</strong>
+            <p><a href="https://www.instagram.com/atoyaccafemx/" target="_blank" rel="noopener">@atoyaccafemx</a> · <a href="https://cafeatoyac.com.mx">cafeatoyac.com.mx</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cierre-actions">
+        <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20%E2%98%95%F0%9F%A5%A0" target="_blank" rel="noopener" class="btn-cierre-wa">
+          <span>💬 Pedir por WhatsApp</span>
+        </a>
+        <a href="https://www.ubereats.com/search?q=Atoyac" target="_blank" rel="noopener" class="btn-cierre-uber">
+          <span>🛵 Pide por Uber Eats ↗</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // BASE DE DATOS DE PRODUCTOS Y PRECIOS DEL PDF OFICIAL DE ATOYAC
+    // ===================================================================
+    // METADATOS Y FRASES OFICIALES (DEL GUION DE VIDEO OFICIAL)
+    // ===================================================================
+    const CATEGORY_META = {
+      favoritos: {
+        part: "PARTE 1 · PARA COMER",
+        title: "Los Favoritos",
+        subtitle: "Recién salidos de la cocina.",
+        quote: "“Un buen día empieza con un buen desayuno.”",
+        author: "— Café Atoyac"
+      },
+      ensaladas: {
+        part: "PARTE 1 · PARA COMER",
+        title: "Ensaladas",
+        subtitle: "Lo verde también se antoja · Aderezo ranch o mil islas.",
+        quote: "“Cuídate. Comer rico también es quererse.”",
+        author: "— Café Atoyac"
+      },
+      chilaquiles: {
+        part: "PARTE 1 · PARA COMER",
+        title: "Chilaquiles Verdes",
+        subtitle: "Unos chilaquiles lo arreglan todo.",
+        quote: "“Un buen día empieza con un buen desayuno.”",
+        author: "— Café Atoyac"
+      },
+      chapatas: {
+        part: "PARTE 1 · PARA COMER",
+        title: "Chapatas & Molletes",
+        subtitle: "Crujientes y bien rellenas · Pan normal o integral con papas o ensalada.",
+        quote: "“Fresco, sencillo y hecho con cariño.”",
+        author: "— Café Atoyac"
+      },
+      bebidas: {
+        part: "PARTE 2 · CAFÉ Y BEBIDAS",
+        title: "Café & Bebidas",
+        subtitle: "Primero café, luego todo lo demás · Recién hecho, como debe ser.",
+        quote: "“Primero café, luego conquistamos el mundo.”",
+        author: "— Café Atoyac"
+      },
+      postres: {
+        part: "PARTE 3 · POSTRES Y PROMOS",
+        title: "Postres & Promos",
+        subtitle: "La vida es corta: pide el postre · Más sabor, mejor precio.",
+        quote: "“Date un respiro, te lo mereces.”",
+        author: "— Café Atoyac"
+      }
+    };
+
+    // ===================================================================
+    // BASE DE DATOS DE PRODUCTOS OFICIALES DE ATOYAC
+    // Cada producto cuenta con su ruta de fotografía dedicada (image)
+    // y su fallback automático (fallback) para que puedas subir tus fotos
+    // ===================================================================
     const PRODUCTS = {
-      chilaquiles: [
+      favoritos: [
         {
-          name: "Chilaquiles Sencillos",
-          desc: "Totopos de maíz crujientes, salsa verde de la casa, crema fresca, queso y cebolla morada.",
-          price: 65,
-          tag: "Clásico Verde",
-          image: "assets/img/dishes/sandwiches.jpg"
-        },
-        {
-          name: "Chilaquiles con Pollo",
-          desc: "Totopos con salsa verde artesanal, pechuga de pollo a la plancha o deshebrada, crema y queso.",
-          price: 90,
-          tag: "El Favorito",
-          image: "assets/img/dishes/sandwiches.jpg"
-        },
-        {
-          name: "Chilaquiles con Res",
-          desc: "Totopos con salsa verde, jugosas fajitas de res a la plancha, crema, queso fresco y cebolla.",
-          price: 100,
-          tag: "Especial",
-          image: "assets/img/dishes/sandwiches.jpg"
-        },
-        {
-          name: "Combo Chilaquiles + Café",
-          desc: "Chilaquiles con pollo + Café americano de especialidad caliente. Promo completa.",
-          price: 100,
-          tag: "Promo de Comida",
-          image: "assets/img/dishes/sandwiches.jpg"
-        }
-      ],
-      baguettes: [
-        {
-          name: "Chapata de Jamón",
-          desc: "Jamón de pavo, queso panela, queso manchego, lechuga, tomate, cebolla y mayonesa. Pan normal o integral con papas o ensalada.",
-          price: 80,
-          tag: "Chapata",
-          image: "assets/img/dishes/baguettes.jpg"
+          name: "Molletes Sencillos",
+          desc: "Pan, frijoles refritos de la casa y manchego gratinado al horno. Orden de 2 molletes acompañados de pico de gallo.",
+          price: 50,
+          tag: "Favorito",
+          image: "assets/img/dishes/molletes-sencillos.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "molletes-sencillos.jpg"
         },
         {
           name: "Chapata de Pollo",
-          desc: "Pollo a la plancha con pimiento verde, rojo y cebolla caramelizada, panela, manchego, lechuga y tomate.",
+          desc: "Pollo a la plancha con pimientos y cebolla caramelizada, panela y manchego. Con papas o ensalada. Pan normal o integral.",
           price: 95,
-          tag: "Gourmet",
-          image: "assets/img/dishes/baguettes.jpg"
+          tag: "Top Receta",
+          image: "assets/img/dishes/chapata-pollo.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "chapata-pollo.jpg"
         },
         {
-          name: "Chapata Fajitas de Res",
-          desc: "Fajitas de res con pimiento verde, rojo y cebolla caramelizada, panela, queso manchego, lechuga y tomate.",
-          price: 105,
-          tag: "Corte Res",
-          image: "assets/img/dishes/baguettes.jpg"
-        },
-        {
-          name: "Molletes Sencillos",
-          desc: "Pan baguette artesanal con frijoles refritos de la casa y queso manchego gratinado al horno.",
+          name: "Plato de Fruta",
+          desc: "Selección fresca de fruta de temporada seleccionada, lista para disfrutar fresca y ligera.",
           price: 50,
-          tag: "Molletes",
-          image: "assets/img/dishes/baguettes.jpg"
-        },
-        {
-          name: "Molletes Atoyac",
-          desc: "Orden de 2 molletes con frijoles, manchego, tocino crujiente y pollo, acompañados de pico de gallo.",
-          price: 80,
-          tag: "Especial Barra",
-          image: "assets/img/dishes/baguettes.jpg"
-        },
-        {
-          name: "Combo Panini + Agua",
-          desc: "Panini caliente de jamón y queso derretido + Agua fresca de horchata de 500 ml.",
-          price: 100,
-          tag: "Promo de Comida",
-          image: "assets/img/dishes/baguettes.jpg"
-        }
-      ],
-      bebidas: [
-        {
-          name: "Café Americano",
-          desc: "Café de especialidad 100% arábica de tueste medio, recién extraído en taza caliente.",
-          price: 35,
-          tag: "Especialidad",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Café de Olla",
-          desc: "Café de olla tradicional mexicano infusionado con canela en rama y piloncillo natural.",
-          price: 35,
-          tag: "Tradición",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Espresso",
-          desc: "Shot concentrado de café puro con cuerpo sedoso y densa crema dorada.",
-          price: 45,
-          tag: "Puro",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Latte",
-          desc: "Espresso de especialidad con leche fresca al vapor perfectamente emulsionada.",
-          price: 55,
-          tag: "Cremoso",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Cappuccino",
-          desc: "Espresso, leche vaporizada y abundante espuma cremosa espolvoreada con canela.",
-          price: 55,
-          tag: "Espuma",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Tizana Frutal (500 ml)",
-          desc: "Infusión frutal caliente o fría con trozos de fresa, arándano y flores naturales.",
-          price: 65,
-          tag: "Infusión",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Agua de Horchata (500 ml)",
-          desc: "Receta tradicional de la casa con arroz y canela, bien fría y refrescante.",
-          price: 35,
-          tag: "Artesanal",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Combo: Americano + 4 Mini Donas",
-          desc: "Café americano caliente recién preparado + 4 mini donas esponjosas.",
-          price: 60,
-          tag: "Promo Cafetera",
-          image: "assets/img/dishes/drinks.jpg"
-        },
-        {
-          name: "Combo: 2 Cappuccinos + Rebanada",
-          desc: "2 cappuccinos cremosos + Rebanada de pastel de zanahoria o cheesecake.",
-          price: 150,
-          tag: "Dúo Cafetero",
-          image: "assets/img/dishes/drinks.jpg"
+          tag: "Fresco",
+          image: "assets/img/dishes/plato-fruta.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "plato-fruta.jpg"
         }
       ],
       ensaladas: [
         {
           name: "Ensalada Tradicional",
-          desc: "Lechuga, espinaca, tomate, zanahoria, pepino, pimiento amarillo o rojo, aguacate, panela, crotones y semilla de girasol.",
+          desc: "Lechuga, espinaca, tomate, zanahoria, pepino, pimiento morrón, aguacate, panela, crotones y semilla de girasol. Aderezo ranch o mil islas.",
           price: 70,
-          tag: "Fresca",
-          image: "assets/img/dishes/sandwiches.jpg"
+          tag: "100% Fresca",
+          image: "assets/img/dishes/ensalada-tradicional.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "ensalada-tradicional.jpg"
         },
         {
           name: "Ensalada Jamón de Pavo",
-          desc: "Base fresca con jamón de pavo en cubos, panela, aguacate, crotones y aderezo ranch o mil islas.",
+          desc: "Base tradicional con jamón de pavo en cubos, panela fresca, aguacate, crotones y aderezo ranch o mil islas.",
           price: 90,
           tag: "Ligera",
-          image: "assets/img/dishes/sandwiches.jpg"
+          image: "assets/img/dishes/ensalada-jamon.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "ensalada-jamon.jpg"
         },
         {
-          name: "Ensalada con Pollo",
-          desc: "Pechuga de pollo a la plancha, espinaca, aguacate, queso panela, pepino y semillas de girasol.",
+          name: "Ensalada de Atún",
+          desc: "Base tradicional con atún seleccionado, aguacate, panela, semillas de girasol y aderezo ranch o mil islas.",
           price: 100,
           tag: "Proteína",
-          image: "assets/img/dishes/sandwiches.jpg"
+          image: "assets/img/dishes/ensalada-atun.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "ensalada-atun.jpg"
         },
         {
-          name: "Plato de Fruta",
-          desc: "Manzana, plátano y fruta de temporada fresca, acompañado con miel y granola.",
+          name: "Ensalada de Pollo",
+          desc: "Pechuga de pollo a la plancha sobre base de lechuga, espinaca, tomate, aguacate, panela, crotones y aderezo ranch o mil islas.",
+          price: 100,
+          tag: "Recomendada",
+          image: "assets/img/dishes/ensalada-pollo.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "ensalada-pollo.jpg"
+        },
+        {
+          name: "Ensalada de Res",
+          desc: "Fajitas de res a la plancha sobre ensalada tradicional, aguacate, panela, semillas de girasol y aderezo ranch o mil islas.",
+          price: 110,
+          tag: "Corte Res",
+          image: "assets/img/dishes/ensalada-res.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "ensalada-res.jpg"
+        }
+      ],
+      chilaquiles: [
+        {
+          name: "Chilaquiles Sencillos",
+          desc: "Totopos de maíz crujientes, salsa verde de la casa, crema fresca, queso y cebolla.",
+          price: 65,
+          tag: "Clásico Verde",
+          image: "assets/img/dishes/chilaquiles-sencillos.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "chilaquiles-sencillos.jpg"
+        },
+        {
+          name: "Chilaquiles con Pollo",
+          desc: "Chilaquiles verdes tradicionales acompañados de pechuga de pollo a la plancha, crema, queso y cebolla.",
+          price: 90,
+          tag: "El Favorito",
+          image: "assets/img/dishes/chilaquiles-pollo.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "chilaquiles-pollo.jpg"
+        },
+        {
+          name: "Chilaquiles con Res",
+          desc: "Chilaquiles verdes con jugosas fajitas de res a la plancha, salsa verde de la casa, crema, queso y cebolla.",
+          price: 100,
+          tag: "Especial",
+          image: "assets/img/dishes/chilaquiles-res.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "chilaquiles-res.jpg"
+        }
+      ],
+      chapatas: [
+        {
+          name: "Chapata de Jamón",
+          desc: "Jamón, panela, queso manchego, lechuga, tomate, cebolla y mayonesa. Con papas o ensalada. Pan normal o integral.",
+          price: 80,
+          tag: "Crujiente",
+          image: "assets/img/dishes/chapata-jamon.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "chapata-jamon.jpg"
+        },
+        {
+          name: "Chapata de Pollo",
+          desc: "Pollo a la plancha con pimientos y cebolla caramelizada, panela y queso manchego. Con papas o ensalada. Pan normal o integral.",
+          price: 95,
+          tag: "Gourmet",
+          image: "assets/img/dishes/chapata-pollo.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "chapata-pollo.jpg"
+        },
+        {
+          name: "Chapata Fajitas de Res",
+          desc: "Fajitas de res con pimientos y cebolla caramelizada, panela y manchego derretido. Con papas o ensalada. Pan normal o integral.",
+          price: 105,
+          tag: "Especialidad",
+          image: "assets/img/dishes/chapata-res.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "chapata-res.jpg"
+        },
+        {
+          name: "Molletes Sencillos",
+          desc: "Pan, frijoles refritos y manchego gratinado. Orden de 2 molletes, acompañados de pico de gallo.",
           price: 50,
-          tag: "Fruta",
-          image: "assets/img/dishes/sandwiches.jpg"
+          tag: "Pan y Queso",
+          image: "assets/img/dishes/molletes-sencillos.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "molletes-sencillos.jpg"
+        },
+        {
+          name: "Molletes Atoyac",
+          desc: "Frijoles, manchego, tocino crujiente y pollo. Orden de 2 molletes, acompañados de pico de gallo.",
+          price: 80,
+          tag: "Receta Atoyac",
+          image: "assets/img/dishes/molletes-atoyac.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "molletes-atoyac.jpg"
+        }
+      ],
+      bebidas: [
+        {
+          name: "Café Americano",
+          desc: "Café recién hecho, como debe ser. Notas equilibradas y aroma tostado fresco.",
+          price: 35,
+          tag: "Recién Hecho",
+          image: "assets/img/dishes/cafe-americano.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "cafe-americano.jpg"
+        },
+        {
+          name: "Café de Olla",
+          desc: "Café de olla tradicional mexicano infusionado con canela y piloncillo natural.",
+          price: 35,
+          tag: "Tradición",
+          image: "assets/img/dishes/cafe-olla.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "cafe-olla.jpg"
+        },
+        {
+          name: "Espresso",
+          desc: "Shot de espresso puro y concentrado con crema densa dorada.",
+          price: 45,
+          tag: "Puro",
+          image: "assets/img/dishes/cafe-espresso.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "cafe-espresso.jpg"
+        },
+        {
+          name: "Latte",
+          desc: "Espresso de especialidad con leche suavemente vaporizada.",
+          price: 55,
+          tag: "Cremoso",
+          image: "assets/img/dishes/cafe-latte.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "cafe-latte.jpg"
+        },
+        {
+          name: "Cappuccino",
+          desc: "Espresso, leche vaporizada y abundante espuma aterciopelada.",
+          price: 55,
+          tag: "Espuma",
+          image: "assets/img/dishes/cafe-cappuccino.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "cafe-cappuccino.jpg"
+        },
+        {
+          name: "Tizana (500 ml)",
+          desc: "Infusión frutal de 500 ml servida caliente o bien fría con frutas deshidratadas.",
+          price: 65,
+          tag: "Infusión",
+          image: "assets/img/dishes/bebida-tizana.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "bebida-tizana.jpg"
+        },
+        {
+          name: "Coca-Cola Regular",
+          desc: "Lata regular bien fría de 355 ml.",
+          price: 35,
+          tag: "355 ml",
+          image: "assets/img/dishes/bebida-coca.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "bebida-coca.jpg"
+        },
+        {
+          name: "Coca-Cola Light",
+          desc: "Lata fría de Coca-Cola Light de 355 ml.",
+          price: 35,
+          tag: "355 ml",
+          image: "assets/img/dishes/bebida-coca-light.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "bebida-coca-light.jpg"
+        },
+        {
+          name: "Agua de Horchata (500 ml)",
+          desc: "Receta artesanal de la casa con arroz y canela, 500 ml bien fría.",
+          price: 35,
+          tag: "Artesanal",
+          image: "assets/img/dishes/bebida-horchata.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "bebida-horchata.jpg"
         }
       ],
       postres: [
         {
           name: "Galleta de Chocolate",
-          desc: "Galleta horneada estilo artesanal con chispas de chocolate.",
+          desc: "Galleta horneada estilo artesanal con chispas de chocolate. Por pieza.",
           price: 25,
           tag: "Por Pieza",
-          image: "assets/img/dishes/crepes.jpg"
+          image: "assets/img/dishes/postre-galleta.jpg",
+          fallback: "assets/img/dishes/crepes.jpg",
+          slot: "postre-galleta.jpg"
         },
         {
           name: "4 Mini Donas",
-          desc: "Cuatro piezas de mini donas glaseadas suaves y recién salidas.",
+          desc: "Orden de 4 piezas de mini donas glaseadas suaves y esponjosas.",
           price: 30,
           tag: "4 Piezas",
-          image: "assets/img/dishes/crepes.jpg"
+          image: "assets/img/dishes/postre-donas.jpg",
+          fallback: "assets/img/dishes/crepes.jpg",
+          slot: "postre-donas.jpg"
         },
         {
           name: "Pastel de Zanahoria",
-          desc: "Rebanada húmeda y especiada con nuez y suave betún de queso crema.",
+          desc: "Rebanada esponjosa con nuez y suave betún de queso crema. Por rebanada.",
           price: 50,
-          tag: "Rebanada",
-          image: "assets/img/dishes/crepes.jpg"
+          tag: "Por Rebanada",
+          image: "assets/img/dishes/postre-zanahoria.jpg",
+          fallback: "assets/img/dishes/crepes.jpg",
+          slot: "postre-zanahoria.jpg"
         },
         {
           name: "Cheesecake",
-          desc: "Cremosa rebanada de pay de queso con base crujiente de galleta.",
+          desc: "Cremosa rebanada de pay de queso con base crujiente de galleta. Por rebanada.",
           price: 50,
-          tag: "Rebanada",
-          image: "assets/img/dishes/crepes.jpg"
+          tag: "Por Rebanada",
+          image: "assets/img/dishes/postre-cheesecake.jpg",
+          fallback: "assets/img/dishes/crepes.jpg",
+          slot: "postre-cheesecake.jpg"
+        },
+        {
+          name: "Americano + 4 Mini Donas",
+          desc: "El combo perfecto para tu tarde: café americano caliente recién hecho + 4 mini donas.",
+          price: 60,
+          tag: "Promo Cafetera",
+          image: "assets/img/dishes/promo-americano-donas.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "promo-americano-donas.jpg"
+        },
+        {
+          name: "2 Cappuccinos + Rebanada",
+          desc: "2 cappuccinos cremosos + rebanada de pastel de zanahoria o cheesecake a elegir.",
+          price: 150,
+          tag: "Dúo Cafetero",
+          image: "assets/img/dishes/promo-cappuccinos.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "promo-cappuccinos.jpg"
+        },
+        {
+          name: "Chilaquiles con Pollo + Americano",
+          desc: "Chilaquiles verdes con pollo + café americano recién hecho. Más sabor, mejor precio.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-chilaquiles.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "promo-chilaquiles.jpg"
+        },
+        {
+          name: "Ensalada de Pollo o Atún + Agua",
+          desc: "Ensalada de pollo o atún a elegir + agua fresca de horchata o del día de 500 ml.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-ensalada.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "promo-ensalada.jpg"
+        },
+        {
+          name: "Panini de Jamón + Agua",
+          desc: "Panini caliente de jamón y quesos derretidos + agua fresca de 500 ml.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-panini.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "promo-panini.jpg"
         }
       ]
     };
 
-    let activeCat = 'chilaquiles';
+    let activeCat = 'favoritos';
+    let currentViewMode = 'carousel'; // 'carousel' | 'grid'
+    
     const trackWrapper = document.getElementById('carousel-track-wrapper');
     const track = document.getElementById('carousel-track');
-    
+    const gridViewport = document.getElementById('grid-viewport');
+    const carouselViewport = document.getElementById('carousel-viewport');
+
     let isHovered = false;
     let isPointerDown = false;
     let hasDragged = false;
     let startX = 0;
     let scrollLeftStart = 0;
-    const SCROLL_SPEED = 0.38; // Muy lento, suave y legible
+    const SCROLL_SPEED = 0.35;
     let animId = null;
 
-    function renderCarousel(categoryKey) {
-      const items = PRODUCTS[categoryKey] || PRODUCTS['chilaquiles'];
+    // Renderizar tarjeta individual
+    function createCardHTML(item, categoryKey, realIndex) {
+      return `
+        <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${realIndex})">
+          <div class="dish-img-box">
+            <img 
+              src="${item.image}" 
+              onerror="this.onerror=null; this.src='${item.fallback}';" 
+              alt="${item.name}" 
+              class="dish-img" 
+              loading="lazy" 
+            />
+            <span class="dish-tag">${item.tag}</span>
+            <span class="dish-photo-slot-hint">📷 ${item.slot}</span>
+          </div>
+          <div class="dish-info">
+            <div>
+              <h3 class="dish-name">${item.name}</h3>
+              <p class="dish-desc">${item.desc}</p>
+            </div>
+            <div class="dish-footer">
+              <div class="dish-price-wrap">
+                <span class="dish-price-label">Precio</span>
+                <div class="dish-price">$${item.price} <span>MXN</span></div>
+              </div>
+              <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${realIndex})">
+                <span>Ver detalle</span>
+                <span>↗</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
 
-      // Duplicamos 4 veces para lograr scroll infinito sin límites hacia ambos lados
+    // Renderizar según categoría activa
+    function renderCategory(categoryKey) {
+      const items = PRODUCTS[categoryKey] || PRODUCTS['favoritos'];
+      const meta = CATEGORY_META[categoryKey] || CATEGORY_META['favoritos'];
+
+      // Actualizar textos de encabezado y frases del guion
+      document.getElementById('catPartTag').textContent = meta.part;
+      document.getElementById('catTitleText').textContent = meta.title;
+      document.getElementById('catSubtitleText').textContent = meta.subtitle;
+      document.getElementById('catQuoteText').textContent = meta.quote;
+      document.getElementById('catQuoteAuthor').textContent = meta.author;
+
+      // 1. Renderizar Carrusel (Duplicado 4 veces para scroll infinito)
       const duplicated = [...items, ...items, ...items, ...items];
-
       track.innerHTML = duplicated.map((item, idx) => {
         const realIndex = idx % items.length;
-        const waText = encodeURIComponent(`¡Hola ATOYAC! Quiero pedir: ${item.name} ($${item.price} MXN) ☕🥪`);
-        return `
-          <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${realIndex})">
-            <div class="dish-img-box">
-              <img src="${item.image}" alt="${item.name}" class="dish-img" loading="lazy" />
-              <span class="dish-tag">${item.tag}</span>
-            </div>
-            <div class="dish-info">
-              <div>
-                <h3 class="dish-name">${item.name}</h3>
-                <p class="dish-desc">${item.desc}</p>
-              </div>
-              <div class="dish-footer">
-                <div class="dish-price-wrap">
-                  <span class="dish-price-label">Precio</span>
-                  <div class="dish-price">$${item.price} <span>MXN</span></div>
-                </div>
-                <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${realIndex})">
-                  <span>Ver detalle</span>
-                  <span>↗</span>
-                </button>
-              </div>
-            </div>
-          </article>
-        `;
+        return createCardHTML(item, categoryKey, realIndex);
       }).join('');
 
-      // Posicionar en el segundo tercio para permitir jalar hacia atrás o adelante sin tope
+      // 2. Renderizar Cuadrícula completa
+      gridViewport.innerHTML = items.map((item, idx) => {
+        return createCardHTML(item, categoryKey, idx);
+      }).join('');
+
+      // Centrar posición inicial del carrusel en el segundo tercio
       requestAnimationFrame(() => {
         if (trackWrapper) {
           const segment = trackWrapper.scrollWidth / 4;
@@ -985,17 +1603,38 @@
       document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === catKey);
       });
-      renderCarousel(catKey);
+      renderCategory(catKey);
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      document.getElementById('btnModeCarousel').classList.toggle('active', mode === 'carousel');
+      document.getElementById('btnModeGrid').classList.toggle('active', mode === 'grid');
+
+      if (mode === 'carousel') {
+        carouselViewport.style.display = 'block';
+        gridViewport.style.display = 'none';
+      } else {
+        carouselViewport.style.display = 'none';
+        gridViewport.style.display = 'grid';
+      }
     }
 
     // ===================================================================
-    // MODAL / POPUP DE DETALLE DE PLATILLO
+    // MODAL / POPUP DE DETALLE
     // ===================================================================
     function openDishModal(item) {
       if (!item) return;
-      document.getElementById('modalDishImg').src = item.image;
-      document.getElementById('modalDishImg').alt = item.name;
+      const modalImg = document.getElementById('modalDishImg');
+      modalImg.src = item.image;
+      modalImg.onerror = function() {
+        this.onerror = null;
+        this.src = item.fallback;
+      };
+      modalImg.alt = item.name;
+
       document.getElementById('modalDishTag').textContent = item.tag;
+      document.getElementById('modalDishSlot').textContent = `📷 assets/img/dishes/${item.slot}`;
       document.getElementById('modalDishName').textContent = item.name;
       document.getElementById('modalDishDesc').textContent = item.desc;
       document.getElementById('modalDishPrice').innerHTML = `$${item.price} <span>MXN</span>`;
@@ -1016,7 +1655,6 @@
     }
 
     function handleCardClick(e, categoryKey, index) {
-      // Si el usuario estaba jalando/arrastrando el carrusel, no abrir el modal
       if (hasDragged) return;
       const item = PRODUCTS[categoryKey][index];
       openDishModal(item);
@@ -1040,10 +1678,9 @@
     // AUTO-SCROLL LOOP + PAUSA AL CURSOR + JALAR ADELANTE Y ATRÁS
     // ===================================================================
     function autoScrollLoop() {
-      if (!isHovered && !isPointerDown && trackWrapper) {
+      if (currentViewMode === 'carousel' && !isHovered && !isPointerDown && trackWrapper) {
         trackWrapper.scrollLeft += SCROLL_SPEED;
 
-        // Loop infinito suave hacia adelante
         const segment = trackWrapper.scrollWidth / 4;
         if (trackWrapper.scrollLeft >= segment * 3) {
           trackWrapper.scrollLeft -= segment;
@@ -1052,13 +1689,11 @@
       animId = requestAnimationFrame(autoScrollLoop);
     }
 
-    // 1. Pausa al pasar cursor encima
     trackWrapper.addEventListener('mouseenter', () => { isHovered = true; });
     trackWrapper.addEventListener('mouseleave', () => { 
       if (!isPointerDown) isHovered = false; 
     });
 
-    // 2. Jalar hacia adelante y atrás (mouse y touch)
     trackWrapper.addEventListener('pointerdown', (e) => {
       if (e.target.closest('button') || e.target.closest('a')) return;
       isPointerDown = true;
@@ -1077,7 +1712,6 @@
       }
       trackWrapper.scrollLeft = scrollLeftStart - walk;
 
-      // Loop infinito durante el arrastre hacia adelante o atrás
       const segment = trackWrapper.scrollWidth / 4;
       if (trackWrapper.scrollLeft >= segment * 3) {
         trackWrapper.scrollLeft -= segment;
@@ -1104,8 +1738,8 @@
       isHovered = false;
     });
 
-    // Inicializar carrusel y animación continua
-    renderCarousel('chilaquiles');
+    // Inicializar carrusel y animación
+    renderCategory('favoritos');
     animId = requestAnimationFrame(autoScrollLoop);
   </script>
 

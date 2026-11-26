@@ -1,0 +1,71 @@
+================================================================
+GUÍA DE FOTOGRAFÍAS DEL MENÚ OFICIAL — ATOYAC · Healthy Kitchen · Coffee
+================================================================
+
+Para que tus fotografías oficiales aparezcan automáticamente en el menú digital,
+guarda cada foto en esta carpeta:
+assets/img/dishes/
+
+Con los siguientes nombres de archivo (en formato .jpg o .png):
+
+----------------------------------------------------------------
+1. FAVORITOS Y RECOMENDADOS
+----------------------------------------------------------------
+- molletes-sencillos.jpg   -> Molletes Sencillos ($50)
+- chapata-pollo.jpg        -> Chapata de Pollo ($95)
+- plato-fruta.jpg          -> Plato de Fruta ($50)
+
+----------------------------------------------------------------
+2. ENSALADAS
+----------------------------------------------------------------
+- ensalada-tradicional.jpg -> Ensalada Tradicional ($70)
+- ensalada-jamon.jpg       -> Ensalada Jamón de Pavo ($90)
+- ensalada-atun.jpg        -> Ensalada de Atún ($100)
+- ensalada-pollo.jpg       -> Ensalada de Pollo ($100)
+- ensalada-res.jpg         -> Ensalada de Res ($110)
+
+----------------------------------------------------------------
+3. CHILAQUILES VERDES
+----------------------------------------------------------------
+- chilaquiles-sencillos.jpg -> Chilaquiles Sencillos ($65)
+- chilaquiles-pollo.jpg     -> Chilaquiles con Pollo ($90)
+- chilaquiles-res.jpg       -> Chilaquiles con Res ($100)
+
+----------------------------------------------------------------
+4. CHAPATAS Y MOLLETES
+----------------------------------------------------------------
+- chapata-jamon.jpg        -> Chapata de Jamón ($80)
+- chapata-pollo.jpg        -> Chapata de Pollo ($95)
+- chapata-res.jpg          -> Chapata Fajitas de Res ($105)
+- molletes-sencillos.jpg   -> Molletes Sencillos ($50)
+- molletes-atoyac.jpg      -> Molletes Atoyac ($80)
+
+----------------------------------------------------------------
+5. CAFÉ CALIENTE Y BEBIDAS
+----------------------------------------------------------------
+- cafe-americano.jpg       -> Café Americano ($35)
+- cafe-olla.jpg            -> Café de Olla Tradicional ($35)
+- cafe-espresso.jpg        -> Espresso ($45)
+- cafe-latte.jpg           -> Latte ($55)
+- cafe-cappuccino.jpg      -> Cappuccino ($55)
+- bebida-tizana.jpg        -> Tizana 500 ml ($65)
+- bebida-coca.jpg          -> Coca-Cola Regular 355 ml ($35)
+- bebida-coca-light.jpg    -> Coca-Cola Light 355 ml ($35)
+- bebida-horchata.jpg      -> Agua de Horchata 500 ml ($35)
+
+----------------------------------------------------------------
+6. POSTRES Y PROMOS
+----------------------------------------------------------------
+- postre-galleta.jpg       -> Galleta de Chocolate ($25)
+- postre-donas.jpg         -> 4 Mini Donas ($30)
+- postre-zanahoria.jpg     -> Pastel de Zanahoria ($50)
+- postre-cheesecake.jpg    -> Cheesecake ($50)
+- promo-americano-donas.jpg-> Combo Americano + 4 Mini Donas ($60)
+- promo-cappuccinos.jpg    -> Combo 2 Cappuccinos + Pastel ($150)
+- promo-chilaquiles.jpg    -> Chilaquiles con Pollo + Americano ($100)
+- promo-ensalada.jpg       -> Ensalada de Pollo o Atún + Agua ($100)
+- promo-panini.jpg         -> Panini de Jamón + Agua ($100)
+
+* NOTA: Mientras no agregues una foto individual, el sitio mostrará 
+automáticamente la foto de muestra de la categoría sin romperse.
+Al colocar el archivo con el nombre indicado, se mostrará de inmediato.
