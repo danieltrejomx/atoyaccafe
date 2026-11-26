@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATOYAC · All-Day Healthy Kitchen | Santa Cruz Atoyac</title>
+  <meta name="description" content="Cocina saludable de todo el día en Santa Cruz Atoyac. Sándwiches, baguettes artesanales, crepas, jugos recién exprimidos y café de grano. Av. Popocatépetl 289, Local A." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/legacy.css" />
+  <style>
+    :root {
+      --font-serif-editorial: 'Instrument Serif', Georgia, serif;
+    }
+
+    body {
+      background-color: var(--bg-sand);
+      color: var(--forest-dark);
+      overflow-x: hidden;
+    }
+
+    /* Smart Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(239, 236, 230, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(37, 51, 41, 0.08);
+      will-change: transform;
+    }
+
+    .navbar-inner {
+      height: 84px;
+    }
+
+    .nav-links {
+      gap: 2.25rem;
+    }
+
+    .nav-link {
+      padding: 0.25rem 0;
+      border-radius: 0;
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      border-bottom: 1.5px solid transparent;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: transparent;
+      color: var(--forest-dark);
+      border-bottom-color: var(--forest-dark);
+    }
+
+    /* Kinetic Typography */
+    .kt-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .kt-char {
+      display: inline-block;
+      will-change: transform, opacity;
+      transform-origin: 50% 100%;
+    }
+    .serif-italic {
+      font-family: var(--font-serif-editorial);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--sage-green);
+      letter-spacing: -0.01em;
+    }
+
+    /* SECTION 1: HERO WITH 3D PARALLAX STAGE & TIM HORTONS PROMO SLIDER */
+    .at-hero {
+      position: relative;
+      min-height: 100svh;
+      padding: 132px 0 4.5rem;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(180deg, #EFECE6 0%, #E7E2D8 100%);
+    }
+
+    .at-hero-stage {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      perspective: 1400px;
+      -webkit-perspective: 1400px;
+      overflow: hidden;
+      opacity: 0.34;
+    }
+
+    .at-plane {
+      position: absolute;
+      right: -18%;
+      top: -22%;
+      width: 82%;
+      display: flex;
+      gap: 18px;
+      transform-style: preserve-3d;
+      transform-origin: 50% 40%;
+      will-change: transform;
+    }
+
+    .at-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      will-change: transform;
+    }
+
+    .at-col:nth-child(even) {
+      margin-top: -5rem;
+    }
+
+    .at-float-card {
+      background: var(--bg-cream);
+      border: 2px solid rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(37, 51, 41, 0.12);
+      height: 225px;
+      position: relative;
+    }
+
+    .at-float-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .at-hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .location-pill-row {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .maps-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.32rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(37, 51, 41, 0.08);
+      border: 1px solid rgba(37, 51, 41, 0.18);
+      color: var(--forest-dark);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: all 0.2s ease;
+    }
+
+    .maps-btn-inline:hover {
+      background: var(--forest-dark);
+      color: var(--bg-sand);
+    }
+
+    .at-hero-title {
+      font-size: clamp(2.85rem, 5vw, 4.35rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: var(--forest-dark);
+      margin: 0.4rem 0 1.25rem;
+      perspective: 900px;
+    }
+
+    .at-hero-lead {
+      font-size: 1.14rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+
+    /* Clean Visual Gallery Showcase (Right Side, No Text Overlay, Cool 3D + Ken Burns Effect) */
+    .th-showcase-card {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      background: var(--bg-cream);
+      box-shadow: 0 32px 65px rgba(37, 51, 41, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      height: 500px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .th-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 5.5s ease-out;
+      transform: scale(1.1);
+      pointer-events: none;
+    }
+
+    .th-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .th-slide-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .th-dots {
+      position: absolute;
+      bottom: 1.35rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(25, 34, 28, 0.45);
+      backdrop-filter: blur(8px);
+      padding: 0.45rem 0.75rem;
+      border-radius: 99px;
+    }
+
+    .th-dot {
+      width: 22px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .th-dot.active {
+      background: #fff;
+      width: 38px;
+    }
+
+    /* SECTION 2: WORD-BY-WORD SCROLL SCRUB MANIFESTO */
+    .scrub-section {
+      padding: 6.5rem 0;
+      background: var(--forest-dark);
+      color: var(--bg-sand);
+    }
+
+    .scrub-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.6vw, 3.1rem);
+      font-weight: 500;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      max-width: 980px;
+    }
+
+    .scrub-quote [data-w] {
+      opacity: 0.16;
+      transition: opacity 0.1s;
+    }
+
+    .counters-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(239, 236, 230, 0.14);
+    }
+
+    .counter-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 600;
+      color: var(--warm-ochre);
+      line-height: 1;
+    }
+
+    .counter-label {
+      font-size: 0.86rem;
+      color: rgba(239, 236, 230, 0.75);
+      margin-top: 0.45rem;
+    }
+
+    /* SECTION 3: TIM HORTONS STYLE 4-BOX EXPERIENCE GRID WITH 3D TILT & GLARE */
+    .th-boxes-section {
+      padding: 6rem 0;
+    }
+
+    .th-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+      perspective: 1200px;
+    }
+
+    .tilt-card-wrap {
+      perspective: 1200px;
+    }
+
+    .tilt-card {
+      position: relative;
+      background: var(--bg-cream);
+      border: 1px solid rgba(37, 51, 41, 0.1);
+      border-radius: 22px;
+      padding: 2.35rem;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 290px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tilt-card.dark-box {
+      background: var(--forest-dark);
+      color: var(--bg-sand);
+    }
+
+    .tilt-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.28), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* SECTION 4: INTERACTIVE DAY TIMELINE SCRUB (7:00 A 21:00) */
+    .day-scrub-section {
+      padding: 5.5rem 0;
+      background: var(--bg-cream);
+      border-top: 1px solid rgba(37, 51, 41, 0.08);
+      border-bottom: 1px solid rgba(37, 51, 41, 0.08);
+    }
+
+    .nle-track {
+      position: relative;
+      height: 10px;
+      background: rgba(37, 51, 41, 0.1);
+      border-radius: 99px;
+      margin: 2.5rem 0 2rem;
+      overflow: visible;
+    }
+
+    .nle-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--warm-ochre) 0%, var(--sage-green) 50%, var(--terracotta) 100%);
+      border-radius: 99px;
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    .nle-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .nle-step-card {
+      background: var(--bg-sand);
+      padding: 1.65rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(37, 51, 41, 0.08);
+      transition: opacity 0.25s ease;
+    }
+
+    /* SECTION 5: CURTAIN REVEAL MEDIA + PARALLAX */
+    .reveal-media-wrap {
+      overflow: hidden;
+      border-radius: 22px;
+      will-change: clip-path;
+      box-shadow: var(--shadow-md);
+    }
+
+    .reveal-media-inner {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: block;
+      will-change: transform;
+    }
+
+    /* FOOTER WITH ADMINISTRACIÓN LOGIN BUTTON */
+    .footer-portal-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.05rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--bg-sand);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .footer-btn-link:hover {
+      background: var(--bg-sand);
+      color: var(--forest-dark);
+    }
+
+    .footer-btn-admin {
+      background: var(--warm-ochre);
+      color: var(--forest-dark);
+      border-color: var(--warm-ochre);
+      font-weight: 600;
+    }
+
+    .footer-btn-admin:hover {
+      background: #e2be88;
+      color: var(--forest-dark);
+    }
+
+    @media (max-width: 960px) {
+      .at-hero-grid, .th-boxes-grid, .nle-steps {
+        grid-template-columns: 1fr;
+      }
+      .counters-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .at-hero-stage {
+        opacity: 0.16;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SMART NAVBAR -->
+  <header class="navbar" id="main-header">
+    <div class="container navbar-inner">
+      <a href="/" class="brand-logo" style="gap: 0.65rem;">
+        <img src="/img/logo.svg" alt="ATOYAC Icono" style="height: 38px; width: auto;" />
+        <div class="brand-text-wrap">
+          <span class="brand-title">ATOYAC</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+        <li><a href="#menu" class="nav-link">Menú</a></li>
+        <li><a href="/nosotros" class="nav-link">Nosotros</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/delivery" class="btn btn-primary btn-sm" data-magnetic>Entrega a tu Domicilio</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- ===================================================================
+         1. HERO CON PLANO 3D PARALLAX DE FOTOS DE COMIDA + GALERÍA LIMPIA
+         =================================================================== -->
+    <section class="at-hero" id="at-hero">
+      <!-- 3D Tilted Background Plane with Food Photos -->
+      <div class="at-hero-stage" aria-hidden="true" style="opacity: 0.42;">
+        <div class="at-plane" id="at-parallax-plane" data-plane></div>
+      </div>
+
+      <div class="container at-hero-grid">
+        <div data-hero-copy>
+          <div class="location-pill-row">
+            <span class="eyebrow" style="margin-bottom: 0;">Av. Popocatépetl 289 · Santa Cruz Atoyac</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=Av.+Popocatepetl+289+Santa+Cruz+Atoyac+CDMX" target="_blank" rel="noopener" class="maps-btn-inline">
+              📍 Ver en Google Maps ↗
+            </a>
+          </div>
+
+          <h1 class="at-hero-title" data-kt="load">
+            Comida para tu <span class="serif-italic">día a día.</span>
+          </h1>
+          <p class="at-hero-lead">
+            Lo que quieres comer, rápido y sin propina. Siéntate y disfruta, pide para llevar o recoge aquí.
+          </p>
+
+          <div>
+            <a href="#menu" class="btn btn-primary btn-lg" data-magnetic>Ver Menú</a>
+          </div>
+        </div>
+
+        <!-- Clean Visual Gallery Without Text Overlay + 3D Tilt & Ken Burns -->
+        <div class="tilt-card-wrap" data-tilt-wrap>
+          <div class="th-showcase-card" id="hero-slider" data-tilt>
+            <div class="tilt-glare" data-glare></div>
+
+            <div class="th-dots">
+              <button class="th-dot active" data-slide="0" aria-label="Foto 1"></button>
+              <button class="th-dot" data-slide="1" aria-label="Foto 2"></button>
+              <button class="th-dot" data-slide="2" aria-label="Foto 3"></button>
+              <button class="th-dot" data-slide="3" aria-label="Foto 4"></button>
+            </div>
+
+            <div class="th-slide active">
+              <img src="/img/local-sampling.jpg" alt="ATOYAC Local y Degustación" class="th-slide-bg" />
+            </div>
+
+            <div class="th-slide">
+              <img src="/img/local-interior.jpg" alt="ATOYAC Interior" class="th-slide-bg" />
+            </div>
+
+            <div class="th-slide">
+              <img src="/img/dishes/baguettes.jpg" alt="Baguette Artesanal ATOYAC" class="th-slide-bg" />
+            </div>
+
+            <div class="th-slide">
+              <img src="/img/dishes/crepes.jpg" alt="Crepas y Café ATOYAC" class="th-slide-bg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. MENÚ (DISEÑO EDITORIAL LIMPIO)
+         =================================================================== -->
+    <section id="menu" class="section">
+      <div class="container">
+        <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div>
+            <h2 class="section-title" data-kt="scroll">Menú</h2>
+          </div>
+          <a href="/menu" class="btn btn-outline btn-sm">Ver catálogo completo y gramajes →</a>
+        </div>
+
+        <div class="grid-2" style="gap: 2rem;">
+          <!-- AMANECER -->
+          <div class="moment-board">
+            <div>
+              <div class="moment-board-header">
+                <div class="moment-board-title">AMANECER</div>
+                <div class="moment-board-time">7:00 – 11:30</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/sandwiches.jpg" alt="Sándwich Clásico" style="width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Sándwich Clásico</div>
+                    <div class="menu-item-desc">Jamón de pavo y panela en pan integral</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$49</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/sandwiches.jpg" alt="Sándwich Atoyac" style="width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Sándwich Atoyac</div>
+                    <div class="menu-item-desc">Pechuga de pavo, aguacate, jitomate y espinaca</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$65</div>
+              </div>
+            </div>
+            <div>
+              <div class="combo-banner">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/sandwiches.jpg" alt="Combo Amanecer" style="width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="combo-banner-title">COMBO AMANECER</div>
+                    <div class="combo-banner-desc">Sándwich Clásico + jugo de naranja</div>
+                    <div style="font-size: 0.72rem; opacity: 0.85; margin-top: 2px;">Con Sándwich Atoyac +$15</div>
+                  </div>
+                </div>
+                <div class="combo-banner-price">$79</div>
+              </div>
+              <p style="text-align: center; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.85rem;">
+                EXTRAS · Aguacate +$15 · Doble proteína +$20 · Pan integral sin costo
+              </p>
+            </div>
+          </div>
+
+          <!-- MEDIODÍA -->
+          <div class="moment-board">
+            <div>
+              <div class="moment-board-header">
+                <div class="moment-board-title">MEDIODÍA</div>
+                <div class="moment-board-time">11:30 – 16:30</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/baguettes.jpg" alt="Baguette de pechuga" style="width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Baguette de pechuga</div>
+                    <div class="menu-item-desc">Pechuga a la plancha, panela, espinaca y jitomate</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$89</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/baguettes.jpg" alt="Baguette de milanesa" style="width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Baguette de milanesa</div>
+                    <div class="menu-item-desc">Milanesa de pollo, panela, lechuga y jitomate</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$95</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/baguettes.jpg" alt="Baguette de jamón y queso" style="width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Baguette de jamón y queso</div>
+                    <div class="menu-item-desc">Jamón de pavo, panela, lechuga y jitomate</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$85</div>
+              </div>
+            </div>
+            <div>
+              <div class="combo-banner">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/baguettes.jpg" alt="Combo Mediodía" style="width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="combo-banner-title">COMBO MEDIODÍA</div>
+                    <div class="combo-banner-desc">Cualquier baguette + agua fresca 500 ml</div>
+                  </div>
+                </div>
+                <div class="combo-banner-price">$109</div>
+              </div>
+              <p style="text-align: center; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.85rem;">
+                EXTRAS · Aguacate +$15 · Doble proteína +$20 · Pan integral sin costo
+              </p>
+            </div>
+          </div>
+
+          <!-- TARDE -->
+          <div class="moment-board">
+            <div>
+              <div class="moment-board-header">
+                <div class="moment-board-title">TARDE</div>
+                <div class="moment-board-time">16:30 – 21:00</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/crepes.jpg" alt="Crepa Nutella" style="width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Crepa Nutella</div>
+                    <div class="menu-item-desc">Con plátano fresco</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$75</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/crepes.jpg" alt="Crepa de fresa" style="width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Crepa de fresa</div>
+                    <div class="menu-item-desc">Queso crema y miel de abeja</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$72</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/crepes.jpg" alt="Crepa de cajeta" style="width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Crepa de cajeta</div>
+                    <div class="menu-item-desc">Con nuez</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$69</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                  <img src="/img/dishes/crepes.jpg" alt="Crepa salada" style="width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Crepa salada</div>
+                    <div class="menu-item-desc">Pechuga, panela y espinaca</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$79</div>
+              </div>
+            </div>
+            <div>
+              <div class="combo-banner">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/crepes.jpg" alt="Combo Tarde" style="width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="combo-banner-title">COMBO TARDE</div>
+                    <div class="combo-banner-desc">Cualquier crepa + café americano</div>
+                  </div>
+                </div>
+                <div class="combo-banner-price">$95</div>
+              </div>
+              <p style="text-align: center; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.85rem;">
+                EXTRAS · Plátano o fresa extra +$15 · Doble Nutella +$15
+              </p>
+            </div>
+          </div>
+
+          <!-- PARA TOMAR -->
+          <div class="moment-board">
+            <div>
+              <div class="moment-board-header">
+                <div class="moment-board-title">PARA TOMAR</div>
+                <div class="moment-board-time">Todo el día</div>
+              </div>
+              <div style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; color: var(--terracotta); margin: 0.4rem 0;">JUGOS Y AGUAS</div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Jugo de naranja" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Jugo de naranja 500 ml</div>
+                    <div class="menu-item-desc">Recién exprimido, sin azúcar</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$38</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Jugo verde" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Jugo verde 500 ml</div>
+                    <div class="menu-item-desc">Naranja, espinaca, pepino y limón</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$45</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Agua fresca" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" />
+                  <div>
+                    <div class="menu-item-name">Agua fresca del día</div>
+                    <div class="menu-item-desc">Jamaica, horchata o pepino-limón · 1 L $40</div>
+                  </div>
+                </div>
+                <div class="menu-item-price">$25</div>
+              </div>
+              <div style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; color: var(--terracotta); margin: 0.9rem 0 0.3rem;">CAFÉ Y TÉ</div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Café americano" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div class="menu-item-name">Café americano</div>
+                </div>
+                <div class="menu-item-price">$25</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Café con leche" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div class="menu-item-name">Café con leche</div>
+                </div>
+                <div class="menu-item-price">$35</div>
+              </div>
+              <div class="menu-item-row" style="align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <img src="/img/dishes/drinks.jpg" alt="Té de hierbas" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0;" />
+                  <div class="menu-item-name">Té de hierbas</div>
+                </div>
+                <div class="menu-item-price">$25</div>
+              </div>
+            </div>
+            <p style="text-align: center; font-size: 0.76rem; color: var(--text-muted); margin-top: 1rem;">
+              Pide tu bebida en combo y ahorra
+            </p>
+          </div>
+        </div>
+            <p style="text-align: center; font-size: 0.76rem; color: var(--text-muted); margin-top: 1rem;">
+              Pide tu bebida en combo y ahorra
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. NOSOTROS & LOCAL CON CURTAIN REVEAL PARALLAX
+         =================================================================== -->
+    <section id="nosotros" class="section" style="background: var(--bg-cream); border-top: 1px solid rgba(37, 51, 41, 0.08);">
+      <div class="container">
+        <div class="grid-2" style="gap: 4rem; align-items: center;">
+          <div class="reveal-media-wrap" data-reveal-media>
+            <img src="/img/local-interior.jpg" alt="Interior ATOYAC" class="reveal-media-inner" />
+          </div>
+
+          <div>
+            <span class="eyebrow">Nuestra Sucursal · Santa Cruz Atoyac</span>
+            <h2 class="section-title" data-kt="scroll" style="margin-bottom: 1.25rem;">
+              23.7 m² diseñados para <span class="serif-italic">frescura</span> y agilidad.
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 1rem;">
+              Estamos ubicados en <strong>Av. Popocatépetl 289, Local A (Eje 8 Sur)</strong>, muy cerca de Av. México-Coyoacán y Uxmal.
+            </p>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
+              En nuestra barra encuentras pedidos rápidos para llevar, nuestro <strong>iPad Kiosco</strong> para ordenar a tu gusto sin hacer fila y recolección exprés para pedidos hechos desde la web.
+            </p>
+
+            <div class="grid-3" style="gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Dirección</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted);">Av. Popocatépetl 289, Local A</span>
+              </div>
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Horario</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted);">Lun – Sáb · 7:00 a 21:00</span>
+              </div>
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Modalidad</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted);">Barra Para Llevar · Pick-up · Delivery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================
+       FOOTER CON BOTÓN "ADMINISTRACIÓN" (LOGIN USUARIO Y CONTRASEÑA) Y LANDINGS
+       =================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid" style="grid-template-columns: 1.3fr 0.9fr 1.8fr; gap: 2.5rem;">
+        <div>
+          <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; letter-spacing: 0.16em; color: #fff; margin-bottom: 0.6rem;">
+            ATOYAC
+          </div>
+          <p style="font-size: 0.86rem; opacity: 0.78; max-width: 300px; line-height: 1.6;">
+            All-Day Healthy Kitchen.<br />
+            Av. Popocatépetl 289, Local A · Santa Cruz Atoyac, CDMX.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-title">Navegación</div>
+          <ul class="footer-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#menu">Menú</a></li>
+            <li><a href="/nosotros">Nosotros</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Plataformas & Operación</div>
+          <div class="footer-portal-buttons">
+            <a href="/portal" class="footer-btn-link footer-btn-admin">Administración (Login)</a>
+            <a href="https://wa.me/525659122497?text=%C2%A1Hola%20ATOYAC!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido%20o%20conocer%20m%C3%A1s%20informaci%C3%B3n%20%E2%98%95" target="_blank" rel="noopener" class="footer-btn-link" style="border-color: rgba(37, 211, 102, 0.4); color: #25D366;">💬 WhatsApp (56 5912 2497)</a>
+            <a href="/kiosco" class="footer-btn-link">Punto de Venta (iPad Kiosco)</a>
+            <a href="/delivery" class="footer-btn-link">Menú de Deliveries (0% Comisión)</a>
+            <a href="/menu" class="footer-btn-link">Menú Todos los Productos</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; opacity: 0.6;">
+        <span>© 2026 ATOYAC · All-Day Healthy Kitchen</span>
+        <span>Santa Cruz Atoyac, Ciudad de México</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP + ScrollTrigger (Motor de animaciones Parallax como en mediamd.com.mx) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      gsap.registerPlugin(ScrollTrigger);
+
+      /* 1. SMART HEADER ON SCROLL */
+      const header = document.getElementById('main-header');
+      let lastScrollY = window.scrollY;
+      let headerHidden = false;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const dy = y - lastScrollY;
+        lastScrollY = y;
+        if (y > 180 && dy > 5 && !headerHidden) {
+          headerHidden = true;
+          gsap.to(header, { yPercent: -105, duration: 0.5, ease: 'expo.out', overwrite: true });
+        } else if ((dy < -5 || y <= 180) && headerHidden) {
+          headerHidden = false;
+          gsap.to(header, { yPercent: 0, duration: 0.5, ease: 'expo.out', overwrite: true });
+        }
+      }, { passive: true });
+
+      /* 2. BUILD 3D PARALLAX DISH PHOTOS PLANE IN HERO */
+      const planeEl = document.getElementById('at-parallax-plane');
+      const dishPhotos = [
+        '/img/dishes/sandwiches.jpg',
+        '/img/dishes/baguettes.jpg',
+        '/img/dishes/crepes.jpg',
+        '/img/dishes/drinks.jpg',
+        '/img/local-sampling.jpg',
+        '/img/local-interior.jpg'
+      ];
+
+      if (planeEl) {
+        let html = '';
+        for (let c = 0; c < 4; c++) {
+          html += `<div class="at-col" data-col>`;
+          for (let r = 0; r < 4; r++) {
+            const imgSrc = dishPhotos[(c * 3 + r) % dishPhotos.length];
+            html += `
+              <div class="at-float-card">
+                <img src="${imgSrc}" alt="Platillo ATOYAC" loading="lazy" />
+              </div>
+            `;
+          }
+          html += `</div>`;
+        }
+        planeEl.innerHTML = html;
+
+        gsap.set(planeEl, { rotateX: 28, rotateZ: -16, rotateY: -8, scale: 1 });
+        const speeds = [-22, 18, -30, 14];
+        gsap.utils.toArray('[data-col]').forEach((col, i) => {
+          gsap.to(col, {
+            yPercent: speeds[i % speeds.length],
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#at-hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 0.6
+            }
+          });
+        });
+      }
+
+      /* 3. KINETIC 3D TYPOGRAPHY ([data-kt]) */
+      function splitToChars(el) {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach((node) => {
+          const txt = node.nodeValue;
+          if (!txt || !txt.trim()) return;
+          const frag = document.createDocumentFragment();
+          txt.split(/(\s+)/).forEach((part) => {
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(' '));
+            } else if (part.length) {
+              const w = document.createElement('span');
+              w.className = 'kt-word';
+              Array.from(part).forEach((ch) => {
+                const c = document.createElement('span');
+                c.className = 'kt-char';
+                c.textContent = ch;
+                w.appendChild(c);
+              });
+              frag.appendChild(w);
+            }
+          });
+          node.parentNode.replaceChild(frag, node);
+        });
+      }
+
+      document.querySelectorAll('[data-kt]').forEach((el) => {
+        const mode = el.getAttribute('data-kt');
+        splitToChars(el);
+        const chars = el.querySelectorAll('.kt-char');
+        const tween = gsap.fromTo(
+          chars,
+          { yPercent: 100, rotateX: -65, opacity: 0 },
+          {
+            yPercent: 0,
+            rotateX: 0,
+            opacity: 1,
+            duration: 1.05,
+            ease: 'expo.out',
+            stagger: 0.014,
+            paused: true
+          }
+        );
+        if (mode === 'load') {
+          tween.play();
+        } else {
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 86%',
+            once: true,
+            onEnter: () => tween.play()
+          });
+        }
+      });
+
+      /* 4. TIM HORTONS STYLE HERO CAROUSEL */
+      const slides = document.querySelectorAll('#hero-slider .th-slide');
+      const dots = document.querySelectorAll('#hero-slider .th-dot');
+      let currentSlide = 0;
+      function goToSlide(idx) {
+        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        currentSlide = idx;
+      }
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => goToSlide(Number(dot.dataset.slide)));
+      });
+      setInterval(() => {
+        goToSlide((currentSlide + 1) % slides.length);
+      }, 5500);
+
+      /* 5. WORD-BY-WORD SCROLL SCRUB */
+      const scrubWords = document.querySelectorAll('#at-word-scrub [data-w]');
+      if (scrubWords.length) {
+        gsap.fromTo(
+          scrubWords,
+          { opacity: 0.16 },
+          {
+            opacity: 1,
+            stagger: 0.08,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#at-word-scrub',
+              start: 'top 82%',
+              end: 'bottom 45%',
+              scrub: true
+            }
+          }
+        );
+      }
+
+      /* 6. ANIMATED COUNTERS */
+      document.querySelectorAll('[data-counter]').forEach((el) => {
+        const target = parseFloat(el.getAttribute('data-counter'));
+        const prefix = el.getAttribute('data-prefix') || '';
+        const suffix = el.getAttribute('data-suffix') || '';
+        const state = { val: 0 };
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            gsap.to(state, {
+              val: target,
+              duration: 1.8,
+              ease: 'power2.out',
+              onUpdate: () => { el.textContent = prefix + Math.round(state.val) + suffix; }
+            });
+          }
+        });
+      });
+
+      /* 7. 3D TILT + SPOTLIGHT GLARE CARDS */
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('[data-tilt-wrap]').forEach((wrap) => {
+          const card = wrap.querySelector('[data-tilt]');
+          const glare = wrap.querySelector('[data-glare]');
+          if (!card || !glare) return;
+          const rX = gsap.quickTo(card, 'rotateX', { duration: 0.5, ease: 'power3.out' });
+          const rY = gsap.quickTo(card, 'rotateY', { duration: 0.5, ease: 'power3.out' });
+          wrap.addEventListener('pointermove', (e) => {
+            const rect = wrap.getBoundingClientRect();
+            const lx = (e.clientX - rect.left) / rect.width;
+            const ly = (e.clientY - rect.top) / rect.height;
+            rY((lx - 0.5) * 10);
+            rX((0.5 - ly) * 8);
+            glare.style.setProperty('--gx', `${lx * 100}%`);
+            glare.style.setProperty('--gy', `${ly * 100}%`);
+            glare.style.opacity = '1';
+          });
+          wrap.addEventListener('pointerleave', () => {
+            rX(0);
+            rY(0);
+            glare.style.opacity = '0';
+          });
+        });
+      }
+
+      /* 8. DAY TIMELINE PROGRESS SCRUB */
+      const fillEl = document.getElementById('nle-progress-fill');
+      const tcEl = document.getElementById('at-timecode');
+      if (fillEl) {
+        gsap.to(fillEl, {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#day-timeline-sec',
+            start: 'top 75%',
+            end: 'bottom 45%',
+            scrub: 0.5,
+            onUpdate: (self) => {
+              if (!tcEl) return;
+              const hour = Math.floor(7 + self.progress * 14);
+              const label = hour < 11 ? 'AMANECER' : hour < 16 ? 'MEDIODÍA' : 'TARDE';
+              tcEl.textContent = `${String(hour).padStart(2, '0')}:00 HRS · ${label}`;
+            }
+          }
+        });
+      }
+
+      /* 9. CURTAIN REVEAL + IMAGE PARALLAX */
+      document.querySelectorAll('[data-reveal-media]').forEach((wrap) => {
+        const img = wrap.querySelector('img');
+        gsap.fromTo(
+          wrap,
+          { clipPath: 'inset(100% 0% 0% 0%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1.25,
+            ease: 'expo.out',
+            scrollTrigger: { trigger: wrap, start: 'top 85%', once: true }
+          }
+        );
+        if (img) {
+          gsap.fromTo(
+            img,
+            { scale: 1.18, yPercent: -6 },
+            {
+              scale: 1,
+              yPercent: 6,
+              ease: 'none',
+              scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: true }
+            }
+          );
+        }
+      });
+
+      /* 10. MAGNETIC BUTTONS */
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+          const xTo = gsap.quickTo(btn, 'x', { duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+          const yTo = gsap.quickTo(btn, 'y', { duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+          btn.addEventListener('pointermove', (e) => {
+            const r = btn.getBoundingClientRect();
+            xTo((e.clientX - (r.left + r.width / 2)) * 0.22);
+            yTo((e.clientY - (r.top + r.height / 2)) * 0.22);
+          });
+          btn.addEventListener('pointerleave', () => {
+            xTo(0);
+            yTo(0);
+          });
+        });
+      }
+    })();
+  </script>
+  <!-- BOTÓN FLOTANTE WHATSAPP OFICIAL ATOYAC -->
+  <a href="https://wa.me/525659122497?text=%C2%A1Hola%20ATOYAC!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido%20o%20conocer%20m%C3%A1s%20informaci%C3%B3n%20%E2%98%95" target="_blank" rel="noopener" id="floating-whatsapp-btn" style="position: fixed; bottom: 24px; right: 24px; z-index: 999; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(37,211,102,0.42); text-decoration: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" aria-label="Escribir por WhatsApp a ATOYAC">
+    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.89 6.069-1.591c1.701.927 3.655 1.455 5.731 1.455 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
+    </svg>
+  </a>
+</body>
+</html>
