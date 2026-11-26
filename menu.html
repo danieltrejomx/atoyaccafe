@@ -3,328 +3,756 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo Completo de Productos | ATOYAC · All-Day Healthy Kitchen</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>Menú Digital Oficial | ATOYAC · All Day Healthy Food</title>
+  <meta name="description" content="Menú oficial de ATOYAC: Chilaquiles verdes, chapatas, baguettes, café de especialidad y bebidas. Precios oficiales y pedidos por WhatsApp." />
+  
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+  
+  <!-- Google Fonts: Montserrat + Instrument Serif + Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    .filter-bar {
+    :root {
+      --bg-cream: #FBF9F5;
+      --bg-white: #FFFFFF;
+      --forest-dark: #1E2D22;
+      --forest-mid: #2C3E31;
+      --forest-sage: #5A6D5F;
+      --icon-green: #1EA355;
+      --card-border: rgba(30, 45, 34, 0.08);
+      --btn-border: #D1D5DB;
+      --font-montserrat: 'Montserrat', sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-cream);
+      color: var(--forest-dark);
+      font-family: var(--font-montserrat);
+      min-height: 100vh;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* TOP NAVBAR */
+    .menu-navbar {
+      background: rgba(251, 249, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      height: 72px;
+      padding: 0 1.5rem;
+      display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      background: var(--bg-cream);
-      padding: 1rem 1.25rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--forest-dark);
+    }
+
+    .brand-logo-img {
+      height: 34px;
+      width: auto;
+    }
+
+    .brand-title-nav {
+      font-family: var(--font-montserrat);
+      font-weight: 300;
+      font-size: 1.15rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-nav-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-white);
+      border: 1.5px solid var(--btn-border);
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-family: var(--font-montserrat);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--forest-dark);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav-wa:hover {
+      border-color: #25D366;
+      color: #075E54;
+      transform: translateY(-1px);
+    }
+
+    /* HERO SECTION */
+    .menu-hero {
+      text-align: center;
+      padding: 2.5rem 1.25rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .menu-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 6vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--forest-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-subtitle {
+      font-size: 0.88rem;
+      color: var(--forest-sage);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
       margin-bottom: 2rem;
     }
-    .filter-pills {
+
+    /* BOTONES DE CATEGORÍAS EN UNA FILA */
+    .category-pills-wrap {
       display: flex;
+      align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .cat-btn {
+      display: inline-flex;
+      align-items: center;
       gap: 0.5rem;
-    }
-    .filter-pill {
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-strong);
       background: var(--bg-white);
-      font-weight: 600;
-      font-size: 0.86rem;
-      cursor: pointer;
+      border: 1.5px solid var(--btn-border);
+      border-radius: 999px;
+      padding: 0.65rem 1.35rem;
+      font-family: var(--font-montserrat);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       color: var(--forest-dark);
-      transition: all 0.2s;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
-    .filter-pill.active, .filter-pill:hover {
+
+    .cat-btn svg {
+      width: 18px;
+      height: 18px;
+      color: var(--icon-green);
+      stroke: var(--icon-green);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .cat-btn:hover {
+      border-color: #9CA3AF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .cat-btn.active {
       background: var(--forest-dark);
-      color: var(--bg-sand);
       border-color: var(--forest-dark);
+      color: #FFFFFF;
+      box-shadow: 0 6px 18px rgba(30, 45, 34, 0.2);
     }
-    .product-catalog-card {
+
+    .cat-btn.active svg {
+      color: #7FE0A0;
+      stroke: #7FE0A0;
+    }
+
+    /* ===================================================================
+       CARRUSEL DE PRODUCTOS QUE SE MUEVE LENTAMENTE
+       =================================================================== */
+    .carousel-section {
+      width: 100%;
+      overflow: hidden;
+      padding: 1rem 0 3.5rem;
+      position: relative;
+    }
+
+    /* Sombras laterales para desvanecer bordes */
+    .carousel-section::before,
+    .carousel-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .carousel-section::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-cream) 20%, rgba(251, 249, 245, 0) 100%);
+    }
+    .carousel-section::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-cream) 20%, rgba(251, 249, 245, 0) 100%);
+    }
+
+    .carousel-track-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      display: flex;
+    }
+    .carousel-track-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      animation: slowMarquee 38s linear infinite;
+      padding: 0.5rem 1.5rem;
+    }
+
+    /* Al pasar el mouse o dedo por encima, se pausa suavemente para leer */
+    .carousel-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes slowMarquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* TARJETA DE PRODUCTO */
+    .dish-card {
+      width: 320px;
+      flex-shrink: 0;
       background: var(--bg-white);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      padding: 1.35rem;
+      border-radius: 20px;
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 1rem;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .product-catalog-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
+
+    .dish-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(30, 45, 34, 0.1);
+      border-color: rgba(30, 45, 34, 0.16);
     }
-    .product-catalog-card.is-combo {
-      background: linear-gradient(180deg, #FDF8F5 0%, #FFFFFF 100%);
-      border: 1.5px solid var(--terracotta);
+
+    .dish-img-box {
+      width: 100%;
+      height: 195px;
+      overflow: hidden;
+      position: relative;
+      background: #eeebe3;
     }
-    .portion-box {
-      background: var(--bg-sand);
-      padding: 0.6rem 0.8rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.78rem;
+
+    .dish-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .dish-card:hover .dish-img {
+      transform: scale(1.05);
+    }
+
+    .dish-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(6px);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       color: var(--forest-dark);
-      border-left: 3px solid var(--sage-green);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .dish-info {
+      padding: 1.25rem 1.35rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .dish-name {
+      font-family: var(--font-montserrat);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--forest-dark);
+      margin-bottom: 0.45rem;
+      line-height: 1.25;
+    }
+
+    .dish-desc {
+      font-size: 0.82rem;
+      color: var(--forest-sage);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+      min-height: 48px;
+    }
+
+    /* PIE DE TARJETA CON EL PRECIO Y BOTÓN */
+    .dish-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(30, 45, 34, 0.1);
+    }
+
+    .dish-price-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dish-price-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9CA3AF;
+    }
+
+    .dish-price {
+      font-family: var(--font-montserrat);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .dish-price span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--forest-sage);
+    }
+
+    .dish-order-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #F0FDF4;
+      border: 1.5px solid #BBF7D0;
+      color: #15803D;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .dish-order-btn:hover {
+      background: #25D366;
+      border-color: #25D366;
+      color: #FFFFFF;
+    }
+
+    /* FOOTER DISCRETO */
+    .menu-footer-bar {
+      margin-top: auto;
+      text-align: center;
+      padding: 2rem 1.25rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.82rem;
+      color: var(--forest-sage);
+    }
+
+    .menu-footer-bar a {
+      color: var(--forest-dark);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .dish-card {
+        width: 280px;
+      }
+      .dish-img-box {
+        height: 175px;
+      }
+      .menu-title {
+        font-size: 2.3rem;
+      }
+      .cat-btn {
+        padding: 0.55rem 1.1rem;
+        font-size: 0.82rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- MINIMAL NAVBAR -->
-  <header class="navbar" style="background: rgba(239, 236, 230, 0.96); border-bottom: 1px solid rgba(37, 51, 41, 0.08);">
-    <div class="container navbar-inner" style="height: 84px;">
-      <a href="index.html" class="brand-logo" style="gap: 0.65rem;">
-        <img src="assets/img/logo.svg" alt="ATOYAC Logo" style="height: 38px; width: auto;" />
-        <div class="brand-text-wrap">
-          <span class="brand-title">ATOYAC</span>
-        </div>
+  <!-- TOP NAVBAR -->
+  <header class="menu-navbar">
+    <a href="index.html" class="brand-link" aria-label="Ir al Inicio">
+      <img src="assets/img/logo.svg" alt="ATOYAC" class="brand-logo-img" />
+      <span class="brand-title-nav">ATOYAC</span>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20%E2%98%95%F0%9F%A5%A0" target="_blank" rel="noopener" class="btn-nav-wa">
+        <span>💬 Pedir por WhatsApp</span>
       </a>
-
-      <ul class="nav-links" style="gap: 2.25rem;">
-        <li><a href="index.html" class="nav-link" style="background: transparent; color: var(--text-muted);">Inicio</a></li>
-        <li><a href="menu.html" class="nav-link active" style="background: transparent; color: var(--forest-dark); border-bottom: 1.5px solid var(--forest-dark); border-radius: 0;">Menú</a></li>
-        <li><a href="nosotros.html" class="nav-link" style="background: transparent; color: var(--text-muted);">Nosotros</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a href="delivery.html" class="btn btn-outline btn-sm">Entrega a tu Domicilio</a>
-      </div>
     </div>
   </header>
 
-  <main class="section" style="padding-top: 2.5rem;">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Menú Completo · Transparencia de Ingredientes</span>
-        <h1 class="section-title">Todos los productos, combos, extras y porciones estándar.</h1>
-        <p class="section-subtitle">
-          Misma porción siempre: así el sabor y la frescura nunca cambian. Consulta aquí nuestro catálogo completo de Amanecer, Mediodía, Tarde y Para Tomar.
-        </p>
+  <!-- SECCIÓN HEADER -->
+  <main>
+    <section class="menu-hero">
+      <h1 class="menu-title">Menú Oficial</h1>
+      <p class="menu-subtitle">All day healthy food · Santa Cruz Atoyac</p>
+
+      <!-- BOTONES DE CATEGORÍA EN UNA FILA -->
+      <nav class="category-pills-wrap" aria-label="Categorías del Menú">
+        <!-- 1. Chilaquiles -->
+        <button class="cat-btn active" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          <span>Chilaquiles</span>
+        </button>
+
+        <!-- 2. Baguettes / Chapatas -->
+        <button class="cat-btn" data-category="baguettes" onclick="switchCategory('baguettes')">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Baguettes & Chapatas</span>
+        </button>
+
+        <!-- 3. Bebidas -->
+        <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">
+          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+          <span>Bebidas</span>
+        </button>
+
+        <!-- 4. Ensaladas -->
+        <button class="cat-btn" data-category="ensaladas" onclick="switchCategory('ensaladas')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+          <span>Ensaladas</span>
+        </button>
+
+        <!-- 5. Postres -->
+        <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">
+          <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"></path><path d="M12 3a4 4 0 0 0-4 4v5h8V7a4 4 0 0 0-4-4z"></path></svg>
+          <span>Postres</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- CARRUSEL QUE SE MUEVE LENTAMENTE -->
+    <section class="carousel-section" id="carousel-viewport">
+      <div class="carousel-track-wrapper">
+        <div class="carousel-track" id="carousel-track">
+          <!-- Tarjetas insertadas dinámicamente -->
+        </div>
       </div>
-
-      <!-- FILTER BAR -->
-      <div class="filter-bar">
-        <div class="filter-pills" id="category-filters">
-          <button class="filter-pill active" data-cat="todos">Todos los Productos (18)</button>
-          <button class="filter-pill" data-cat="combos">⭐ Combos Ahorro</button>
-          <button class="filter-pill" data-cat="amanecer">☀️ Amanecer (7:00–11:30)</button>
-          <button class="filter-pill" data-cat="mediodia">🥖 Mediodía (11:30–16:30)</button>
-          <button class="filter-pill" data-cat="tarde">🥞 Tarde (16:30–21:00)</button>
-          <button class="filter-pill" data-cat="bebidas">🍊 Para Tomar (Todo el día)</button>
-        </div>
-
-        <div style="min-width: 240px;">
-          <input type="search" id="search-input" class="form-input" placeholder="Buscar producto o ingrediente..." style="width: 100%;" />
-        </div>
-      </div>
-
-      <!-- CATALOG GRID -->
-      <div class="grid-3" id="catalog-grid"></div>
-
-      <!-- EXTRAS & PORCIONES ESTÁNDAR TABLE -->
-      <section style="margin-top: 4rem;">
-        <div class="section-header">
-          <span class="eyebrow">Manual de Barra · Estándar de Calidad</span>
-          <h2 class="section-title" style="font-size: 1.85rem;">Tabla de Porciones Estándar y Extras</h2>
-          <p class="section-subtitle">Cada platillo se prepara al momento respetando nuestro gramaje exacto.</p>
-        </div>
-
-        <div class="grid-2" style="align-items: start; gap: 2rem;">
-          <div style="overflow-x: auto;">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Porción Estándar en Barra</th>
-                  <th>Precio Local</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Sándwich Clásico</strong></td>
-                  <td>2 rebanadas pan integral · 60 g jamón de pavo · 40 g panela</td>
-                  <td><strong>$49</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Sándwich Atoyac</strong></td>
-                  <td>2 rebanadas · 70 g pechuga de pavo · 40 g aguacate · 2 rodajas jitomate · 15 g espinaca</td>
-                  <td><strong>$65</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Baguette de pechuga</strong></td>
-                  <td>Baguette 25 cm · 100 g pechuga a la plancha · 40 g panela · espinaca y jitomate</td>
-                  <td><strong>$89</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Baguette de milanesa</strong></td>
-                  <td>Baguette 25 cm · 110 g milanesa de pollo · 40 g panela · lechuga y jitomate</td>
-                  <td><strong>$95</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Baguette de jamón y queso</strong></td>
-                  <td>Baguette 25 cm · 70 g jamón de pavo · 50 g panela · lechuga y jitomate</td>
-                  <td><strong>$85</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Crepas dulces</strong></td>
-                  <td>60 ml de masa · Nutella 35 g + ½ plátano · Fresa 80 g + 30 g queso crema + 10 ml miel · Cajeta 40 g + 10 g nuez</td>
-                  <td><strong>$69 – $75</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Crepa salada</strong></td>
-                  <td>60 ml de masa · 70 g pechuga · 40 g panela · 15 g espinaca</td>
-                  <td><strong>$79</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Jugo de naranja 500 ml</strong></td>
-                  <td>5 a 6 naranjas recién exprimidas, sin azúcar añadida</td>
-                  <td><strong>$38</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="card card-white">
-            <span class="eyebrow">Personaliza tu Orden</span>
-            <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">Extras Disponibles</h3>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-              <div class="menu-item-row" style="padding: 0.6rem 0;">
-                <div>
-                  <div class="menu-item-name">🥑 Aguacate Hass Extra (40 g)</div>
-                  <div class="menu-item-desc">Ideal para sándwiches, baguettes o crepa salada</div>
-                </div>
-                <div class="menu-item-price">+$15</div>
-              </div>
-              <div class="menu-item-row" style="padding: 0.6rem 0;">
-                <div>
-                  <div class="menu-item-name">🍗 Doble Proteína</div>
-                  <div class="menu-item-desc">Porción extra de pechuga, pavo o milanesa</div>
-                </div>
-                <div class="menu-item-price">+$20</div>
-              </div>
-              <div class="menu-item-row" style="padding: 0.6rem 0;">
-                <div>
-                  <div class="menu-item-name">🍞 Cambio a Pan Integral</div>
-                  <div class="menu-item-desc">Sin costo adicional en todos los sándwiches</div>
-                </div>
-                <div class="menu-item-price" style="color: var(--status-ok);">$0</div>
-              </div>
-              <div class="menu-item-row" style="padding: 0.6rem 0;">
-                <div>
-                  <div class="menu-item-name">🍓 Plátano o Fresa Extra</div>
-                  <div class="menu-item-desc">Fruta fresca adicional para tus crepas</div>
-                </div>
-                <div class="menu-item-price">+$15</div>
-              </div>
-              <div class="menu-item-row" style="padding: 0.6rem 0;">
-                <div>
-                  <div class="menu-item-name">🍫 Doble Nutella (35 g extra)</div>
-                  <div class="menu-item-desc">Para amantes del chocolate avellana</div>
-                </div>
-                <div class="menu-item-price">+$15</div>
-              </div>
-            </div>
-
-            <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              <a href="kiosco.html" class="btn btn-primary" style="flex: 1;">Pedir en Kiosco iPad</a>
-              <a href="delivery.html" class="btn btn-terracotta" style="flex: 1;">Pedir en Delivery</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    </section>
   </main>
 
-  <script type="module">
-    import { MENU_ITEMS, MOMENTS, formatMXN } from './js/store.js';
+  <!-- FOOTER -->
+  <footer class="menu-footer-bar">
+    <p>☕ ¿Prefieres pedir con anticipación? <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20para%20recoger%20en%20barra%20%E2%98%95%F0%9F%A5%A0">Escríbenos por WhatsApp al 56 5896 5015</a></p>
+  </footer>
 
-    const grid = document.getElementById('catalog-grid');
-    const searchInput = document.getElementById('search-input');
-    const filterButtons = document.querySelectorAll('#category-filters .filter-pill');
+  <script>
+    // BASE DE DATOS DE PRODUCTOS Y PRECIOS DEL PDF OFICIAL DE ATOYAC
+    const PRODUCTS = {
+      chilaquiles: [
+        {
+          name: "Chilaquiles Sencillos",
+          desc: "Totopos de maíz crujientes, salsa verde de la casa, crema fresca, queso y cebolla morada.",
+          price: 65,
+          tag: "Clásico Verde",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Chilaquiles con Pollo",
+          desc: "Totopos con salsa verde artesanal, pechuga de pollo a la plancha o deshebrada, crema y queso.",
+          price: 90,
+          tag: "El Favorito",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Chilaquiles con Res",
+          desc: "Totopos con salsa verde, jugosas fajitas de res a la plancha, crema, queso fresco y cebolla.",
+          price: 100,
+          tag: "Especial",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Combo Chilaquiles + Café",
+          desc: "Chilaquiles con pollo + Café americano de especialidad caliente. Promo completa.",
+          price: 100,
+          tag: "Promo de Comida",
+          image: "assets/img/dishes/sandwiches.jpg"
+        }
+      ],
+      baguettes: [
+        {
+          name: "Chapata de Jamón",
+          desc: "Jamón de pavo, queso panela, queso manchego, lechuga, tomate, cebolla y mayonesa. Pan normal o integral con papas o ensalada.",
+          price: 80,
+          tag: "Chapata",
+          image: "assets/img/dishes/baguettes.jpg"
+        },
+        {
+          name: "Chapata de Pollo",
+          desc: "Pollo a la plancha con pimiento verde, rojo y cebolla caramelizada, panela, manchego, lechuga y tomate.",
+          price: 95,
+          tag: "Gourmet",
+          image: "assets/img/dishes/baguettes.jpg"
+        },
+        {
+          name: "Chapata Fajitas de Res",
+          desc: "Fajitas de res con pimiento verde, rojo y cebolla caramelizada, panela, queso manchego, lechuga y tomate.",
+          price: 105,
+          tag: "Corte Res",
+          image: "assets/img/dishes/baguettes.jpg"
+        },
+        {
+          name: "Molletes Sencillos",
+          desc: "Pan baguette artesanal con frijoles refritos de la casa y queso manchego gratinado al horno.",
+          price: 50,
+          tag: "Molletes",
+          image: "assets/img/dishes/baguettes.jpg"
+        },
+        {
+          name: "Molletes Atoyac",
+          desc: "Orden de 2 molletes con frijoles, manchego, tocino crujiente y pollo, acompañados de pico de gallo.",
+          price: 80,
+          tag: "Especial Barra",
+          image: "assets/img/dishes/baguettes.jpg"
+        },
+        {
+          name: "Combo Panini + Agua",
+          desc: "Panini caliente de jamón y queso derretido + Agua fresca de horchata de 500 ml.",
+          price: 100,
+          tag: "Promo de Comida",
+          image: "assets/img/dishes/baguettes.jpg"
+        }
+      ],
+      bebidas: [
+        {
+          name: "Café Americano",
+          desc: "Café de especialidad 100% arábica de tueste medio, recién extraído en taza caliente.",
+          price: 35,
+          tag: "Especialidad",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Café de Olla",
+          desc: "Café de olla tradicional mexicano infusionado con canela en rama y piloncillo natural.",
+          price: 35,
+          tag: "Tradición",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Espresso",
+          desc: "Shot concentrado de café puro con cuerpo sedoso y densa crema dorada.",
+          price: 45,
+          tag: "Puro",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Latte",
+          desc: "Espresso de especialidad con leche fresca al vapor perfectamente emulsionada.",
+          price: 55,
+          tag: "Cremoso",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Cappuccino",
+          desc: "Espresso, leche vaporizada y abundante espuma cremosa espolvoreada con canela.",
+          price: 55,
+          tag: "Espuma",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Tizana Frutal (500 ml)",
+          desc: "Infusión frutal caliente o fría con trozos de fresa, arándano y flores naturales.",
+          price: 65,
+          tag: "Infusión",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Agua de Horchata (500 ml)",
+          desc: "Receta tradicional de la casa con arroz y canela, bien fría y refrescante.",
+          price: 35,
+          tag: "Artesanal",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Combo: Americano + 4 Mini Donas",
+          desc: "Café americano caliente recién preparado + 4 mini donas esponjosas.",
+          price: 60,
+          tag: "Promo Cafetera",
+          image: "assets/img/dishes/drinks.jpg"
+        },
+        {
+          name: "Combo: 2 Cappuccinos + Rebanada",
+          desc: "2 cappuccinos cremosos + Rebanada de pastel de zanahoria o cheesecake.",
+          price: 150,
+          tag: "Dúo Cafetero",
+          image: "assets/img/dishes/drinks.jpg"
+        }
+      ],
+      ensaladas: [
+        {
+          name: "Ensalada Tradicional",
+          desc: "Lechuga, espinaca, tomate, zanahoria, pepino, pimiento amarillo o rojo, aguacate, panela, crotones y semilla de girasol.",
+          price: 70,
+          tag: "Fresca",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Ensalada Jamón de Pavo",
+          desc: "Base fresca con jamón de pavo en cubos, panela, aguacate, crotones y aderezo ranch o mil islas.",
+          price: 90,
+          tag: "Ligera",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Ensalada con Pollo",
+          desc: "Pechuga de pollo a la plancha, espinaca, aguacate, queso panela, pepino y semillas de girasol.",
+          price: 100,
+          tag: "Proteína",
+          image: "assets/img/dishes/sandwiches.jpg"
+        },
+        {
+          name: "Plato de Fruta",
+          desc: "Manzana, plátano y fruta de temporada fresca, acompañado con miel y granola.",
+          price: 50,
+          tag: "Fruta",
+          image: "assets/img/dishes/sandwiches.jpg"
+        }
+      ],
+      postres: [
+        {
+          name: "Galleta de Chocolate",
+          desc: "Galleta horneada estilo artesanal con chispas de chocolate.",
+          price: 25,
+          tag: "Por Pieza",
+          image: "assets/img/dishes/crepes.jpg"
+        },
+        {
+          name: "4 Mini Donas",
+          desc: "Cuatro piezas de mini donas glaseadas suaves y recién salidas.",
+          price: 30,
+          tag: "4 Piezas",
+          image: "assets/img/dishes/crepes.jpg"
+        },
+        {
+          name: "Pastel de Zanahoria",
+          desc: "Rebanada húmeda y especiada con nuez y suave betún de queso crema.",
+          price: 50,
+          tag: "Rebanada",
+          image: "assets/img/dishes/crepes.jpg"
+        },
+        {
+          name: "Cheesecake",
+          desc: "Cremosa rebanada de pay de queso con base crujiente de galleta.",
+          price: 50,
+          tag: "Rebanada",
+          image: "assets/img/dishes/crepes.jpg"
+        }
+      ]
+    };
 
-    let currentCategory = 'todos';
-    let searchQuery = '';
+    let activeCat = 'chilaquiles';
 
-    function renderCatalog() {
-      const filtered = MENU_ITEMS.filter(item => {
-        const matchesCat =
-          currentCategory === 'todos' ||
-          (currentCategory === 'combos' && item.isCombo) ||
-          item.category === currentCategory;
+    function renderCarousel(categoryKey) {
+      const track = document.getElementById('carousel-track');
+      const items = PRODUCTS[categoryKey] || PRODUCTS['chilaquiles'];
 
-        const q = searchQuery.trim().toLowerCase();
-        const matchesSearch =
-          !q ||
-          item.name.toLowerCase().includes(q) ||
-          item.desc.toLowerCase().includes(q) ||
-          item.portion.toLowerCase().includes(q);
+      // Duplicamos la lista de items para lograr el efecto de scroll infinito continuo sin saltos
+      const duplicated = [...items, ...items, ...items];
 
-        return matchesCat && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">No encontramos productos con ese filtro.</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => {
-        const momentInfo = MOMENTS[item.category];
+      track.innerHTML = duplicated.map(item => {
+        const waText = encodeURIComponent(`¡Hola ATOYAC! Quiero pedir: ${item.name} ($${item.price} MXN) ☕🥪`);
         return `
-          <article class="product-catalog-card ${item.isCombo ? 'is-combo' : ''}" style="padding: 0; overflow: hidden;">
-            <div style="width: 100%; height: 175px; overflow: hidden; background: var(--bg-sand);">
-              <img src="${item.image}" alt="${item.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <article class="dish-card">
+            <div class="dish-img-box">
+              <img src="${item.image}" alt="${item.name}" class="dish-img" loading="lazy" />
+              <span class="dish-tag">${item.tag}</span>
             </div>
-            <div style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1; gap: 1rem;">
+            <div class="dish-info">
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
-                  <span class="badge ${momentInfo.badgeClass}">${momentInfo.name} · ${momentInfo.hours}</span>
-                  ${item.isCombo ? '<span class="badge" style="background: var(--terracotta); color: #fff;">COMBO AHORRO</span>' : ''}
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem;">
-                  <h3 style="font-size: 1.18rem; font-weight: 500; color: var(--forest-dark);">${item.name}</h3>
-                  <div style="text-align: right;">
-                    <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--forest-dark);">${formatMXN(item.price)}</div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted);">IVA incluido</div>
-                  </div>
-                </div>
-
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.5rem 0 0.85rem;">${item.desc}</p>
-
-                <div class="portion-box">
-                  <strong>Porción estándar:</strong> ${item.portion}
-                </div>
+                <h3 class="dish-name">${item.name}</h3>
+                <p class="dish-desc">${item.desc}</p>
               </div>
-
-              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.75rem; border-top: 1px dashed var(--border-subtle);">
-                <span style="font-size: 0.78rem; color: var(--text-muted);">⏱ Prep: ~${item.prepTimeMin} min</span>
-                <div style="display: flex; gap: 0.45rem;">
-                  <a href="kiosco.html?add=${item.id}" class="btn btn-ghost btn-sm">+ Kiosco</a>
-                  <a href="delivery.html?add=${item.id}" class="btn btn-primary btn-sm">Pedir →</a>
+              <div class="dish-footer">
+                <div class="dish-price-wrap">
+                  <span class="dish-price-label">Precio</span>
+                  <div class="dish-price">$${item.price} <span>MXN</span></div>
                 </div>
+                <a href="https://wa.me/525658965015?text=${waText}" target="_blank" rel="noopener" class="dish-order-btn">
+                  <span>Pedir</span>
+                  <span>↗</span>
+                </a>
               </div>
             </div>
           </article>
         `;
       }).join('');
+
+      // Reiniciar animación para que vuelva a iniciar suavemente
+      track.style.animation = 'none';
+      track.offsetHeight; // trigger reflow
+      track.style.animation = 'slowMarquee 36s linear infinite';
     }
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentCategory = btn.dataset.cat;
-        renderCatalog();
+    function switchCategory(catKey) {
+      activeCat = catKey;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === catKey);
       });
-    });
+      renderCarousel(catKey);
+    }
 
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value;
-      renderCatalog();
-    });
-
-    renderCatalog();
+    // Inicializar carrusel
+    renderCarousel('chilaquiles');
   </script>
+
 </body>
 </html>
