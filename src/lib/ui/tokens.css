@@ -1,0 +1,127 @@
+/* Atoyac Café — tokens de diseño. Fuente de verdad: docs/DISENO.md
+   Importar una sola vez en src/routes/+layout.svelte. No redefinir colores en componentes. */
+
+:root {
+  /* ---------- Color: superficies (crema, papel) ---------- */
+  --c-papel: #F7F3EC;        /* fondo general */
+  --c-arena: #EFEAE2;        /* barra lateral kiosco, banda de turno, paneles */
+  --c-blanco: #FFFFFF;       /* tarjetas, área de productos */
+  --c-linea: rgba(31, 45, 36, 0.12);
+  --c-linea-fuerte: rgba(31, 45, 36, 0.24);
+
+  /* ---------- Color: marca ---------- */
+  --c-bosque: #1F2D24;       /* texto principal, fondos oscuros */
+  --c-bosque-2: #2F4336;     /* hover sobre oscuro */
+  --c-hoja: #3E6B50;         /* verde de texto y acción (AA sobre crema: 5.5) */
+  --c-hoja-fuerte: #2F5D45;  /* botón primario (blanco encima: 7.6) */
+  --c-salvia: #698975;       /* SOLO decorativo, iconos y texto >= 32px */
+  --c-salvia-claro: #E2EBE5; /* fondos suaves verdes, selección */
+  --c-menta-tv: #A9C9B4;     /* texto secundario sobre bosque (8.0) */
+  --c-barro: #B4552F;        /* terracota: acento, precio destacado, CTA secundario */
+  --c-barro-texto: #9E4725;  /* terracota para texto < 24px sobre crema */
+  --c-barro-claro: #F7E6DD;
+  --c-maiz: #D9A441;         /* ocre: sellos, promociones */
+  --c-maiz-claro: #F8EED9;
+
+  /* ---------- Color: texto ---------- */
+  --c-texto: var(--c-bosque);
+  --c-texto-suave: #55615A;  /* 5.9 sobre papel */
+  --c-texto-inverso: #F7F3EC;
+
+  /* ---------- Color: estados de pedido (fondo / texto del chip) ---------- */
+  --c-nuevo-bg: #E1ECF7;       --c-nuevo: #1D4E89;
+  --c-preparando-bg: #FBEBD0;  --c-preparando: #8A4B00;
+  --c-listo-bg: #DDF0E3;       --c-listo: #1E6B3F;
+  --c-entregado-bg: #E9E6E0;   --c-entregado: #55615A;
+  --c-cancelado-bg: #FAE1E1;   --c-cancelado: #A12626;
+  --c-peligro: #B3261E;        /* alerta de stock, errores (blanco encima: 6.5) */
+
+  /* ---------- Color: canales (franja de 8px + etiqueta) ---------- */
+  --c-canal-didi: #C2410C;     /* naranja quemado */
+  --c-canal-rappi: #D81B60;    /* magenta, para no confundirse con DiDi */
+  --c-canal-uber: #1A1A1A;     /* negro */
+  --c-canal-interno: #2F5D45;  /* verde de la casa */
+  --c-canal-caja: #8A6A1F;     /* ocre oscuro */
+  --c-canal-kiosco: #5B4B8A;   /* ciruela */
+
+  /* ---------- Tipografía ---------- */
+  --f-titulo: 'Outfit Variable', 'Outfit', ui-rounded, system-ui, sans-serif;   /* títulos, números, botones */
+  --f-texto: 'Figtree Variable', 'Figtree', system-ui, -apple-system, sans-serif; /* cuerpo y UI */
+  --f-acento: 'Instrument Serif', Georgia, serif;                                 /* cursiva editorial, solo sitio */
+
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-56: 3.5rem;
+  --fs-72: 4.5rem;
+  --fs-hero: clamp(2.5rem, 6vw, 5rem);
+
+  --lh-titulo: 1.05;
+  --lh-texto: 1.55;
+  --ls-etiqueta: 0.12em;  /* versalitas: categorías, pestañas, TURNO */
+
+  /* ---------- Espaciado (base 4) ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* ---------- Forma ---------- */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  --sh-1: 0 1px 2px rgba(31, 45, 36, 0.06), 0 2px 8px rgba(31, 45, 36, 0.05);
+  --sh-2: 0 8px 24px rgba(31, 45, 36, 0.10);
+  --sh-3: 0 20px 48px rgba(31, 45, 36, 0.16);
+  --foco: 0 0 0 3px var(--c-papel), 0 0 0 6px var(--c-hoja);
+
+  /* ---------- Tamaños táctiles ---------- */
+  --toque: 44px;         /* sitio y portal */
+  --toque-kiosco: 56px;  /* mínimo en kiosco */
+  --toque-kiosco-xl: 72px; /* pagar, PIN, confirmar */
+
+  /* ---------- Movimiento ---------- */
+  --dur-1: 120ms;  /* presionar, hover */
+  --dur-2: 240ms;  /* chips, pestañas, tarjetas */
+  --dur-3: 420ms;  /* cajón del carrito, modales */
+  --dur-4: 900ms;  /* cambio de turno en TV */
+  --ease-salida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-entrada: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-rebote: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Capas ---------- */
+  --z-barra: 10;
+  --z-cajon: 40;
+  --z-modal: 50;
+  --z-aviso: 60;
+}
+
+/* TV vertical 1080x1920: poner class="tv" en el contenedor de /turnos. Legible a 3 m. */
+.tv {
+  --tv-numero: 320px;   /* número del turno actual (3 dígitos: 220px) */
+  --tv-titulo: 88px;    /* palabra TURNO */
+  --tv-proximo: 96px;   /* números de PRÓXIMOS */
+  --tv-texto: 44px;     /* productos del turno; nada más chico que esto */
+  --tv-etiqueta: 40px;  /* PRÓXIMOS */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0ms;
+    --dur-2: 0ms;
+    --dur-3: 0ms;
+    --dur-4: 0ms;
+  }
+}

@@ -3,3 +3,9 @@
 *.tar.gz
 node_modules/
 .firebase/
+.svelte-kit/
+build/
+data/
+.env
+.env.*
+!.env.example
