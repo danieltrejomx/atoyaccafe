@@ -1461,8 +1461,14 @@
       });
     }
 
+    const DEFAULT_META_TOKEN = "EAAYNVZCihPpYBTAVjJZBLwEamsZC60QVNQpmUTv9DNwD8SVyvhPCIEW4UuYaesxCeIxPk8HkV9rC2c0cJ9j3AZBRZAk3eWH5oWpUooxYTioevEKyO7HZBjlojMrTkJ1BkGNX3wgar9mQZCyP7vo5EcbhEIweTIwAvRgCX8EYxpR6Tu3iV2SbcRPEZC0wqQPCgwJunTJyiMPiIbFpI3Q47u4CqkjPDAJA81YsHCcpiJ0ZBMKcCC5xBCSPqTTqX9wVjfrwnus5ZB3Tkrc1ZChXbyTImBt3gEv";
+
     function loadMetaTokenConfig() {
-      const saved = localStorage.getItem('atoyac_meta_token');
+      let saved = localStorage.getItem('atoyac_meta_token');
+      if (!saved) {
+        saved = DEFAULT_META_TOKEN;
+        localStorage.setItem('atoyac_meta_token', DEFAULT_META_TOKEN);
+      }
       const input = document.getElementById('meta-access-token-input');
       const statusBadge = document.getElementById('meta-token-status');
       if (saved) {
