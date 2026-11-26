@@ -111,50 +111,54 @@
     /* HERO SECTION */
     .menu-hero {
       text-align: center;
-      padding: 2.5rem 1.25rem 1.5rem;
-      max-width: 800px;
+      padding: 2.25rem 1.25rem 1rem;
+      max-width: 900px;
       margin: 0 auto;
     }
 
     .menu-title {
-      font-family: var(--font-serif);
-      font-size: clamp(2.6rem, 6vw, 3.8rem);
-      font-weight: 400;
-      line-height: 1.05;
-      color: var(--forest-dark);
-      margin-bottom: 0.5rem;
-    }
-
-    .menu-subtitle {
-      font-size: 0.88rem;
-      color: var(--forest-sage);
-      letter-spacing: 0.08em;
+      font-family: var(--font-montserrat);
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 2rem;
+      color: var(--forest-dark);
+      margin-bottom: 1.75rem;
+      padding-left: 0.24em;
+      line-height: 1;
     }
 
-    /* BOTONES DE CATEGORÍAS EN UNA FILA */
+    /* BOTONES DE CATEGORÍAS EN UNA SOLA FILA */
     .category-pills-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
       gap: 0.65rem;
-      margin-bottom: 2.5rem;
-      padding: 0 1rem;
+      margin-bottom: 2rem;
+      padding: 0.25rem 1rem 0.75rem;
+      width: 100%;
+    }
+
+    .category-pills-wrap::-webkit-scrollbar {
+      display: none;
     }
 
     .cat-btn {
+      flex-shrink: 0;
+      white-space: nowrap;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: var(--bg-white);
       border: 1.5px solid var(--btn-border);
       border-radius: 999px;
-      padding: 0.65rem 1.35rem;
+      padding: 0.65rem 1.25rem;
       font-family: var(--font-montserrat);
-      font-size: 0.88rem;
+      font-size: clamp(0.8rem, 2.2vw, 0.88rem);
       font-weight: 500;
       letter-spacing: 0.02em;
       color: var(--forest-dark);
@@ -164,8 +168,8 @@
     }
 
     .cat-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       color: var(--icon-green);
       stroke: var(--icon-green);
       stroke-width: 2;
@@ -191,13 +195,21 @@
       stroke: #7FE0A0;
     }
 
+    @media (max-width: 720px) {
+      .category-pills-wrap {
+        justify-content: flex-start;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+    }
+
     /* ===================================================================
-       CARRUSEL DE PRODUCTOS QUE SE MUEVE LENTAMENTE
+       CARRUSEL INTERACTIVO: SE MUEVE LENTO, SE PAUSA AL CURSOR Y SE JALA
        =================================================================== */
     .carousel-section {
       width: 100%;
       overflow: hidden;
-      padding: 1rem 0 3.5rem;
+      padding: 0.5rem 0 3.5rem;
       position: relative;
     }
 
@@ -227,7 +239,17 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       display: flex;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+      scroll-behavior: auto;
     }
+
+    .carousel-track-wrapper.grabbing {
+      cursor: grabbing;
+    }
+
     .carousel-track-wrapper::-webkit-scrollbar {
       display: none;
     }
@@ -236,22 +258,7 @@
       display: flex;
       gap: 1.5rem;
       width: max-content;
-      animation: slowMarquee 38s linear infinite;
-      padding: 0.5rem 1.5rem;
-    }
-
-    /* Al pasar el mouse o dedo por encima, se pausa suavemente para leer */
-    .carousel-track:hover {
-      animation-play-state: paused;
-    }
-
-    @keyframes slowMarquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+      padding: 0.5rem 1.5rem 1.5rem;
     }
 
     /* TARJETA DE PRODUCTO */
@@ -263,6 +270,18 @@
       border: 1.5px solid var(--card-border);
       overflow: hidden;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 34px rgba(30, 45, 34, 0.12);
+      border-color: rgba(30, 45, 34, 0.16);
+    }
       flex-direction: column;
       justify-content: space-between;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
@@ -391,6 +410,182 @@
       color: #FFFFFF;
     }
 
+    /* ===================================================================
+       MODAL / POPUP DE DETALLE DEL PRODUCTO
+       =================================================================== */
+    .dish-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 40, 31, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .dish-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dish-modal-card {
+      background: var(--bg-white);
+      border-radius: 24px;
+      max-width: 440px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25);
+      position: relative;
+      transform: scale(0.93) translateY(14px);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dish-modal-overlay.active .dish-modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .dish-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--forest-dark);
+      font-size: 1.15rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .dish-modal-close:hover {
+      background: #FFFFFF;
+      transform: scale(1.08);
+    }
+
+    .dish-modal-img-wrap {
+      width: 100%;
+      height: 230px;
+      position: relative;
+      background: #EFECE6;
+    }
+
+    .dish-modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dish-modal-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(6px);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--forest-dark);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .dish-modal-body {
+      padding: 1.4rem 1.4rem 1.5rem;
+    }
+
+    .dish-modal-title {
+      font-family: var(--font-montserrat);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      margin-bottom: 0.55rem;
+      line-height: 1.25;
+    }
+
+    .dish-modal-desc {
+      font-size: 0.88rem;
+      color: var(--forest-sage);
+      line-height: 1.55;
+      margin-bottom: 1.35rem;
+    }
+
+    .dish-modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.15rem;
+      border-top: 1px dashed rgba(30, 45, 34, 0.12);
+    }
+
+    .dish-modal-price-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dish-modal-price-lbl {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9CA3AF;
+    }
+
+    .dish-modal-price {
+      font-family: var(--font-montserrat);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .dish-modal-price span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--forest-sage);
+    }
+
+    .dish-modal-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25D366;
+      color: #075E54;
+      border-radius: 999px;
+      padding: 0.7rem 1.25rem;
+      font-family: var(--font-montserrat);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+      white-space: nowrap;
+    }
+
+    .dish-modal-wa-btn:hover {
+      background: #20BD5A;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+    }
+
     /* FOOTER DISCRETO */
     .menu-footer-bar {
       margin-top: auto;
@@ -415,11 +610,18 @@
         height: 175px;
       }
       .menu-title {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
       }
       .cat-btn {
         padding: 0.55rem 1.1rem;
         font-size: 0.82rem;
+      }
+      .dish-modal-card {
+        max-width: 100%;
+        border-radius: 20px;
+      }
+      .dish-modal-img-wrap {
+        height: 200px;
       }
     }
   </style>
@@ -443,10 +645,9 @@
   <!-- SECCIÓN HEADER -->
   <main>
     <section class="menu-hero">
-      <h1 class="menu-title">Menú Oficial</h1>
-      <p class="menu-subtitle">All day healthy food · Santa Cruz Atoyac</p>
+      <h1 class="menu-title">MENÚ</h1>
 
-      <!-- BOTONES DE CATEGORÍA EN UNA FILA -->
+      <!-- BOTONES DE CATEGORÍA EN UNA SOLA FILA -->
       <nav class="category-pills-wrap" aria-label="Categorías del Menú">
         <!-- 1. Chilaquiles -->
         <button class="cat-btn active" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">
@@ -480,14 +681,38 @@
       </nav>
     </section>
 
-    <!-- CARRUSEL QUE SE MUEVE LENTAMENTE -->
+    <!-- CARRUSEL INTERACTIVO QUE SE MUEVE LENTO, SE DETIENE Y SE PUEDE JALAR -->
     <section class="carousel-section" id="carousel-viewport">
-      <div class="carousel-track-wrapper">
+      <div class="carousel-track-wrapper" id="carousel-track-wrapper" title="Arrastra hacia los lados o haz clic en cualquier platillo">
         <div class="carousel-track" id="carousel-track">
           <!-- Tarjetas insertadas dinámicamente -->
         </div>
       </div>
     </section>
+
+    <!-- POPUP MODAL DETALLE DE PRODUCTO -->
+    <div class="dish-modal-overlay" id="dishModal" onclick="closeDishModal(event)" aria-hidden="true">
+      <div class="dish-modal-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <button class="dish-modal-close" onclick="closeDishModal()" aria-label="Cerrar ventana">✕</button>
+        <div class="dish-modal-img-wrap">
+          <img id="modalDishImg" src="" alt="" class="dish-modal-img" />
+          <span id="modalDishTag" class="dish-modal-tag"></span>
+        </div>
+        <div class="dish-modal-body">
+          <h3 id="modalDishName" class="dish-modal-title"></h3>
+          <p id="modalDishDesc" class="dish-modal-desc"></p>
+          <div class="dish-modal-footer">
+            <div class="dish-modal-price-wrap">
+              <span class="dish-modal-price-lbl">Precio Oficial</span>
+              <div id="modalDishPrice" class="dish-modal-price">$0 <span>MXN</span></div>
+            </div>
+            <a id="modalDishWaBtn" href="#" target="_blank" rel="noopener" class="dish-modal-wa-btn">
+              <span>💬 Pedir por WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -700,18 +925,28 @@
     };
 
     let activeCat = 'chilaquiles';
+    const trackWrapper = document.getElementById('carousel-track-wrapper');
+    const track = document.getElementById('carousel-track');
+    
+    let isHovered = false;
+    let isPointerDown = false;
+    let hasDragged = false;
+    let startX = 0;
+    let scrollLeftStart = 0;
+    const SCROLL_SPEED = 0.38; // Muy lento, suave y legible
+    let animId = null;
 
     function renderCarousel(categoryKey) {
-      const track = document.getElementById('carousel-track');
       const items = PRODUCTS[categoryKey] || PRODUCTS['chilaquiles'];
 
-      // Duplicamos la lista de items para lograr el efecto de scroll infinito continuo sin saltos
-      const duplicated = [...items, ...items, ...items];
+      // Duplicamos 4 veces para lograr scroll infinito sin límites hacia ambos lados
+      const duplicated = [...items, ...items, ...items, ...items];
 
-      track.innerHTML = duplicated.map(item => {
+      track.innerHTML = duplicated.map((item, idx) => {
+        const realIndex = idx % items.length;
         const waText = encodeURIComponent(`¡Hola ATOYAC! Quiero pedir: ${item.name} ($${item.price} MXN) ☕🥪`);
         return `
-          <article class="dish-card">
+          <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${realIndex})">
             <div class="dish-img-box">
               <img src="${item.image}" alt="${item.name}" class="dish-img" loading="lazy" />
               <span class="dish-tag">${item.tag}</span>
@@ -726,20 +961,23 @@
                   <span class="dish-price-label">Precio</span>
                   <div class="dish-price">$${item.price} <span>MXN</span></div>
                 </div>
-                <a href="https://wa.me/525658965015?text=${waText}" target="_blank" rel="noopener" class="dish-order-btn">
-                  <span>Pedir</span>
+                <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${realIndex})">
+                  <span>Ver detalle</span>
                   <span>↗</span>
-                </a>
+                </button>
               </div>
             </div>
           </article>
         `;
       }).join('');
 
-      // Reiniciar animación para que vuelva a iniciar suavemente
-      track.style.animation = 'none';
-      track.offsetHeight; // trigger reflow
-      track.style.animation = 'slowMarquee 36s linear infinite';
+      // Posicionar en el segundo tercio para permitir jalar hacia atrás o adelante sin tope
+      requestAnimationFrame(() => {
+        if (trackWrapper) {
+          const segment = trackWrapper.scrollWidth / 4;
+          trackWrapper.scrollLeft = segment;
+        }
+      });
     }
 
     function switchCategory(catKey) {
@@ -750,8 +988,125 @@
       renderCarousel(catKey);
     }
 
-    // Inicializar carrusel
+    // ===================================================================
+    // MODAL / POPUP DE DETALLE DE PLATILLO
+    // ===================================================================
+    function openDishModal(item) {
+      if (!item) return;
+      document.getElementById('modalDishImg').src = item.image;
+      document.getElementById('modalDishImg').alt = item.name;
+      document.getElementById('modalDishTag').textContent = item.tag;
+      document.getElementById('modalDishName').textContent = item.name;
+      document.getElementById('modalDishDesc').textContent = item.desc;
+      document.getElementById('modalDishPrice').innerHTML = `$${item.price} <span>MXN</span>`;
+      
+      const waText = encodeURIComponent(`¡Hola ATOYAC! Quiero pedir: ${item.name} ($${item.price} MXN) ☕🥪`);
+      document.getElementById('modalDishWaBtn').href = `https://wa.me/525658965015?text=${waText}`;
+
+      const modal = document.getElementById('dishModal');
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openDishModalFromBtn(e, categoryKey, index) {
+      e.stopPropagation();
+      const item = PRODUCTS[categoryKey][index];
+      openDishModal(item);
+    }
+
+    function handleCardClick(e, categoryKey, index) {
+      // Si el usuario estaba jalando/arrastrando el carrusel, no abrir el modal
+      if (hasDragged) return;
+      const item = PRODUCTS[categoryKey][index];
+      openDishModal(item);
+    }
+
+    function closeDishModal(e) {
+      if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('dish-modal-close')) {
+        return;
+      }
+      const modal = document.getElementById('dishModal');
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDishModal();
+    });
+
+    // ===================================================================
+    // AUTO-SCROLL LOOP + PAUSA AL CURSOR + JALAR ADELANTE Y ATRÁS
+    // ===================================================================
+    function autoScrollLoop() {
+      if (!isHovered && !isPointerDown && trackWrapper) {
+        trackWrapper.scrollLeft += SCROLL_SPEED;
+
+        // Loop infinito suave hacia adelante
+        const segment = trackWrapper.scrollWidth / 4;
+        if (trackWrapper.scrollLeft >= segment * 3) {
+          trackWrapper.scrollLeft -= segment;
+        }
+      }
+      animId = requestAnimationFrame(autoScrollLoop);
+    }
+
+    // 1. Pausa al pasar cursor encima
+    trackWrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    trackWrapper.addEventListener('mouseleave', () => { 
+      if (!isPointerDown) isHovered = false; 
+    });
+
+    // 2. Jalar hacia adelante y atrás (mouse y touch)
+    trackWrapper.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      isPointerDown = true;
+      hasDragged = false;
+      startX = e.pageX - trackWrapper.offsetLeft;
+      scrollLeftStart = trackWrapper.scrollLeft;
+      trackWrapper.classList.add('grabbing');
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isPointerDown) return;
+      const currentX = e.pageX - trackWrapper.offsetLeft;
+      const walk = (currentX - startX);
+      if (Math.abs(walk) > 6) {
+        hasDragged = true;
+      }
+      trackWrapper.scrollLeft = scrollLeftStart - walk;
+
+      // Loop infinito durante el arrastre hacia adelante o atrás
+      const segment = trackWrapper.scrollWidth / 4;
+      if (trackWrapper.scrollLeft >= segment * 3) {
+        trackWrapper.scrollLeft -= segment;
+        scrollLeftStart -= segment;
+      } else if (trackWrapper.scrollLeft <= 20) {
+        trackWrapper.scrollLeft += segment;
+        scrollLeftStart += segment;
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (isPointerDown) {
+        isPointerDown = false;
+        trackWrapper.classList.remove('grabbing');
+        setTimeout(() => {
+          isHovered = false;
+        }, 700);
+      }
+    });
+
+    window.addEventListener('pointercancel', () => {
+      isPointerDown = false;
+      trackWrapper.classList.remove('grabbing');
+      isHovered = false;
+    });
+
+    // Inicializar carrusel y animación continua
     renderCarousel('chilaquiles');
+    animId = requestAnimationFrame(autoScrollLoop);
   </script>
 
 </body>
