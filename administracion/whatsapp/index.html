@@ -1180,8 +1180,7 @@
         chats = DEFAULT_CHATS;
       }
     }
-    let activeChatId = chats[0].id;
-    let activeChatId = chats[0].id;
+    let activeChatId = chats.length > 0 ? chats[0].id : null;
 
     function saveChats() {
       localStorage.setItem('atoyac_wa_inbox', JSON.stringify(chats));
