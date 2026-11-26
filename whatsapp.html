@@ -1034,29 +1034,45 @@
 
       remoteList.forEach(rem => {
         const cleanPhone = String(rem.phone || rem.id).replace(/\D/g, '');
-        const localIndex = chats.findIndex(c => {
+        const last10 = cleanPhone.slice(-10);
+
+        let localIndex = chats.findIndex(c => {
           const cPhone = String(c.phone || c.id).replace(/\D/g, '');
-          return cPhone === cleanPhone || c.id === rem.id;
+          return cPhone.slice(-10) === last10 || c.id === rem.id;
         });
+
+        // Extraer mensajes remotos
+        const incomingMsgs = Array.isArray(rem.messages) ? rem.messages : [];
+        if (!incomingMsgs.length && rem.lastMessage) {
+          incomingMsgs.push({
+            from: 'in',
+            text: rem.lastMessage,
+            time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+        }
 
         if (localIndex >= 0) {
           const local = chats[localIndex];
           if (rem.name && rem.name !== local.phone) local.name = rem.name;
-          if (rem.unread !== undefined) local.unread = rem.unread;
 
-          if (Array.isArray(rem.messages) && rem.messages.length > local.messages.length) {
-            local.messages = rem.messages;
-            changed = true;
-          } else if (rem.lastMessage) {
-            const lastLocal = local.messages[local.messages.length - 1];
-            if (!lastLocal || lastLocal.text !== rem.lastMessage) {
+          // Merge each message that is not already in local.messages
+          incomingMsgs.forEach(inMsg => {
+            const exists = local.messages.some(m => m.text.trim() === inMsg.text.trim());
+            if (!exists) {
               local.messages.push({
-                from: 'in',
-                text: rem.lastMessage,
-                time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                from: inMsg.from || 'in',
+                text: inMsg.text,
+                time: inMsg.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
               });
+              local.unread = (local.unread || 0) + 1;
               changed = true;
             }
+          });
+
+          // Si hubo cambios, moverlo al inicio de la lista
+          if (changed) {
+            const updated = chats.splice(localIndex, 1)[0];
+            chats.unshift(updated);
           }
         } else {
           // Nueva conversación recibida
@@ -1065,10 +1081,10 @@
             name: rem.name || cleanPhone,
             phone: cleanPhone,
             unread: rem.unread !== undefined ? rem.unread : 1,
-            messages: Array.isArray(rem.messages) && rem.messages.length > 0 ? rem.messages : [
+            messages: incomingMsgs.length ? incomingMsgs : [
               {
                 from: 'in',
-                text: rem.lastMessage || '¡Hola! Me gustaría información.',
+                text: rem.lastMessage || '¡Hola ATOYAC!',
                 time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
               }
             ]
@@ -1118,49 +1134,24 @@
         .catch(() => {});
     }
 
-    // BASE DE DATOS DE CONVERSACIONES
+    // BASE DE DATOS DE CONVERSACIONES (INBOX LIMPIO ATOYAC)
     const DEFAULT_CHATS = [
       {
         id: "chat-daniel",
         name: "Daniel Trejo",
         phone: "5215533759369",
-        unread: 0,
+        unread: 1,
         messages: [
-          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕✨", time: "10:56" },
-          { from: "out", text: "¡Hola Daniel! Tu cortesía para la inauguración está registrada ☕🎉.", time: "10:57" },
-          { from: "in", text: "hola", time: "12:20" },
-          { from: "in", text: "hola cara de bola", time: "12:32" },
-          { from: "in", text: "holaaa", time: "20:08" }
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:26" }
         ]
       },
       {
-        id: "chat-marcos",
-        name: "Marcos",
-        phone: "5214429803486",
+        id: "chat-david",
+        name: "David Macias.",
+        phone: "5215578434868",
         unread: 0,
         messages: [
-          { from: "in", text: "Hola, me gustaría saber si el sábado de inauguración tendrán paquetes para desayuno.", time: "13:29" },
-          { from: "out", text: "¡Hola Marcos! Sí, tendremos chilaquiles con pollo + café americano por $100 y combos de repostería.", time: "13:30" }
-        ]
-      },
-      {
-        id: "chat-sofia",
-        name: "Sofía Romero",
-        phone: "5215589577207",
-        unread: 0,
-        messages: [
-          { from: "in", text: "¡Hola! Vi su código QR en Popocatépetl. ¿Cómo obtengo el café gratis?", time: "10:59" },
-          { from: "out", text: "¡Hola Sofía! Con este mensaje ya estás registrada. Te esperamos este Sábado 5 de Diciembre desde las 9:00 AM.", time: "11:00" }
-        ]
-      },
-      {
-        id: "chat-carlos",
-        name: "Carlos Méndez (Barra)",
-        phone: "5215523456789",
-        unread: 0,
-        messages: [
-          { from: "in", text: "¿Tendrán leche vegetal (avena o almendra) para los lattes?", time: "12:18" },
-          { from: "out", text: "¡Hola Carlos! Sí, contamos con leche deslactosada, almendra y avena.", time: "12:20" }
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉 Mi nombre es David Macias.", time: "21:03" }
         ]
       },
       {
@@ -1169,23 +1160,27 @@
         phone: "525658965015",
         unread: 0,
         messages: [
-          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "11:00" }
+          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "09:00" }
         ]
       }
     ];
 
-    // Cargar o Inicializar
-    let chats = JSON.parse(localStorage.getItem('atoyac_wa_inbox')) || DEFAULT_CHATS;
-    // Si la caché del navegador solo tenía 1 mensaje o estaba desactualizada, fusionarla con DEFAULT_CHATS
-    DEFAULT_CHATS.forEach(defChat => {
-      const existing = chats.find(c => c.phone === defChat.phone || c.id === defChat.id);
-      if (!existing) {
-        chats.push(defChat);
-      } else if (defChat.messages.length > existing.messages.length) {
-        existing.messages = defChat.messages;
+    // Limpiar caché vieja si contiene Martha o demos anteriores
+    let rawCached = localStorage.getItem('atoyac_wa_inbox');
+    let chats = DEFAULT_CHATS;
+    if (rawCached) {
+      try {
+        const parsed = JSON.parse(rawCached);
+        if (Array.isArray(parsed) && !parsed.some(c => c.name === "Martha")) {
+          chats = parsed;
+        } else {
+          localStorage.setItem('atoyac_wa_inbox', JSON.stringify(DEFAULT_CHATS));
+        }
+      } catch (e) {
+        chats = DEFAULT_CHATS;
       }
-    });
-    localStorage.setItem('atoyac_wa_inbox', JSON.stringify(chats));
+    }
+    let activeChatId = chats[0].id;
     let activeChatId = chats[0].id;
 
     function saveChats() {

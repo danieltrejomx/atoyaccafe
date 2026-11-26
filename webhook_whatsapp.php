@@ -4,6 +4,8 @@
  * Teléfono: +52 56 5896 5015
  */
 
+date_default_timezone_set('America/Mexico_City');
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
