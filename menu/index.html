@@ -940,27 +940,27 @@
 
       <!-- BOTONES DE CATEGORÍAS (SOLO TEXTO) -->
       <nav class="category-pills-wrap" aria-label="Categorías del Menú">
-        <button class="cat-btn active" data-category="favoritos" onclick="switchCategory('favoritos')">Favoritos</button>
+        <button class="cat-btn active" data-category="promociones" onclick="switchCategory('promociones')">Promociones</button>
         <button class="cat-btn" data-category="ensaladas" onclick="switchCategory('ensaladas')">Ensaladas</button>
         <button class="cat-btn" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">Chilaquiles</button>
         <button class="cat-btn" data-category="chapatas" onclick="switchCategory('chapatas')">Chapatas & Molletes</button>
         <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">Café & Bebidas</button>
-        <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">Postres & Promos</button>
+        <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">Postres</button>
       </nav>
     </section>
 
     <!-- BARRA DE INFORMACIÓN DE CATEGORÍA CENTRADA -->
     <div class="category-header-bar">
       <div class="cat-info-block">
-        <span class="cat-part-tag" id="catPartTag">PARTE 1 · PARA COMER</span>
-        <h2 class="cat-title-text" id="catTitleText">Los Favoritos</h2>
-        <span class="cat-subtitle-text" id="catSubtitleText">Recién salidos de la cocina.</span>
+        <span class="cat-part-tag" id="catPartTag">PARTE 3 · COMBOS Y PROMOS</span>
+        <h2 class="cat-title-text" id="catTitleText">Promociones</h2>
+        <span class="cat-subtitle-text" id="catSubtitleText">Más sabor, mejor precio · El combo perfecto para tu día.</span>
       </div>
     </div>
 
     <!-- FRASE VERDE DE LA CATEGORÍA SEGÚN EL GUION -->
     <div class="category-quote-banner" id="catQuoteBanner">
-      <p id="catQuoteText">“Un buen día empieza con un buen desayuno.”</p>
+      <p id="catQuoteText">“Date un respiro, te lo mereces.”</p>
       <span id="catQuoteAuthor">— Café Atoyac</span>
     </div>
 
@@ -1047,11 +1047,11 @@
     // METADATOS Y FRASES OFICIALES
     // ===================================================================
     const CATEGORY_META = {
-      favoritos: {
-        part: "PARTE 1 · PARA COMER",
-        title: "Los Favoritos",
-        subtitle: "Recién salidos de la cocina.",
-        quote: "“Un buen día empieza con un buen desayuno.”",
+      promociones: {
+        part: "PARTE 3 · COMBOS Y PROMOS",
+        title: "Promociones",
+        subtitle: "Más sabor, mejor precio · El combo perfecto para tu día.",
+        quote: "“Date un respiro, te lo mereces.”",
         author: "— Café Atoyac"
       },
       ensaladas: {
@@ -1083,9 +1083,9 @@
         author: "— Café Atoyac"
       },
       postres: {
-        part: "PARTE 3 · POSTRES Y PROMOS",
-        title: "Postres & Promos",
-        subtitle: "La vida es corta: pide el postre · Más sabor, mejor precio.",
+        part: "PARTE 3 · POSTRES",
+        title: "Postres",
+        subtitle: "La vida es corta: pide el postre · El final feliz de tu comida.",
         quote: "“Date un respiro, te lo mereces.”",
         author: "— Café Atoyac"
       }
@@ -1097,33 +1097,51 @@
     // y su fallback automático (fallback) para que agregues tus fotos
     // ===================================================================
     const PRODUCTS = {
-      favoritos: [
+      promociones: [
         {
-          name: "Molletes Sencillos",
-          desc: "Pan, frijoles refritos de la casa y manchego gratinado al horno. Orden de 2 molletes acompañados de pico de gallo.",
-          price: 50,
-          tag: "Favorito",
-          image: "assets/img/dishes/molletes-sencillos.jpg",
-          fallback: "assets/img/dishes/baguettes.jpg",
-          slot: "molletes-sencillos.jpg"
+          name: "Americano + 4 Mini Donas",
+          desc: "El combo perfecto para tu tarde: café americano caliente recién hecho + 4 mini donas.",
+          price: 60,
+          tag: "Promo Cafetera",
+          image: "assets/img/dishes/promo-americano-donas.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "promo-americano-donas.jpg"
         },
         {
-          name: "Chapata de Pollo",
-          desc: "Pollo a la plancha con pimientos y cebolla caramelizada, panela y manchego. Con papas o ensalada. Pan normal o integral.",
-          price: 95,
-          tag: "Top Receta",
-          image: "assets/img/dishes/chapata-pollo.jpg",
-          fallback: "assets/img/dishes/baguettes.jpg",
-          slot: "chapata-pollo.jpg"
+          name: "2 Cappuccinos + Rebanada",
+          desc: "2 cappuccinos cremosos + rebanada de pastel de zanahoria o cheesecake a elegir.",
+          price: 150,
+          tag: "Dúo Cafetero",
+          image: "assets/img/dishes/promo-cappuccinos.jpg",
+          fallback: "assets/img/dishes/drinks.jpg",
+          slot: "promo-cappuccinos.jpg"
         },
         {
-          name: "Plato de Fruta",
-          desc: "Selección fresca de fruta de temporada seleccionada, lista para disfrutar fresca y ligera.",
-          price: 50,
-          tag: "Fresco",
-          image: "assets/img/dishes/plato-fruta.jpg",
+          name: "Chilaquiles con Pollo + Americano",
+          desc: "Chilaquiles verdes con pollo + café americano recién hecho. Más sabor, mejor precio.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-chilaquiles.jpg",
           fallback: "assets/img/dishes/sandwiches.jpg",
-          slot: "plato-fruta.jpg"
+          slot: "promo-chilaquiles.jpg"
+        },
+        {
+          name: "Ensalada de Pollo o Atún + Agua",
+          desc: "Ensalada de pollo o atún a elegir + agua fresca de horchata o del día de 500 ml.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-ensalada.jpg",
+          fallback: "assets/img/dishes/sandwiches.jpg",
+          slot: "promo-ensalada.jpg"
+        },
+        {
+          name: "Panini de Jamón + Agua",
+          desc: "Panini caliente de jamón y quesos derretidos + agua fresca de 500 ml.",
+          price: 100,
+          tag: "Promo Comida",
+          image: "assets/img/dishes/promo-panini.jpg",
+          fallback: "assets/img/dishes/baguettes.jpg",
+          slot: "promo-panini.jpg"
         }
       ],
       ensaladas: [
@@ -1370,54 +1388,18 @@
           slot: "postre-cheesecake.jpg"
         },
         {
-          name: "Americano + 4 Mini Donas",
-          desc: "El combo perfecto para tu tarde: café americano caliente recién hecho + 4 mini donas.",
-          price: 60,
-          tag: "Promo Cafetera",
-          image: "assets/img/dishes/promo-americano-donas.jpg",
-          fallback: "assets/img/dishes/drinks.jpg",
-          slot: "promo-americano-donas.jpg"
-        },
-        {
-          name: "2 Cappuccinos + Rebanada",
-          desc: "2 cappuccinos cremosos + rebanada de pastel de zanahoria o cheesecake a elegir.",
-          price: 150,
-          tag: "Dúo Cafetero",
-          image: "assets/img/dishes/promo-cappuccinos.jpg",
-          fallback: "assets/img/dishes/drinks.jpg",
-          slot: "promo-cappuccinos.jpg"
-        },
-        {
-          name: "Chilaquiles con Pollo + Americano",
-          desc: "Chilaquiles verdes con pollo + café americano recién hecho. Más sabor, mejor precio.",
-          price: 100,
-          tag: "Promo Comida",
-          image: "assets/img/dishes/promo-chilaquiles.jpg",
+          name: "Plato de Fruta",
+          desc: "Selección fresca de fruta de temporada seleccionada, lista para disfrutar fresca y ligera.",
+          price: 50,
+          tag: "Fresco",
+          image: "assets/img/dishes/plato-fruta.jpg",
           fallback: "assets/img/dishes/sandwiches.jpg",
-          slot: "promo-chilaquiles.jpg"
-        },
-        {
-          name: "Ensalada de Pollo o Atún + Agua",
-          desc: "Ensalada de pollo o atún a elegir + agua fresca de horchata o del día de 500 ml.",
-          price: 100,
-          tag: "Promo Comida",
-          image: "assets/img/dishes/promo-ensalada.jpg",
-          fallback: "assets/img/dishes/sandwiches.jpg",
-          slot: "promo-ensalada.jpg"
-        },
-        {
-          name: "Panini de Jamón + Agua",
-          desc: "Panini caliente de jamón y quesos derretidos + agua fresca de 500 ml.",
-          price: 100,
-          tag: "Promo Comida",
-          image: "assets/img/dishes/promo-panini.jpg",
-          fallback: "assets/img/dishes/baguettes.jpg",
-          slot: "promo-panini.jpg"
+          slot: "plato-fruta.jpg"
         }
       ]
     };
 
-    let activeCat = 'favoritos';
+    let activeCat = 'promociones';
 
     // Renderizar tarjeta individual (sin el botón de ver detalle)
     function createCardHTML(item, categoryKey, index) {
@@ -1452,8 +1434,8 @@
 
     // Renderizar según categoría activa
     function renderCategory(categoryKey) {
-      const items = PRODUCTS[categoryKey] || PRODUCTS['favoritos'];
-      const meta = CATEGORY_META[categoryKey] || CATEGORY_META['favoritos'];
+      const items = PRODUCTS[categoryKey] || PRODUCTS['promociones'];
+      const meta = CATEGORY_META[categoryKey] || CATEGORY_META['promociones'];
 
       // Actualizar textos de encabezado y frases del guion
       document.getElementById('catPartTag').textContent = meta.part;
@@ -1540,8 +1522,8 @@
       if (e.key === 'Escape') closeDishModal();
     });
 
-    // Inicializar carrusel en Favoritos
-    renderCategory('favoritos');
+    // Inicializar carrusel en Promociones
+    renderCategory('promociones');
   </script>
 
 </body>
