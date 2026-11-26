@@ -19,6 +19,7 @@ const INSUMOS: [string, string, number, number, string][] = [
 	['Pechuga de pollo', 'kg', 3.4, 1.5, '2 veces por semana'],
 	['Milanesa de pollo', 'piezas', 20, 8, '2 veces por semana'],
 	['Queso panela', 'kg', 2.5, 1.2, '2 veces por semana'],
+	['Queso amarillo', 'rebanadas', 80, 30, 'Semanal'],
 	['Aguacate Hass', 'kg', 2.2, 1, 'Central de Abastos (2x sem)'],
 	['Jitomate', 'kg', 4, 1.5, 'Central de Abastos (2x sem)'],
 	['Espinaca', 'kg', 1.5, 0.6, 'Central de Abastos (2x sem)'],
@@ -57,8 +58,8 @@ const extrasCrepa: Op[] = [
 const crepa = (n: string, d: string, p: number, relleno: Rec): Prod => ({
 	n, d, c: 'Tarde', p, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 0.12], ...relleno, ...empaque], ops: extrasCrepa
 });
-const baguette = (n: string, d: string, p: number, relleno: Rec): Prod => ({
-	n, d, c: 'Mediodía', p, f: '/img/dishes/baguettes.jpg', rec: [['Baguette', 1], ...relleno, ...empaque], ops: extrasPan(relleno.slice(0, 1))
+const baguette = (n: string, d: string, p: number, relleno: Rec, f: string): Prod => ({
+	n, d, c: 'Mediodía', p, f, rec: [['Baguette', 1], ...relleno, ...empaque], ops: extrasPan(relleno.slice(0, 1))
 });
 const sabores = (): Op[] => [
 	{ g: 'Sabor', n: 'Jamaica', def: true },
@@ -71,9 +72,12 @@ const bebida = (n: string, d: string, c: Categoria, p: number, rec: Rec, ops: Op
 
 const R_CLASICO: Rec = [['Pan integral de caja', 2], ['Jamón de pavo', 0.06], ['Queso panela', 0.04]];
 const R_ATOYAC: Rec = [['Pan integral de caja', 2], ['Pechuga de pavo', 0.07], ['Aguacate Hass', 0.04], ['Jitomate', 0.03], ['Espinaca', 0.015]];
-const R_PECHUGA: Rec = [['Pechuga de pollo', 0.1], ['Queso panela', 0.04], ['Espinaca', 0.015], ['Jitomate', 0.03]];
-const R_MILANESA: Rec = [['Milanesa de pollo', 1], ['Queso panela', 0.04], ['Lechuga', 0.02], ['Jitomate', 0.03]];
-const R_JAMON: Rec = [['Jamón de pavo', 0.07], ['Queso panela', 0.04], ['Lechuga', 0.02], ['Jitomate', 0.03]];
+// Porciones medidas en las fotos del menú (docs/fotos-whatsapp, 19-nov): toda baguette lleva 2 rebanadas de
+// queso amarillo, 3 de panela (~60 g), 3 rodajas de jitomate (~45 g), 4 de pepino (~30 g) y hoja de lechuga (~25 g).
+const R_BASE_BAGUETTE: Rec = [['Queso amarillo', 2], ['Queso panela', 0.06], ['Jitomate', 0.045], ['Pepino', 0.03], ['Lechuga', 0.025]];
+const R_PECHUGA: Rec = [['Pechuga de pollo', 0.1], ...R_BASE_BAGUETTE];
+const R_MILANESA: Rec = [['Milanesa de pollo', 1], ...R_BASE_BAGUETTE];
+const R_JAMON: Rec = [['Jamón de pavo', 0.08], ...R_BASE_BAGUETTE];
 const R_JUGO_NARANJA: Rec = [['Naranja para jugo', 0.9]];
 const R_AGUA: Rec = [['Concentrado de agua fresca', 0.5]];
 const R_AMERICANO: Rec = [['Café de grano', 0.009]];
@@ -90,11 +94,11 @@ const PRODUCTOS: Prod[] = [
 			{ g: 'Bebida', n: 'Jugo de naranja 500 ml', def: true, rec: R_JUGO_NARANJA }
 		]
 	},
-	baguette('Baguette de pechuga', 'Pechuga a la plancha, panela, espinaca y jitomate', 89, R_PECHUGA),
-	baguette('Baguette de milanesa', 'Milanesa de pollo, panela, lechuga y jitomate', 95, R_MILANESA),
-	baguette('Baguette de jamón y queso', 'Jamón de pavo, panela, lechuga y jitomate', 85, R_JAMON),
+	baguette('Baguette de pechuga', 'Pechuga a la plancha, panela, espinaca y jitomate', 89, R_PECHUGA, '/img/menu/baguette-pechuga.jpg'),
+	baguette('Baguette de milanesa', 'Milanesa de pollo, panela, lechuga y jitomate', 95, R_MILANESA, '/img/menu/baguette-milanesa.jpg'),
+	baguette('Baguette de jamón y queso', 'Jamón de pavo, panela, lechuga y jitomate', 85, R_JAMON, '/img/menu/baguette-jamon-queso.jpg'),
 	{
-		n: 'Combo Mediodía', d: 'Cualquier baguette + agua fresca 500 ml', c: 'Mediodía', p: 109, f: '/img/dishes/baguettes.jpg', rec: [['Baguette', 1], ...R_AGUA, ...empaque],
+		n: 'Combo Mediodía', d: 'Cualquier baguette + agua fresca 500 ml', c: 'Mediodía', p: 109, f: '/img/menu/baguette-pechuga.jpg', rec: [['Baguette', 1], ...R_AGUA, ...empaque],
 		ops: [
 			{ g: 'Baguette', n: 'De pechuga', def: true, rec: R_PECHUGA },
 			{ g: 'Baguette', n: 'De milanesa', rec: R_MILANESA },
