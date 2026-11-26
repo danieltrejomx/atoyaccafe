@@ -6,7 +6,7 @@
 	let { data } = $props();
 </script>
 
-<Seo titulo="Atoyac Café" descripcion="Comida fresca para tu día a día en Santa Cruz Atoyac, CDMX. Ensaladas, molletes, chilaquiles, paninis y café. Sin propina, para comer aquí o llevar." />
+<Seo titulo="Atoyac Café" descripcion="Comida fresca para tu día a día en Santa Cruz Atoyac, CDMX. Sándwiches, baguettes, crepas, jugos y café. Sin propina, para comer aquí o llevar." />
 
 <section class="hero seccion">
 	<div class="contenedor dos">

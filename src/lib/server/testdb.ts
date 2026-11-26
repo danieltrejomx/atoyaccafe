@@ -17,12 +17,12 @@ export async function fixture() {
 	const croissant = ins('Croissant', 3);
 	const panini = db
 		.insert(schema.productos)
-		.values({ nombre: 'Panini Jamón', categoria: 'Paninis', precio: 65 })
+		.values({ nombre: 'Panini Jamón', categoria: 'Mediodía', precio: 65 })
 		.returning()
 		.get();
 	const jugo = db
 		.insert(schema.productos)
-		.values({ nombre: 'Jugo', categoria: 'Bebidas frías', precio: 38 })
+		.values({ nombre: 'Jugo', categoria: 'Jugos y aguas', precio: 38 })
 		.returning()
 		.get();
 	const opCroissant = db

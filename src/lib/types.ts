@@ -5,15 +5,8 @@ export const PAGO_METODOS = ['efectivo', 'tarjeta', 'transferencia'] as const;
 export const PAGO_ESTADOS = ['pendiente', 'pagado'] as const;
 export const ESTADOS = ['nuevo', 'preparando', 'listo', 'entregado', 'cancelado'] as const;
 export const ROLES = ['admin', 'caja', 'cocina'] as const;
-export const CATEGORIAS = [
-	'Ensaladas',
-	'Molletes',
-	'Chilaquiles',
-	'Paninis',
-	'Bebidas frías',
-	'Bebidas calientes',
-	'Promociones'
-] as const;
+export const CATEGORIAS = ['Amanecer', 'Mediodía', 'Tarde', 'Jugos y aguas', 'Café y té'] as const;
+export const esBebida = (categoria: string) => categoria === 'Jugos y aguas' || categoria === 'Café y té';
 export const MOVIMIENTO_TIPOS = ['consumo', 'reversa', 'ajuste', 'merma', 'compra'] as const;
 
 export type Canal = (typeof CANALES)[number];

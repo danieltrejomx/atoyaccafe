@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Opcion, Producto } from '$lib/types';
+	import { esBebida, type Opcion, type Producto } from '$lib/types';
 	import Boton from '$lib/ui/Boton.svelte';
 	import Icono from '$lib/ui/Icono.svelte';
 
@@ -40,7 +40,7 @@
 		<button class="cerrar" aria-label="Cerrar" onclick={oncerrar}><Icono nombre="cerrar" /></button>
 		<div class="cuerpo">
 			<div class="foto">
-				{#if producto.foto}<img src={producto.foto} alt="" />{:else}<Icono nombre={producto.categoria.startsWith('Bebidas') ? 'taza' : 'cubiertos'} tam={48} />{/if}
+				{#if producto.foto}<img src={producto.foto} alt="" />{:else}<Icono nombre={esBebida(producto.categoria) ? 'taza' : 'cubiertos'} tam={48} />{/if}
 			</div>
 			<div class="datos">
 				<h2>{producto.nombre}</h2>

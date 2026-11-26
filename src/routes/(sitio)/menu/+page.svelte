@@ -6,7 +6,7 @@
 	const ancla = (c: string) => c.toLowerCase().replace(/\s+/g, '-');
 </script>
 
-<Seo titulo="Menú" descripcion="Ensaladas, molletes, chilaquiles, paninis, bebidas frías y calientes. Precios de mostrador, sin propina." />
+<Seo titulo="Menú" descripcion="Amanecer, mediodía y tarde: sándwiches, baguettes, crepas, jugos, aguas frescas y café. Precios de mostrador, sin propina." />
 
 <section class="seccion">
 	<div class="contenedor">

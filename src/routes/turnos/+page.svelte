@@ -100,7 +100,7 @@
 			{/if}
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
 		</section>
-		<section class="video"><VideoLoop src="/video/ensaladas.mp4" texto="Ensaladas frescas, hechas al momento" tono="bosque" /></section>
+		<section class="video"><VideoLoop src="/video/ensaladas.mp4" texto="Sándwiches y baguettes, hechos al momento" tono="bosque" /></section>
 		<section class="video"><VideoLoop src="/video/bebidas-calientes.mp4" texto="Pide tu bebida en combo y ahorra" tono="barro" /></section>
 	</main>
 

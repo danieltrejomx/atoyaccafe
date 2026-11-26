@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Producto } from '$lib/types';
+	import { esBebida, type Producto } from '$lib/types';
 	import Icono from './Icono.svelte';
 
 	let { producto, onelegir }: { producto: Producto; onelegir: (p: Producto) => void } = $props();
-	const bebida = $derived(producto.categoria.startsWith('Bebidas'));
+	const bebida = $derived(esBebida(producto.categoria));
 </script>
 
 <button class="tarjeta" aria-disabled={!producto.disponible} onclick={() => producto.disponible && onelegir(producto)}>
@@ -14,7 +14,7 @@
 			<Icono nombre={bebida ? 'taza' : 'cubiertos'} tam={48} />
 		{/if}
 	</span>
-	{#if producto.categoria === 'Promociones'}<span class="sello">Promo</span>{/if}
+	{#if producto.nombre.startsWith('Combo')}<span class="sello">Promo</span>{/if}
 	<span class="nombre">{producto.nombre}</span>
 	<span class="desc">{producto.descripcion}</span>
 	<span class="pie">
