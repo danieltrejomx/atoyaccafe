@@ -743,6 +743,35 @@
       color: #555;
       line-height: 1.35;
     }
+
+    #toast-container {
+      position: fixed;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .crm-toast {
+      background: #1e293b;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      animation: fadeInToast 0.25s ease-out;
+      pointer-events: auto;
+      max-width: 90vw;
+      text-align: center;
+    }
+    @keyframes fadeInToast {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -943,6 +972,26 @@
         </div>
       </div>
 
+      <!-- META ACCESS TOKEN CARD -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 1.15rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+          <strong style="font-size: 0.88rem; color: #0f172a;">💬 Envío Directo Meta WhatsApp API</strong>
+          <span id="meta-token-status" style="font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; background: #fef3c7; color: #92400e;">
+            Pendiente
+          </span>
+        </div>
+        <p style="font-size: 0.76rem; color: #64748b; line-height: 1.4; margin-bottom: 0.75rem;">
+          Pega aquí el <strong>Access Token</strong> de Meta for Developers (Phone ID: <code>1460670667130250</code>). Al guardarlo, los mensajes enviados desde esta pantalla saldrán al WhatsApp del cliente automáticamente.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <input type="password" id="meta-access-token-input" class="modal-input" style="margin-bottom: 0; padding: 0.5rem 0.75rem; font-size: 0.8rem;" placeholder="EAA... (Token de Meta API)" />
+          <button type="button" class="btn-new-chat" style="align-self: flex-start; margin-top: 0.25rem;" onclick="saveMetaTokenConfig()">
+            💾 Guardar Token de Meta
+          </button>
+        </div>
+      </div>
+
       <div style="background: #f0f2f5; padding: 0.85rem; border-radius: 8px; font-size: 0.78rem; line-height: 1.4; margin-bottom: 1rem; color: #334155;">
         <strong>Conexión con Meta Business Suite:</strong><br />
         • <strong>Webhook de Hostinger:</strong> <code>https://cafeatoyac.com.mx/webhook_whatsapp.php</code><br />
@@ -957,6 +1006,9 @@
       </div>
     </div>
   </div>
+
+  <!-- CONTENEDOR TOAST PARA NOTIFICACIONES -->
+  <div id="toast-container"></div>
 
   <!-- ===================================================================
        SCRIPT DE ESTADO & CHATS EN VIVO (LOCALSTORAGE / REACTIVO)
@@ -1324,37 +1376,102 @@
       const chat = chats.find(c => c.id === activeChatId);
       if (!chat) return;
 
-      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const now = Date.now();
+      const time = new Date(now).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       chat.messages.push({
         from: 'out',
         text: text,
-        time: time
+        time: time,
+        timestamp: now
       });
 
+      sortChatsByLatest();
       saveChats();
       renderMessages();
       renderChatList();
 
-      // Si el cliente preguntó por algo del bot, simular respuesta automática
-      simulateBotReplyIfNeeded(text, chat);
+      // Despacho real a Meta Cloud API a través del Webhook
+      const metaToken = localStorage.getItem('atoyac_meta_token') || '';
+
+      fetch('https://cafeatoyac.com.mx/webhook_whatsapp.php?action=send_message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: chat.phone,
+          text: text,
+          token: metaToken
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.success) {
+          showToast('✅ Mensaje enviado a WhatsApp en vivo');
+        } else if (data && !data.dispatched_to_meta) {
+          showToast('⚠️ Mensaje guardado en CRM. Para enviarlo directo a WhatsApp celular, pega tu Token de Meta en ⚙️ o responde vía Meta Suite ↗', 6000);
+        } else if (data && data.meta_response && data.meta_response.error) {
+          showToast('⚠️ Meta API: ' + data.meta_response.error.message, 6000);
+        }
+      })
+      .catch(err => {
+        console.warn('Error enviando a webhook:', err);
+      });
     }
 
-    // LÓGICA DE BOT AUTOMÁTICO DE APOYO
-    function simulateBotReplyIfNeeded(sentText, chat) {
-      const lower = sentText.toLowerCase();
-      // Si enviamos un mensaje de café gratis, simular confirmación del cliente
-      if (lower.includes('café gratis')) {
-        setTimeout(() => {
-          chat.messages.push({
-            from: 'in',
-            text: '¡Muchas gracias! Ya tengo mi cupón listo para ir el sábado.',
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          });
-          saveChats();
-          renderMessages();
-          renderChatList();
-        }, 1500);
+    // TOASTS Y CONFIGURACIÓN META
+    function showToast(text, duration = 4000) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'crm-toast';
+      toast.textContent = text;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    }
+
+    function saveMetaTokenConfig() {
+      const input = document.getElementById('meta-access-token-input');
+      const token = input.value.trim();
+      if (!token) {
+        alert('Por favor ingresa un token válido de Meta API.');
+        return;
+      }
+      localStorage.setItem('atoyac_meta_token', token);
+      const statusBadge = document.getElementById('meta-token-status');
+      if (statusBadge) {
+        statusBadge.textContent = 'Guardado';
+        statusBadge.style.background = '#dcfce7';
+        statusBadge.style.color = '#15803d';
+      }
+
+      fetch('https://cafeatoyac.com.mx/webhook_whatsapp.php?action=save_meta_token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+      }).then(() => {
+        showToast('✅ Token de Meta guardado exitosamente');
+        closeModal('modal-settings');
+      }).catch(() => {
+        showToast('✅ Token de Meta guardado localmente');
+        closeModal('modal-settings');
+      });
+    }
+
+    function loadMetaTokenConfig() {
+      const saved = localStorage.getItem('atoyac_meta_token');
+      const input = document.getElementById('meta-access-token-input');
+      const statusBadge = document.getElementById('meta-token-status');
+      if (saved) {
+        if (input) input.value = saved;
+        if (statusBadge) {
+          statusBadge.textContent = 'Conectado';
+          statusBadge.style.background = '#dcfce7';
+          statusBadge.style.color = '#15803d';
+        }
       }
     }
 
@@ -1420,6 +1537,7 @@
 
     // INICIALIZAR
     initFirestore();
+    loadMetaTokenConfig();
     pollWebhookServer();
     setInterval(pollWebhookServer, 3500);
     if (chats.length > 0) {
