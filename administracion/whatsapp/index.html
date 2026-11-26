@@ -1486,7 +1486,12 @@
         } else if (data && !data.dispatched_to_meta) {
           showToast('⚠️ Mensaje guardado en CRM. Pega tu Token en ⚙️ o responde vía Meta Suite ↗', 5000);
         } else if (data && data.meta_response && data.meta_response.error) {
-          showToast('⚠️ Meta API: ' + data.meta_response.error.message, 5000);
+          const err = data.meta_response.error;
+          if (err.code === 190 || (err.message && err.message.toLowerCase().includes('expired'))) {
+            showToast('⚠️ El Token temporal de Meta expiró (dura 24h). Renuévalo en ⚙️ o responde desde Meta Suite ↗', 7000);
+          } else {
+            showToast('⚠️ Meta API: ' + (err.message || 'Error de autenticación'), 5000);
+          }
         }
       })
       .catch(err => {
