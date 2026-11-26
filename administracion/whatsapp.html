@@ -424,6 +424,8 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      min-height: 0;
+      overflow: hidden;
       background: var(--whatsapp-chat-bg);
       position: relative;
     }
@@ -437,6 +439,7 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border-subtle);
       z-index: 10;
+      flex-shrink: 0;
     }
 
     .chat-header-user {
@@ -519,7 +522,8 @@
 
     /* MESSAGES AREA */
     .messages-area {
-      flex: 1;
+      flex: 1 1 0%;
+      min-height: 0;
       padding: 1.5rem 2rem;
       overflow-y: auto;
       display: flex;
@@ -603,6 +607,7 @@
 
     /* BOTTOM INPUT BAR */
     .chat-bottom-bar {
+      flex-shrink: 0;
       background: #f0f2f5;
       padding: 0.65rem 1rem;
       display: flex;
@@ -887,7 +892,7 @@
       </div>
 
       <!-- BARRA DE ACCIONES RÁPIDAS Y ENTRADA DE TEXTO -->
-      <div style="background: #f0f2f5; padding: 0.35rem 1rem 0; display: flex; gap: 0.4rem; overflow-x: auto;">
+      <div style="flex-shrink: 0; background: #f0f2f5; padding: 0.35rem 1rem 0; display: flex; gap: 0.4rem; overflow-x: auto;">
         <button class="btn-quick-pill" onclick="sendQuickReply('¡Hola! Tu CAFÉ GRATIS de inauguración ha quedado registrado ☕🎉. Te esperamos en Popocatépetl 289 Local A.')">☕ Café Gratis</button>
         <button class="btn-quick-pill" onclick="sendQuickReply('Consulta nuestro menú completo de especialidad y alimentos en: https://cafeatoyac.com.mx/menu.html')">📜 Menú Digital</button>
         <button class="btn-quick-pill" onclick="sendQuickReply('📍 Av. Popocatépetl 289, Local A, Col. Santa Cruz Atoyac. Horario: Lun a Sáb 7:00 AM - 9:00 PM.')">📍 Ubicación</button>
