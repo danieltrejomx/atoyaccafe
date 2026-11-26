@@ -80,6 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($token) && file_exists($tokenFile)) {
             $token = trim(file_get_contents($tokenFile));
         }
+        if (empty($token)) {
+            $token = "EAAYNVZCihPpYBTJf3ICt493LNgwElmAFlxRp4VdOhMh4L43lwlzu3M1ZCUJAZBQcIZAIUZA2iiDIbpjYtIDtJ5JXkmEteZBDHzb0KZCZAvfElhlLwNg0mJmtfK5ZCzNak4d374s0i6Xm3fGfLcVVUq4yTLl8Oy5RS03EvT6HxqK17Dg9A02FlpnSTIxpWYeRDRaDVZAQZDZD";
+        }
 
         $phoneNumberId = "1460670667130250";
         $sendSuccess = false;
