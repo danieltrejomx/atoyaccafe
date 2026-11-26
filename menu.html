@@ -118,7 +118,7 @@
     .menu-hero {
       text-align: center;
       padding: 1.5rem 1.25rem 0.75rem;
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
       width: 100%;
     }
@@ -198,18 +198,17 @@
       color: #7FE0A0;
     }
 
-    /* BOTONES DE CATEGORÍAS EN UNA SOLA FILA */
+    /* BOTONES DE CATEGORÍAS */
     .category-pills-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      gap: 0.6rem;
-      padding: 0.25rem 1rem 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      padding: 0.25rem 0.5rem 0.5rem;
       width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
     }
 
     .category-pills-wrap::-webkit-scrollbar {
@@ -221,13 +220,13 @@
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      justify-content: center;
       background: var(--bg-white);
       border: 1.5px solid var(--btn-border);
       border-radius: 999px;
-      padding: 0.6rem 1.15rem;
+      padding: 0.55rem 1.1rem;
       font-family: var(--font-montserrat);
-      font-size: clamp(0.78rem, 2.2vw, 0.86rem);
+      font-size: clamp(0.78rem, 2vw, 0.86rem);
       font-weight: 500;
       letter-spacing: 0.02em;
       color: var(--forest-dark);
@@ -996,7 +995,11 @@
         font-size: 1.85rem;
       }
       .category-pills-wrap {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         justify-content: flex-start;
+        scroll-padding-left: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
       }
@@ -1065,32 +1068,14 @@
         <span>Empieza con un buen café</span>
       </div>
 
-      <!-- BOTONES DE CATEGORÍAS EN UNA SOLA FILA -->
+      <!-- BOTONES DE CATEGORÍAS (SOLO TEXTO) -->
       <nav class="category-pills-wrap" aria-label="Categorías del Menú">
-        <button class="cat-btn active" data-category="favoritos" onclick="switchCategory('favoritos')">
-          <span>⭐</span>
-          <span>Favoritos</span>
-        </button>
-        <button class="cat-btn" data-category="ensaladas" onclick="switchCategory('ensaladas')">
-          <span>🥗</span>
-          <span>Ensaladas</span>
-        </button>
-        <button class="cat-btn" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">
-          <span>🥑</span>
-          <span>Chilaquiles</span>
-        </button>
-        <button class="cat-btn" data-category="chapatas" onclick="switchCategory('chapatas')">
-          <span>🥪</span>
-          <span>Chapatas & Molletes</span>
-        </button>
-        <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">
-          <span>☕</span>
-          <span>Café & Bebidas</span>
-        </button>
-        <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">
-          <span>🍰</span>
-          <span>Postres & Promos</span>
-        </button>
+        <button class="cat-btn active" data-category="favoritos" onclick="switchCategory('favoritos')">Favoritos</button>
+        <button class="cat-btn" data-category="ensaladas" onclick="switchCategory('ensaladas')">Ensaladas</button>
+        <button class="cat-btn" data-category="chilaquiles" onclick="switchCategory('chilaquiles')">Chilaquiles</button>
+        <button class="cat-btn" data-category="chapatas" onclick="switchCategory('chapatas')">Chapatas & Molletes</button>
+        <button class="cat-btn" data-category="bebidas" onclick="switchCategory('bebidas')">Café & Bebidas</button>
+        <button class="cat-btn" data-category="postres" onclick="switchCategory('postres')">Postres & Promos</button>
       </nav>
     </section>
 
