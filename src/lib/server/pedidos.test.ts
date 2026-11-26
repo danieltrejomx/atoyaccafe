@@ -94,3 +94,13 @@ describe('flujo de estados y turnos', () => {
 		expect(() => cancelar(cambiarEstado(pedido.id, 'entregado').id)).toThrow(/entregado/);
 	});
 });
+
+describe('cobro manda a cocina', () => {
+	it('un pedido pagado entra directo a preparando, sin paso manual', () => {
+		const { pedido } = crearPedido(kiosco());
+		expect(pedido.estado).toBe('nuevo');
+		expect(confirmarPago(pedido.id, 'efectivo').estado).toBe('preparando');
+		const app = crearPedido({ canal: 'interno', items: [{ productoId: f.jugo.id, cantidad: 1, opcionIds: [] }] }).pedido;
+		expect(app.estado).toBe('preparando');
+	});
+});

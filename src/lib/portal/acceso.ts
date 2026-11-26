@@ -22,7 +22,6 @@ export const NOMBRE_CANAL: Record<Canal, string> = {
 	didi: 'DiDi', rappi: 'Rappi', uber: 'Uber', interno: 'Interno', caja: 'Caja', kiosco: 'Kiosco'
 };
 export const SIGUIENTE: Partial<Record<string, { estado: 'preparando' | 'listo' | 'entregado'; texto: string }>> = {
-	nuevo: { estado: 'preparando', texto: 'Empezar a preparar' },
 	preparando: { estado: 'listo', texto: 'Marcar listo' },
 	listo: { estado: 'entregado', texto: 'Entregar' }
 };

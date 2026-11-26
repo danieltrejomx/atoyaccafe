@@ -132,6 +132,8 @@ export function crearPedido(input: CrearPedidoInput): { pedido: Pedido; creado: 
 					telefono: input.telefono,
 					pagoMetodo: input.pagoMetodo,
 					pagoEstado: externoPagado ? 'pagado' : 'pendiente',
+					// Pagado = la cocina lo prepara de inmediato; no hay paso "Empezar a preparar".
+					estado: externoPagado ? 'preparando' : 'nuevo',
 					total,
 					notas: input.notas
 				})
@@ -195,7 +197,7 @@ export function confirmarPago(id: number, metodo?: PagoMetodo): Pedido {
 	const p = requerir(id);
 	if (p.estado === 'cancelado') throw new ErrorNegocio('El pedido está cancelado', 409);
 	if (p.pagoEstado === 'pagado' && !metodo) return p;
-	tocar(id, { pagoEstado: 'pagado', ...(metodo && { pagoMetodo: metodo }) });
+	tocar(id, { pagoEstado: 'pagado', ...(p.estado === 'nuevo' && { estado: 'preparando' as const }), ...(metodo && { pagoMetodo: metodo }) });
 	const nuevo = obtenerPedido(id)!;
 	publicar(nuevo);
 	return nuevo;
