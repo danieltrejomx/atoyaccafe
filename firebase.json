@@ -1,0 +1,73 @@
+{
+  "hosting": {
+    "site": "atoyac-kitchen",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.zip",
+      "**/*.log",
+      "server.py"
+    ],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/inicio",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/nosotros",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/productos",
+        "destination": "/menu.html"
+      },
+      {
+        "source": "/punto-de-venta",
+        "destination": "/kiosco.html"
+      },
+      {
+        "source": "/ipad",
+        "destination": "/kiosco.html"
+      },
+      {
+        "source": "/pos",
+        "destination": "/portal.html"
+      },
+      {
+        "source": "/caja",
+        "destination": "/portal.html"
+      },
+      {
+        "source": "/kds",
+        "destination": "/portal.html"
+      },
+      {
+        "source": "/cocina",
+        "destination": "/portal.html"
+      },
+      {
+        "source": "/admin",
+        "destination": "/portal.html"
+      },
+      {
+        "source": "/inauguracion",
+        "destination": "/inauguracion.html"
+      },
+      {
+        "source": "/whatsapp",
+        "destination": "/whatsapp.html"
+      },
+      {
+        "source": "/whatsapp.html",
+        "destination": "/whatsapp.html"
+      },
+      {
+        "source": "/administracion/whatsapp",
+        "destination": "/administracion/whatsapp.html"
+      }
+    ]
+  }
+}

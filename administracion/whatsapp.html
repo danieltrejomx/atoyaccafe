@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsApp Inbox & CRM | ATOYAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-body: #f0f2f5;
+      --bg-white: #ffffff;
+      --forest-dark: #19221C;
+      --forest-medium: #253329;
+      --sage-green: #526f5c;
+      --sage-light: #eef3ef;
+      --warm-ochre: #d4a359;
+      --whatsapp-green: #25D366;
+      --whatsapp-dark: #128C7E;
+      --whatsapp-teal: #075E54;
+      --whatsapp-bubble-in: #ffffff;
+      --whatsapp-bubble-out: #d9fdd3;
+      --whatsapp-chat-bg: #efeae2;
+      --border-subtle: #e9edef;
+      --border-light: rgba(0, 0, 0, 0.08);
+      --text-primary: #111b21;
+      --text-secondary: #667781;
+      --text-muted: #8696a0;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ===================================================================
+       1. TOP NAVBAR (ESTILO MAESTROS DEL MEDIA / ATOYAC ERP)
+       =================================================================== */
+    .top-navbar {
+      background: #ffffff;
+      height: 60px;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--forest-dark);
+    }
+
+    .brand-logo-img {
+      height: 28px;
+      width: auto;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--forest-dark);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.35rem;
+      list-style: none;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3b4a40;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .nav-item a:hover {
+      color: var(--forest-dark);
+    }
+
+    .nav-item.active a {
+      color: #128C7E;
+      position: relative;
+    }
+
+    .nav-item.active a::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #128C7E;
+      border-radius: 2px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sidebar-footer {
+      padding: 0.65rem 1rem;
+      background: #f8fafc;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 0.75rem;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-footer .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-exit {
+      background: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: #555;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .btn-exit:hover {
+      background: #f0f0f0;
+      color: #111;
+    }
+
+    /* ===================================================================
+       2. WHATSAPP INBOX SPLIT-LAYOUT
+       =================================================================== */
+    .inbox-wrapper {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .inbox-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .chat-view {
+        display: none;
+      }
+      .inbox-wrapper.chat-open .chat-view {
+        display: flex;
+        position: fixed;
+        inset: 60px 0 0 0;
+        z-index: 100;
+      }
+    }
+
+    /* ===================================================================
+       3. LEFT COLUMN: CHAT LIST
+       =================================================================== */
+    .chat-list-panel {
+      background: #ffffff;
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .list-header {
+      padding: 1.15rem 1.25rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .list-header-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #111b21;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .list-header-title svg {
+      width: 24px;
+      height: 24px;
+      fill: #25D366;
+    }
+
+    .list-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-new-chat {
+      background: #25D366;
+      color: #0c431f;
+      border: none;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background 0.15s ease;
+    }
+
+    .btn-new-chat:hover {
+      background: #20bd5a;
+    }
+
+    .btn-icon-gear {
+      background: transparent;
+      border: none;
+      color: #667781;
+      cursor: pointer;
+      padding: 0.35rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .btn-icon-gear:hover {
+      background: #f0f2f5;
+    }
+
+    /* SEARCH BAR */
+    .search-container {
+      padding: 0.35rem 1.25rem 0.85rem;
+    }
+
+    .search-box {
+      background: #f0f2f5;
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      fill: #667781;
+      flex-shrink: 0;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.85rem;
+      color: #111b21;
+      font-family: inherit;
+    }
+
+    /* SCROLLABLE CHATS */
+    .chats-scroll {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .chat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.12s ease;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .chat-item:hover {
+      background: #f5f6f6;
+    }
+
+    .chat-item.active {
+      background: #f0f2f5;
+    }
+
+    .chat-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #25D366;
+    }
+
+    .chat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #dfe5e7;
+      color: #54656f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar.coffee-avatar {
+      background: #e7fce8;
+      color: #0b5c2c;
+    }
+
+    .chat-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .chat-info-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .chat-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #111b21;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-time {
+      font-size: 0.72rem;
+      color: #667781;
+      font-weight: 500;
+      margin-left: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .chat-preview {
+      font-size: 0.82rem;
+      color: #667781;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .unread-badge {
+      background: #25D366;
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      margin-left: auto;
+    }
+
+    /* ===================================================================
+       4. RIGHT COLUMN: ACTIVE CHAT VIEW
+       =================================================================== */
+    .chat-view {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--whatsapp-chat-bg);
+      position: relative;
+    }
+
+    /* CHAT HEADER */
+    .chat-header {
+      background: #f0f2f5;
+      padding: 0.7rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+
+    .chat-header-user {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .chat-header-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #dfe5e7;
+      color: #54656f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .chat-header-meta h2 {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #111b21;
+      line-height: 1.2;
+    }
+
+    .chat-header-meta span {
+      font-size: 0.75rem;
+      color: #667781;
+    }
+
+    .chat-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .btn-meta-template {
+      background: #ffffff;
+      border: 1px solid rgba(18, 140, 126, 0.4);
+      color: #128C7E;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-meta-template:hover {
+      background: #e7fce8;
+      border-color: #25D366;
+    }
+
+    .btn-external-wa {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: #54656f;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-external-wa:hover {
+      background: #f0f2f5;
+      color: #111;
+    }
+
+    /* MESSAGES AREA */
+    .messages-area {
+      flex: 1;
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      /* WhatsApp Wallpaper pattern background */
+      background-color: #efeae2;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    .date-separator {
+      align-self: center;
+      background: #ffffff;
+      color: #54656f;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      margin: 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .msg-bubble {
+      max-width: 65%;
+      padding: 0.65rem 0.85rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      position: relative;
+      word-wrap: break-word;
+      box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.12);
+    }
+
+    .msg-in {
+      align-self: flex-start;
+      background: var(--whatsapp-bubble-in);
+      color: var(--text-primary);
+      border-top-left-radius: 0;
+    }
+
+    .msg-out {
+      align-self: flex-end;
+      background: var(--whatsapp-bubble-out);
+      color: var(--text-primary);
+      border-top-right-radius: 0;
+    }
+
+    .msg-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.25rem;
+      margin-top: 0.25rem;
+      font-size: 0.68rem;
+      color: #667781;
+    }
+
+    .msg-ticks {
+      color: #53bdeb;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* BOTTOM INPUT BAR */
+    .chat-bottom-bar {
+      background: #f0f2f5;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-quick-pill {
+      background: #ffffff;
+      border: 1px solid #d1d7db;
+      color: #54656f;
+      padding: 0.45rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .btn-quick-pill:hover {
+      background: #e7fce8;
+      border-color: #25D366;
+      color: #0c431f;
+    }
+
+    .input-box-wrapper {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 0.6rem 0.95rem;
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .input-box-wrapper input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 0.9rem;
+      color: #111b21;
+      font-family: inherit;
+    }
+
+    .btn-send-message {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-send-message:hover {
+      background: #20bd5a;
+    }
+
+    .btn-send-message svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      margin-left: 2px;
+    }
+
+    /* MODAL NUEVO CHAT & PLANTILLAS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--forest-dark);
+    }
+
+    .modal-subtitle {
+      font-size: 0.82rem;
+      color: #667781;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-subtle);
+      font-size: 0.9rem;
+      outline: none;
+      margin-bottom: 1rem;
+      font-family: inherit;
+    }
+
+    .modal-input:focus {
+      border-color: #25D366;
+    }
+
+    .template-item {
+      padding: 0.75rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .template-item:hover {
+      background: #f0fdf4;
+      border-color: #25D366;
+    }
+
+    .template-item strong {
+      font-size: 0.85rem;
+      color: #111b21;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .template-item p {
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================================
+       1. TOP NAVBAR (IDÉNTICO A SISTEMA MAESTROS DEL MEDIA / ATOYAC ERP)
+       =================================================================== -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <a href="portal.html" class="brand-box">
+        <img src="assets/img/logo.svg" alt="ATOYAC" class="brand-logo-img" />
+        <span class="brand-title">ATOYAC</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="portal.html">PEDIDOS</a></li>
+        <li class="nav-item"><a href="portal.html">COCINA</a></li>
+        <li class="nav-item"><a href="portal.html">CAJA</a></li>
+        <li class="nav-item"><a href="portal.html">FINANZAS</a></li>
+        <li class="nav-item"><a href="portal.html">INSUMOS</a></li>
+        <li class="nav-item active"><a href="whatsapp.html">WHATSAPP</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <a href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener" class="btn-exit" style="background: #1877F2; color: #fff; border: none;">
+        Meta Suite ↗
+      </a>
+      <a href="portal.html" class="btn-exit">SALIR</a>
+    </div>
+  </header>
+
+  <!-- ===================================================================
+       2. WHATSAPP INBOX SPLIT-LAYOUT
+       =================================================================== -->
+  <main class="inbox-wrapper" id="inbox-wrapper">
+
+    <!-- COLUMNA IZQUIERDA: LISTA DE CHATS -->
+    <aside class="chat-list-panel">
+      <div class="list-header">
+        <div class="list-header-title">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.89 6.069-1.591c1.701.927 3.655 1.455 5.731 1.455 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
+          </svg>
+          WhatsApp Inbox
+        </div>
+        <div class="list-header-actions">
+          <button class="btn-new-chat" onclick="openNewChatModal()">+ Nuevo Chat</button>
+          <button class="btn-icon-gear" title="Configurar Webhook / Meta" onclick="openSettingsModal()">⚙️</button>
+        </div>
+      </div>
+
+      <div class="search-container">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="search-input" placeholder="Buscar chat o número..." oninput="handleSearch(this.value)" />
+        </div>
+      </div>
+
+      <!-- LISTA DE CONVERSACIONES -->
+      <ul class="chats-scroll" id="chats-list">
+        <!-- Generado dinámicamente con JavaScript -->
+      </ul>
+
+      <!-- FOOTER LATERAL CON LÍNEA OFICIAL -->
+      <div class="sidebar-footer">
+        <span class="pulse-dot"></span>
+        <span>Línea Oficial: <strong>+52 56 5912 2497</strong></span>
+      </div>
+    </aside>
+
+    <!-- COLUMNA DERECHA: CONVERSACIÓN ACTIVA -->
+    <section class="chat-view">
+      <!-- HEADER CONVERSACIÓN -->
+      <header class="chat-header">
+        <div class="chat-header-user">
+          <div class="chat-header-avatar" id="active-avatar">A</div>
+          <div class="chat-header-meta">
+            <h2 id="active-name">Línea Oficial ATOYAC</h2>
+            <span id="active-phone">+52 56 5912 2497</span>
+          </div>
+        </div>
+
+        <div class="chat-header-actions">
+          <button class="btn-meta-template" onclick="openTemplateModal()">
+            📄 Plantilla Meta
+          </button>
+          <a href="#" id="active-wa-direct-btn" target="_blank" rel="noopener" class="btn-external-wa" title="Abrir en WhatsApp Web">
+            ↗
+          </a>
+        </div>
+      </header>
+
+      <!-- ÁREA DE MENSAJES CON FONDO WHATSAPP -->
+      <div class="messages-area" id="messages-area">
+        <div class="date-separator">Hoy</div>
+        <!-- Burbujas insertadas dinámicamente -->
+      </div>
+
+      <!-- BARRA DE ACCIONES RÁPIDAS Y ENTRADA DE TEXTO -->
+      <div style="background: #f0f2f5; padding: 0.35rem 1rem 0; display: flex; gap: 0.4rem; overflow-x: auto;">
+        <button class="btn-quick-pill" onclick="sendQuickReply('¡Hola! Tu CAFÉ GRATIS de inauguración ha quedado registrado ☕🎉. Te esperamos en Popocatépetl 289 Local A.')">☕ Café Gratis</button>
+        <button class="btn-quick-pill" onclick="sendQuickReply('Consulta nuestro menú completo de especialidad y alimentos en: https://cafeatoyac.com.mx/menu.html')">📜 Menú Digital</button>
+        <button class="btn-quick-pill" onclick="sendQuickReply('📍 Av. Popocatépetl 289, Local A, Col. Santa Cruz Atoyac. Horario: Lun a Sáb 7:00 AM - 9:00 PM.')">📍 Ubicación</button>
+        <button class="btn-quick-pill" onclick="sendQuickReply('¡Tu pedido ya está listo para recoger en barra!')">🥪 Pedido Listo</button>
+      </div>
+
+      <form class="chat-bottom-bar" onsubmit="handleSendMessage(event)">
+        <div class="input-box-wrapper">
+          <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" />
+        </div>
+        <button type="submit" class="btn-send-message" aria-label="Enviar mensaje">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================
+       MODAL: NUEVO CHAT
+       =================================================================== -->
+  <div class="modal-overlay" id="modal-new-chat">
+    <div class="modal-card">
+      <h3 class="modal-title">+ Iniciar Nuevo Chat de WhatsApp</h3>
+      <p class="modal-subtitle">Ingresa el nombre y el número a 10 dígitos (México):</p>
+
+      <input type="text" id="new-chat-name" class="modal-input" placeholder="Nombre del cliente (ej. Carlos López)" />
+      <input type="tel" id="new-chat-phone" class="modal-input" placeholder="Teléfono a 10 dígitos (ej. 5512345678)" />
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button class="btn-exit" onclick="closeModal('modal-new-chat')">Cancelar</button>
+        <button class="btn-new-chat" onclick="confirmNewChat()">Crear Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL: PLANTILLAS META
+       =================================================================== -->
+  <div class="modal-overlay" id="modal-templates">
+    <div class="modal-card">
+      <h3 class="modal-title">📄 Seleccionar Plantilla de Mensaje</h3>
+      <p class="modal-subtitle">Haz clic en la plantilla para insertarla en el chat:</p>
+
+      <div class="template-item" onclick="selectTemplate('¡Hola! 🎉 Gracias por comunicarte con ATOYAC. Tu CAFÉ GRATIS de cortesía por inauguración está confirmado. Puedes pasar a barra en Av. Popocatépetl 289 Local A con este mensaje cuando quieras.')">
+        <strong>☕ Bienvenida & Café Gratis de Inauguración</strong>
+        <p>Confirmación del cupón del código QR para canjear en tienda física.</p>
+      </div>
+
+      <div class="template-item" onclick="selectTemplate('¡Hola! Te compartimos nuestra carta completa con opciones de desayunos, baguettes, crepas dulces y café colado: https://cafeatoyac.com.mx/menu.html')">
+        <strong>🥪 Envío de Menú y Precios</strong>
+        <p>Enlace a la carta de productos oficial.</p>
+      </div>
+
+      <div class="template-item" onclick="selectTemplate('¡Tu pedido en ATOYAC está listo y empacado en barra! Puedes pasar a recogerlo con tu nombre. ¡Buen provecho! ✨')">
+        <strong>📦 Pedido Listo para Recoger</strong>
+        <p>Aviso al comensal cuando la barra termina de preparar sus alimentos.</p>
+      </div>
+
+      <div class="template-item" onclick="selectTemplate('Recibimos tu pago con éxito a través de nuestra terminal física Point Smart 2. ¡Muchas gracias por tu visita!')">
+        <strong>💳 Confirmación de Pago Point Smart 2</strong>
+        <p>Comprobante de transacción exitosa.</p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+        <button class="btn-exit" onclick="closeModal('modal-templates')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL: CONFIGURACIÓN META / WEBHOOK / FIREBASE FIRESTORE
+       =================================================================== -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-card" style="max-width: 540px;">
+      <h3 class="modal-title">⚙️ Conexión Base de Datos & WhatsApp</h3>
+      <p class="modal-subtitle">Línea oficial: <strong>+52 56 5912 2497</strong></p>
+
+      <!-- FIREBASE FIRESTORE CONFIG CARD -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 1.15rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+          <strong style="font-size: 0.88rem; color: #0f172a;">🔥 Firebase Firestore en Vivo</strong>
+          <span id="firestore-badge-status" style="font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; background: #e2e8f0; color: #475569;">
+            Comprobando...
+          </span>
+        </div>
+        <p style="font-size: 0.76rem; color: #64748b; line-height: 1.4; margin-bottom: 0.75rem;">
+          Conectado a tu proyecto <strong>atoyac-kitchen</strong> para que todos los chats, clientes y mensajes se sincronicen en tiempo real entre múltiples computadoras y el iPad.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <input type="text" id="fb-api-key" class="modal-input" style="margin-bottom: 0; padding: 0.5rem 0.75rem; font-size: 0.8rem;" placeholder="API Key de Firebase (AIzaSy...)" />
+          <input type="text" id="fb-project-id" class="modal-input" style="margin-bottom: 0; padding: 0.5rem 0.75rem; font-size: 0.8rem;" value="atoyac-kitchen" placeholder="Project ID" />
+          <button type="button" class="btn-new-chat" style="align-self: flex-start; margin-top: 0.25rem;" onclick="saveFirestoreConfig()">
+            💾 Guardar y Conectar Firestore
+          </button>
+        </div>
+      </div>
+
+      <div style="background: #f0f2f5; padding: 0.85rem; border-radius: 8px; font-size: 0.78rem; line-height: 1.4; margin-bottom: 1rem; color: #334155;">
+        <strong>Conexión con Meta Business Suite:</strong><br />
+        • <strong>Webhook de Hostinger:</strong> <code>https://cafeatoyac.com.mx/webhook_whatsapp.php</code><br />
+        • <strong>Token de Verificación:</strong> <code>ATOYAC_WHATSAPP_SECRET_2026</code>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <a href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener" class="btn-new-chat" style="text-decoration:none; background:#1877F2; color:#fff;">
+          Abrir Meta Suite ↗
+        </a>
+        <button class="btn-exit" onclick="closeModal('modal-settings')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       SCRIPT DE ESTADO & CHATS EN VIVO (LOCALSTORAGE / REACTIVO)
+       =================================================================== -->
+  <!-- Firebase SDK para Sincronización Firestore en Tiempo Real -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // CONFIGURACIÓN DE FIREBASE FIRESTORE
+    const DEFAULT_FB_CONFIG = {
+      apiKey: "AIzaSyB-og7jsZleSXKpbFUYCiHTQnQ6tXjMwy4",
+      authDomain: "atoyac-kitchen.firebaseapp.com",
+      projectId: "atoyac-kitchen",
+      storageBucket: "atoyac-kitchen.firebasestorage.app",
+      messagingSenderId: "555325906681",
+      appId: "1:555325906681:web:9061384db3848d7aab4c28"
+    };
+
+    let db = null;
+    let firestoreActive = false;
+
+    function initFirestore() {
+      const savedConfig = JSON.parse(localStorage.getItem('atoyac_fb_config')) || DEFAULT_FB_CONFIG;
+
+      if (savedConfig.apiKey && savedConfig.projectId) {
+        try {
+          if (!firebase.apps.length) {
+            firebase.initializeApp(savedConfig);
+          }
+          db = firebase.firestore();
+          firestoreActive = true;
+          updateFirestoreBadge(true);
+          listenToFirestoreChats();
+        } catch (e) {
+          console.warn("Firestore error:", e);
+          updateFirestoreBadge(false);
+        }
+      } else {
+        updateFirestoreBadge(false);
+      }
+    }
+
+    function updateFirestoreBadge(active) {
+      const badge = document.getElementById('firestore-badge-status');
+      if (!badge) return;
+      if (active) {
+        badge.style.background = '#dcfce7';
+        badge.style.color = '#15803d';
+        badge.textContent = '🟢 Firestore Conectado';
+      } else {
+        badge.style.background = '#fef3c7';
+        badge.style.color = '#b45309';
+        badge.textContent = '🟡 Modo Local (Sin API Key)';
+      }
+    }
+
+    function saveFirestoreConfig() {
+      const apiKey = document.getElementById('fb-api-key').value.trim();
+      const projectId = document.getElementById('fb-project-id').value.trim() || 'atoyac-kitchen';
+
+      if (!apiKey) {
+        alert('Por favor ingresa la API Key de Firebase.');
+        return;
+      }
+
+      localStorage.setItem('atoyac_fb_config', JSON.stringify({ apiKey, projectId }));
+      alert('¡Configuración guardada! Conectando a Firestore...');
+      location.reload();
+    }
+
+    function mergeRemoteChats(remoteList) {
+      if (!Array.isArray(remoteList) || remoteList.length === 0) return;
+      let changed = false;
+
+      remoteList.forEach(rem => {
+        const cleanPhone = String(rem.phone || rem.id).replace(/\D/g, '');
+        const localIndex = chats.findIndex(c => {
+          const cPhone = String(c.phone || c.id).replace(/\D/g, '');
+          return cPhone === cleanPhone || c.id === rem.id;
+        });
+
+        if (localIndex >= 0) {
+          const local = chats[localIndex];
+          if (rem.name && rem.name !== local.phone) local.name = rem.name;
+          if (rem.unread !== undefined) local.unread = rem.unread;
+
+          if (Array.isArray(rem.messages) && rem.messages.length > local.messages.length) {
+            local.messages = rem.messages;
+            changed = true;
+          } else if (rem.lastMessage) {
+            const lastLocal = local.messages[local.messages.length - 1];
+            if (!lastLocal || lastLocal.text !== rem.lastMessage) {
+              local.messages.push({
+                from: 'in',
+                text: rem.lastMessage,
+                time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              });
+              changed = true;
+            }
+          }
+        } else {
+          // Nueva conversación recibida
+          const newChat = {
+            id: rem.id || ('chat-' + cleanPhone),
+            name: rem.name || cleanPhone,
+            phone: cleanPhone,
+            unread: rem.unread !== undefined ? rem.unread : 1,
+            messages: Array.isArray(rem.messages) && rem.messages.length > 0 ? rem.messages : [
+              {
+                from: 'in',
+                text: rem.lastMessage || '¡Hola! Me gustaría información.',
+                time: rem.lastTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              }
+            ]
+          };
+          chats.unshift(newChat);
+          changed = true;
+        }
+      });
+
+      if (changed) {
+        saveChats();
+        renderChatList();
+        renderMessages();
+      }
+    }
+
+    function listenToFirestoreChats() {
+      if (!db) return;
+      db.collection('atoyac_whatsapp_chats').orderBy('updatedAt', 'desc').onSnapshot(snapshot => {
+        if (!snapshot.empty) {
+          const remoteChats = [];
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            remoteChats.push({
+              id: doc.id,
+              name: data.name || doc.id,
+              phone: data.phone || doc.id,
+              unread: data.unread || 0,
+              lastMessage: data.lastMessage,
+              lastTime: data.lastTime,
+              messages: data.messages
+            });
+          });
+          mergeRemoteChats(remoteChats);
+        }
+      });
+    }
+
+    function pollWebhookServer() {
+      fetch('https://cafeatoyac.com.mx/webhook_whatsapp.php?action=get_chats')
+        .then(r => r.json())
+        .then(serverChats => {
+          if (Array.isArray(serverChats) && serverChats.length > 0) {
+            mergeRemoteChats(serverChats);
+          }
+        })
+        .catch(() => {});
+    }
+
+    // BASE DE DATOS DE CONVERSACIONES
+    const DEFAULT_CHATS = [
+      {
+        id: "chat-daniel",
+        name: "Daniel Trejo",
+        phone: "5215533759369",
+        unread: 0,
+        messages: [
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕✨", time: "10:56" },
+          { from: "out", text: "¡Hola Daniel! Tu cortesía para la inauguración está registrada ☕🎉.", time: "10:57" },
+          { from: "in", text: "hola", time: "12:20" },
+          { from: "in", text: "hola cara de bola", time: "12:32" },
+          { from: "in", text: "holaaa", time: "20:08" }
+        ]
+      },
+      {
+        id: "chat-marcos",
+        name: "Marcos",
+        phone: "5214429803486",
+        unread: 0,
+        messages: [
+          { from: "in", text: "Hola, me gustaría saber si el sábado de inauguración tendrán paquetes para desayuno.", time: "13:29" },
+          { from: "out", text: "¡Hola Marcos! Sí, tendremos chilaquiles con pollo + café americano por $100 y combos de repostería.", time: "13:30" }
+        ]
+      },
+      {
+        id: "chat-sofia",
+        name: "Sofía Romero",
+        phone: "5215589577207",
+        unread: 0,
+        messages: [
+          { from: "in", text: "¡Hola! Vi su código QR en Popocatépetl. ¿Cómo obtengo el café gratis?", time: "10:59" },
+          { from: "out", text: "¡Hola Sofía! Con este mensaje ya estás registrada. Te esperamos este Sábado 5 de Diciembre desde las 9:00 AM.", time: "11:00" }
+        ]
+      },
+      {
+        id: "chat-carlos",
+        name: "Carlos Méndez (Barra)",
+        phone: "5215523456789",
+        unread: 0,
+        messages: [
+          { from: "in", text: "¿Tendrán leche vegetal (avena o almendra) para los lattes?", time: "12:18" },
+          { from: "out", text: "¡Hola Carlos! Sí, contamos con leche deslactosada, almendra y avena.", time: "12:20" }
+        ]
+      },
+      {
+        id: "chat-bienvenida",
+        name: "Línea Oficial ATOYAC",
+        phone: "525659122497",
+        unread: 0,
+        messages: [
+          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "11:00" }
+        ]
+      }
+    ];
+
+    // Cargar o Inicializar
+    let chats = JSON.parse(localStorage.getItem('atoyac_wa_inbox')) || DEFAULT_CHATS;
+    // Si la caché del navegador solo tenía 1 mensaje o estaba desactualizada, fusionarla con DEFAULT_CHATS
+    DEFAULT_CHATS.forEach(defChat => {
+      const existing = chats.find(c => c.phone === defChat.phone || c.id === defChat.id);
+      if (!existing) {
+        chats.push(defChat);
+      } else if (defChat.messages.length > existing.messages.length) {
+        existing.messages = defChat.messages;
+      }
+    });
+    localStorage.setItem('atoyac_wa_inbox', JSON.stringify(chats));
+    let activeChatId = chats[0].id;
+
+    function saveChats() {
+      localStorage.setItem('atoyac_wa_inbox', JSON.stringify(chats));
+    }
+
+    // RENDERIZAR LISTA LATERAL
+    function renderChatList(filter = '') {
+      const listEl = document.getElementById('chats-list');
+      listEl.innerHTML = '';
+
+      const query = filter.toLowerCase().trim();
+      const filtered = chats.filter(c => 
+        c.name.toLowerCase().includes(query) || c.phone.includes(query)
+      );
+
+      filtered.forEach(chat => {
+        const lastMsg = chat.messages[chat.messages.length - 1];
+        const preview = lastMsg ? lastMsg.text : 'Sin mensajes';
+        const time = lastMsg ? lastMsg.time : '';
+        const initial = chat.name.charAt(0).toUpperCase();
+
+        const li = document.createElement('li');
+        li.className = `chat-item ${chat.id === activeChatId ? 'active' : ''}`;
+        li.onclick = () => selectChat(chat.id);
+
+        li.innerHTML = `
+          <div class="chat-avatar ${chat.id === 'chat-2' ? 'coffee-avatar' : ''}">${initial}</div>
+          <div class="chat-info">
+            <div class="chat-info-top">
+              <span class="chat-name">${chat.name}</span>
+              <span class="chat-time">${time}</span>
+            </div>
+            <div class="chat-preview">
+              ${lastMsg && lastMsg.from === 'out' ? '<span class="msg-ticks">✓✓</span>' : ''}
+              <span>${preview}</span>
+              ${chat.unread > 0 ? `<span class="unread-badge">${chat.unread}</span>` : ''}
+            </div>
+          </div>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
+    // SELECCIONAR CONVERSACIÓN
+    function selectChat(id) {
+      activeChatId = id;
+      const chat = chats.find(c => c.id === id);
+      if (!chat) return;
+
+      chat.unread = 0;
+      saveChats();
+
+      document.getElementById('active-name').textContent = chat.name;
+      document.getElementById('active-phone').textContent = chat.phone;
+      document.getElementById('active-avatar').textContent = chat.name.charAt(0).toUpperCase();
+
+      // Enlace directo de WhatsApp oficial
+      document.getElementById('active-wa-direct-btn').href = `https://wa.me/${chat.phone}`;
+
+      renderChatList();
+      renderMessages();
+
+      // Móvil: Abrir vista
+      document.getElementById('inbox-wrapper').classList.add('chat-open');
+    }
+
+    // RENDERIZAR BURBUJAS DE MENSAJES
+    function renderMessages() {
+      const chat = chats.find(c => c.id === activeChatId);
+      const area = document.getElementById('messages-area');
+      area.innerHTML = '<div class="date-separator">Hoy</div>';
+
+      if (!chat) return;
+
+      chat.messages.forEach(msg => {
+        const bubble = document.createElement('div');
+        bubble.className = `msg-bubble ${msg.from === 'in' ? 'msg-in' : 'msg-out'}`;
+        bubble.innerHTML = `
+          ${msg.text}
+          <div class="msg-footer">
+            <span>${msg.time}</span>
+            ${msg.from === 'out' ? '<span class="msg-ticks">✓✓</span>' : ''}
+          </div>
+        `;
+        area.appendChild(bubble);
+      });
+
+      area.scrollTop = area.scrollHeight;
+    }
+
+    // ENVIAR MENSAJE
+    function handleSendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      sendOutgoingMessage(text);
+      input.value = '';
+    }
+
+    function sendQuickReply(text) {
+      sendOutgoingMessage(text);
+    }
+
+    function sendOutgoingMessage(text) {
+      const chat = chats.find(c => c.id === activeChatId);
+      if (!chat) return;
+
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      chat.messages.push({
+        from: 'out',
+        text: text,
+        time: time
+      });
+
+      saveChats();
+      renderMessages();
+      renderChatList();
+
+      // Si el cliente preguntó por algo del bot, simular respuesta automática
+      simulateBotReplyIfNeeded(text, chat);
+    }
+
+    // LÓGICA DE BOT AUTOMÁTICO DE APOYO
+    function simulateBotReplyIfNeeded(sentText, chat) {
+      const lower = sentText.toLowerCase();
+      // Si enviamos un mensaje de café gratis, simular confirmación del cliente
+      if (lower.includes('café gratis')) {
+        setTimeout(() => {
+          chat.messages.push({
+            from: 'in',
+            text: '¡Muchas gracias! Ya tengo mi cupón listo para ir el sábado.',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          saveChats();
+          renderMessages();
+          renderChatList();
+        }, 1500);
+      }
+    }
+
+    // BÚSQUEDA
+    function handleSearch(val) {
+      renderChatList(val);
+    }
+
+    // MODALES
+    function openNewChatModal() {
+      document.getElementById('modal-new-chat').classList.add('open');
+      document.getElementById('new-chat-name').focus();
+    }
+
+    function openTemplateModal() {
+      document.getElementById('modal-templates').classList.add('open');
+    }
+
+    function openSettingsModal() {
+      document.getElementById('modal-settings').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function confirmNewChat() {
+      const name = document.getElementById('new-chat-name').value.trim();
+      let phone = document.getElementById('new-chat-phone').value.trim().replace(/\D/g, '');
+
+      if (!phone) {
+        alert('Por favor ingresa un número de teléfono válido.');
+        return;
+      }
+
+      if (phone.length === 10) {
+        phone = '52' + phone;
+      }
+
+      const newChat = {
+        id: 'chat-' + Date.now(),
+        name: name || phone,
+        phone: phone,
+        unread: 0,
+        messages: [
+          { from: 'out', text: '¡Hola! Te contactamos desde ATOYAC Cafetería.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+        ]
+      };
+
+      chats.unshift(newChat);
+      saveChats();
+      closeModal('modal-new-chat');
+      document.getElementById('new-chat-name').value = '';
+      document.getElementById('new-chat-phone').value = '';
+
+      selectChat(newChat.id);
+    }
+
+    function selectTemplate(text) {
+      closeModal('modal-templates');
+      sendOutgoingMessage(text);
+    }
+
+    // INICIALIZAR
+    initFirestore();
+    pollWebhookServer();
+    setInterval(pollWebhookServer, 3500);
+    if (chats.length > 0) {
+      activeChatId = chats[0].id;
+    }
+    renderChatList();
+    if (chats.length > 0) {
+      selectChat(activeChatId);
+    }
+  </script>
+</body>
+</html>

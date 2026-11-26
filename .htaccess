@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Rutas amigables limpias
+RewriteRule ^inauguracion/?$ inauguracion.html [L,QSA]
+RewriteRule ^administracion/whatsapp/?$ administracion/whatsapp.html [L,QSA]
+
+# Redirección general para extensiones limpias si aplica
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
