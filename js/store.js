@@ -9,7 +9,7 @@ export const BUSINESS_INFO = {
   reference: "Eje 8 Sur, cerca de Av. México-Coyoacán y Uxmal",
   hours: "Lunes a Sábado · 7:00 a 21:00",
   openingDate: "5 de diciembre de 2026",
-  phone: "525659122497", // WhatsApp My Business Oficial ATOYAC
+  phone: "525658965015", // WhatsApp My Business Oficial ATOYAC
   financials: {
     initialInvestment: 71900,
     securityDeposit: 19140,

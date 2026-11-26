@@ -1,7 +1,7 @@
 <?php
 /**
  * ATOYAC - Webhook receptor para WhatsApp Cloud API (Meta)
- * Teléfono: +52 56 5912 2497
+ * Teléfono: +52 56 5896 5015
  */
 
 header('Content-Type: application/json');
