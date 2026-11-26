@@ -175,12 +175,21 @@
     }
 
     .countdown-label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--forest-sage);
       margin-bottom: 0.65rem;
+    }
+
+    .countdown-sublabel {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--forest-sage);
+      margin-top: 0.75rem;
     }
 
     .countdown-grid {
@@ -412,6 +421,33 @@
       .action-steps-row { gap: 0.45rem; }
     }
 
+    .btn-conoce-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 48px;
+      padding: 0 1.6rem;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      color: var(--forest-dark);
+      font-family: var(--font-montserrat);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 1.35rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-conoce-menu:hover {
+      border-color: var(--forest-dark);
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(26, 40, 31, 0.08);
+    }
+
     .footer-note {
       margin-top: 1.25rem;
       font-size: 0.74rem;
@@ -468,14 +504,13 @@
          =================================================================== -->
     <div class="brand-block">
       <h1 class="brand-title">ATOYAC</h1>
-      <span class="brand-tag">Gran Inauguración · Sábado 5 de Diciembre</span>
     </div>
 
     <!-- ===================================================================
          3. CONTADOR SENCILLO EN MONTSERRAT
          =================================================================== -->
     <section class="countdown-section" aria-label="Cuenta regresiva de inauguración">
-      <p class="countdown-label">Faltan exactamente:</p>
+      <p class="countdown-label">Faltan:</p>
       
       <div class="countdown-grid">
         <div class="countdown-box">
@@ -495,6 +530,8 @@
           <div class="countdown-unit">Seg</div>
         </div>
       </div>
+
+      <p class="countdown-sublabel">para nuestra apertura</p>
     </section>
 
     <!-- ===================================================================
@@ -551,9 +588,14 @@
       </div>
     </section>
 
+    <!-- BOTÓN CONOCE NUESTRO MENÚ -->
+    <a href="menu.html" class="btn-conoce-menu">
+      <span>Conoce nuestro menú</span>
+      <span>↗</span>
+    </a>
+
     <div class="footer-note">
-      <a href="index.html">← Ir al Inicio</a> ·
-      <a href="menu.html">Ver Menú Digital</a>
+      <a href="index.html">← Ir al Inicio</a>
     </div>
 
   </main>
