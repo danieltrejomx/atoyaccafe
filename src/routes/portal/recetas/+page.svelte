@@ -172,7 +172,7 @@
 				</tfoot>
 			</table>
 		</div>
-		<p class="suave nota">Cantidades por pieza vendida, en la unidad del insumo (0.06 kg = 60 g). "Base" se descuenta siempre; una opción solo si el cliente la elige. Las filas en amarillo tienen cambios sin guardar.</p>
+		<p class="suave nota">Cantidades por pieza vendida, en unidades que se cuentan (rebanadas, rodajas, piezas, cucharadas; 0.5 = medio). "Base" se descuenta siempre; una opción solo si el cliente la elige. Las filas en amarillo tienen cambios sin guardar.</p>
 	{/if}
 </div>
 

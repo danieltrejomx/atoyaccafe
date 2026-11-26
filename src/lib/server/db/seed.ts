@@ -10,53 +10,55 @@ type Rec = [insumo: string, cantidad: number][];
 type Op = { g: string; n: string; x?: number; multi?: true; def?: true; rec?: Rec };
 type Prod = { n: string; d: string; c: Categoria; p: number; f?: string; rec?: Rec; ops?: Op[] };
 
-// nombre, unidad, stock, mínimo, frecuencia. Cantidades y stock iniciales son estimados: ajustarlos en el portal.
+// Unidades de cocina: todo se cuenta, nada se pesa (rebanadas, rodajas, piezas, cucharadas).
+// El inventario se cuenta en esas mismas unidades. Stock y mínimos iniciales son estimados.
+// nombre, unidad, stock, mínimo, frecuencia
 const INSUMOS: [string, string, number, number, string][] = [
 	['Pan integral de caja', 'rebanadas', 60, 20, 'Diario'],
 	['Baguette', 'piezas', 30, 10, 'Diario (pedido día anterior)'],
-	['Jamón de pavo', 'kg', 2.8, 1.2, '2 veces por semana'],
-	['Pechuga de pavo', 'kg', 2, 1, '2 veces por semana'],
-	['Pechuga de pollo', 'kg', 3.4, 1.5, '2 veces por semana'],
+	['Jamón de pavo', 'rebanadas', 120, 40, '2 veces por semana'],
+	['Pechuga de pavo', 'rebanadas', 80, 30, '2 veces por semana'],
+	['Pechuga de pollo', 'filetes', 25, 10, '2 veces por semana'],
 	['Milanesa de pollo', 'piezas', 20, 8, '2 veces por semana'],
-	['Queso panela', 'kg', 2.5, 1.2, '2 veces por semana'],
+	['Queso panela', 'rebanadas', 100, 40, '2 veces por semana'],
 	['Queso amarillo', 'rebanadas', 80, 30, 'Semanal'],
-	['Aguacate Hass', 'kg', 2.2, 1, 'Central de Abastos (2x sem)'],
-	['Jitomate', 'kg', 4, 1.5, 'Central de Abastos (2x sem)'],
-	['Espinaca', 'kg', 1.5, 0.6, 'Central de Abastos (2x sem)'],
-	['Lechuga', 'kg', 2, 0.8, 'Central de Abastos (2x sem)'],
-	['Pepino', 'kg', 2, 0.8, 'Central de Abastos (2x sem)'],
-	['Limón', 'kg', 2, 0.8, 'Central de Abastos (2x sem)'],
-	['Naranja para jugo', 'kg', 18, 10, 'Central de Abastos (2x sem)'],
-	['Plátano', 'kg', 3, 1, 'Central de Abastos (2x sem)'],
-	['Fresa', 'kg', 2, 0.8, 'Central de Abastos (2x sem)'],
-	['Mezcla para crepa', 'litros', 6, 2, 'Diario'],
-	['Nutella', 'kg', 2, 0.6, 'Quincenal'],
-	['Queso crema', 'kg', 1.5, 0.5, 'Semanal'],
-	['Miel de abeja', 'litros', 1, 0.3, 'Mensual'],
-	['Cajeta', 'kg', 1.5, 0.5, 'Quincenal'],
-	['Nuez', 'kg', 0.8, 0.3, 'Mensual'],
-	['Concentrado de agua fresca', 'litros', 8, 3, 'Diario'],
-	['Café de grano', 'kg', 3, 1, 'Quincenal'],
-	['Leche', 'litros', 10, 4, '2 veces por semana'],
+	['Aguacate Hass', 'piezas', 15, 6, 'Central de Abastos (2x sem)'],
+	['Jitomate', 'rodajas', 120, 40, 'Central de Abastos (2x sem)'],
+	['Pepino', 'rodajas', 120, 40, 'Central de Abastos (2x sem)'],
+	['Lechuga', 'hojas', 60, 20, 'Central de Abastos (2x sem)'],
+	['Espinaca', 'puños', 30, 10, 'Central de Abastos (2x sem)'],
+	['Limón', 'piezas', 30, 10, 'Central de Abastos (2x sem)'],
+	['Naranja para jugo', 'piezas', 80, 30, 'Central de Abastos (2x sem)'],
+	['Plátano', 'piezas', 15, 5, 'Central de Abastos (2x sem)'],
+	['Fresa', 'piezas', 60, 20, 'Central de Abastos (2x sem)'],
+	['Mezcla para crepa', 'crepas', 40, 15, 'Diario'],
+	['Nutella', 'cucharadas', 80, 25, 'Quincenal'],
+	['Queso crema', 'cucharadas', 50, 15, 'Semanal'],
+	['Miel de abeja', 'cucharadas', 50, 15, 'Mensual'],
+	['Cajeta', 'cucharadas', 50, 15, 'Quincenal'],
+	['Nuez', 'cucharadas', 30, 10, 'Mensual'],
+	['Agua fresca preparada', 'vasos de 500 ml', 30, 10, 'Diario'],
+	['Café de grano', 'cucharadas', 150, 50, 'Quincenal'],
+	['Leche', 'tazas', 30, 10, '2 veces por semana'],
 	['Té de hierbas', 'sobres', 60, 20, 'Mensual'],
-	['Vasos, bolsas kraft y servilletas', 'paquetes', 8, 3, 'Mensual']
+	['Empaque para llevar', 'kits', 200, 60, 'Mensual']
 ];
 
-const empaque: Rec = [['Vasos, bolsas kraft y servilletas', 0.01]];
-// Extras de Amanecer y Mediodía (según la carta): aguacate +$15, doble proteína +$20, pan integral sin costo.
+const empaque: Rec = [['Empaque para llevar', 1]];
+// Extras de Amanecer y Mediodía (según la carta): aguacate +$15 = medio aguacate, doble proteína +$20, pan integral sin costo.
 const extrasPan = (proteina: Rec, integral = true): Op[] => [
-	{ g: 'Extras', n: 'Aguacate', x: 15, multi: true, rec: [['Aguacate Hass', 0.04]] },
+	{ g: 'Extras', n: 'Aguacate', x: 15, multi: true, rec: [['Aguacate Hass', 0.5]] },
 	{ g: 'Extras', n: 'Doble proteína', x: 20, multi: true, rec: proteina },
 	...(integral ? [{ g: 'Extras', n: 'Pan integral', multi: true } as Op] : [])
 ];
 // Extras de Tarde: plátano o fresa extra +$15, doble Nutella +$15.
 const extrasCrepa: Op[] = [
-	{ g: 'Extras', n: 'Plátano extra', x: 15, multi: true, rec: [['Plátano', 0.08]] },
-	{ g: 'Extras', n: 'Fresa extra', x: 15, multi: true, rec: [['Fresa', 0.08]] },
-	{ g: 'Extras', n: 'Doble Nutella', x: 15, multi: true, rec: [['Nutella', 0.03]] }
+	{ g: 'Extras', n: 'Plátano extra', x: 15, multi: true, rec: [['Plátano', 0.5]] },
+	{ g: 'Extras', n: 'Fresa extra', x: 15, multi: true, rec: [['Fresa', 4]] },
+	{ g: 'Extras', n: 'Doble Nutella', x: 15, multi: true, rec: [['Nutella', 2]] }
 ];
 const crepa = (n: string, d: string, p: number, relleno: Rec): Prod => ({
-	n, d, c: 'Tarde', p, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 0.12], ...relleno, ...empaque], ops: extrasCrepa
+	n, d, c: 'Tarde', p, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 1], ...relleno, ...empaque], ops: extrasCrepa
 });
 const baguette = (n: string, d: string, p: number, relleno: Rec, f: string): Prod => ({
 	n, d, c: 'Mediodía', p, f, rec: [['Baguette', 1], ...relleno, ...empaque], ops: extrasPan(relleno.slice(0, 1))
@@ -70,22 +72,26 @@ const bebida = (n: string, d: string, c: Categoria, p: number, rec: Rec, ops: Op
 	n, d, c, p, f: '/img/dishes/drinks.jpg', rec: [...rec, ...empaque], ops
 });
 
-const R_CLASICO: Rec = [['Pan integral de caja', 2], ['Jamón de pavo', 0.06], ['Queso panela', 0.04]];
-const R_ATOYAC: Rec = [['Pan integral de caja', 2], ['Pechuga de pavo', 0.07], ['Aguacate Hass', 0.04], ['Jitomate', 0.03], ['Espinaca', 0.015]];
-// Porciones medidas en las fotos del menú (docs/fotos-whatsapp, 19-nov): toda baguette lleva 2 rebanadas de
-// queso amarillo, 3 de panela (~60 g), 3 rodajas de jitomate (~45 g), 4 de pepino (~30 g) y hoja de lechuga (~25 g).
-const R_BASE_BAGUETTE: Rec = [['Queso amarillo', 2], ['Queso panela', 0.06], ['Jitomate', 0.045], ['Pepino', 0.03], ['Lechuga', 0.025]];
-const R_PECHUGA: Rec = [['Pechuga de pollo', 0.1], ...R_BASE_BAGUETTE];
+const R_CLASICO: Rec = [['Pan integral de caja', 2], ['Jamón de pavo', 2], ['Queso panela', 2]];
+const R_ATOYAC: Rec = [['Pan integral de caja', 2], ['Pechuga de pavo', 3], ['Aguacate Hass', 0.5], ['Jitomate', 2], ['Espinaca', 1]];
+// Porciones contadas en las fotos del menú (docs/fotos-whatsapp, 19-nov): toda baguette lleva 2 rebanadas de
+// queso amarillo, 3 de panela, 3 rodajas de jitomate, 4 de pepino y 2 hojas de lechuga.
+const R_BASE_BAGUETTE: Rec = [['Queso amarillo', 2], ['Queso panela', 3], ['Jitomate', 3], ['Pepino', 4], ['Lechuga', 2]];
+const R_PECHUGA: Rec = [['Pechuga de pollo', 1], ...R_BASE_BAGUETTE];
 const R_MILANESA: Rec = [['Milanesa de pollo', 1], ...R_BASE_BAGUETTE];
-const R_JAMON: Rec = [['Jamón de pavo', 0.08], ...R_BASE_BAGUETTE];
-const R_JUGO_NARANJA: Rec = [['Naranja para jugo', 0.9]];
-const R_AGUA: Rec = [['Concentrado de agua fresca', 0.5]];
-const R_AMERICANO: Rec = [['Café de grano', 0.009]];
+const R_JAMON: Rec = [['Jamón de pavo', 4], ...R_BASE_BAGUETTE];
+const R_NUTELLA: Rec = [['Nutella', 2], ['Plátano', 0.5]];
+const R_FRESA: Rec = [['Fresa', 5], ['Queso crema', 2], ['Miel de abeja', 1]];
+const R_CAJETA: Rec = [['Cajeta', 2], ['Nuez', 1]];
+const R_SALADA: Rec = [['Pechuga de pollo', 1], ['Queso panela', 2], ['Espinaca', 1]];
+const R_JUGO_NARANJA: Rec = [['Naranja para jugo', 5]];
+const R_AGUA: Rec = [['Agua fresca preparada', 1]];
+const R_AMERICANO: Rec = [['Café de grano', 2]];
 
 // Carta oficial del cliente (26-nov-2026): Amanecer 7:00–11:30, Mediodía 11:30–16:30, Tarde 16:30–21:00, bebidas todo el día.
 const PRODUCTOS: Prod[] = [
-	{ n: 'Sándwich Clásico', d: 'Jamón de pavo y panela en pan integral', c: 'Amanecer', p: 49, f: '/img/dishes/sandwiches.jpg', rec: [...R_CLASICO, ...empaque], ops: extrasPan([['Jamón de pavo', 0.06]], false) },
-	{ n: 'Sándwich Atoyac', d: 'Pechuga de pavo, aguacate, jitomate y espinaca', c: 'Amanecer', p: 65, f: '/img/dishes/sandwiches.jpg', rec: [...R_ATOYAC, ...empaque], ops: extrasPan([['Pechuga de pavo', 0.07]], false) },
+	{ n: 'Sándwich Clásico', d: 'Jamón de pavo y panela en pan integral', c: 'Amanecer', p: 49, f: '/img/dishes/sandwiches.jpg', rec: [...R_CLASICO, ...empaque], ops: extrasPan([['Jamón de pavo', 2]], false) },
+	{ n: 'Sándwich Atoyac', d: 'Pechuga de pavo, aguacate, jitomate y espinaca', c: 'Amanecer', p: 65, f: '/img/dishes/sandwiches.jpg', rec: [...R_ATOYAC, ...empaque], ops: extrasPan([['Pechuga de pavo', 3]], false) },
 	{
 		n: 'Combo Amanecer', d: 'Sándwich Clásico + jugo de naranja', c: 'Amanecer', p: 79, f: '/img/dishes/sandwiches.jpg', rec: empaque,
 		ops: [
@@ -106,28 +112,28 @@ const PRODUCTOS: Prod[] = [
 			...sabores()
 		]
 	},
-	crepa('Crepa Nutella', 'Con plátano fresco', 75, [['Nutella', 0.04], ['Plátano', 0.08]]),
-	crepa('Crepa de fresa', 'Queso crema y miel de abeja', 72, [['Fresa', 0.08], ['Queso crema', 0.04], ['Miel de abeja', 0.015]]),
-	crepa('Crepa de cajeta', 'Con nuez', 69, [['Cajeta', 0.05], ['Nuez', 0.015]]),
-	{ n: 'Crepa salada', d: 'Pechuga, panela y espinaca', c: 'Tarde', p: 79, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 0.12], ['Pechuga de pollo', 0.08], ['Queso panela', 0.04], ['Espinaca', 0.015], ...empaque] },
+	crepa('Crepa Nutella', 'Con plátano fresco', 75, R_NUTELLA),
+	crepa('Crepa de fresa', 'Queso crema y miel de abeja', 72, R_FRESA),
+	crepa('Crepa de cajeta', 'Con nuez', 69, R_CAJETA),
+	{ n: 'Crepa salada', d: 'Pechuga, panela y espinaca', c: 'Tarde', p: 79, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 1], ...R_SALADA, ...empaque] },
 	{
-		n: 'Combo Tarde', d: 'Cualquier crepa + café americano', c: 'Tarde', p: 95, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 0.12], ...R_AMERICANO, ...empaque],
+		n: 'Combo Tarde', d: 'Cualquier crepa + café americano', c: 'Tarde', p: 95, f: '/img/dishes/crepes.jpg', rec: [['Mezcla para crepa', 1], ...R_AMERICANO, ...empaque],
 		ops: [
-			{ g: 'Crepa', n: 'Nutella', def: true, rec: [['Nutella', 0.04], ['Plátano', 0.08]] },
-			{ g: 'Crepa', n: 'Fresa', rec: [['Fresa', 0.08], ['Queso crema', 0.04], ['Miel de abeja', 0.015]] },
-			{ g: 'Crepa', n: 'Cajeta', rec: [['Cajeta', 0.05], ['Nuez', 0.015]] },
-			{ g: 'Crepa', n: 'Salada', rec: [['Pechuga de pollo', 0.08], ['Queso panela', 0.04], ['Espinaca', 0.015]] }
+			{ g: 'Crepa', n: 'Nutella', def: true, rec: R_NUTELLA },
+			{ g: 'Crepa', n: 'Fresa', rec: R_FRESA },
+			{ g: 'Crepa', n: 'Cajeta', rec: R_CAJETA },
+			{ g: 'Crepa', n: 'Salada', rec: R_SALADA }
 		]
 	},
 	bebida('Jugo de naranja 500 ml', 'Recién exprimido, sin azúcar', 'Jugos y aguas', 38, R_JUGO_NARANJA),
-	bebida('Jugo verde 500 ml', 'Naranja, espinaca, pepino y limón', 'Jugos y aguas', 45, [['Naranja para jugo', 0.6], ['Espinaca', 0.03], ['Pepino', 0.08], ['Limón', 0.03]]),
+	bebida('Jugo verde 500 ml', 'Naranja, espinaca, pepino y limón', 'Jugos y aguas', 45, [['Naranja para jugo', 3], ['Espinaca', 1], ['Pepino', 6], ['Limón', 1]]),
 	bebida('Agua fresca del día', 'Jamaica, horchata o pepino-limón · 1 L $40', 'Jugos y aguas', 25, R_AGUA, [
 		...sabores(),
 		{ g: 'Tamaño', n: '500 ml', def: true },
 		{ g: 'Tamaño', n: '1 litro', x: 15, rec: R_AGUA }
 	]),
 	bebida('Café americano', '', 'Café y té', 25, R_AMERICANO),
-	bebida('Café con leche', '', 'Café y té', 35, [...R_AMERICANO, ['Leche', 0.15]]),
+	bebida('Café con leche', '', 'Café y té', 35, [...R_AMERICANO, ['Leche', 1]]),
 	bebida('Té de hierbas', '', 'Café y té', 25, [['Té de hierbas', 1]])
 ];
 
