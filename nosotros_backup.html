@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros & Filosofía · ATOYAC | All-Day Healthy Kitchen</title>
+  <meta name="description" content="Conoce la filosofía y promesa de ATOYAC: comida saludable, pan artesanal del día, naranja recién exprimida y café de grano en Santa Cruz Atoyac, Benito Juárez." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      background-color: var(--bg-sand);
+      color: var(--forest-dark);
+      padding-top: 84px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(239, 236, 230, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(37, 51, 41, 0.08);
+    }
+
+    .nav-links {
+      gap: 2.25rem;
+    }
+
+    .nav-link {
+      padding: 0.25rem 0;
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      border-bottom: 1.5px solid transparent;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--forest-dark);
+      border-bottom-color: var(--forest-dark);
+    }
+
+    .nosotros-hero {
+      padding: 5rem 0 3.5rem;
+      text-align: center;
+    }
+
+    .nosotros-manifesto {
+      background: var(--forest-dark);
+      color: var(--bg-sand);
+      padding: 5rem 0;
+      margin: 2.5rem 0;
+    }
+
+    .manifesto-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      line-height: 1.45;
+      font-weight: 400;
+      max-width: 920px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .counters-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(239, 236, 230, 0.15);
+      text-align: center;
+    }
+
+    .counter-num {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 600;
+      color: var(--warm-ochre);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .counter-label {
+      font-size: 0.88rem;
+      opacity: 0.82;
+      line-height: 1.4;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .footer-serious-btn {
+      display: block;
+      padding: 0.75rem 1.15rem;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.04);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-serious-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-serious-btn.admin {
+      background: var(--warm-ochre);
+      color: var(--forest-dark);
+      border-color: var(--warm-ochre);
+      font-weight: 600;
+    }
+
+    .footer-serious-btn.admin:hover {
+      background: #e2be88;
+    }
+
+    @media (max-width: 900px) {
+      .counters-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="brand-logo" style="gap: 0.65rem;">
+        <img src="assets/img/logo.svg" alt="ATOYAC Icono" style="height: 38px; width: auto;" />
+        <div class="brand-text-wrap">
+          <span class="brand-title">ATOYAC</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="menu.html" class="nav-link">Menú</a></li>
+        <li><a href="nosotros.html" class="nav-link active">Nosotros</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="delivery.html" class="btn btn-primary btn-sm">Entrega a tu Domicilio</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO NOSOTROS -->
+    <section class="nosotros-hero">
+      <div class="container" style="max-width: 860px;">
+        <span class="eyebrow">Sobre ATOYAC</span>
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0.8rem 0 1.25rem;">
+          Comida para tu <span class="serif-italic" style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--sage-green);">día a día.</span>
+        </h1>
+        <p style="font-size: 1.12rem; color: var(--text-muted); line-height: 1.7; max-width: 680px; margin: 0 auto 2rem;">
+          Nacimos con una idea directa: servir alimentos recién preparados, con insumos limpios, gramajes exactos y a un precio justo sin obligar propina ni inflar costos de plataforma.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://www.google.com/maps/search/?api=1&query=Av.+Popocatepetl+289+Santa+Cruz+Atoyac+CDMX" target="_blank" rel="noopener" class="btn btn-outline">
+            Ver Ubicación en Google Maps ↗
+          </a>
+          <a href="delivery.html" class="btn btn-primary">Pedir sin Comisión</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFIESTO Y CONTADORES (MOVIDO DESDE EL HOME SEGÚN INDICACIÓN) -->
+    <section class="nosotros-manifesto">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <span class="eyebrow" style="color: var(--warm-ochre);">Nuestra Promesa en Santa Cruz Atoyac</span>
+        </div>
+        <p class="manifesto-quote">
+          “No somos comida rápida industrial. Exprimimos naranja fresca a las 6:40 de la mañana, recibimos pan artesanal del día, pesamos cada porción al gramo y colamos café cada dos horas.”
+        </p>
+
+        <div class="counters-row">
+          <div>
+            <div class="counter-num">14 hrs</div>
+            <div class="counter-label">Servicio continuo de 7:00 a 21:00</div>
+          </div>
+          <div>
+            <div class="counter-num">0%</div>
+            <div class="counter-label">Comisiones pidiendo en nuestro sitio web</div>
+          </div>
+          <div>
+            <div class="counter-num">100%</div>
+            <div class="counter-label">Insumos frescos sin congelados</div>
+          </div>
+          <div>
+            <div class="counter-num">$79</div>
+            <div class="counter-label">Combos completos con bebida incluida</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUCURSAL Y EXPERIENCIA DE LOCAL -->
+    <section class="section" style="padding: 4.5rem 0;">
+      <div class="container">
+        <div class="grid-2" style="gap: 4rem; align-items: center;">
+          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);">
+            <img src="assets/img/local-interior.jpg" alt="Interior ATOYAC" style="width: 100%; height: auto; display: block;" />
+          </div>
+
+          <div>
+            <span class="eyebrow">Nuestra Sucursal</span>
+            <h2 class="section-title" style="margin: 0.6rem 0 1.25rem;">
+              23.7 m² diseñados para <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--sage-green);">frescura</span> y agilidad.
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;">
+              Ubicados en <strong>Av. Popocatépetl 289, Local A (Eje 8 Sur)</strong>, en la colonia Santa Cruz Atoyac, casi esquina con Av. México-Coyoacán y Uxmal.
+            </p>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
+              Diseñamos un espacio compacto y eficiente para que puedas comer en barra, pedir para llevar al momento o recoger tu pedido ordenado desde la web o en nuestro Kiosco iPad sin hacer fila.
+            </p>
+
+            <div class="grid-3" style="gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Dirección</strong>
+                <span style="font-size: 0.86rem; color: var(--text-muted);">Av. Popocatépetl 289, Local A</span>
+              </div>
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Horario</strong>
+                <span style="font-size: 0.86rem; color: var(--text-muted);">Lun – Sáb · 7:00 a 21:00</span>
+              </div>
+              <div>
+                <strong style="display: block; font-family: var(--font-display);">Modalidad</strong>
+                <span style="font-size: 0.86rem; color: var(--text-muted);">Barra · Para Llevar · Pick-up</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOTO SAMPLING DEGUSTACIÓN -->
+    <section class="section" style="background: var(--bg-cream); padding: 4.5rem 0;">
+      <div class="container">
+        <div class="grid-2" style="gap: 4rem; align-items: center;">
+          <div>
+            <span class="eyebrow">Comunidad & Vecinos</span>
+            <h2 class="section-title" style="margin: 0.6rem 0 1.25rem;">
+              Hecho para vecinos y oficinas de la zona.
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 1rem;">
+              En Santa Cruz Atoyac conviven oficinas corporativas, clínicas y residentes que buscan desayunar o comer bien sin pagar sobreprecios ni perder 40 minutos en el intento.
+            </p>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
+              Nuestra meta es convertirnos en tu hábito diario: café de grano en la mañana, sándwich o baguette al mediodía y una crepa con té por la tarde.
+            </p>
+            <a href="menu.html" class="btn btn-primary">Ver Menú Completo</a>
+          </div>
+
+          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);">
+            <img src="assets/img/local-sampling.jpg" alt="Degustación y comunidad ATOYAC" style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER SERIO Y MINIMALISTA -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid" style="grid-template-columns: 1.3fr 0.9fr 1.8fr; gap: 2.5rem;">
+        <div>
+          <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; letter-spacing: 0.16em; color: #fff; margin-bottom: 0.6rem;">
+            ATOYAC
+          </div>
+          <p style="font-size: 0.86rem; opacity: 0.78; max-width: 300px; line-height: 1.6;">
+            All-Day Healthy Kitchen.<br />
+            Av. Popocatépetl 289, Local A · Santa Cruz Atoyac, CDMX.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-title">Navegación</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Plataformas & Operación</div>
+          <div>
+            <a href="portal.html" class="footer-serious-btn admin">Administración (Login)</a>
+            <a href="kiosco.html" class="footer-serious-btn">Punto de Venta (iPad Kiosco)</a>
+            <a href="delivery.html" class="footer-serious-btn">Menú de Deliveries (0% Comisión)</a>
+            <a href="menu.html" class="footer-serious-btn">Menú Todos los Productos</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; opacity: 0.6;">
+        <span>© 2026 ATOYAC · All-Day Healthy Kitchen</span>
+        <span>Santa Cruz Atoyac, Ciudad de México</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

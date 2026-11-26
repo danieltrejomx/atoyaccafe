@@ -3,317 +3,989 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nosotros & Filosofía · ATOYAC | All-Day Healthy Kitchen</title>
-  <meta name="description" content="Conoce la filosofía y promesa de ATOYAC: comida saludable, pan artesanal del día, naranja recién exprimida y café de grano en Santa Cruz Atoyac, Benito Juárez." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>Nosotros | ATOYAC · All Day Healthy Food</title>
+  <meta name="description" content="Nuestra filosofía: comida local, honesta, deliciosa y a un precio justo para tu día a día. Sin pretensiones y con mucho sabor." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+
+  <!-- Google Fonts: Instrument Serif + Montserrat + Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background-color: var(--bg-sand);
-      color: var(--forest-dark);
-      padding-top: 84px;
+    :root {
+      --bg-cream: #FAF8F5;
+      --bg-sand: #F3EFE6;
+      --forest-dark: #16231A;
+      --forest-card: #1D2D22;
+      --forest-sage: #566D5C;
+      --accent-green: #1EA355;
+      --accent-ochre: #E0A952;
+      --accent-terracotta: #D86B49;
+      --border-subtle: rgba(22, 35, 26, 0.08);
+      --font-montserrat: 'Montserrat', sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
     }
 
-    .navbar {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-cream);
+      color: var(--forest-dark);
+      font-family: var(--font-montserrat);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* BARRA DE PROGRESO DE SCROLL */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, #1EA355, #E0A952);
+      width: 0%;
+      z-index: 99999;
+      transition: width 0.1s ease-out;
+    }
+
+    /* TOP NAVBAR ELEGANTE */
+    .menu-navbar {
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      height: 72px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 200;
-      background: rgba(239, 236, 230, 0.95);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(37, 51, 41, 0.08);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--forest-dark);
+    }
+
+    .brand-logo-img {
+      height: 32px;
+      width: auto;
+    }
+
+    .brand-title-nav {
+      font-family: var(--font-montserrat);
+      font-weight: 300;
+      font-size: 1.15rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
     }
 
     .nav-links {
-      gap: 2.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
     }
 
     .nav-link {
-      padding: 0.25rem 0;
-      font-size: 0.92rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      border-bottom: 1.5px solid transparent;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--forest-sage);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
     }
 
     .nav-link:hover, .nav-link.active {
       color: var(--forest-dark);
-      border-bottom-color: var(--forest-dark);
     }
 
-    .nosotros-hero {
-      padding: 5rem 0 3.5rem;
-      text-align: center;
-    }
-
-    .nosotros-manifesto {
+    .btn-nav-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       background: var(--forest-dark);
-      color: var(--bg-sand);
-      padding: 5rem 0;
-      margin: 2.5rem 0;
-    }
-
-    .manifesto-quote {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
-      line-height: 1.45;
-      font-weight: 400;
-      max-width: 920px;
-      margin: 0 auto 3rem;
-      text-align: center;
-    }
-
-    .counters-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid rgba(239, 236, 230, 0.15);
-      text-align: center;
-    }
-
-    .counter-num {
-      font-family: var(--font-display);
-      font-size: 3.2rem;
+      border-radius: 999px;
+      padding: 0.5rem 1.15rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: var(--warm-ochre);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .counter-label {
-      font-size: 0.88rem;
-      opacity: 0.82;
-      line-height: 1.4;
-    }
-
-    .feature-card {
-      background: #fff;
-      padding: 2.5rem 2rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .footer-serious-btn {
-      display: block;
-      padding: 0.75rem 1.15rem;
-      border-radius: var(--radius-md);
-      font-size: 0.86rem;
-      font-weight: 500;
+      color: #FFFFFF;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
       transition: all 0.2s ease;
-      background: rgba(255, 255, 255, 0.04);
-      margin-bottom: 0.5rem;
+      box-shadow: 0 4px 12px rgba(22, 35, 26, 0.15);
     }
 
-    .footer-serious-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.35);
+    .btn-nav-wa:hover {
+      background: #0f1a13;
+      transform: translateY(-1px);
     }
 
-    .footer-serious-btn.admin {
-      background: var(--warm-ochre);
+    /* ===================================================================
+       1. HERO PARALLAX: EL MANIFIESTO LOCAL
+       =================================================================== */
+    .hero-parallax-section {
+      min-height: 100vh;
+      padding: 130px 1.5rem 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 40%, #FFFFFF 0%, #FAF8F5 60%, #F3EFE6 100%);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: rgba(30, 163, 85, 0.08);
+      border: 1px solid rgba(30, 163, 85, 0.25);
+      color: var(--accent-green);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 8.5vw, 6.2rem);
+      line-height: 1.02;
+      font-weight: 400;
+      max-width: 1000px;
+      margin-bottom: 1.5rem;
       color: var(--forest-dark);
-      border-color: var(--warm-ochre);
+    }
+
+    .hero-main-title em {
+      font-style: italic;
+      color: var(--accent-green);
+    }
+
+    .hero-lead-text {
+      font-family: var(--font-montserrat);
+      font-size: clamp(1rem, 2.2vw, 1.28rem);
+      font-weight: 400;
+      color: var(--forest-sage);
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    /* STICKERS FLOTANTES ESTILO PORTRESEARCH (PARALLAX ORBITAL) */
+    .parallax-sticker {
+      position: absolute;
+      padding: 0.65rem 1.15rem;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--forest-dark);
+      pointer-events: none;
+      z-index: 5;
+      white-space: nowrap;
+      transition: transform 0.1s cubic-bezier(0,0,0.2,1);
+    }
+
+    .sticker-1 {
+      top: 20%;
+      left: 7%;
+      transform: rotate(-6deg);
+      border-color: rgba(30, 163, 85, 0.3);
+    }
+
+    .sticker-2 {
+      top: 24%;
+      right: 8%;
+      transform: rotate(5deg);
+      border-color: rgba(224, 169, 82, 0.4);
+    }
+
+    .sticker-3 {
+      bottom: 18%;
+      left: 9%;
+      transform: rotate(4deg);
+      border-color: rgba(216, 107, 73, 0.3);
+    }
+
+    .sticker-4 {
+      bottom: 20%;
+      right: 10%;
+      transform: rotate(-5deg);
+      border-color: rgba(30, 163, 85, 0.3);
+    }
+
+    /* ===================================================================
+       2. MARQUEE CONTINUO DINÁMICO
+       =================================================================== */
+    .marquee-wrapper {
+      background: var(--forest-dark);
+      color: #FAF8F5;
+      padding: 1.25rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .marquee-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5rem;
+      animation: tickerRoll 24s linear infinite;
+      font-family: var(--font-montserrat);
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .marquee-content span.star {
+      color: var(--accent-green);
+      font-size: 1.3rem;
+    }
+
+    @keyframes tickerRoll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===================================================================
+       3. TRANSICIÓN A FONDO OSCURO: LO LOCAL VS LO CORPORATIVO
+       =================================================================== */
+    .manifesto-dark-section {
+      background: var(--forest-dark);
+      color: #FAF8F5;
+      padding: 7rem 1.5rem 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Elemento decorativo del sol giratorio que responde al scroll */
+    .rotating-sun-bg {
+      position: absolute;
+      top: 50%;
+      right: -120px;
+      width: 480px;
+      height: 480px;
+      opacity: 0.05;
+      pointer-events: none;
+      transform: translateY(-50%) rotate(0deg);
+      transition: transform 0.15s ease-out;
+    }
+
+    .dark-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+
+    .dark-text-block h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.08;
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+    }
+
+    .dark-text-block h2 span {
+      color: var(--accent-green);
+      font-style: italic;
+    }
+
+    .dark-text-block p {
+      font-size: 1.05rem;
+      color: #A3B5A7;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Tarjeta flotante con efecto tilt / parallax */
+    .tilt-card-wrapper {
+      position: relative;
+    }
+
+    .floating-tilt-card {
+      background: var(--forest-card);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-tilt-card:hover {
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-8px);
+    }
+
+    .tilt-card-quote {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      color: #FFFFFF;
+    }
+
+    .tilt-card-author {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ===================================================================
+       4. LOS 3 PILARES: CARDS PARALLAX ESCALONADAS
+       =================================================================== */
+    .pillars-section {
+      padding: 7rem 1.5rem;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .section-headline-center {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 5rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-green);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title-large {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 400;
+      color: var(--forest-dark);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .pillar-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      border: 1.5px solid var(--border-subtle);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+      will-change: transform;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-8px) !important;
+      box-shadow: 0 20px 40px rgba(22, 35, 26, 0.1);
+      border-color: rgba(22, 35, 26, 0.2);
+    }
+
+    .pillar-num {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      color: rgba(22, 35, 26, 0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .pillar-title {
+      font-family: var(--font-montserrat);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    .pillar-desc {
+      font-size: 0.92rem;
+      color: var(--forest-sage);
+      line-height: 1.65;
+    }
+
+    .pillar-badge {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(30, 163, 85, 0.1);
+      color: var(--accent-green);
+    }
+
+    /* ===================================================================
+       5. LA COMPARATIVA REAL: SIN ENGAÑOS
+       =================================================================== */
+    .comparison-section {
+      background: var(--bg-sand);
+      padding: 6.5rem 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .comparison-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .comparison-box {
+      background: #FFFFFF;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border-subtle);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .comp-col {
+      padding: 3rem 2.5rem;
+    }
+
+    .comp-col.other {
+      background: #FAF8F5;
+      border-right: 1px dashed var(--border-subtle);
+    }
+
+    .comp-col.atoyac {
+      background: #FFFFFF;
+      position: relative;
+    }
+
+    .comp-col-header {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .comp-col.other .comp-col-header {
+      color: #9CA3AF;
+    }
+
+    .comp-col.atoyac .comp-col-header {
+      color: var(--accent-green);
+    }
+
+    .comp-col h3 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .comp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .comp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .comp-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* ===================================================================
+       6. CALL TO ACTION INTERACTIVO
+       =================================================================== */
+    .cta-parallax-section {
+      padding: 7rem 1.5rem;
+      text-align: center;
+      background: var(--bg-cream);
+    }
+
+    .cta-box {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .cta-box h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      color: var(--forest-dark);
+    }
+
+    .cta-box p {
+      font-size: 1.1rem;
+      color: var(--forest-sage);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .cta-buttons-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: 999px;
+      font-family: var(--font-montserrat);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-main.primary {
+      background: var(--forest-dark);
+      color: #FFFFFF;
+      box-shadow: 0 8px 24px rgba(22, 35, 26, 0.18);
+    }
+
+    .btn-main.primary:hover {
+      background: #0d1610;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(22, 35, 26, 0.26);
+    }
+
+    .btn-main.secondary {
+      background: #FFFFFF;
+      color: var(--forest-dark);
+      border: 1.5px solid #D1D5DB;
+    }
+
+    .btn-main.secondary:hover {
+      border-color: #9CA3AF;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER DISCRETO */
+    .footer-clean {
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--forest-sage);
+    }
+
+    .footer-clean a {
+      color: var(--forest-dark);
+      text-decoration: underline;
       font-weight: 600;
     }
 
-    .footer-serious-btn.admin:hover {
-      background: #e2be88;
-    }
-
-    @media (max-width: 900px) {
-      .counters-row {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 860px) {
+      .dark-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .comparison-box {
+        grid-template-columns: 1fr;
+      }
+      .comp-col.other {
+        border-right: none;
+        border-bottom: 1px dashed var(--border-subtle);
+      }
+      .parallax-sticker {
+        display: none; /* En pantallas pequeñas se ocultan stickers sueltos para mantener limpio */
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- BARRA DE PROGRESO DE SCROLL -->
+  <div id="scroll-progress"></div>
+
   <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="brand-logo" style="gap: 0.65rem;">
-        <img src="assets/img/logo.svg" alt="ATOYAC Icono" style="height: 38px; width: auto;" />
-        <div class="brand-text-wrap">
-          <span class="brand-title">ATOYAC</span>
-        </div>
-      </a>
+  <header class="menu-navbar" id="navbar">
+    <a href="index.html" class="brand-link" aria-label="ATOYAC Inicio">
+      <img src="assets/img/logo.svg" alt="ATOYAC" class="brand-logo-img" />
+      <span class="brand-title-nav">ATOYAC</span>
+    </a>
 
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">Inicio</a></li>
-        <li><a href="menu.html" class="nav-link">Menú</a></li>
-        <li><a href="nosotros.html" class="nav-link active">Nosotros</a></li>
-      </ul>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Inicio</a></li>
+      <li><a href="menu.html" class="nav-link">Menú</a></li>
+      <li><a href="nosotros.html" class="nav-link active">Nosotros</a></li>
+    </ul>
 
-      <div class="nav-actions">
-        <a href="delivery.html" class="btn btn-primary btn-sm">Entrega a tu Domicilio</a>
-      </div>
-    </div>
+    <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20%E2%98%95%F0%9F%A5%A0" target="_blank" rel="noopener" class="btn-nav-wa">
+      <span>WhatsApp</span>
+      <span>↗</span>
+    </a>
   </header>
 
   <main>
-    <!-- HERO NOSOTROS -->
-    <section class="nosotros-hero">
-      <div class="container" style="max-width: 860px;">
-        <span class="eyebrow">Sobre ATOYAC</span>
-        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0.8rem 0 1.25rem;">
-          Comida para tu <span class="serif-italic" style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--sage-green);">día a día.</span>
-        </h1>
-        <p style="font-size: 1.12rem; color: var(--text-muted); line-height: 1.7; max-width: 680px; margin: 0 auto 2rem;">
-          Nacimos con una idea directa: servir alimentos recién preparados, con insumos limpios, gramajes exactos y a un precio justo sin obligar propina ni inflar costos de plataforma.
-        </p>
-        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <a href="https://www.google.com/maps/search/?api=1&query=Av.+Popocatepetl+289+Santa+Cruz+Atoyac+CDMX" target="_blank" rel="noopener" class="btn btn-outline">
-            Ver Ubicación en Google Maps ↗
-          </a>
-          <a href="delivery.html" class="btn btn-primary">Pedir sin Comisión</a>
-        </div>
+    <!-- ===================================================================
+         1. HERO PARALLAX: MANIFIESTO LOCAL
+         =================================================================== -->
+    <section class="hero-parallax-section" id="hero-section">
+      
+      <!-- STICKERS FLOTANTES ESTILO PORTRESEARCH (REACCIONAN AL SCROLL Y MOUSE) -->
+      <div class="parallax-sticker sticker-1" data-parallax-speed="0.28">
+        🥑 Chilaquiles reales desde $65
+      </div>
+      <div class="parallax-sticker sticker-2" data-parallax-speed="-0.35">
+        🚫 Cero propina forzada
+      </div>
+      <div class="parallax-sticker sticker-3" data-parallax-speed="0.4">
+        ☕ Café de especialidad $35
+      </div>
+      <div class="parallax-sticker sticker-4" data-parallax-speed="-0.25">
+        🥖 Pan artesanal del día
+      </div>
+
+      <span class="hero-eyebrow">Filosofía Local · Sin Pretensiones</span>
+      
+      <h1 class="hero-main-title">
+        Comer bien rico <em>no debería costar</em> una quincena.
+      </h1>
+
+      <p class="hero-lead-text">
+        Nacimos con una idea muy simple: alimentos limpios, porciones abundantes y precios que respetan tu bolsillo. Lo que ves en el menú es lo que pagas, sin comisiones escondidas ni cuentas infladas.
+      </p>
+
+      <div class="cta-buttons-wrap">
+        <a href="menu.html" class="btn-main primary">Ver Menú con Precios →</a>
+        <a href="https://wa.me/525658965015" target="_blank" rel="noopener" class="btn-main secondary">Escribir por WhatsApp</a>
       </div>
     </section>
 
-    <!-- MANIFIESTO Y CONTADORES (MOVIDO DESDE EL HOME SEGÚN INDICACIÓN) -->
-    <section class="nosotros-manifesto">
-      <div class="container">
-        <div style="text-align: center; margin-bottom: 1.5rem;">
-          <span class="eyebrow" style="color: var(--warm-ochre);">Nuestra Promesa en Santa Cruz Atoyac</span>
-        </div>
-        <p class="manifesto-quote">
-          “No somos comida rápida industrial. Exprimimos naranja fresca a las 6:40 de la mañana, recibimos pan artesanal del día, pesamos cada porción al gramo y colamos café cada dos horas.”
-        </p>
-
-        <div class="counters-row">
-          <div>
-            <div class="counter-num">14 hrs</div>
-            <div class="counter-label">Servicio continuo de 7:00 a 21:00</div>
-          </div>
-          <div>
-            <div class="counter-num">0%</div>
-            <div class="counter-label">Comisiones pidiendo en nuestro sitio web</div>
-          </div>
-          <div>
-            <div class="counter-num">100%</div>
-            <div class="counter-label">Insumos frescos sin congelados</div>
-          </div>
-          <div>
-            <div class="counter-num">$79</div>
-            <div class="counter-label">Combos completos con bebida incluida</div>
-          </div>
-        </div>
+    <!-- ===================================================================
+         2. MARQUEE CONTINUO DINÁMICO
+         =================================================================== -->
+    <div class="marquee-wrapper">
+      <div class="marquee-content" id="marquee-track">
+        <span>ATOYAC</span>
+        <span class="star">★</span>
+        <span>100% SABOR LOCAL</span>
+        <span class="star">★</span>
+        <span>COMER BIEN RICO Y BARATO</span>
+        <span class="star">★</span>
+        <span>CERO PROPINAS OBLIGATORIAS</span>
+        <span class="star">★</span>
+        <span>CAFÉ DE ESPECIALIDAD</span>
+        <span class="star">★</span>
+        <span>CHILAQUILES DESDE $65</span>
+        <span class="star">★</span>
+        <span>ALL DAY HEALTHY FOOD</span>
+        <span class="star">★</span>
+        <span>ATOYAC</span>
+        <span class="star">★</span>
+        <span>100% SABOR LOCAL</span>
+        <span class="star">★</span>
+        <span>COMER BIEN RICO Y BARATO</span>
+        <span class="star">★</span>
+        <span>CERO PROPINAS OBLIGATORIAS</span>
+        <span class="star">★</span>
       </div>
-    </section>
+    </div>
 
-    <!-- SUCURSAL Y EXPERIENCIA DE LOCAL -->
-    <section class="section" style="padding: 4.5rem 0;">
-      <div class="container">
-        <div class="grid-2" style="gap: 4rem; align-items: center;">
-          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);">
-            <img src="assets/img/local-interior.jpg" alt="Interior ATOYAC" style="width: 100%; height: auto; display: block;" />
-          </div>
+    <!-- ===================================================================
+         3. TRANSICIÓN A FONDO OSCURO: LO LOCAL VS LO CORPORATIVO
+         =================================================================== -->
+    <section class="manifesto-dark-section" id="dark-section">
+      
+      <!-- Sol decorativo que gira con el scroll -->
+      <svg class="rotating-sun-bg" id="rotating-sun" viewBox="0 0 100 100" fill="none" stroke="#FFFFFF" stroke-width="3">
+        <circle cx="50" cy="50" r="28" stroke-dasharray="6 6"/>
+        <line x1="50" y1="5" x2="50" y2="18"/>
+        <line x1="50" y1="82" x2="50" y2="95"/>
+        <line x1="5" y1="50" x2="18" y2="50"/>
+        <line x1="82" y1="50" x2="95" y2="50"/>
+      </svg>
 
-          <div>
-            <span class="eyebrow">Nuestra Sucursal</span>
-            <h2 class="section-title" style="margin: 0.6rem 0 1.25rem;">
-              23.7 m² diseñados para <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--sage-green);">frescura</span> y agilidad.
-            </h2>
-            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;">
-              Ubicados en <strong>Av. Popocatépetl 289, Local A (Eje 8 Sur)</strong>, en la colonia Santa Cruz Atoyac, casi esquina con Av. México-Coyoacán y Uxmal.
-            </p>
-            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
-              Diseñamos un espacio compacto y eficiente para que puedas comer en barra, pedir para llevar al momento o recoger tu pedido ordenado desde la web o en nuestro Kiosco iPad sin hacer fila.
-            </p>
+      <div class="dark-container">
+        <div class="dark-text-block">
+          <h2>Somos la cocina de <span>tus mañanas</span>, no una franquicia fría.</h2>
+          <p>
+            Mientras las grandes cadenas te cobran el doble por un sándwich empacado hace dos días y un café quemado, nosotros cocinamos para la gente que trabaja y vive aquí.
+          </p>
+          <p>
+            Salsas verdes hervidas desde temprano, pan crujiente que llega fresco cada mañana, fruta que se corta al momento y café de grano de tueste medio bien calibrado. Sin poses ni nombres raros: comida honesta y deliciosa.
+          </p>
+        </div>
 
-            <div class="grid-3" style="gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
-              <div>
-                <strong style="display: block; font-family: var(--font-display);">Dirección</strong>
-                <span style="font-size: 0.86rem; color: var(--text-muted);">Av. Popocatépetl 289, Local A</span>
-              </div>
-              <div>
-                <strong style="display: block; font-family: var(--font-display);">Horario</strong>
-                <span style="font-size: 0.86rem; color: var(--text-muted);">Lun – Sáb · 7:00 a 21:00</span>
-              </div>
-              <div>
-                <strong style="display: block; font-family: var(--font-display);">Modalidad</strong>
-                <span style="font-size: 0.86rem; color: var(--text-muted);">Barra · Para Llevar · Pick-up</span>
-              </div>
+        <div class="tilt-card-wrapper">
+          <div class="floating-tilt-card" id="tilt-card">
+            <div class="tilt-card-quote">
+              “La comida rica no tiene por qué ser un lujo. Comer limpio y delicioso debe ser tu hábito de todos los días.”
+            </div>
+            <div class="tilt-card-author">
+              <span>●</span> Manifiesto ATOYAC
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FOTO SAMPLING DEGUSTACIÓN -->
-    <section class="section" style="background: var(--bg-cream); padding: 4.5rem 0;">
-      <div class="container">
-        <div class="grid-2" style="gap: 4rem; align-items: center;">
+    <!-- ===================================================================
+         4. LOS 3 PILARES: CARDS PARALLAX ESCALONADAS
+         =================================================================== -->
+    <section class="pillars-section" id="pillars-section">
+      <div class="section-headline-center">
+        <span class="section-eyebrow">La Regla de Tres</span>
+        <h2 class="section-title-large">Tres principios que nunca vamos a romper.</h2>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- Pilar 1 -->
+        <article class="pillar-card" id="pillar-1" data-speed="0.08">
           <div>
-            <span class="eyebrow">Comunidad & Vecinos</span>
-            <h2 class="section-title" style="margin: 0.6rem 0 1.25rem;">
-              Hecho para vecinos y oficinas de la zona.
-            </h2>
-            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 1rem;">
-              En Santa Cruz Atoyac conviven oficinas corporativas, clínicas y residentes que buscan desayunar o comer bien sin pagar sobreprecios ni perder 40 minutos en el intento.
+            <div class="pillar-num">01</div>
+            <h3 class="pillar-title">100% Sabor Local</h3>
+            <p class="pillar-desc">
+              Cocinamos con sazón de casa. Saludable no significa desabrido: salsas tatemadas con sabor, quesos frescos de verdad y sazón que te reconforta desde el primer bocado.
             </p>
-            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
-              Nuestra meta es convertirnos en tu hábito diario: café de grano en la mañana, sándwich o baguette al mediodía y una crepa con té por la tarde.
+          </div>
+          <div>
+            <span class="pillar-badge">De Barrio</span>
+          </div>
+        </article>
+
+        <!-- Pilar 2 -->
+        <article class="pillar-card" id="pillar-2" data-speed="-0.05">
+          <div>
+            <div class="pillar-num">02</div>
+            <h3 class="pillar-title">Comer Bien Rico</h3>
+            <p class="pillar-desc">
+              Cada ingrediente se pesa y se prepara al instante. El pan sale crujiente, el aguacate está en su punto y la porción te deja satisfecho para seguir con tu día.
             </p>
-            <a href="menu.html" class="btn btn-primary">Ver Menú Completo</a>
+          </div>
+          <div>
+            <span class="pillar-badge">Insumos Limpios</span>
+          </div>
+        </article>
+
+        <!-- Pilar 3 -->
+        <article class="pillar-card" id="pillar-3" data-speed="0.12">
+          <div>
+            <div class="pillar-num">03</div>
+            <h3 class="pillar-title">De Verdad Barato</h3>
+            <p class="pillar-desc">
+              Combos de chilaquiles o chapata con bebida desde $60 y $100 pesos. Cero sobreprecios de apps y cero propina obligatoria. Precios transparentes que dan gusto pagar.
+            </p>
+          </div>
+          <div>
+            <span class="pillar-badge">Precio Justo</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. LA COMPARATIVA REAL: SIN ENGAÑOS
+         =================================================================== -->
+    <section class="comparison-section">
+      <div class="comparison-container">
+        <div class="comparison-box">
+          
+          <!-- Columna: Otras cafeterías -->
+          <div class="comp-col other">
+            <div class="comp-col-header">Otras cafeterías corporativas</div>
+            <h3>Complicado y costoso</h3>
+            <ul class="comp-list">
+              <li class="comp-item">
+                <span class="comp-icon">❌</span>
+                <span>Café americano regular a $80–$95 pesos con sabor quemado.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">❌</span>
+                <span>Sándwiches de refrigerador recalentados en microondas.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">❌</span>
+                <span>Propinas sugeridas del 15% o 20% casi por obligación.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">❌</span>
+                <span>Precios inflados en plataformas para absorber comisiones.</span>
+              </li>
+            </ul>
           </div>
 
-          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);">
-            <img src="assets/img/local-sampling.jpg" alt="Degustación y comunidad ATOYAC" style="width: 100%; height: auto; display: block;" />
+          <!-- Columna: ATOYAC -->
+          <div class="comp-col atoyac">
+            <div class="comp-col-header">En ATOYAC</div>
+            <h3>Directo, rico y honesto</h3>
+            <ul class="comp-list">
+              <li class="comp-item">
+                <span class="comp-icon">✅</span>
+                <span>Café americano de especialidad a <strong>$35 pesos</strong> recién extraído.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">✅</span>
+                <span>Chilaquiles verdes con totopo crujiente y salsa casera desde <strong>$65 pesos</strong>.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">✅</span>
+                <span><strong>Cero propina obligada</strong>: nuestro equipo recibe sueldo digno.</span>
+              </li>
+              <li class="comp-item">
+                <span class="comp-icon">✅</span>
+                <span>Combos completos con bebida incluida por <strong>$100 pesos</strong>.</span>
+              </li>
+            </ul>
           </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. CALL TO ACTION INTERACTIVO
+         =================================================================== -->
+    <section class="cta-parallax-section">
+      <div class="cta-box">
+        <h2>Pásale a comer rico hoy.</h2>
+        <p>
+          Desayuna, come o date un antojo por la tarde. Todo recién hecho, sano, delicioso y al mejor precio de la zona.
+        </p>
+        <div class="cta-buttons-wrap">
+          <a href="menu.html" class="btn-main primary">Ver Menú Completo ↗</a>
+          <a href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20hacer%20un%20pedido%20%E2%98%95%F0%9F%A5%A0" target="_blank" rel="noopener" class="btn-main secondary">Pedir por WhatsApp</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER SERIO Y MINIMALISTA -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid" style="grid-template-columns: 1.3fr 0.9fr 1.8fr; gap: 2.5rem;">
-        <div>
-          <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; letter-spacing: 0.16em; color: #fff; margin-bottom: 0.6rem;">
-            ATOYAC
-          </div>
-          <p style="font-size: 0.86rem; opacity: 0.78; max-width: 300px; line-height: 1.6;">
-            All-Day Healthy Kitchen.<br />
-            Av. Popocatépetl 289, Local A · Santa Cruz Atoyac, CDMX.
-          </p>
-        </div>
-
-        <div>
-          <div class="footer-title">Navegación</div>
-          <ul class="footer-links">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="menu.html">Menú</a></li>
-            <li><a href="nosotros.html">Nosotros</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="footer-title">Plataformas & Operación</div>
-          <div>
-            <a href="portal.html" class="footer-serious-btn admin">Administración (Login)</a>
-            <a href="kiosco.html" class="footer-serious-btn">Punto de Venta (iPad Kiosco)</a>
-            <a href="delivery.html" class="footer-serious-btn">Menú de Deliveries (0% Comisión)</a>
-            <a href="menu.html" class="footer-serious-btn">Menú Todos los Productos</a>
-          </div>
-        </div>
-      </div>
-
-      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; opacity: 0.6;">
-        <span>© 2026 ATOYAC · All-Day Healthy Kitchen</span>
-        <span>Santa Cruz Atoyac, Ciudad de México</span>
-      </div>
-    </div>
+  <!-- FOOTER LIMPIO -->
+  <footer class="footer-clean">
+    <p>© 2026 ATOYAC · All Day Healthy Food · <a href="index.html">Ir al Inicio</a> · <a href="menu.html">Ver Menú</a></p>
   </footer>
+
+  <!-- SCRIPT DE PARALLAX SCROLLING FLUIDO ESTILO PORTRESEARCH -->
+  <script>
+    const progressBar = document.getElementById('scroll-progress');
+    const stickers = document.querySelectorAll('.parallax-sticker');
+    const rotatingSun = document.getElementById('rotating-sun');
+    const pillars = [
+      document.getElementById('pillar-1'),
+      document.getElementById('pillar-2'),
+      document.getElementById('pillar-3')
+    ];
+    const tiltCard = document.getElementById('tilt-card');
+
+    let currentScroll = 0;
+    let targetScroll = 0;
+
+    // Actualizar barra de progreso y transformaciones parallax
+    function onScrollUpdate() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
+
+      // Barra superior
+      progressBar.style.width = scrollPercent + '%';
+
+      // 1. Stickers flotantes en el hero que se desplazan a diferentes velocidades
+      stickers.forEach(stk => {
+        const speed = parseFloat(stk.dataset.parallaxSpeed) || 0.2;
+        const yOffset = scrollY * speed;
+        const currentRot = stk.classList.contains('sticker-1') ? -6 :
+                           stk.classList.contains('sticker-2') ? 5 :
+                           stk.classList.contains('sticker-3') ? 4 : -5;
+        stk.style.transform = `translateY(${yOffset}px) rotate(${currentRot + (scrollY * 0.02)}deg)`;
+      });
+
+      // 2. Sol giratorio en la sección oscura
+      if (rotatingSun) {
+        rotatingSun.style.transform = `translateY(-50%) rotate(${scrollY * 0.12}deg)`;
+      }
+
+      // 3. Efecto parallax sutil en las 3 tarjetas de pilares
+      pillars.forEach(p => {
+        if (p) {
+          const rect = p.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            const speed = parseFloat(p.dataset.speed) || 0.05;
+            const diff = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
+            p.style.transform = `translateY(${diff}px)`;
+          }
+        }
+      });
+    }
+
+    // Parallax mouse hover en la tarjeta tilt
+    if (tiltCard) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        tiltCard.style.transform = `perspective(1000px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+      });
+    }
+
+    window.addEventListener('scroll', onScrollUpdate, { passive: true });
+    window.addEventListener('resize', onScrollUpdate, { passive: true });
+    onScrollUpdate();
+  </script>
 
 </body>
 </html>
