@@ -3,30 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Gran Inauguración & Menú Oficial · ATOYAC | Ven por tu Café Gratis ☕</title>
-  <meta name="description" content="¡Gran inauguración de ATOYAC Cafetería este sábado 5 de diciembre a las 9:00 AM! Escanea o entra para reclamar tu café gratis por WhatsApp y consulta nuestro menú completo." />
+  <title>Gran Inauguración · ATOYAC | Reclama tu Café Gratis ☕</title>
+  <meta name="description" content="Acompáñanos este sábado 5 de diciembre a las 9:00 AM. Reclama tu café gratis por WhatsApp y conoce nuestro menú de especialidad." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-cream: #F7F5F0;
-      --bg-white: #ffffff;
-      --forest-dark: #19221c;
-      --forest-accent: #253329;
-      --sage-green: #526f5c;
-      --sage-light: #eef3ef;
-      --warm-ochre: #d4a359;
-      --ochre-light: #fbf5ea;
-      --olive-dark: #3a4533;
-      --olive-light: #f2f4ee;
-      --whatsapp-green: #25D366;
-      --whatsapp-dark: #1ea952;
-      --text-muted: #5f6e63;
-      --border-subtle: rgba(25, 34, 28, 0.1);
+      --bg-canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --forest-primary: #18231C;
+      --forest-soft: #28372D;
+      --sage-muted: #5E7566;
+      --sage-light: #EEF3EF;
+      --warm-ochre: #C89647;
+      --ochre-soft: #FCF7ED;
+      --wa-green: #25D366;
+      --wa-dark: #1DA851;
+      --border-subtle: rgba(24, 35, 28, 0.08);
       --font-serif: 'Instrument Serif', Georgia, serif;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Outfit', sans-serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * {
@@ -37,1179 +34,663 @@
     }
 
     body {
-      background-color: var(--bg-cream);
-      color: var(--forest-dark);
+      background-color: var(--bg-canvas);
+      color: var(--forest-primary);
       font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1.5rem 1rem 3rem;
-      background-image: 
-        radial-gradient(circle at 10% 15%, rgba(82, 111, 92, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 90% 85%, rgba(212, 163, 89, 0.1) 0%, transparent 45%);
+      padding: 2.5rem 1.25rem 4rem;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .landing-wrapper {
-      max-width: 1140px;
+    .container {
+      max-width: 760px;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* TOP BRANDING */
+    /* 1. BRAND HEADER MINIMAL */
     .brand-header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
+      gap: 0.6rem;
+      margin-bottom: 2.2rem;
       text-align: center;
-      animation: fadeInDown 0.6s ease-out;
     }
 
-    .brand-logo-img {
-      height: 68px;
+    .brand-logo {
+      height: 64px;
       width: auto;
+      opacity: 0.95;
     }
 
-    .brand-name {
+    .brand-title {
       font-family: var(--font-display);
-      font-size: 2.2rem;
+      font-size: 1.85rem;
       font-weight: 700;
-      letter-spacing: 0.22em;
-      color: var(--forest-dark);
+      letter-spacing: 0.28em;
+      color: var(--forest-primary);
       line-height: 1;
     }
 
-    .brand-subtitle {
-      font-size: 0.85rem;
-      letter-spacing: 0.28em;
+    .brand-tagline {
+      font-size: 0.76rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--sage-green);
-      font-weight: 600;
+      color: var(--sage-muted);
+      font-weight: 500;
     }
 
-    /* INVITATION BADGE */
-    .pill-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--forest-dark);
-      color: #ffffff;
-      padding: 0.5rem 1.25rem;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 14px rgba(25, 34, 28, 0.15);
-      animation: pulseBadge 2.2s infinite ease-in-out;
-    }
-
-    @keyframes pulseBadge {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-
-    /* HERO LAYOUT GRID (DESKTOP: 2 COLUMNAS, MOBILE: 1 COLUMNA) */
-    .hero-layout-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+    /* 2. HERO CARD MINIMALISTA */
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 3rem 2.2rem 2.8rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 40px rgba(24, 35, 28, 0.04);
       width: 100%;
+      text-align: center;
       margin-bottom: 2.5rem;
     }
 
-    @media (min-width: 920px) {
-      .hero-layout-grid {
-        grid-template-columns: 1.25fr 0.95fr;
-        align-items: stretch;
+    @media (max-width: 600px) {
+      .hero-card {
+        padding: 2.2rem 1.4rem;
+        border-radius: 24px;
       }
     }
 
-    /* HERO INVITATION CARD (LEFT) */
-    .invitation-card {
-      background: var(--bg-white);
-      border-radius: 28px;
-      padding: 2.2rem 2rem;
-      border: 1.5px solid var(--border-subtle);
-      box-shadow: 0 16px 40px rgba(25, 34, 28, 0.07);
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      animation: fadeInUp 0.7s ease-out;
-    }
-
-    .card-ribbon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, var(--forest-dark) 0%, var(--sage-green) 50%, var(--warm-ochre) 100%);
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3.8vw, 2.35rem);
-      font-weight: 800;
-      line-height: 1.2;
-      color: var(--forest-dark);
-      margin-bottom: 0.85rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-title span.highlight-serif {
-      font-family: var(--font-serif);
-      font-style: italic;
-      color: var(--sage-green);
-      font-weight: 400;
-    }
-
-    .event-datetime-box {
-      background: var(--ochre-light);
-      border: 1.5px dashed var(--warm-ochre);
-      border-radius: 18px;
-      padding: 1.1rem 1rem;
-      margin: 1.1rem 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .event-date {
-      font-family: var(--font-display);
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--forest-dark);
-    }
-
-    .event-time {
-      font-size: 0.95rem;
-      color: #9c6c21;
+    .tag-pill {
+      display: inline-block;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       font-weight: 600;
+      color: var(--warm-ochre);
+      background: var(--ochre-soft);
+      padding: 0.4rem 0.95rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.35rem, 5.5vw, 3.4rem);
+      line-height: 1.15;
+      font-weight: 400;
+      color: var(--forest-primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--sage-muted);
+    }
+
+    .event-info {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--forest-primary);
+      margin-bottom: 2rem;
     }
 
-    /* COUNTDOWN TIMER */
-    .countdown-grid {
+    .event-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--warm-ochre);
+      border-radius: 50%;
+    }
+
+    /* COUNTDOWN MINIMAL */
+    .countdown-wrap {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.6rem;
-      margin: 1.2rem 0;
+      gap: 0.75rem;
+      max-width: 440px;
+      margin: 0 auto 2.4rem;
     }
 
-    .countdown-item {
-      background: var(--sage-light);
-      border-radius: 14px;
-      padding: 0.75rem 0.4rem;
+    .countdown-col {
+      background: #faf9f6;
+      border: 1px solid rgba(24, 35, 28, 0.06);
+      border-radius: 16px;
+      padding: 0.85rem 0.4rem;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .countdown-num {
+    .cd-val {
       font-family: var(--font-display);
-      font-size: 1.65rem;
-      font-weight: 800;
-      color: var(--forest-dark);
+      font-size: 1.75rem;
+      font-weight: 700;
       line-height: 1;
+      color: var(--forest-primary);
     }
 
-    .countdown-label {
-      font-size: 0.68rem;
-      color: var(--text-muted);
+    .cd-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 0.3rem;
+      color: var(--sage-muted);
+      margin-top: 0.35rem;
       font-weight: 600;
     }
 
-    /* FREE COFFEE VOUCHER */
-    .coffee-voucher {
-      background: linear-gradient(135deg, #19221C 0%, #253329 100%);
+    /* FREE COFFEE CLAIM BOX */
+    .voucher-box {
+      background: var(--forest-primary);
       color: #ffffff;
-      border-radius: 22px;
-      padding: 1.5rem 1.4rem;
-      margin: 1.2rem 0;
-      position: relative;
-      box-shadow: 0 12px 28px rgba(25, 34, 28, 0.2);
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
-    .voucher-badge {
-      display: inline-block;
-      background: var(--warm-ochre);
-      color: var(--forest-dark);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      margin-bottom: 0.6rem;
-    }
-
-    .voucher-headline {
+    .voucher-title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.45rem;
     }
 
-    .voucher-desc {
-      font-size: 0.88rem;
-      opacity: 0.9;
+    .voucher-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
       line-height: 1.45;
-      font-weight: 400;
+      max-width: 460px;
+      margin: 0 auto;
+      font-weight: 300;
     }
 
-    /* WHATSAPP CLAIM BUTTON */
-    .btn-whatsapp-claim {
+    /* BOTÓN WHATSAPP */
+    .btn-claim-wa {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.65rem;
-      background: var(--whatsapp-green);
+      gap: 0.75rem;
+      background: var(--wa-green);
       color: #ffffff;
       font-family: var(--font-sans);
       font-size: 1.05rem;
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
-      padding: 1rem 1.5rem;
+      padding: 1.05rem 2rem;
       border-radius: 999px;
       width: 100%;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 480px;
+      margin: 0 auto;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.28);
     }
 
-    .btn-whatsapp-claim:hover {
-      background: var(--whatsapp-dark);
+    .btn-claim-wa:hover {
+      background: var(--wa-dark);
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.38);
     }
 
-    .btn-whatsapp-claim svg {
+    .btn-claim-wa svg {
       width: 22px;
       height: 22px;
       fill: currentColor;
     }
 
-    .claim-footnote {
+    .claim-note {
       font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.75rem;
-    }
-
-    /* INFO & LOCATION CARD (RIGHT) */
-    .info-card {
-      background: var(--bg-white);
-      border-radius: 28px;
-      padding: 2.2rem 2rem;
-      border: 1.5px solid var(--border-subtle);
-      box-shadow: 0 16px 40px rgba(25, 34, 28, 0.07);
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    .info-title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--forest-dark);
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .location-box {
-      background: var(--bg-cream);
-      border-radius: 18px;
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .location-address {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--forest-dark);
-      margin-bottom: 0.35rem;
-    }
-
-    .location-ref {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 0.85rem;
-    }
-
-    .btn-maps {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: #ffffff;
-      color: var(--forest-dark);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 0.6rem 1.15rem;
-      border-radius: 999px;
-      border: 1.5px solid var(--border-subtle);
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .btn-maps:hover {
-      border-color: var(--forest-dark);
-      background: var(--forest-dark);
-      color: #ffffff;
-    }
-
-    .schedule-box {
-      background: var(--ochre-light);
-      border-radius: 18px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.88rem;
-    }
-
-    .schedule-box strong {
-      color: var(--forest-dark);
-    }
-
-    .perks-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-    }
-
-    .perk-pill {
-      background: var(--sage-light);
-      border-radius: 12px;
-      padding: 0.7rem 0.85rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--forest-dark);
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .welcome-pill {
-      background: #fafaf9;
-      border: 1px solid #e7e5e4;
-      border-radius: 14px;
-      padding: 0.85rem 1rem;
-      font-size: 0.82rem;
-      color: #44403c;
-      text-align: center;
-      margin-top: 1.25rem;
-      font-style: italic;
+      color: var(--sage-muted);
+      margin-top: 0.85rem;
     }
 
     /* ===================================================================
-       SECCIÓN DE MENÚ COMPLETO (PDF OFICIAL ATOYAC)
+       3. MENÚ DIGITAL MINIMALISTA
        =================================================================== */
-    .menu-section {
+    .menu-wrap {
       width: 100%;
-      background: var(--bg-white);
-      border-radius: 32px;
-      padding: 2.75rem 2rem;
-      border: 1.5px solid var(--border-subtle);
-      box-shadow: 0 20px 48px rgba(25, 34, 28, 0.08);
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 2.8rem 2.2rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 40px rgba(24, 35, 28, 0.04);
       margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .menu-wrap {
+        padding: 2rem 1.4rem;
+        border-radius: 24px;
+      }
     }
 
     .menu-header {
       text-align: center;
-      max-width: 680px;
-      margin: 0 auto 2.5rem;
+      margin-bottom: 2.2rem;
     }
 
     .menu-badge {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.24em;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--sage-green);
-      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: var(--sage-muted);
+      display: block;
+      margin-bottom: 0.35rem;
     }
 
-    .menu-main-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 800;
-      color: var(--forest-dark);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
+    .menu-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--forest-primary);
     }
 
-    .menu-main-subtitle {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* BANNERS DE PROMOS (ESTILO VERDE OLIVA DE LA CARTA) */
-    .promos-container {
+    /* PROMOS CARDS */
+    .promos-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.25rem;
-      margin-bottom: 3rem;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
 
-    @media (min-width: 800px) {
-      .promos-container {
-        grid-template-columns: 1.1fr 1fr;
+    @media (min-width: 650px) {
+      .promos-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    .promo-card {
-      background: #47543f;
+    .promo-box {
+      background: #2a382e;
       color: #ffffff;
-      border-radius: 22px;
-      padding: 1.75rem;
-      position: relative;
-      overflow: hidden;
+      border-radius: 18px;
+      padding: 1.35rem;
     }
 
-    .promo-card.darker {
-      background: #34402e;
+    .promo-box.ochre {
+      background: #222e26;
     }
 
-    .promo-card-tag {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
+    .promo-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #cbd5c0;
-      margin-bottom: 1rem;
+      color: #cfd8d2;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
 
-    .promo-row {
+    .promo-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0.85rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.88rem;
     }
 
-    .promo-row:last-child {
+    .promo-item:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
 
-    .promo-combo-name {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .promo-combo-desc {
-      font-size: 0.8rem;
-      opacity: 0.8;
-      font-weight: 400;
-    }
-
     .promo-price {
       font-family: var(--font-display);
-      font-size: 1.55rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #f7e6a7;
     }
 
-    /* GRID DE CATEGORÍAS DEL MENÚ */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    /* CATEGORÍAS */
+    .category-block {
+      margin-bottom: 2.2rem;
     }
 
-    @media (min-width: 860px) {
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .category-block:last-child {
+      margin-bottom: 0;
     }
 
-    @media (min-width: 1100px) {
-      .menu-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .menu-category-card {
-      background: var(--bg-cream);
-      border-radius: 20px;
-      padding: 1.5rem 1.35rem;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .category-title-box {
+    .category-heading {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--forest-primary);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(24, 35, 28, 0.12);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1rem;
-      padding-bottom: 0.65rem;
-      border-bottom: 2px solid var(--forest-dark);
     }
 
-    .category-title {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--forest-dark);
-    }
-
-    .category-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: var(--sage-light);
-      color: var(--sage-green);
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-    }
-
-    .menu-item-row {
+    .item-line {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 0.75rem;
+      align-items: baseline;
       padding: 0.65rem 0;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+      border-bottom: 1px dashed rgba(24, 35, 28, 0.08);
+      gap: 1rem;
     }
 
-    .menu-item-row:last-child {
+    .item-line:last-child {
       border-bottom: none;
     }
 
-    .item-meta {
+    .item-info {
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
-      flex: 1;
     }
 
     .item-name {
-      font-weight: 700;
       font-size: 0.95rem;
-      color: var(--forest-dark);
+      font-weight: 600;
+      color: var(--forest-primary);
     }
 
     .item-desc {
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: var(--sage-muted);
       line-height: 1.35;
+      font-weight: 300;
     }
 
     .item-price {
       font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: var(--forest-dark);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--forest-primary);
       white-space: nowrap;
     }
 
-    /* BOTÓN FLOTANTE O CTA FINAL */
-    .menu-cta-banner {
-      background: linear-gradient(135deg, #19221C 0%, #253329 100%);
-      color: #ffffff;
-      border-radius: 24px;
-      padding: 2.2rem 2rem;
+    /* 4. FOOTER MINIMAL */
+    .site-footer {
       text-align: center;
-      margin-top: 2.5rem;
+      color: var(--sage-muted);
+      font-size: 0.8rem;
       display: flex;
       flex-direction: column;
+      gap: 0.65rem;
       align-items: center;
-      gap: 1rem;
     }
 
-    .menu-cta-title {
-      font-family: var(--font-display);
-      font-size: 1.65rem;
-      font-weight: 700;
+    .footer-quote {
+      font-style: italic;
+      color: #4b584f;
+      font-size: 0.82rem;
     }
 
-    .menu-cta-text {
-      font-size: 0.92rem;
-      opacity: 0.88;
-      max-width: 580px;
+    .footer-links a {
+      color: var(--forest-primary);
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 0.4rem;
     }
 
-    /* FOOTER & LINKS */
-    .landing-footer {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      align-items: center;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      text-align: center;
-      width: 100%;
-      padding-top: 1rem;
-    }
-
-    .landing-footer a {
-      color: var(--forest-dark);
-      font-weight: 600;
+    .footer-links a:hover {
       text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="landing-wrapper">
+  <div class="container">
 
-    <!-- 1. TOP BRANDING -->
+    <!-- 1. BRANDING -->
     <header class="brand-header">
-      <img src="assets/img/logo.svg" alt="ATOYAC Logo" class="brand-logo-img" />
-      <h1 class="brand-name">ATOYAC</h1>
-      <span class="brand-subtitle">CAFETERÍA · HEALTHY KITCHEN</span>
+      <img src="assets/img/logo.svg" alt="ATOYAC" class="brand-logo" />
+      <h1 class="brand-title">ATOYAC</h1>
+      <span class="brand-tagline">CAFETERÍA · HEALTHY KITCHEN</span>
     </header>
 
-    <!-- INVITATION BADGE -->
-    <div class="pill-badge">
-      🎉 Invitación Especial
-    </div>
+    <!-- 2. INVITATION HERO CARD -->
+    <main class="hero-card">
+      <span class="tag-pill">Cortesía de Bienvenida</span>
 
-    <!-- 2. HERO LAYOUT (DESKTOP: 2 COLS / MOBILE: 1 COL) -->
-    <div class="hero-layout-grid">
+      <h2 class="hero-headline">
+        Gran Inauguración<br />
+        <em>Ven por tu café gratis.</em>
+      </h2>
 
-      <!-- COLUMNA IZQUIERDA: HERO INVITACIÓN & CUPO CAFÉ GRATIS -->
-      <main class="invitation-card">
-        <div class="card-ribbon"></div>
+      <!-- FECHA & HORA (SIN DIRECCIÓN) -->
+      <div class="event-info">
+        <span>Sábado 5 de Diciembre</span>
+        <span class="event-dot"></span>
+        <span>9:00 AM en adelante</span>
+      </div>
 
-        <div>
-          <h2 class="hero-title">
-            ¡Te esperamos en nuestra <span class="highlight-serif">Gran Inauguración!</span>
-          </h2>
-
-          <!-- EVENT DATE & TIME BOX -->
-          <div class="event-datetime-box">
-            <div class="event-date">Sábado 5 de Diciembre</div>
-            <div class="event-time">
-              <span>⏰ 9:00 AM en adelante</span>
-            </div>
-          </div>
-
-          <!-- COUNTDOWN TIMER -->
-          <div class="countdown-grid" id="countdown-timer">
-            <div class="countdown-item">
-              <span class="countdown-num" id="cd-days">--</span>
-              <span class="countdown-label">Días</span>
-            </div>
-            <div class="countdown-item">
-              <span class="countdown-num" id="cd-hours">--</span>
-              <span class="countdown-label">Horas</span>
-            </div>
-            <div class="countdown-item">
-              <span class="countdown-num" id="cd-mins">--</span>
-              <span class="countdown-label">Min</span>
-            </div>
-            <div class="countdown-item">
-              <span class="countdown-num" id="cd-secs">--</span>
-              <span class="countdown-label">Seg</span>
-            </div>
-          </div>
+      <!-- CUENTA REGRESIVA -->
+      <div class="countdown-wrap">
+        <div class="countdown-col">
+          <span class="cd-val" id="cd-days">--</span>
+          <span class="cd-lbl">Días</span>
         </div>
-
-        <div>
-          <!-- FREE COFFEE VOUCHER -->
-          <div class="coffee-voucher">
-            <span class="voucher-badge">Cortesía de Bienvenida</span>
-            <h3 class="voucher-headline">Tu Café Gratis te espera ☕</h3>
-            <p class="voucher-desc">
-              Queremos que pruebes la calidad de nuestro grano. Envíanos un mensaje por WhatsApp para registrar tu cortesía y reclamarlo cuando quieras.
-            </p>
-          </div>
-
-          <!-- DIRECT WHATSAPP ACTION BUTTON -->
-          <a 
-            href="https://wa.me/525658965015?text=¡Hola%20ATOYAC!%20Quiero%20reclamar%20mi%20CAFÉ%20GRATIS%20de%20inauguración%20☕🎉" 
-            target="_blank" 
-            rel="noopener" 
-            class="btn-whatsapp-claim"
-            id="btn-whatsapp-main"
-          >
-            <svg viewBox="0 0 24 24">
-              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.89 6.069-1.591c1.701.927 3.655 1.455 5.731 1.455 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
-            </svg>
-            Reclamar mi Café Gratis
-          </a>
-
-          <p class="claim-footnote">
-            Al presionar se abrirá WhatsApp con el mensaje listo para el <strong>+52 56 5896 5015</strong>.
-          </p>
+        <div class="countdown-col">
+          <span class="cd-val" id="cd-hours">--</span>
+          <span class="cd-lbl">Horas</span>
         </div>
-      </main>
-
-      <!-- COLUMNA DERECHA: UBICACIÓN, HORARIOS & DESTACADOS -->
-      <section class="info-card">
-        <div>
-          <div class="info-title">
-            <span>📍</span> ¿Dónde estamos ubicados?
-          </div>
-
-          <div class="location-box">
-            <div class="location-address">Av. Popocatépetl 289, Local A</div>
-            <div class="location-ref">Eje 8 Sur · Entre Av. México-Coyoacán y Uxmal · Col. Santa Cruz Atoyac, Benito Juárez, CDMX</div>
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=Av.+Popocatepetl+289+Santa+Cruz+Atoyac+CDMX" 
-              target="_blank" 
-              rel="noopener" 
-              class="btn-maps"
-            >
-              Ver en Google Maps ↗
-            </a>
-          </div>
-
-          <div class="info-title" style="margin-top: 1rem;">
-            <span>⏰</span> Horario de Atención
-          </div>
-          <div class="schedule-box">
-            <div><strong>Lunes a Sábado:</strong> 8:00 a.m. a 8:00 p.m.</div>
-            <div style="margin-top: 0.25rem; color: #b45309;"><strong>Domingo:</strong> Cerrado</div>
-          </div>
+        <div class="countdown-col">
+          <span class="cd-val" id="cd-mins">--</span>
+          <span class="cd-lbl">Min</span>
         </div>
-
-        <div>
-          <div class="info-title">
-            <span>✨</span> Lo que encontrarás en ATOYAC:
-          </div>
-          <div class="perks-grid">
-            <div class="perk-pill">☕ Café colado al día</div>
-            <div class="perk-pill">🥗 Ensaladas & Bowls</div>
-            <div class="perk-pill">🥪 Chapatas & Molletes</div>
-            <div class="perk-pill">🍰 Postres & Mini donas</div>
-          </div>
-
-          <div class="welcome-pill">
-            🌱 <em>"Aquí no discriminamos: En Atoyac todas las personas son bienvenidas."</em>
-          </div>
+        <div class="countdown-col">
+          <span class="cd-val" id="cd-secs">--</span>
+          <span class="cd-lbl">Seg</span>
         </div>
-      </section>
+      </div>
 
-    </div>
-
-    <!-- ===================================================================
-         3. MENÚ OFICIAL COMPLETO (EXTRAÍDO DE LA CARTA OFICIAL)
-         =================================================================== -->
-    <section class="menu-section" id="menu-completo">
-      
-      <div class="menu-header">
-        <span class="menu-badge">HEALTHY KITCHEN · COFFEE</span>
-        <h2 class="menu-main-title">Nuestro Menú Oficial</h2>
-        <p class="menu-main-subtitle">
-          Recetas balanceadas, preparadas al momento con ingredientes frescos, panes artesanales y café de especialidad.
+      <!-- CAJA DE CORTESÍA -->
+      <div class="voucher-box">
+        <h3 class="voucher-title">Tu Café Gratis te espera ☕</h3>
+        <p class="voucher-subtitle">
+          Queremos que pruebes la calidad de nuestro grano de especialidad. Envíanos un WhatsApp para apartar tu cortesía y reclamarlo el día de la inauguración.
         </p>
+      </div>
+
+      <!-- BOTÓN DIRECTO DE WHATSAPP -->
+      <a 
+        href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20reclamar%20mi%20CAF%C3%A9%20GRATIS%20de%20inauguraci%C3%B3n%20%E2%98%95%F0%9F%8E%89" 
+        target="_blank" 
+        rel="noopener" 
+        class="btn-claim-wa"
+        id="btn-whatsapp-claim"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.89 6.069-1.591c1.701.927 3.655 1.455 5.731 1.455 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
+        </svg>
+        Reclamar mi Café Gratis
+      </a>
+
+      <p class="claim-note">
+        Al presionar se abrirá WhatsApp con el mensaje listo para el <strong>56 5896 5015</strong>.
+      </p>
+    </main>
+
+    <!-- 3. MENÚ OFICIAL MINIMALISTA -->
+    <section class="menu-wrap" id="menu-digital">
+      <div class="menu-header">
+        <span class="menu-badge">Healthy Kitchen · Specialty Coffee</span>
+        <h2 class="menu-title">Carta & Especialidades</h2>
       </div>
 
       <!-- COMBOS & PROMOS -->
-      <div class="promos-container">
-        
-        <!-- PROMO COMIDA -->
-        <div class="promo-card">
-          <div class="promo-card-tag">
-            <span>🥗</span> PROMO DE COMIDA
-          </div>
-          
-          <div class="promo-row">
-            <div class="promo-combo-name">
-              <span>Chilaquiles con pollo + Café americano</span>
-              <span class="promo-combo-desc">Totopos verdes gratinados con café recién hecho</span>
-            </div>
+      <div class="promos-grid">
+        <div class="promo-box">
+          <div class="promo-label">🥗 Combo Comida</div>
+          <div class="promo-item">
+            <span>Chilaquiles con pollo + Café americano</span>
             <span class="promo-price">$100</span>
           </div>
-
-          <div class="promo-row">
-            <div class="promo-combo-name">
-              <span>Ensalada de pollo o atún + Agua</span>
-              <span class="promo-combo-desc">Fresca con aderezo y agua del día</span>
-            </div>
+          <div class="promo-item">
+            <span>Ensalada (pollo/atún) + Agua del día</span>
             <span class="promo-price">$100</span>
           </div>
-
-          <div class="promo-row">
-            <div class="promo-combo-name">
-              <span>Panini de jamón + Agua</span>
-              <span class="promo-combo-desc">Pan artesanal con jamón y quesos + agua</span>
-            </div>
+          <div class="promo-item">
+            <span>Panini de jamón + Agua del día</span>
             <span class="promo-price">$100</span>
           </div>
         </div>
 
-        <!-- PROMO CAFETERA -->
-        <div class="promo-card darker">
-          <div class="promo-card-tag">
-            <span>☕</span> PROMO CAFETERA
-          </div>
-
-          <div class="promo-row">
-            <div class="promo-combo-name">
-              <span>Americano + 4 mini donas</span>
-              <span class="promo-combo-desc">El combo perfecto para arrancar la mañana</span>
-            </div>
+        <div class="promo-box ochre">
+          <div class="promo-label">☕ Combo Cafetero</div>
+          <div class="promo-item">
+            <span>Americano + 4 mini donas</span>
             <span class="promo-price">$60</span>
           </div>
-
-          <div class="promo-row">
-            <div class="promo-combo-name">
-              <span>2 Cappuccinos + Rebanada de pastel</span>
-              <span class="promo-combo-desc">A elegir: Pastel de zanahoria o cheesecake</span>
-            </div>
+          <div class="promo-item">
+            <span>2 Cappuccinos + Pastel o Cheesecake</span>
             <span class="promo-price">$150</span>
           </div>
         </div>
-
       </div>
 
-      <!-- GRID DE PLATILLOS Y BEBIDAS -->
-      <div class="menu-grid">
-
-        <!-- 1. CAFETERÍA & BEBIDAS -->
-        <div class="menu-category-card">
-          <div class="category-title-box">
-            <h3 class="category-title">Café Caliente</h3>
-            <span class="category-badge">Grano</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Americano</span>
-              <span class="item-desc">Café americano de grano de especialidad</span>
-            </div>
-            <span class="item-price">$35</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Café de Olla</span>
-              <span class="item-desc">Receta tradicional con canela y piloncillo</span>
-            </div>
-            <span class="item-price">$35</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Espresso</span>
-              <span class="item-desc">Shot concentrado de café espresso</span>
-            </div>
-            <span class="item-price">$45</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Latte</span>
-              <span class="item-desc">Espresso con leche cremosa al punto</span>
-            </div>
-            <span class="item-price">$55</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Cappuccino</span>
-              <span class="item-desc">Espresso, leche y suave espuma</span>
-            </div>
-            <span class="item-price">$55</span>
-          </div>
-
-          <!-- BEBIDAS FRÍAS -->
-          <div class="category-title-box" style="margin-top: 1.5rem;">
-            <h3 class="category-title">Bebidas Frías</h3>
-            <span class="category-badge">Refrescante</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Tizana (500 ml)</span>
-              <span class="item-desc">Infusión frutal fría</span>
-            </div>
-            <span class="item-price">$65</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Agua de Horchata (500 ml)</span>
-              <span class="item-desc">Tradicional y refrescante</span>
-            </div>
-            <span class="item-price">$35</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Coca-Cola (355 ml)</span>
-              <span class="item-desc">Regular o Light</span>
-            </div>
-            <span class="item-price">$35</span>
-          </div>
+      <!-- CATEGORÍA: CAFÉ & BEBIDAS -->
+      <div class="category-block">
+        <div class="category-heading">
+          <span>Cafetería & Bebidas</span>
+          <span style="font-size: 0.72rem; opacity: 0.6; font-weight: 500;">De grano</span>
         </div>
 
-        <!-- 2. ENSALADAS -->
-        <div class="menu-category-card">
-          <div class="category-title-box">
-            <h3 class="category-title">Ensaladas</h3>
-            <span class="category-badge">Frescas</span>
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Americano</span>
+            <span class="item-desc">Café de grano de especialidad</span>
           </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Tradicional</span>
-              <span class="item-desc">Lechuga, espinaca, tomate, zanahoria, pepino, pimiento morrón, aguacate, panela, crotones y semilla de girasol</span>
-            </div>
-            <span class="item-price">$70</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Jamón de Pavo</span>
-              <span class="item-desc">Base tradicional con jamón de pavo</span>
-            </div>
-            <span class="item-price">$90</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">De Atún</span>
-              <span class="item-desc">Base tradicional con atún selecto</span>
-            </div>
-            <span class="item-price">$100</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">De Pollo</span>
-              <span class="item-desc">Base tradicional con pechuga de pollo a la plancha</span>
-            </div>
-            <span class="item-price">$100</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">De Fajitas de Res</span>
-              <span class="item-desc">Base tradicional con fajitas de res</span>
-            </div>
-            <span class="item-price">$110</span>
-          </div>
-
-          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">
-            * Elige tu aderezo: Ranch o Mil Islas.
-          </div>
-
-          <!-- FRUTA -->
-          <div class="category-title-box" style="margin-top: 1.5rem;">
-            <h3 class="category-title">Fruta Fresca</h3>
-            <span class="category-badge">Natural</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Plato de Fruta</span>
-              <span class="item-desc">Manzana y plátano frescos</span>
-            </div>
-            <span class="item-price">$50</span>
-          </div>
+          <span class="item-price">$35</span>
         </div>
 
-        <!-- 3. CHILAQUILES & CHAPATAS & POSTRES -->
-        <div class="menu-category-card">
-          <div class="category-title-box">
-            <h3 class="category-title">Chilaquiles Verdes</h3>
-            <span class="category-badge">Casa</span>
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Café de Olla</span>
+            <span class="item-desc">Tradicional con canela y piloncillo</span>
           </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Sencillos</span>
-              <span class="item-desc">Totopos crujientes, salsa verde, crema, queso y cebolla</span>
-            </div>
-            <span class="item-price">$65</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Con Pollo</span>
-              <span class="item-desc">Chilaquiles verdes con pollo deshebrado</span>
-            </div>
-            <span class="item-price">$90</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Con Fajitas de Res</span>
-              <span class="item-desc">Chilaquiles verdes con carne de res</span>
-            </div>
-            <span class="item-price">$100</span>
-          </div>
-
-          <!-- MOLLETES & CHAPATAS -->
-          <div class="category-title-box" style="margin-top: 1.25rem;">
-            <h3 class="category-title">Molletes & Chapatas</h3>
-            <span class="category-badge">Artesanal</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Molletes Sencillos (2 pzas)</span>
-              <span class="item-desc">Pan, frijoles refritos y manchego gratinado con pico de gallo</span>
-            </div>
-            <span class="item-price">$50</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Molletes Atoyac (2 pzas)</span>
-              <span class="item-desc">Frijoles, manchego, tocino crujiente y pollo</span>
-            </div>
-            <span class="item-price">$80</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Chapata de Jamón</span>
-              <span class="item-desc">Jamón, panela, queso manchego, lechuga, tomate y mayonesa</span>
-            </div>
-            <span class="item-price">$80</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Chapata de Pollo</span>
-              <span class="item-desc">Pollo a la plancha, pimiento, cebolla caramelizada, panela y manchego</span>
-            </div>
-            <span class="item-price">$95</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Chapata de Fajitas de Res</span>
-              <span class="item-desc">Fajitas con pimientos, cebolla caramelizada, quesos y vegetales</span>
-            </div>
-            <span class="item-price">$105</span>
-          </div>
-
-          <!-- POSTRES -->
-          <div class="category-title-box" style="margin-top: 1.25rem;">
-            <h3 class="category-title">Postres & Repostería</h3>
-            <span class="category-badge">Dulce</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Galleta de Chocolate</span>
-              <span class="item-desc">Por pieza</span>
-            </div>
-            <span class="item-price">$25</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">4 Mini Donas</span>
-              <span class="item-desc">Ideales para acompañar tu café</span>
-            </div>
-            <span class="item-price">$30</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Pastel de Zanahoria</span>
-              <span class="item-desc">Por rebanada</span>
-            </div>
-            <span class="item-price">$50</span>
-          </div>
-
-          <div class="menu-item-row">
-            <div class="item-meta">
-              <span class="item-name">Cheesecake Clásico</span>
-              <span class="item-desc">Por rebanada</span>
-            </div>
-            <span class="item-price">$50</span>
-          </div>
-
+          <span class="item-price">$35</span>
         </div>
 
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Espresso</span>
+            <span class="item-desc">Shot concentrado</span>
+          </div>
+          <span class="item-price">$45</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Latte / Cappuccino</span>
+            <span class="item-desc">Espresso con leche emulsionada</span>
+          </div>
+          <span class="item-price">$55</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Tizana Frutal (500 ml)</span>
+            <span class="item-desc">Infusión fría refrescante</span>
+          </div>
+          <span class="item-price">$65</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Agua de Horchata / Refresco (355 ml)</span>
+            <span class="item-desc">Horchata artesanal o Coca-Cola (Regular/Light)</span>
+          </div>
+          <span class="item-price">$35</span>
+        </div>
       </div>
 
-      <!-- BANNER FINAL CTA DENTRO DEL MENÚ -->
-      <div class="menu-cta-banner">
-        <h3 class="menu-cta-title">¿Se te antojó? Ven por tu Café Gratis ☕</h3>
-        <p class="menu-cta-text">
-          Acompáñanos este <strong>Sábado 5 de Diciembre desde las 9:00 AM</strong> en nuestra inauguración en Av. Popocatépetl 289 Local A. Mándanos un WhatsApp para apartar tu cortesía.
-        </p>
+      <!-- CATEGORÍA: COMIDA & ENSALADAS -->
+      <div class="category-block">
+        <div class="category-heading">
+          <span>Healthy Kitchen & Antojos</span>
+          <span style="font-size: 0.72rem; opacity: 0.6; font-weight: 500;">Al momento</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Chilaquiles Verdes</span>
+            <span class="item-desc">Totopos crujientes, salsa verde de la casa, crema, queso y cebolla</span>
+          </div>
+          <span class="item-price">$65 - $100</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Ensaladas Frescas</span>
+            <span class="item-desc">Tradicional, pavo, atún, pollo o fajitas de res con aderezo Ranch o Mil Islas</span>
+          </div>
+          <span class="item-price">$70 - $110</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Chapatas & Molletes</span>
+            <span class="item-desc">Pan artesanal, jamón, pollo a la plancha o fajitas con queso manchego y panela</span>
+          </div>
+          <span class="item-price">$50 - $105</span>
+        </div>
+
+        <div class="item-line">
+          <div class="item-info">
+            <span class="item-name">Postres Caseros</span>
+            <span class="item-desc">Galletas de chocolate, 4 mini donas, pastel de zanahoria o cheesecake</span>
+          </div>
+          <span class="item-price">$25 - $50</span>
+        </div>
+      </div>
+
+      <!-- CTA MINIMAL AL PIE DEL MENÚ -->
+      <div style="text-align: center; margin-top: 2rem;">
         <a 
-          href="https://wa.me/525658965015?text=¡Hola%20ATOYAC!%20Quiero%20reclamar%20mi%20CAFÉ%20GRATIS%20de%20inauguración%20☕🎉" 
+          href="https://wa.me/525658965015?text=%C2%A1Hola%20ATOYAC!%20Quiero%20reclamar%20mi%20CAF%C3%A9%20GRATIS%20de%20inauguraci%C3%B3n%20%E2%98%95%F0%9F%8E%89" 
           target="_blank" 
           rel="noopener" 
-          class="btn-whatsapp-claim"
-          style="max-width: 380px;"
+          class="btn-claim-wa"
+          style="max-width: 360px;"
         >
           Apartar mi Café por WhatsApp
         </a>
       </div>
-
     </section>
 
-    <!-- 4. FOOTER & HOME LINK -->
-    <footer class="landing-footer">
-      <div>
-        <a href="index.html">← Ir al Sitio Web Principal</a> · 
-        <a href="menu.html">Carta Digital</a> ·
-        <a href="https://instagram.com/cafeatoyac" target="_blank" rel="noopener">Instagram: @cafeatoyac</a>
+    <!-- 4. FOOTER MINIMALISTA (SIN DIRECCIÓN) -->
+    <footer class="site-footer">
+      <p class="footer-quote">
+        "En Atoyac todas las personas son bienvenidas."
+      </p>
+      <div class="footer-links">
+        <a href="index.html">Sitio Web</a> ·
+        <a href="https://instagram.com/cafeatoyac" target="_blank" rel="noopener">Instagram @cafeatoyac</a>
       </div>
-      <p style="font-size: 0.8rem; opacity: 0.75; margin-top: 0.35rem;">
-        © 2026 ATOYAC · Cafetería & Healthy Kitchen · Av. Popocatépetl 289, Local A, Benito Juárez, CDMX
+      <p style="font-size: 0.74rem; opacity: 0.65; margin-top: 0.25rem;">
+        © 2026 ATOYAC · Cafetería & Healthy Kitchen
       </p>
     </footer>
 
   </div>
 
-  <!-- COUNTDOWN SCRIPT -->
+  <!-- SCRIPT CUENTA REGRESIVA -->
   <script>
-    // Fecha objetivo: Sábado 5 de Diciembre de 2026, 9:00 AM (Hora CDMX)
     const targetDate = new Date('2026-12-05T09:00:00-06:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const difference = targetDate - now;
+      const diff = targetDate - now;
 
-      if (difference <= 0) {
+      if (diff <= 0) {
         document.getElementById('cd-days').textContent = '0';
         document.getElementById('cd-hours').textContent = '0';
         document.getElementById('cd-mins').textContent = '0';
@@ -1217,15 +698,10 @@
         return;
       }
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      document.getElementById('cd-days').textContent = days;
-      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
+      document.getElementById('cd-days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('cd-hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
     }
 
     updateCountdown();
