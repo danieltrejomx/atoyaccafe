@@ -1,18 +1,10 @@
 <script lang="ts">
 	import '$lib/portal/portal.css';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { api } from '$lib/api';
 	import { NAV } from '$lib/portal/acceso';
-	import Icono from '$lib/portal/Icono.svelte';
 
 	let { data, children } = $props();
 	const items = $derived(data.usuario ? NAV.filter((n) => n.roles.includes(data.usuario!.rol)) : []);
-
-	async function salir() {
-		await api.logout().catch(() => {});
-		await goto('/portal/login', { invalidateAll: true });
-	}
 </script>
 
 <svelte:head><title>Portal | Atoyac Café</title></svelte:head>
@@ -25,7 +17,6 @@
 				<a href={n.href} aria-current={page.url.pathname.replace(/\/$/, '') === n.href ? 'page' : undefined}>{n.texto}</a>
 			{/each}
 			<span class="yo">{data.usuario.nombre}</span>
-			<button class="btn quieto chico" onclick={salir}><Icono nombre="salir" /> Salir</button>
 		</nav>
 	{/if}
 	{@render children()}

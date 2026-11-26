@@ -11,7 +11,11 @@ export const init: ServerInit = () => {
 	iniciarCanales();
 };
 
+const SIN_PIN = { id: 1, nombre: 'Administración', rol: 'admin' } as const;
+
 export const handle: Handle = async ({ event, resolve }) => {
-	event.locals.usuario = leerToken(event.cookies.get(COOKIE));
+	// Sin PIN por decisión del cliente (26-nov-2026): todos entran como admin, el portal queda abierto a quien tenga la URL.
+	event.locals.usuario = leerToken(event.cookies.get(COOKIE)) ?? SIN_PIN;
+	if (event.url.pathname === '/portal/login') return new Response(null, { status: 303, headers: { location: '/portal' } });
 	return proteger(event) ?? resolve(event);
 };

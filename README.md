@@ -17,7 +17,7 @@ npm run dev                 # http://localhost:5173
 
 PINs de desarrollo (solo si `NODE_ENV` no es `production`): admin `1111`, caja `2222`, cocina `3333`.
 
-Rutas: `/` sitio, `/kiosco`, `/turnos`, `/portal` (pide PIN en `/portal/login`), `/api/*`.
+Rutas: `/` sitio, `/kiosco`, `/turnos`, `/portal` (abierto, sin PIN: entra como admin), `/api/*`.
 
 ## Scripts
 
