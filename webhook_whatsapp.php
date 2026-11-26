@@ -242,6 +242,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         curl_close($ch);
     }
 
+    // Parsear actualizaciones de estado de entrega y lectura de Meta (statuses)
+    if (isset($data['entry'][0]['changes'][0]['value']['statuses'][0])) {
+        $statusObj = $data['entry'][0]['changes'][0]['value']['statuses'][0];
+        $recipientId = preg_replace('/\D/', '', $statusObj['recipient_id'] ?? '');
+        $statusType = $statusObj['status'] ?? ''; // 'sent', 'delivered', 'read'
+        $wamid = $statusObj['id'] ?? '';
+
+        if (!empty($recipientId) && !empty($statusType)) {
+            $chatsFile = 'whatsapp_chats_store.json';
+            $existing = file_exists($chatsFile) ? json_decode(file_get_contents($chatsFile), true) : [];
+            if (is_array($existing)) {
+                $changed = false;
+                foreach ($existing as &$chat) {
+                    $cPhone = preg_replace('/\D/', '', $chat['phone'] ?? '');
+                    if (substr($cPhone, -10) === substr($recipientId, -10)) {
+                        for ($i = count($chat['messages']) - 1; $i >= 0; $i--) {
+                            if ($chat['messages'][$i]['from'] === 'out') {
+                                if (isset($chat['messages'][$i]['wamid']) && $chat['messages'][$i]['wamid'] === $wamid) {
+                                    $chat['messages'][$i]['status'] = $statusType;
+                                    $changed = true;
+                                    break;
+                                } else if (!isset($chat['messages'][$i]['wamid'])) {
+                                    $chat['messages'][$i]['status'] = $statusType;
+                                    $changed = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if ($changed) {
+                    file_put_contents($chatsFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                }
+            }
+        }
+    }
+
     // Responder 200 OK a Meta inmediatamente
     http_response_code(200);
     echo json_encode(["status" => "received"]);

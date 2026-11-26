@@ -581,9 +581,24 @@
     }
 
     .msg-ticks {
-      color: #53bdeb;
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: -1.5px;
+      display: inline-block;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .msg-ticks.tick-sent {
+      color: #8696a0; /* Gris WhatsApp: Enviado a servidores Meta */
+    }
+
+    .msg-ticks.tick-delivered {
+      color: #8696a0; /* Gris WhatsApp: Entregado al celular */
+    }
+
+    .msg-ticks.tick-read {
+      color: #53bdeb; /* Azul oficial WhatsApp: Leído por el cliente */
     }
 
     /* BOTTOM INPUT BAR */
@@ -1109,17 +1124,26 @@
           if (rem.name && rem.name !== local.phone) local.name = rem.name;
 
           incomingMsgs.forEach(inMsg => {
-            const exists = local.messages.some(m => m.text.trim() === inMsg.text.trim());
-            if (!exists) {
+            const localMsg = local.messages.find(m => m.text.trim() === inMsg.text.trim());
+            if (localMsg) {
+              if (inMsg.status && inMsg.status !== localMsg.status) {
+                localMsg.status = inMsg.status;
+                changed = true;
+              }
+            } else {
               const msgTimestamp = inMsg.timestamp || Date.now();
               local.messages.push({
                 from: inMsg.from || 'in',
                 text: inMsg.text,
                 time: inMsg.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                timestamp: msgTimestamp
+                timestamp: msgTimestamp,
+                status: inMsg.status || 'sent',
+                wamid: inMsg.wamid || null
               });
               local.timestamp = msgTimestamp;
-              local.unread = (local.unread || 0) + 1;
+              if ((inMsg.from || 'in') === 'in') {
+                local.unread = (local.unread || 0) + 1;
+              }
               changed = true;
             }
           });
@@ -1189,14 +1213,30 @@
     // BASE DE DATOS DE CONVERSACIONES (INBOX LIMPIO ATOYAC)
     const DEFAULT_CHATS = [
       {
+        id: "chat-angel",
+        name: "Angel",
+        phone: "5215625358442",
+        unread: 0,
+        timestamp: Date.now() + 2000,
+        messages: [
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:56", timestamp: Date.now() - 1000000 },
+          { from: "in", text: "[Mensaje multimedia o adjunto]", time: "07:56", timestamp: Date.now() - 950000 },
+          { from: "out", text: "Muchas gracias Angel, te esperamos el Sabado 5 de diciembre a nuestra inauguración", time: "07:57", timestamp: Date.now() - 800000, status: "delivered" },
+          { from: "out", text: "Muchas gracias Angel, te esperamos el Sabado 5 de diciembre a nuestra inauguración, o bien el día que gustes despues del 5 para reclamar tu café gratis", time: "08:13", timestamp: Date.now() - 100000, status: "delivered" }
+        ]
+      },
+      {
         id: "chat-daniel",
         name: "Daniel Trejo",
         phone: "5215533759369",
-        unread: 1,
-        timestamp: Date.now(),
+        unread: 0,
+        timestamp: Date.now() + 1000,
         messages: [
-          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:26", timestamp: Date.now() - 600000 },
-          { from: "in", text: "hola", time: "07:35", timestamp: Date.now() }
+          { from: "in", text: "¡Hola ATOYAC! Quiero reclamar mi CAFÉ GRATIS de inauguración ☕🎉", time: "07:26", timestamp: Date.now() - 1200000 },
+          { from: "in", text: "hola", time: "07:35", timestamp: Date.now() - 1000000 },
+          { from: "out", text: "¡Hola Daniel! Prueba de conexión directa desde ATOYAC ☕🎉", time: "08:12", timestamp: Date.now() - 300000, status: "read" },
+          { from: "out", text: "Conexión 100% activa. Ahora cada mensaje que mandes desde el sistema llega directo a WhatsApp.", time: "08:12", timestamp: Date.now() - 250000, status: "read" },
+          { from: "in", text: "ok gracias!", time: "08:13", timestamp: Date.now() - 100000 }
         ]
       },
       {
@@ -1216,7 +1256,7 @@
         unread: 0,
         timestamp: Date.now() - 86400000,
         messages: [
-          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "09:00", timestamp: Date.now() - 86400000 }
+          { from: "out", text: "¡Línea WhatsApp Business conectada y lista para recibir mensajes de clientes!", time: "09:00", timestamp: Date.now() - 86400000, status: "delivered" }
         ]
       }
     ];
@@ -1228,7 +1268,7 @@
       try {
         const parsed = JSON.parse(rawCached);
         if (Array.isArray(parsed) && !parsed.some(c => c.name === "Martha")) {
-          // Fusionar con DEFAULT_CHATS para no perder a Daniel Trejo ni a David Macias
+          // Fusionar con DEFAULT_CHATS para mantener actualizados a Angel, Daniel Trejo y David Macias
           DEFAULT_CHATS.forEach(dc => {
             const last10 = dc.phone.slice(-10);
             const found = parsed.find(p => String(p.phone || p.id).slice(-10) === last10);
@@ -1236,11 +1276,16 @@
               parsed.push(dc);
             } else {
               dc.messages.forEach(dm => {
-                if (!found.messages.some(m => m.text.trim() === dm.text.trim())) {
+                const existingM = found.messages.find(m => m.text.trim() === dm.text.trim());
+                if (!existingM) {
                   found.messages.push(dm);
+                } else if (dm.status && !existingM.status) {
+                  existingM.status = dm.status;
                 }
               });
-              found.timestamp = dc.timestamp;
+              if (dc.timestamp > (found.timestamp || 0)) {
+                found.timestamp = dc.timestamp;
+              }
             }
           });
           chats = parsed;
@@ -1300,7 +1345,11 @@
               <span class="chat-time">${time}</span>
             </div>
             <div class="chat-preview">
-              ${lastMsg && lastMsg.from === 'out' ? '<span class="msg-ticks">✓✓</span>' : ''}
+              ${lastMsg && lastMsg.from === 'out' ? (
+                lastMsg.status === 'read' ? '<span class="msg-ticks tick-read">✓✓</span>' :
+                lastMsg.status === 'delivered' ? '<span class="msg-ticks tick-delivered">✓✓</span>' :
+                '<span class="msg-ticks tick-sent">✓</span>'
+              ) : ''}
               <span>${preview}</span>
               ${chat.unread > 0 ? `<span class="unread-badge">${chat.unread}</span>` : ''}
             </div>
@@ -1344,11 +1393,23 @@
       chat.messages.forEach(msg => {
         const bubble = document.createElement('div');
         bubble.className = `msg-bubble ${msg.from === 'in' ? 'msg-in' : 'msg-out'}`;
+
+        let ticksHtml = '';
+        if (msg.from === 'out') {
+          if (msg.status === 'read') {
+            ticksHtml = '<span class="msg-ticks tick-read" title="Leído por el cliente">✓✓</span>';
+          } else if (msg.status === 'delivered') {
+            ticksHtml = '<span class="msg-ticks tick-delivered" title="Entregado al celular">✓✓</span>';
+          } else {
+            ticksHtml = '<span class="msg-ticks tick-sent" title="Enviado a WhatsApp">✓</span>';
+          }
+        }
+
         bubble.innerHTML = `
           ${msg.text}
           <div class="msg-footer">
             <span>${msg.time}</span>
-            ${msg.from === 'out' ? '<span class="msg-ticks">✓✓</span>' : ''}
+            ${ticksHtml}
           </div>
         `;
         area.appendChild(bubble);
@@ -1379,12 +1440,15 @@
       const now = Date.now();
       const time = new Date(now).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-      chat.messages.push({
+      const newMsg = {
         from: 'out',
         text: text,
         time: time,
-        timestamp: now
-      });
+        timestamp: now,
+        status: 'sent'
+      };
+
+      chat.messages.push(newMsg);
 
       sortChatsByLatest();
       saveChats();
@@ -1406,11 +1470,18 @@
       .then(res => res.json())
       .then(data => {
         if (data && data.success) {
-          showToast('✅ Mensaje enviado a WhatsApp en vivo');
+          showToast('✅ Mensaje entregado a WhatsApp');
+          newMsg.status = 'delivered';
+          if (data.meta_response && data.meta_response.messages && data.meta_response.messages[0]) {
+            newMsg.wamid = data.meta_response.messages[0].id;
+          }
+          saveChats();
+          renderMessages();
+          renderChatList();
         } else if (data && !data.dispatched_to_meta) {
-          showToast('⚠️ Mensaje guardado en CRM. Para enviarlo directo a WhatsApp celular, pega tu Token de Meta en ⚙️ o responde vía Meta Suite ↗', 6000);
+          showToast('⚠️ Mensaje guardado en CRM. Pega tu Token en ⚙️ o responde vía Meta Suite ↗', 5000);
         } else if (data && data.meta_response && data.meta_response.error) {
-          showToast('⚠️ Meta API: ' + data.meta_response.error.message, 6000);
+          showToast('⚠️ Meta API: ' + data.meta_response.error.message, 5000);
         }
       })
       .catch(err => {
