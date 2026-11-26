@@ -248,75 +248,45 @@
       box-shadow: 0 6px 18px rgba(30, 45, 34, 0.2);
     }
 
-    /* BARRA DE INFORMACIÓN DE CATEGORÍA + TOGGLE DE VISTA */
+    /* BARRA DE INFORMACIÓN DE CATEGORÍA CENTRADA */
     .category-header-bar {
       max-width: 1080px;
       margin: 1.15rem auto 0.6rem;
       padding: 0 1.25rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.85rem;
+      justify-content: center;
+      text-align: center;
     }
 
     .cat-info-block {
       display: flex;
       flex-direction: column;
-      text-align: left;
+      align-items: center;
+      text-align: center;
     }
 
     .cat-part-tag {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--icon-green);
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.2rem;
     }
 
     .cat-title-text {
-      font-size: clamp(1.2rem, 3.5vw, 1.45rem);
+      font-size: clamp(1.3rem, 3.8vw, 1.6rem);
       font-weight: 700;
       color: var(--forest-dark);
       line-height: 1.2;
     }
 
     .cat-subtitle-text {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       color: var(--forest-sage);
       font-weight: 400;
-    }
-
-    .view-toggle-btns {
-      display: inline-flex;
-      background: var(--bg-white);
-      border: 1.5px solid var(--btn-border);
-      border-radius: 999px;
-      padding: 3px;
-      gap: 2px;
-    }
-
-    .view-toggle-btn {
-      border: none;
-      background: transparent;
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      font-family: var(--font-montserrat);
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--forest-sage);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .view-toggle-btn.active {
-      background: var(--forest-dark);
-      color: #FFFFFF;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 0.15rem;
     }
 
     /* FRASE DINÁMICA DE LA CATEGORÍA CON FONDO VERDE */
@@ -324,7 +294,7 @@
       background: #233428;
       border-radius: 14px;
       padding: 0.8rem 1.25rem;
-      margin: 0.65rem auto 1.15rem;
+      margin: 0.65rem auto 1.5rem;
       max-width: 1040px;
       width: calc(100% - 2.5rem);
       display: flex;
@@ -352,71 +322,21 @@
       white-space: nowrap;
     }
 
-    /* ===================================================================
-       CARRUSEL: SE MUEVE SOLO 3 SEGUNDOS PARA INDICAR QUE ES SLIDER
-       Y LUEGO ES 100% MANIPULABLE POR EL USUARIO
-       =================================================================== */
-    .carousel-section {
-      width: 100%;
-      overflow: hidden;
-      padding: 0.25rem 0 1.5rem;
-      position: relative;
-    }
-
-    .carousel-swipe-hint {
-      text-align: center;
-      margin: 0 auto 0.5rem;
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: var(--forest-sage);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      opacity: 0.85;
-      transition: opacity 0.5s ease;
-    }
-
-    .carousel-track-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      display: flex;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      padding: 0.5rem 0 1rem;
-    }
-
-    .carousel-track-wrapper::-webkit-scrollbar {
-      display: none;
-    }
-
-    .carousel-track {
-      display: flex;
-      gap: 1.25rem;
-      width: max-content;
-      padding: 0.25rem 1.25rem 0.5rem;
-    }
-
-    /* MODO CUADRÍCULA (GRID VIEW / VER TODO) */
-    .grid-section {
+    /* SECCIÓN DE PLATILLOS: DESPLEGADOS Y CENTRADOS */
+    .dishes-grid-section {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0.5rem 1.25rem 3rem;
+      padding: 0.5rem 1.25rem 3.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.35rem;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.4rem;
       width: 100%;
+      justify-content: center;
     }
 
     /* TARJETA DE PRODUCTO */
     .dish-card {
-      width: 320px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
+      width: 100%;
       background: var(--bg-white);
       border-radius: 20px;
       border: 1.5px solid var(--card-border);
@@ -500,7 +420,7 @@
 
     .dish-name {
       font-family: var(--font-montserrat);
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       font-weight: 700;
       color: var(--forest-dark);
       margin-bottom: 0.4rem;
@@ -511,16 +431,15 @@
       font-size: 0.82rem;
       color: var(--forest-sage);
       line-height: 1.45;
-      margin-bottom: 1.15rem;
-      min-height: 44px;
+      margin-bottom: 1rem;
     }
 
-    /* PIE DE TARJETA CON EL PRECIO Y BOTÓN */
+    /* PIE DE TARJETA CON EL PRECIO (SIN BOTÓN VER DETALLE) */
     .dish-footer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding-top: 0.9rem;
+      justify-content: flex-start;
+      padding-top: 0.85rem;
       border-top: 1px dashed rgba(30, 45, 34, 0.1);
     }
 
@@ -539,93 +458,16 @@
 
     .dish-price {
       font-family: var(--font-montserrat);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--forest-dark);
       letter-spacing: -0.02em;
     }
 
     .dish-price span {
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 500;
       color: var(--forest-sage);
-    }
-
-    .dish-order-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: #F0FDF4;
-      border: 1.5px solid #BBF7D0;
-      color: #15803D;
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .dish-order-btn:hover {
-      background: #25D366;
-      border-color: #25D366;
-      color: #FFFFFF;
-    }
-
-    /* CONTROLES Y PUNTOS INDICADORES DEL SLIDER */
-    .carousel-nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.85rem;
-      padding: 0.25rem 1rem 1.25rem;
-    }
-
-    .carousel-arrow {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--bg-white);
-      border: 1.5px solid var(--btn-border);
-      color: var(--forest-dark);
-      font-size: 1.25rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .carousel-arrow:hover {
-      background: var(--forest-dark);
-      color: #FFFFFF;
-      border-color: var(--forest-dark);
-      transform: scale(1.06);
-    }
-
-    .carousel-dots-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .carousel-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #CBD5E1;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      border: none;
-      padding: 0;
-    }
-
-    .carousel-dot.active {
-      width: 22px;
-      background: var(--forest-dark);
     }
 
     /* ===================================================================
@@ -986,8 +828,8 @@
       transform: translateY(-2px);
     }
 
-    /* RESPONSIVE MÓVIL: ANCHO TOTAL Y VISIBILIDAD PERFECTA */
-    @media (max-width: 640px) {
+    /* RESPONSIVE MÓVIL: 2 COLUMNAS CON FOTO, NOMBRE, DETALLES Y PRECIO */
+    @media (max-width: 680px) {
       .menu-hero {
         padding: 1rem 1rem 0.5rem;
       }
@@ -1003,27 +845,55 @@
         padding-left: 1rem;
         padding-right: 1rem;
       }
-      .carousel-track {
-        padding: 0.25rem 1rem 0.5rem;
-        gap: 0.85rem;
+      .dishes-grid-section {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 0.5rem 0.65rem 2.5rem !important;
+        gap: 0.65rem !important;
       }
-      /* CADA TARJETA EN CARRUSEL OCUPA EL ANCHO COMPLETO CON PEEK SUTIL */
       .dish-card {
-        width: calc(100vw - 42px);
-        max-width: 345px;
-        scroll-snap-align: center;
+        border-radius: 16px;
       }
       .dish-img-box {
-        height: 185px;
+        height: 120px;
       }
-      /* EN MODO CUADRÍCULA (VER TODO), OCUPA EL 100% DE ANCHO */
-      .grid-section {
-        grid-template-columns: 1fr !important;
-        padding: 0.5rem 1rem 2.5rem !important;
-        gap: 1.25rem !important;
+      .dish-tag {
+        font-size: 0.62rem;
+        padding: 0.18rem 0.45rem;
+        top: 6px;
+        left: 6px;
       }
-      .grid-section .dish-card {
-        width: 100% !important;
+      .dish-photo-slot-hint {
+        display: none;
+      }
+      .dish-info {
+        padding: 0.65rem 0.6rem 0.75rem;
+      }
+      .dish-name {
+        font-size: 0.86rem;
+        margin-bottom: 0.25rem;
+        line-height: 1.2;
+      }
+      .dish-desc {
+        font-size: 0.7rem;
+        line-height: 1.35;
+        margin-bottom: 0.55rem;
+        min-height: unset;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .dish-footer {
+        padding-top: 0.5rem;
+      }
+      .dish-price-label {
+        font-size: 0.58rem;
+      }
+      .dish-price {
+        font-size: 1.15rem;
+      }
+      .dish-price span {
+        font-size: 0.68rem;
       }
       .dish-modal-card {
         max-width: 100%;
@@ -1079,21 +949,12 @@
       </nav>
     </section>
 
-    <!-- BARRA DE INFORMACIÓN DE CATEGORÍA + TOGGLE DE MODO -->
+    <!-- BARRA DE INFORMACIÓN DE CATEGORÍA CENTRADA -->
     <div class="category-header-bar">
       <div class="cat-info-block">
         <span class="cat-part-tag" id="catPartTag">PARTE 1 · PARA COMER</span>
         <h2 class="cat-title-text" id="catTitleText">Los Favoritos</h2>
         <span class="cat-subtitle-text" id="catSubtitleText">Recién salidos de la cocina.</span>
-      </div>
-
-      <div class="view-toggle-btns" role="group" aria-label="Cambiar vista">
-        <button class="view-toggle-btn active" id="btnModeCarousel" onclick="setViewMode('carousel')">
-          <span>↔</span> Carrusel
-        </button>
-        <button class="view-toggle-btn" id="btnModeGrid" onclick="setViewMode('grid')">
-          <span>⊞</span> Ver todo
-        </button>
       </div>
     </div>
 
@@ -1103,28 +964,9 @@
       <span id="catQuoteAuthor">— Café Atoyac</span>
     </div>
 
-    <!-- VISTA 1: CARRUSEL INTERACTIVO -->
-    <section class="carousel-section" id="carousel-viewport">
-      <div class="carousel-swipe-hint" id="carouselSwipeHint">
-        <span>👈 Desliza para explorar platillos 👉</span>
-      </div>
-      <div class="carousel-track-wrapper" id="carousel-track-wrapper" title="Desliza para ver todos los platillos">
-        <div class="carousel-track" id="carousel-track">
-          <!-- Tarjetas renderizadas dinámicamente -->
-        </div>
-      </div>
-
-      <!-- CONTROLES Y PUNTOS INDICADORES -->
-      <div class="carousel-nav-bar" id="carouselNavBar">
-        <button class="carousel-arrow" onclick="navigateCarousel(-1)" aria-label="Platillo anterior">‹</button>
-        <div class="carousel-dots-wrap" id="carouselDots"></div>
-        <button class="carousel-arrow" onclick="navigateCarousel(1)" aria-label="Platillo siguiente">›</button>
-      </div>
-    </section>
-
-    <!-- VISTA 2: CUADRÍCULA (VER TODO) -->
-    <section class="grid-section" id="grid-viewport" style="display: none;">
-      <!-- Tarjetas renderizadas dinámicamente al 100% de ancho en móvil -->
+    <!-- SECCIÓN DE PLATILLOS: DESPLEGADOS Y CENTRADOS (2 COLUMNAS EN MÓVIL) -->
+    <section class="dishes-grid-section" id="dishesGrid" aria-label="Platillos del Menú">
+      <!-- Tarjetas renderizadas dinámicamente -->
     </section>
 
     <!-- POPUP MODAL DETALLE DE PLATILLO -->
@@ -1576,22 +1418,11 @@
     };
 
     let activeCat = 'favoritos';
-    let currentViewMode = 'carousel'; // 'carousel' | 'grid'
-    
-    const trackWrapper = document.getElementById('carousel-track-wrapper');
-    const track = document.getElementById('carousel-track');
-    const gridViewport = document.getElementById('grid-viewport');
-    const carouselViewport = document.getElementById('carousel-viewport');
 
-    // CONTROL DEL HINT DE 3 SEGUNDOS
-    let hintAnimFrame = null;
-    let hintTimer = null;
-    let userInteracted = false;
-
-    // Renderizar tarjeta individual
+    // Renderizar tarjeta individual (sin el botón de ver detalle)
     function createCardHTML(item, categoryKey, index) {
       return `
-        <article class="dish-card" onclick="handleCardClick(event, '${categoryKey}', ${index})">
+        <article class="dish-card" onclick="openDishModal(PRODUCTS['${categoryKey}'][${index}])">
           <div class="dish-img-box">
             <img 
               src="${item.image}" 
@@ -1613,17 +1444,13 @@
                 <span class="dish-price-label">Precio</span>
                 <div class="dish-price">$${item.price} <span>MXN</span></div>
               </div>
-              <button type="button" class="dish-order-btn" onclick="openDishModalFromBtn(event, '${categoryKey}', ${index})">
-                <span>Ver detalle</span>
-                <span>↗</span>
-              </button>
             </div>
           </div>
         </article>
       `;
     }
 
-    // Renderizar según categoría activa (SIN DUPLICADOS)
+    // Renderizar según categoría activa
     function renderCategory(categoryKey) {
       const items = PRODUCTS[categoryKey] || PRODUCTS['favoritos'];
       const meta = CATEGORY_META[categoryKey] || CATEGORY_META['favoritos'];
@@ -1635,22 +1462,10 @@
       document.getElementById('catQuoteText').textContent = meta.quote;
       document.getElementById('catQuoteAuthor').textContent = meta.author;
 
-      // 1. Renderizar Carrusel: Lista exacta ordenada (sin duplicados confusos)
-      track.innerHTML = items.map((item, idx) => createCardHTML(item, categoryKey, idx)).join('');
-
-      // 2. Renderizar Cuadrícula (Ver Todo)
-      gridViewport.innerHTML = items.map((item, idx) => createCardHTML(item, categoryKey, idx)).join('');
-
-      // 3. Renderizar puntos indicadores
-      renderDots(items.length);
-
-      // Posicionar en 0 (el primer platillo siempre visible al inicio)
-      if (trackWrapper) {
-        trackWrapper.scrollLeft = 0;
+      const dishesGrid = document.getElementById('dishesGrid');
+      if (dishesGrid) {
+        dishesGrid.innerHTML = items.map((item, idx) => createCardHTML(item, categoryKey, idx)).join('');
       }
-
-      // Reiniciar y ejecutar el hint demostrativo de exactamente 3 segundos
-      start3SecondHint();
     }
 
     function switchCategory(catKey) {
@@ -1658,144 +1473,10 @@
       document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === catKey);
       });
-      userInteracted = false;
       renderCategory(catKey);
       if (typeof window.trackEvent === 'function') {
         window.trackEvent('select_menu_category', { category: catKey });
       }
-    }
-
-    function setViewMode(mode) {
-      currentViewMode = mode;
-      document.getElementById('btnModeCarousel').classList.toggle('active', mode === 'carousel');
-      document.getElementById('btnModeGrid').classList.toggle('active', mode === 'grid');
-
-      if (mode === 'carousel') {
-        carouselViewport.style.display = 'block';
-        gridViewport.style.display = 'none';
-        userInteracted = false;
-        start3SecondHint();
-      } else {
-        carouselViewport.style.display = 'none';
-        gridViewport.style.display = 'grid';
-        stopHint();
-      }
-    }
-
-    // ===================================================================
-    // MOVIMIENTO INICIAL DE 3 SEGUNDOS (DEMOSTRATIVO)
-    // Luego se detiene por completo y queda 100% en control manual
-    // ===================================================================
-    function start3SecondHint() {
-      stopHint();
-      if (userInteracted || !trackWrapper) return;
-
-      const hintEl = document.getElementById('carouselSwipeHint');
-      if (hintEl) hintEl.style.opacity = '0.85';
-
-      // Espera 350ms antes de mover para que el usuario contemple el 1er platillo
-      hintTimer = setTimeout(() => {
-        if (userInteracted || !trackWrapper) return;
-        const startTime = performance.now();
-        const duration = 2650; // Total 3000ms con la pausa inicial
-        const maxPeek = 90; // Muestra un sutil asomo de 90px
-
-        function step(now) {
-          if (userInteracted || !trackWrapper) return;
-          const elapsed = now - startTime;
-          if (elapsed < duration) {
-            const progress = elapsed / duration;
-            // Movimiento sinusoidal suave que asoma el siguiente y regresa
-            const offset = Math.sin(progress * Math.PI) * maxPeek;
-            trackWrapper.scrollLeft = offset;
-            hintAnimFrame = requestAnimationFrame(step);
-          } else {
-            // Fin de los 3 segundos: regresa suavemente a 0 y se queda quieto
-            trackWrapper.scrollTo({ left: 0, behavior: 'smooth' });
-            hintAnimFrame = null;
-          }
-        }
-        hintAnimFrame = requestAnimationFrame(step);
-      }, 350);
-    }
-
-    function stopHint() {
-      userInteracted = true;
-      if (hintAnimFrame) {
-        cancelAnimationFrame(hintAnimFrame);
-        hintAnimFrame = null;
-      }
-      if (hintTimer) {
-        clearTimeout(hintTimer);
-        hintTimer = null;
-      }
-      const hintEl = document.getElementById('carouselSwipeHint');
-      if (hintEl) hintEl.style.opacity = '0';
-    }
-
-    // Detectar interacción manual y ceder control total de inmediato
-    ['touchstart', 'pointerdown', 'mousedown', 'wheel'].forEach(evt => {
-      if (trackWrapper) {
-        trackWrapper.addEventListener(evt, stopHint, { passive: true });
-      }
-    });
-
-    if (trackWrapper) {
-      trackWrapper.addEventListener('scroll', () => {
-        stopHint();
-        syncDotsOnScroll();
-      }, { passive: true });
-    }
-
-    // ===================================================================
-    // CONTROLES Y PUNTOS INDICADORES
-    // ===================================================================
-    function navigateCarousel(direction) {
-      stopHint();
-      if (!trackWrapper) return;
-      const firstCard = trackWrapper.querySelector('.dish-card');
-      const cardWidth = firstCard ? (firstCard.offsetWidth + 14) : 320;
-      trackWrapper.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-    }
-
-    function renderDots(count) {
-      const dotsWrap = document.getElementById('carouselDots');
-      if (!dotsWrap) return;
-      dotsWrap.innerHTML = Array.from({ length: count }, (_, i) => `
-        <button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToCard(${i})" aria-label="Platillo ${i + 1}"></button>
-      `).join('');
-    }
-
-    function goToCard(index) {
-      stopHint();
-      if (!trackWrapper) return;
-      const cards = trackWrapper.querySelectorAll('.dish-card');
-      if (cards[index]) {
-        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
-    }
-
-    function syncDotsOnScroll() {
-      if (!trackWrapper) return;
-      const cards = trackWrapper.querySelectorAll('.dish-card');
-      if (!cards.length) return;
-      const wrapperCenter = trackWrapper.scrollLeft + trackWrapper.offsetWidth / 2;
-      let closestIdx = 0;
-      let minDiff = Infinity;
-
-      cards.forEach((card, idx) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const diff = Math.abs(wrapperCenter - cardCenter);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closestIdx = idx;
-        }
-      });
-
-      const dots = document.querySelectorAll('.carousel-dot');
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === closestIdx);
-      });
     }
 
     // ===================================================================
