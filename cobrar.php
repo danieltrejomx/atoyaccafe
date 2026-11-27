@@ -7,7 +7,7 @@ $monto = isset($input['monto']) ? number_format((float)$input['monto'], 2, '.', 
 $referencia = isset($input['referencia']) ? $input['referencia'] : "ATOYAC-" . time();
 
 $accessToken = "APP_USR-4750157753324402-111515-b59373b1de4ab4850b4d49138de86054-154911477";
-$terminalId = "NEWLAND_N950__N950NCC403258243";
+$terminalId = isset($input['terminal_id']) && !empty(trim($input['terminal_id'])) ? trim($input['terminal_id']) : "NEWLAND_N950__N950NCC403258243";
 
 $data = [
     "type" => "point",

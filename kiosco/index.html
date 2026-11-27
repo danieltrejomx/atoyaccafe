@@ -22,16 +22,18 @@
       --c-arena: #EFEAE2;
       --c-blanco: #FFFFFF;
       --c-linea: rgba(31, 45, 36, 0.12);
-      --c-linea-fuerte: rgba(31, 45, 36, 0.24);
+      --c-linea-fuerte: rgba(31, 45, 36, 0.22);
       --c-bosque: #1F2D24;
       --c-bosque-2: #2F4336;
       --c-hoja: #3E6B50;
       --c-hoja-fuerte: #2F5D45;
       --c-salvia: #698975;
-      --c-menta-tv: #A9C9B4;
+      --c-menta: #A9C9B4;
+      --c-menta-suave: #E8F2EC;
       --c-texto: #1F2D24;
       --c-texto-suave: #55615A;
       --c-texto-inverso: #F7F3EC;
+      --c-oro: #D9A441;
       --f-titulo: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
       --f-texto: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
       --f-acento: 'Instrument Serif', Georgia, serif;
@@ -51,106 +53,105 @@
       background: var(--c-papel);
       color: var(--c-texto);
       font-family: var(--f-texto);
-      -webkit-user-select: none;
       user-select: none;
+      -webkit-user-select: none;
       touch-action: manipulation;
     }
 
-    /* ===================================================================
-       1. PANTALLA INICIAL DE REPOSO (IDLE / ATTRACT SCREEN)
-       IGUAL A https://atoyac.appsoluciones.duckdns.org/kiosco
-       =================================================================== */
-    .screen-reposo {
+    /* Screen manager */
+    .kiosk-stage {
       position: fixed;
       inset: 0;
-      background: var(--c-bosque);
-      color: var(--c-texto-inverso);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      cursor: pointer;
-      z-index: 1000;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .screen-reposo.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .reposo-logo {
-      width: 220px;
-      max-width: 60vw;
-      filter: brightness(0) invert(1);
-      animation: reposo-pulso 3s ease-in-out infinite;
-      margin-bottom: 0.5rem;
-    }
-
-    @keyframes reposo-pulso {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.65; transform: scale(0.98); }
-    }
-
-    .reposo-title {
-      font-family: var(--f-titulo);
-      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-      font-weight: 700;
-      color: #FFFFFF;
-      line-height: 1.08;
-      letter-spacing: -0.01em;
-      margin: 0;
-    }
-
-    .reposo-subtitle {
-      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
-      color: var(--c-menta-tv);
-      font-weight: 400;
-      margin: 0;
-    }
-
-    .reposo-hint-tap {
-      margin-top: 1.75rem;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #FFFFFF;
-      padding: 0.75rem 1.75rem;
-      border-radius: 999px;
-      font-family: var(--f-titulo);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      animation: reposo-bounce 2s ease infinite;
-    }
-
-    @keyframes reposo-bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-6px); }
-      60% { transform: translateY(-3px); }
-    }
-
-    /* ===================================================================
-       2. CONTENEDOR PRINCIPAL DEL MENÚ
-       =================================================================== */
-    .kiosk-app-wrap {
-      display: flex;
+      display: none;
       flex-direction: column;
       height: 100vh;
       width: 100vw;
       overflow: hidden;
     }
 
-    /* TOPBAR / NAVBAR */
-    .kiosk-topbar {
+    .kiosk-stage.active {
+      display: flex;
+      animation: stageFadeIn 0.28s ease-out;
+    }
+
+    @keyframes stageFadeIn {
+      from { opacity: 0; transform: scale(0.99); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ===================================================================
+       1. PANTALLA INICIAL DE REPOSO (IDLE / ATTRACT SCREEN)
+       =================================================================== */
+    #stage-reposo {
+      background: var(--c-bosque);
+      color: var(--c-texto-inverso);
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      cursor: pointer;
+      text-align: center;
+      padding: 2rem;
+      z-index: 1000;
+    }
+
+    .reposo-logo-img {
+      width: 220px;
+      max-width: 60vw;
+      filter: brightness(0) invert(1);
+      animation: reposoPulso 3s ease-in-out infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes reposoPulso {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(0.98); }
+    }
+
+    .reposo-h1 {
+      font-family: var(--f-titulo);
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .reposo-p {
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      color: var(--c-menta);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .reposo-pill {
+      margin-top: 1.75rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 0.8rem 1.85rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      animation: reposoBounce 2s ease infinite;
+    }
+
+    @keyframes reposoBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    /* ===================================================================
+       2. PANTALLA DE CATÁLOGO / MENÚ (SELECCIÓN DIRECTA)
+       =================================================================== */
+    .kiosk-navbar {
       background: var(--c-blanco);
       border-bottom: 1px solid var(--c-linea);
-      padding: 0.85rem 1.75rem;
+      padding: 0.8rem 1.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -158,55 +159,49 @@
       z-index: 50;
     }
 
-    .kiosk-topbar-brand {
+    .navbar-brand-wrap {
       display: flex;
       align-items: center;
       gap: 0.85rem;
       cursor: pointer;
     }
 
-    .kiosk-topbar-logo {
-      width: 44px;
-      height: 44px;
+    .navbar-logo-img {
+      width: 42px;
+      height: 42px;
       object-fit: contain;
     }
 
-    .kiosk-topbar-text h2 {
+    .navbar-title-box h2 {
       font-family: var(--f-titulo);
       font-size: 1.35rem;
       font-weight: 700;
       color: var(--c-bosque);
-      letter-spacing: 0.08em;
       line-height: 1;
+      letter-spacing: 0.06em;
     }
 
-    .kiosk-topbar-text span {
-      font-size: 0.74rem;
+    .navbar-title-box span {
+      font-size: 0.72rem;
       color: var(--c-salvia);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
 
-    .btn-exit-to-reposo {
+    .btn-nav-cancel {
       background: var(--c-arena);
       border: 1px solid var(--c-linea);
       color: var(--c-texto);
       padding: 0.5rem 1rem;
       border-radius: 999px;
       font-family: var(--f-titulo);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
-    .btn-exit-to-reposo:active {
-      background: var(--c-linea-fuerte);
-    }
-
-    /* SELECTOR DE CATEGORÍAS TIPO PÍLDORAS */
-    .kiosk-categories-bar {
+    .kiosk-cat-pills-bar {
       background: var(--c-arena);
       padding: 0.75rem 1.5rem;
       display: flex;
@@ -219,11 +214,11 @@
       flex-shrink: 0;
     }
 
-    .kiosk-categories-bar::-webkit-scrollbar {
+    .kiosk-cat-pills-bar::-webkit-scrollbar {
       display: none;
     }
 
-    .cat-pill-btn {
+    .cat-btn-pill {
       flex-shrink: 0;
       background: var(--c-blanco);
       border: 1.5px solid var(--c-linea-fuerte);
@@ -231,80 +226,73 @@
       padding: 0.65rem 1.35rem;
       border-radius: 999px;
       font-family: var(--f-titulo);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
 
-    .cat-pill-btn:active {
-      transform: scale(0.97);
-    }
-
-    .cat-pill-btn.active {
+    .cat-btn-pill.active {
       background: var(--c-hoja-fuerte);
       border-color: var(--c-hoja-fuerte);
       color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(47, 93, 69, 0.25);
+      box-shadow: 0 4px 12px rgba(47, 93, 69, 0.25);
     }
 
-    /* ÁREA DE CONTENIDO SCROLLEABLE */
-    .kiosk-scroll-area {
+    .menu-scroll-view {
       flex: 1;
       overflow-y: auto;
-      padding: 1.5rem 1.75rem 6.5rem; /* Margen inferior para botón flotante */
+      padding: 1.5rem 1.75rem 6.5rem;
       -webkit-overflow-scrolling: touch;
     }
 
-    .category-section-header {
+    .menu-header-row {
       margin-bottom: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
     }
 
-    .category-section-title {
+    .menu-cat-title {
       font-family: var(--f-titulo);
       font-size: 1.85rem;
       font-weight: 700;
       color: var(--c-bosque);
     }
 
-    .category-section-desc {
-      font-size: 0.95rem;
+    .menu-cat-hint {
+      font-size: 0.92rem;
       color: var(--c-texto-suave);
-      margin-top: 0.2rem;
     }
 
-    /* REJILLA DE PLATILLOS */
-    .dishes-grid {
+    .dishes-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
       gap: 1.35rem;
       max-width: 1400px;
     }
 
-    /* ===================================================================
-       TARJETA DE PLATILLO CON IMAGEN 100% COMPLETA (SIN CORTAR)
-       =================================================================== */
-    .dish-card {
+    /* TARJETA DE PLATILLO (CLICK DIRECTO) */
+    .dish-card-item {
       background: var(--c-blanco);
       border-radius: 22px;
-      border: 1px solid var(--c-linea);
-      box-shadow: 0 2px 10px rgba(31, 45, 36, 0.05);
+      border: 1.5px solid var(--c-linea);
+      box-shadow: 0 2px 10px rgba(31, 45, 36, 0.04);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .dish-card:active {
-      transform: scale(0.985);
+    .dish-card-item:active {
+      transform: scale(0.975);
       border-color: var(--c-hoja-fuerte);
     }
 
-    /* CONTENEDOR DE FOTO: IMAGEN COMPLETA, NUNCA CORTADA */
-    .dish-photo-frame {
+    .dish-img-holder {
       width: 100%;
-      height: 220px;
+      height: 215px;
       background: #FDFCF9;
       position: relative;
       display: flex;
@@ -315,21 +303,21 @@
       overflow: hidden;
     }
 
-    .dish-photo-img {
+    .dish-img-holder img {
       max-width: 100%;
       max-height: 100%;
       width: auto;
       height: auto;
-      object-fit: contain; /* ¡Garantiza que la comida se vea completa al 100%! */
+      object-fit: contain;
       border-radius: 12px;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
 
-    .dish-card:hover .dish-photo-img {
-      transform: scale(1.03);
+    .dish-card-item:hover .dish-img-holder img {
+      transform: scale(1.04);
     }
 
-    .dish-badge-tag {
+    .dish-tag-badge {
       position: absolute;
       top: 10px;
       left: 10px;
@@ -338,13 +326,12 @@
       font-family: var(--f-titulo);
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.25rem 0.65rem;
+      padding: 0.22rem 0.65rem;
       border-radius: 999px;
       border: 1px solid var(--c-linea-fuerte);
     }
 
-    /* INFORMACIÓN DE LA TARJETA */
-    .dish-info-box {
+    .dish-card-body {
       padding: 1.15rem 1.25rem;
       display: flex;
       flex-direction: column;
@@ -352,7 +339,7 @@
       justify-content: space-between;
     }
 
-    .dish-title {
+    .dish-card-title {
       font-family: var(--f-titulo);
       font-size: 1.15rem;
       font-weight: 700;
@@ -361,7 +348,7 @@
       margin-bottom: 0.35rem;
     }
 
-    .dish-desc {
+    .dish-card-desc {
       font-size: 0.82rem;
       color: var(--c-texto-suave);
       line-height: 1.4;
@@ -372,7 +359,7 @@
       overflow: hidden;
     }
 
-    .dish-footer-row {
+    .dish-card-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -381,7 +368,7 @@
       margin-top: auto;
     }
 
-    .dish-price-text {
+    .dish-card-price {
       font-family: var(--f-titulo);
       font-size: 1.4rem;
       font-weight: 800;
@@ -389,83 +376,34 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .dish-price-text span {
+    .dish-card-price span {
       font-size: 0.75rem;
       font-weight: 600;
       color: var(--c-salvia);
     }
 
-    /* Botón de añadir y selector de cantidades */
-    .btn-touch-add {
-      background: var(--c-hoja-fuerte);
-      color: #FFFFFF;
-      border: none;
-      padding: 0.6rem 1.1rem;
-      border-radius: 999px;
-      font-family: var(--f-titulo);
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 3px 10px rgba(47, 93, 69, 0.25);
-      transition: all 0.15s ease;
-    }
-
-    .btn-touch-add:active {
-      transform: scale(0.95);
-      background: #234734;
-    }
-
-    .touch-qty-selector {
-      display: none;
-      align-items: center;
+    .dish-select-pill {
       background: var(--c-arena);
-      border: 1.5px solid var(--c-hoja-fuerte);
-      border-radius: 999px;
-      padding: 3px 5px;
-      gap: 6px;
-    }
-
-    .touch-qty-selector.active {
-      display: inline-flex;
-    }
-
-    .touch-qty-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: none;
-      background: #FFFFFF;
+      border: 1px solid var(--c-linea-fuerte);
       color: var(--c-bosque);
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
+      font-family: var(--f-titulo);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      gap: 0.3rem;
     }
 
-    .touch-qty-btn:active {
+    .dish-card-item:hover .dish-select-pill {
       background: var(--c-hoja-fuerte);
       color: #FFFFFF;
+      border-color: var(--c-hoja-fuerte);
     }
 
-    .touch-qty-val {
-      font-family: var(--f-titulo);
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--c-bosque);
-      min-width: 24px;
-      text-align: center;
-    }
-
-    /* ===================================================================
-       3. BOTÓN FLOTANTE "VER TU PEDIDO / PIDE AHORA" (ESTILO DUCKDNS)
-       =================================================================== */
-    .btn-floating-order {
+    /* BOTÓN FLOTANTE "VER MI PEDIDO" */
+    .btn-floating-cart {
       position: fixed;
       right: 1.75rem;
       bottom: 1.75rem;
@@ -484,19 +422,19 @@
       border: none;
       cursor: pointer;
       z-index: 150;
-      animation: floatPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: floatBounce 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    @keyframes floatPop {
-      0% { transform: scale(0.8); opacity: 0; }
+    @keyframes floatBounce {
+      0% { transform: scale(0.85); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    .btn-floating-order:active {
+    .btn-floating-cart:active {
       transform: scale(0.97);
     }
 
-    .floating-cart-badge {
+    .floating-badge {
       background: var(--c-hoja);
       color: #FFFFFF;
       font-size: 0.95rem;
@@ -506,146 +444,644 @@
     }
 
     /* ===================================================================
-       4. MODAL DE PAGO: TERMINAL MERCADO LIBRE POINT
+       3. PANTALLA EN BLANCO: PRODUCTO ESCOGIDO + ANIMACIÓN + CARRUSEL LENTO
        =================================================================== */
-    .kiosk-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(31, 45, 36, 0.72);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+    #stage-upsell {
+      background: #FFFFFF;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 1.5rem 1.5rem;
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    .upsell-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--c-menta-suave);
+      color: var(--c-hoja-fuerte);
+      padding: 0.45rem 1.15rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ANIMACIÓN DEL PRODUCTO ESCOGIDO EN EL CENTRO */
+    .upsell-hero-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .upsell-hero-img-wrap {
+      width: 190px;
+      height: 190px;
+      background: #FDFBF7;
+      border-radius: 50%;
+      border: 3px solid var(--c-hoja-fuerte);
+      box-shadow: 0 14px 38px rgba(47, 93, 69, 0.18), 0 0 0 10px rgba(47, 93, 69, 0.06);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
-      z-index: 1200;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.25s ease;
+      padding: 16px;
+      margin-bottom: 1.15rem;
+      animation: heroZoomIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
 
-    .kiosk-modal-backdrop.active {
-      opacity: 1;
-      visibility: visible;
+    @keyframes heroZoomIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.08); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    .kiosk-modal-card {
+    .upsell-hero-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .upsell-hero-name {
+      font-family: var(--f-titulo);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--c-bosque);
+      margin-bottom: 0.2rem;
+    }
+
+    .upsell-hero-price {
+      font-family: var(--f-titulo);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--c-hoja-fuerte);
+    }
+
+    .upsell-main-title {
+      font-family: var(--f-titulo);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--c-bosque);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .upsell-subtitle {
+      font-size: 1.05rem;
+      color: var(--c-texto-suave);
+      max-width: 580px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* CARRUSEL LENTO CONTINUO DE PRODUCTOS PARA AGREGAR */
+    .upsell-carousel-viewport {
+      width: 100%;
+      max-width: 1200px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.5rem 0.5rem 1.25rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .upsell-carousel-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .upsell-carousel-track {
+      display: flex;
+      gap: 1.15rem;
+      width: max-content;
+      padding: 0.5rem 1rem;
+      animation: carouselSlowScroll 45s linear infinite;
+    }
+
+    .upsell-carousel-viewport:hover .upsell-carousel-track,
+    .upsell-carousel-viewport:active .upsell-carousel-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes carouselSlowScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* TARJETA DEL CARRUSEL */
+    .carousel-item-card {
+      width: 175px;
+      flex-shrink: 0;
       background: var(--c-blanco);
-      border-radius: 28px;
+      border: 1.5px solid var(--c-linea-fuerte);
+      border-radius: 18px;
+      padding: 0.85rem;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(31, 45, 36, 0.05);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .carousel-item-card:active {
+      transform: scale(0.95);
+      border-color: var(--c-hoja-fuerte);
+    }
+
+    .carousel-img-frame {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .carousel-img-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .carousel-item-name {
+      font-family: var(--f-titulo);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--c-bosque);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .carousel-item-price {
+      font-family: var(--f-titulo);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--c-hoja-fuerte);
+      margin-bottom: 0.6rem;
+    }
+
+    .btn-carousel-add {
+      background: var(--c-arena);
+      border: 1px solid var(--c-linea-fuerte);
+      color: var(--c-bosque);
+      font-family: var(--f-titulo);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+
+    .carousel-item-card:hover .btn-carousel-add {
+      background: var(--c-hoja-fuerte);
+      color: #FFFFFF;
+      border-color: var(--c-hoja-fuerte);
+    }
+
+    .carousel-item-card.added-pulse {
+      animation: pulseGreen 0.4s ease;
+      border-color: var(--c-hoja-fuerte);
+      background: var(--c-menta-suave);
+    }
+
+    @keyframes pulseGreen {
+      50% { transform: scale(1.06); }
+    }
+
+    /* BOTONES INFERIORES DEL UPSELL */
+    .upsell-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .btn-upsell-back {
+      background: transparent;
+      border: 1.5px solid var(--c-linea-fuerte);
+      color: var(--c-bosque);
+      padding: 0.95rem 1.75rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-upsell-next {
+      background: var(--c-hoja-fuerte);
+      color: #FFFFFF;
+      border: none;
+      padding: 1rem 2.25rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 8px 24px rgba(47, 93, 69, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-upsell-next:active {
+      transform: scale(0.97);
+    }
+
+    /* ===================================================================
+       4. PANTALLA DE RESUMEN ("ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?")
+       =================================================================== */
+    #stage-summary {
+      background: var(--c-papel);
+      padding: 1.5rem 1.5rem 2.5rem;
+      overflow-y: auto;
+      align-items: center;
+    }
+
+    .summary-card-container {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .summary-header-box {
+      text-align: center;
+    }
+
+    .summary-title-main {
+      font-family: var(--f-titulo);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--c-bosque);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .summary-subtitle-main {
+      font-size: 1.05rem;
+      color: var(--c-texto-suave);
+    }
+
+    /* CAJA DE PRODUCTOS */
+    .summary-items-box {
+      background: var(--c-blanco);
+      border-radius: 24px;
+      border: 1px solid var(--c-linea);
+      box-shadow: 0 4px 18px rgba(31, 45, 36, 0.05);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .summary-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 0;
+      border-bottom: 1px solid var(--c-linea);
+    }
+
+    .summary-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-item-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .summary-item-thumb {
+      width: 58px;
+      height: 58px;
+      background: #FDFCF9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border: 1px solid var(--c-linea);
+      flex-shrink: 0;
+    }
+
+    .summary-item-thumb img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .summary-item-name {
+      font-family: var(--f-titulo);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--c-bosque);
+    }
+
+    .summary-item-price-unit {
+      font-size: 0.85rem;
+      color: var(--c-salvia);
+      font-weight: 600;
+    }
+
+    .summary-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--c-arena);
+      padding: 3px 6px;
+      border-radius: 999px;
+    }
+
+    .summary-qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: #FFFFFF;
+      color: var(--c-bosque);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-qty-btn:active {
+      background: var(--c-hoja-fuerte);
+      color: #FFFFFF;
+    }
+
+    .summary-qty-num {
+      font-family: var(--f-titulo);
+      font-size: 1rem;
+      font-weight: 800;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .summary-item-subtotal {
+      font-family: var(--f-titulo);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--c-bosque);
+      min-width: 70px;
+      text-align: right;
+    }
+
+    /* TOTAL GENERAL */
+    .summary-total-banner {
+      background: var(--c-bosque);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(31, 45, 36, 0.2);
+    }
+
+    .summary-total-label {
+      font-family: var(--f-titulo);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--c-menta);
+    }
+
+    .summary-total-amount {
+      font-family: var(--f-titulo);
+      font-size: 2.5rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-total-amount span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--c-menta);
+    }
+
+    /* SECCIÓN DE MÉTODO DE PAGO */
+    .payment-options-card {
+      background: var(--c-blanco);
+      border-radius: 24px;
+      border: 1px solid var(--c-linea);
+      box-shadow: 0 4px 18px rgba(31, 45, 36, 0.05);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .payment-prompt-title {
+      font-family: var(--f-titulo);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--c-bosque);
+      margin-bottom: 0.25rem;
+    }
+
+    .payment-prompt-desc {
+      font-size: 0.92rem;
+      color: var(--c-texto-suave);
+      margin-bottom: 1.35rem;
+    }
+
+    .payment-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem;
+    }
+
+    .btn-pay-option {
+      background: var(--c-arena);
+      border: 2px solid var(--c-linea-fuerte);
+      border-radius: 20px;
+      padding: 1.35rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-pay-option:active {
+      transform: scale(0.97);
+    }
+
+    .btn-pay-option.option-cash:hover {
+      border-color: #2F5D45;
+      background: var(--c-menta-suave);
+    }
+
+    .btn-pay-option.option-card:hover {
+      border-color: #009EE3; /* Azul Mercado Libre / Mercado Pago */
+      background: #E8F6FD;
+    }
+
+    .pay-option-icon {
+      font-size: 2.5rem;
+    }
+
+    .pay-option-title {
+      font-family: var(--f-titulo);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--c-bosque);
+      line-height: 1.1;
+    }
+
+    .pay-option-desc {
+      font-size: 0.78rem;
+      color: var(--c-texto-suave);
+      line-height: 1.3;
+    }
+
+    .btn-summary-add-more {
+      align-self: center;
+      background: transparent;
+      border: 1.5px solid var(--c-linea-fuerte);
+      color: var(--c-bosque);
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ===================================================================
+       5. PANTALLA DE TERMINAL MERCADO LIBRE POINT
+       =================================================================== */
+    #stage-terminal {
+      background: var(--c-papel);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .terminal-card-wrap {
       max-width: 480px;
       width: 100%;
+      background: var(--c-blanco);
+      border-radius: 28px;
       padding: 2.25rem 2rem;
-      text-align: center;
-      box-shadow: 0 20px 48px rgba(31, 45, 36, 0.25);
-      animation: popUp 0.25s ease;
+      box-shadow: 0 16px 45px rgba(31, 45, 36, 0.12);
+      border: 1px solid var(--c-linea);
+      position: relative;
     }
 
-    @keyframes popUp {
-      from { transform: scale(0.93); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-icon-circle {
-      width: 76px;
-      height: 76px;
-      background: var(--c-salvia-claro, #E2EBE5);
+    .terminal-point-logo-badge {
+      width: 80px;
+      height: 80px;
+      background: #E8F6FD;
+      color: #009EE3;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.4rem;
-      margin: 0 auto 1.15rem;
-      color: var(--c-hoja-fuerte);
+      font-size: 2.8rem;
+      margin: 0 auto 1.25rem;
+      animation: pulsePoint 2s ease infinite;
     }
 
-    .modal-title-text {
+    @keyframes pulsePoint {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 158, 227, 0.35); }
+      50% { box-shadow: 0 0 0 14px rgba(0, 158, 227, 0); }
+    }
+
+    .terminal-headline {
       font-family: var(--f-titulo);
-      font-size: 1.65rem;
-      font-weight: 700;
+      font-size: 1.75rem;
+      font-weight: 800;
       color: var(--c-bosque);
       margin-bottom: 0.35rem;
     }
 
-    .modal-subtitle-text {
-      font-size: 0.92rem;
+    .terminal-instruction {
+      font-size: 0.95rem;
       color: var(--c-texto-suave);
       margin-bottom: 1.35rem;
       line-height: 1.45;
     }
 
-    .modal-ticket-receipt {
-      background: var(--c-papel);
-      border: 1.5px dashed var(--c-linea-fuerte);
+    .terminal-amount-banner {
+      background: #F8FAFC;
+      border: 1.5px dashed #009EE3;
       border-radius: 18px;
-      padding: 1.15rem;
+      padding: 1rem 1.25rem;
       margin-bottom: 1.5rem;
-      text-align: left;
     }
 
-    .receipt-total-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--c-linea);
-      padding-bottom: 0.65rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .receipt-total-label {
-      font-size: 0.85rem;
+    .terminal-amount-tag {
+      font-size: 0.78rem;
       font-weight: 700;
+      color: #64748B;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--c-texto-suave);
     }
 
-    .receipt-total-price {
+    .terminal-amount-display {
       font-family: var(--f-titulo);
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--c-bosque);
-      font-variant-numeric: tabular-nums;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: #009EE3;
+      margin: 0.2rem 0;
     }
 
-    .receipt-items-scroll {
-      max-height: 130px;
-      overflow-y: auto;
-      font-size: 0.86rem;
-      color: var(--c-texto);
+    .terminal-status-log {
+      font-size: 0.82rem;
+      color: var(--c-texto-suave);
+      margin-bottom: 1.25rem;
+      min-height: 22px;
+      font-weight: 600;
     }
 
-    .receipt-item-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.25rem 0;
-    }
-
-    .btn-point-confirm {
+    .btn-terminal-confirm-ok {
       width: 100%;
       background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border: none;
-      padding: 1rem;
+      padding: 1.05rem;
       border-radius: 999px;
       font-family: var(--f-titulo);
       font-size: 1.15rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
       box-shadow: 0 6px 20px rgba(47, 93, 69, 0.35);
-      transition: all 0.2s ease;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
     }
 
-    .btn-point-confirm:active {
-      transform: scale(0.98);
-      background: #234734;
-    }
-
-    .btn-modal-cancel {
+    .btn-terminal-back {
       background: transparent;
       border: none;
       color: var(--c-salvia);
@@ -653,36 +1089,33 @@
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      padding: 0.5rem;
+    }
+
+    /* BOTÓN DISCRETO DE CONFIGURACIÓN */
+    .btn-open-config {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.25rem;
+      color: #94A3B8;
+      cursor: pointer;
     }
 
     /* ===================================================================
-       5. PANTALLA DE ÉXITO Y TICKET DE COCINA
+       6. PANTALLA DE ÉXITO Y TICKET DE COCINA
        =================================================================== */
-    .kiosk-success-overlay {
-      position: fixed;
-      inset: 0;
+    #stage-success {
       background: var(--c-papel);
-      display: none;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2.5rem;
       text-align: center;
       z-index: 2000;
-      animation: fadeIn 0.3s ease;
     }
 
-    .kiosk-success-overlay.active {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .success-icon-badge {
+    .success-bubble-check {
       width: 96px;
       height: 96px;
       background: var(--c-hoja-fuerte);
@@ -694,15 +1127,15 @@
       font-size: 3.4rem;
       margin-bottom: 1.35rem;
       box-shadow: 0 12px 30px rgba(47, 93, 69, 0.3);
-      animation: popUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .success-ticket-pill {
+    .success-ticket-number {
       background: var(--c-bosque);
       color: #FFFFFF;
       font-family: var(--f-titulo);
-      font-size: 2.4rem;
-      font-weight: 800;
+      font-size: 2.5rem;
+      font-weight: 900;
       padding: 0.75rem 2.25rem;
       border-radius: 999px;
       margin-bottom: 1.15rem;
@@ -710,78 +1143,167 @@
       box-shadow: 0 8px 24px rgba(31, 45, 36, 0.25);
     }
 
-    .success-main-title {
+    .success-main-headline {
       font-family: var(--f-titulo);
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 2.1rem;
+      font-weight: 800;
       color: var(--c-bosque);
       margin-bottom: 0.5rem;
     }
 
-    .success-main-desc {
-      font-size: 1.05rem;
+    .success-payment-detail {
+      font-size: 1.1rem;
       color: var(--c-texto-suave);
-      max-width: 460px;
+      max-width: 480px;
       margin-bottom: 2.25rem;
       line-height: 1.5;
     }
 
-    .btn-new-kiosk-order {
+    .btn-new-order-reset {
       background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border: none;
-      padding: 0.95rem 2.25rem;
+      padding: 1rem 2.5rem;
       border-radius: 999px;
       font-family: var(--f-titulo);
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(47, 93, 69, 0.25);
     }
 
-    .success-timer-note {
-      font-size: 0.8rem;
+    .success-timer-text {
+      font-size: 0.85rem;
       color: var(--c-salvia);
       margin-top: 1.5rem;
     }
 
-    /* RESPONSIVE IPAD Y CELULAR */
+    /* MODAL DE CONFIGURACIÓN DEL TERMINAL ID */
+    .config-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 3000;
+    }
+
+    .config-modal-overlay.active {
+      display: flex;
+    }
+
+    .config-modal-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      max-width: 440px;
+      width: 100%;
+      padding: 2rem;
+      text-align: left;
+    }
+
+    .config-modal-card h3 {
+      font-family: var(--f-titulo);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--c-bosque);
+      margin-bottom: 0.5rem;
+    }
+
+    .config-modal-card p {
+      font-size: 0.85rem;
+      color: var(--c-texto-suave);
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .config-input-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .config-input-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--c-bosque);
+      margin-bottom: 0.35rem;
+    }
+
+    .config-input-group input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: 1.5px solid #CBD5E1;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+
+    .config-modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .btn-config-save {
+      background: var(--c-hoja-fuerte);
+      color: #FFFFFF;
+      border: none;
+      padding: 0.7rem 1.35rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-config-close {
+      background: transparent;
+      border: 1px solid #CBD5E1;
+      color: var(--c-texto-suave);
+      padding: 0.7rem 1.15rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVE IPAD Y MÓVIL */
     @media (max-width: 680px) {
-      .kiosk-topbar {
+      .kiosk-navbar {
         padding: 0.65rem 1rem;
       }
-      .kiosk-scroll-area {
-        padding: 1rem 0.75rem 6.5rem;
-      }
-      .dishes-grid {
+      .dishes-cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
       }
-      .dish-photo-frame {
+      .dish-img-holder {
         height: 145px;
-        padding: 6px;
       }
-      .dish-info-box {
+      .dish-card-body {
         padding: 0.75rem;
       }
-      .dish-title {
+      .dish-card-title {
         font-size: 0.88rem;
       }
-      .dish-desc {
+      .dish-card-desc {
         display: none;
       }
-      .dish-price-text {
+      .dish-card-price {
         font-size: 1.15rem;
       }
-      .btn-touch-add {
-        padding: 0.45rem 0.75rem;
-        font-size: 0.75rem;
+      .payment-buttons-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
       }
-      .btn-floating-order {
+      .btn-floating-cart {
         right: 1rem;
         bottom: 1rem;
         height: 56px;
-        padding: 0 1.35rem;
+        padding: 0 1.25rem;
         font-size: 1.05rem;
       }
     }
@@ -791,107 +1313,237 @@
 
   <!-- =======================================================================
        1. PANTALLA INICIAL DE REPOSO (IDLE / ATTRACT SCREEN)
-       IDÉNTICA A https://atoyac.appsoluciones.duckdns.org/kiosco
        ======================================================================= -->
-  <section class="screen-reposo" id="screenReposo" onclick="exitReposo()">
-    <img src="/assets/img/logo.svg" alt="Atoyac Café" class="reposo-logo" />
-    <h1 class="reposo-title">Toca para ordenar</h1>
-    <p class="reposo-subtitle">Fresco, rápido y a tu gusto</p>
-    <div class="reposo-hint-tap">Toca la pantalla para comenzar</div>
+  <section class="kiosk-stage active" id="stage-reposo" onclick="exitReposo()">
+    <img src="/assets/img/logo.svg" alt="Atoyac Café" class="reposo-logo-img" />
+    <h1 class="reposo-h1">Toca para ordenar</h1>
+    <p class="reposo-p">Fresco, rápido y a tu gusto</p>
+    <div class="reposo-pill">Toca la pantalla para comenzar</div>
   </section>
 
   <!-- =======================================================================
-       2. APLICACIÓN DEL KIOSCO (CATÁLOGO DIRECTO)
+       2. PANTALLA DE MENÚ / CATÁLOGO COMPLETO
        ======================================================================= -->
-  <div class="kiosk-app-wrap" id="kioskAppWrap">
-    
-    <!-- TOPBAR / NAVBAR -->
-    <header class="kiosk-topbar">
-      <div class="kiosk-topbar-brand" onclick="goToReposo()">
-        <img src="/assets/img/logo.svg" alt="ATOYAC" class="kiosk-topbar-logo" />
-        <div class="kiosk-topbar-text">
+  <section class="kiosk-stage" id="stage-menu">
+    <!-- NAVBAR SUPERIOR -->
+    <header class="kiosk-navbar">
+      <div class="navbar-brand-wrap" onclick="goToReposo()">
+        <img src="/assets/img/logo.svg" alt="ATOYAC" class="navbar-logo-img" />
+        <div class="navbar-title-box">
           <h2>ATOYAC</h2>
           <span>Healthy Kitchen · Coffee</span>
         </div>
       </div>
 
-      <button class="btn-exit-to-reposo" onclick="goToReposo()">
+      <button class="btn-nav-cancel" onclick="goToReposo()">
         ✕ Inicio
       </button>
     </header>
 
-    <!-- SELECTOR DE CATEGORÍAS -->
-    <nav class="kiosk-categories-bar" aria-label="Categorías del Menú">
-      <button class="cat-pill-btn active" onclick="switchCategory('promociones')">Promociones</button>
-      <button class="cat-pill-btn" onclick="switchCategory('ensaladas')">Ensaladas</button>
-      <button class="cat-pill-btn" onclick="switchCategory('chilaquiles')">Chilaquiles</button>
-      <button class="cat-pill-btn" onclick="switchCategory('chapatas')">Chapatas & Molletes</button>
-      <button class="cat-pill-btn" onclick="switchCategory('bebidas')">Café & Bebidas</button>
-      <button class="cat-pill-btn" onclick="switchCategory('postres')">Postres</button>
+    <!-- SELECTOR DE CATEGORÍAS TIPO PÍLDORAS -->
+    <nav class="kiosk-cat-pills-bar" aria-label="Categorías del Menú">
+      <button class="cat-btn-pill active" onclick="switchCategory('promociones')">Promociones</button>
+      <button class="cat-btn-pill" onclick="switchCategory('ensaladas')">Ensaladas</button>
+      <button class="cat-btn-pill" onclick="switchCategory('chilaquiles')">Chilaquiles</button>
+      <button class="cat-btn-pill" onclick="switchCategory('chapatas')">Chapatas & Molletes</button>
+      <button class="cat-btn-pill" onclick="switchCategory('bebidas')">Café & Bebidas</button>
+      <button class="cat-btn-pill" onclick="switchCategory('postres')">Postres</button>
     </nav>
 
-    <!-- ÁREA DE CATÁLOGO CON FOTOS COMPLETAS (OBJECT-FIT: CONTAIN) -->
-    <main class="kiosk-scroll-area" id="kioskScrollArea">
-      <div class="category-section-header">
-        <h1 class="category-section-title" id="catSectionTitle">Promociones</h1>
-        <p class="category-section-desc" id="catSectionDesc">Combos con el mejor sabor y precio</p>
+    <!-- ÁREA DE CATÁLOGO CON FOTOS COMPLETAS -->
+    <main class="menu-scroll-view" id="menuScrollView">
+      <div class="menu-header-row">
+        <h1 class="menu-cat-title" id="menuCatTitle">Promociones</h1>
+        <span class="menu-cat-hint" id="menuCatHint">Toca cualquier platillo para comenzar</span>
       </div>
 
-      <div class="dishes-grid" id="dishesGrid">
-        <!-- Renderizado dinámico -->
+      <div class="dishes-cards-grid" id="dishesCardsGrid">
+        <!-- Generado dinámicamente con JavaScript -->
       </div>
     </main>
 
-    <!-- BOTÓN FLOTANTE DINÁMICO "PIDE AHORA" (ESTILO DUCKDNS) -->
-    <button class="btn-floating-order" id="btnFloatingOrder" onclick="openPaymentModal()">
+    <!-- BOTÓN FLOTANTE SI YA TIENE PRODUCTOS EN SU CARRITO -->
+    <button class="btn-floating-cart" id="btnFloatingCart" onclick="goToSummaryScreen()">
       <span>🛒</span>
-      <span class="floating-cart-badge" id="floatingBadge">0</span>
-      <span id="floatingTotal">$0 MXN</span>
-      <span>Pide ahora →</span>
+      <span class="floating-badge" id="floatingBadgeCount">0</span>
+      <span id="floatingTotalText">$0 MXN</span>
+      <span>Ver pedido →</span>
     </button>
-  </div>
+  </section>
 
   <!-- =======================================================================
-       3. MODAL DE PAGO: TERMINAL MERCADO LIBRE POINT
+       3. PANTALLA EN BLANCO: PRODUCTO ESCOGIDO + ANIMACIÓN + CARRUSEL LENTO
        ======================================================================= -->
-  <div class="kiosk-modal-backdrop" id="paymentModal">
-    <div class="kiosk-modal-card">
-      <div class="modal-icon-circle">💳</div>
-      <h3 class="modal-title-text">Paga con tu Tarjeta</h3>
-      <p class="modal-subtitle-text">Acerca tu tarjeta contactless o insértala en la terminal de <strong>Mercado Pago Point</strong>.</p>
+  <section class="kiosk-stage" id="stage-upsell">
+    <div style="width: 100%; max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+      
+      <!-- BADGE DE CONFIRMACIÓN -->
+      <div class="upsell-top-badge">
+        <span>✓</span> Producto agregado a tu orden
+      </div>
 
-      <div class="modal-ticket-receipt">
-        <div class="receipt-total-row">
-          <span class="receipt-total-label">Total a Cobrar</span>
-          <span class="receipt-total-price" id="modalTotalPrice">$0</span>
+      <!-- ANIMACIÓN DEL PRODUCTO ESCOGIDO EN EL CENTRO -->
+      <div class="upsell-hero-box">
+        <div class="upsell-hero-img-wrap">
+          <img id="upsellHeroImg" src="" alt="" class="upsell-hero-img" />
         </div>
+        <div class="upsell-hero-name" id="upsellHeroName">Chapata de Pollo</div>
+        <div class="upsell-hero-price" id="upsellHeroPrice">$95 MXN</div>
+      </div>
 
-        <div class="receipt-items-scroll" id="modalItemsList">
-          <!-- Líneas de productos -->
+      <!-- TÍTULO: LISTO QUÉ TE GUSTARÍA AGREGAR -->
+      <h2 class="upsell-main-title">¡Listo! ¿Qué te gustaría agregar?</h2>
+      <p class="upsell-subtitle">Acompaña tu pedido con una bebida refrescante, café caliente o un postre delicioso.</p>
+
+      <!-- CARRUSEL LENTO CONTINUO DE COMPLEMENTOS -->
+      <div class="upsell-carousel-viewport" id="upsellCarouselViewport">
+        <div class="upsell-carousel-track" id="upsellCarouselTrack">
+          <!-- Complementos inyectados dinámicamente (duplicados para scroll infinito) -->
         </div>
       </div>
 
-      <button class="btn-point-confirm" onclick="confirmPaymentAndFinish()">
-        <span>Confirmar Pago en Terminal Point ✓</span>
+      <!-- ACCIONES DE CONTINUAR -->
+      <div class="upsell-actions-row">
+        <button class="btn-upsell-back" onclick="goToMenuScreen()">
+          ← Seguir viendo menú
+        </button>
+        <button class="btn-upsell-next" onclick="goToSummaryScreen()">
+          <span>Ver mi pedido</span>
+          <span id="upsellCartCountPill" style="background: rgba(255,255,255,0.25); padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.9rem;">1</span>
+          <span>→</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       4. PANTALLA DE RESUMEN: "ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?"
+       ======================================================================= -->
+  <section class="kiosk-stage" id="stage-summary">
+    <div class="summary-card-container">
+      
+      <!-- ENCABEZADO -->
+      <div class="summary-header-box">
+        <h1 class="summary-title-main">Esto vas a pedir</h1>
+        <p class="summary-subtitle-main">Revisa tu orden antes de proceder al pago</p>
+      </div>
+
+      <!-- LISTA DE PRODUCTOS ESCOGIDOS -->
+      <div class="summary-items-box" id="summaryItemsList">
+        <!-- Renglones de productos -->
+      </div>
+
+      <!-- BANNER DE TOTAL -->
+      <div class="summary-total-banner">
+        <span class="summary-total-label">Total a Pagar</span>
+        <div class="summary-total-amount" id="summaryTotalDisplay">$0 <span>MXN</span></div>
+      </div>
+
+      <!-- SECCIÓN: ¿CÓMO QUIERES PAGAR? -->
+      <div class="payment-options-card">
+        <h3 class="payment-prompt-title">¿Cómo quieres pagar?</h3>
+        <p class="payment-prompt-desc">Selecciona tu método de pago preferido para enviar tu orden a cocina:</p>
+
+        <div class="payment-buttons-grid">
+          <!-- OPCIÓN 1: EFECTIVO EN MOSTRADOR -->
+          <button class="btn-pay-option option-cash" onclick="payWithCash()">
+            <span class="pay-option-icon">💵</span>
+            <span class="pay-option-title">Efectivo en mostrador</span>
+            <span class="pay-option-desc">Pagas en caja con tu ticket al momento de recoger</span>
+          </button>
+
+          <!-- OPCIÓN 2: TERMINAL CON TARJETA POINT -->
+          <button class="btn-pay-option option-card" onclick="payWithTerminalPoint()">
+            <span class="pay-option-icon">💳</span>
+            <span class="pay-option-title">Terminal con tarjeta</span>
+            <span class="pay-option-desc">Paga con tarjeta o contactless en la terminal Point</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTÓN AGREGAR MÁS -->
+      <button class="btn-summary-add-more" onclick="goToMenuScreen()">
+        + Agregar más productos a mi orden
       </button>
-      <button class="btn-modal-cancel" onclick="closePaymentModal()">← Seguir agregando</button>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       5. PANTALLA DE TERMINAL MERCADO LIBRE POINT
+       ======================================================================= -->
+  <section class="kiosk-stage" id="stage-terminal">
+    <div class="terminal-card-wrap">
+      
+      <!-- BOTÓN DE AJUSTES DISCRETO -->
+      <button class="btn-open-config" onclick="openConfigModal()" title="Configurar Terminal ID">⚙️</button>
+
+      <div class="terminal-point-logo-badge">💳</div>
+      <h2 class="terminal-headline">Paga en la Terminal</h2>
+      <p class="terminal-instruction" id="terminalInstruction">
+        Acerca tu tarjeta contactless o insértala con chip en la <strong>terminal Point de Mercado Pago</strong>.
+      </p>
+
+      <div class="terminal-amount-banner">
+        <div class="terminal-amount-tag">Monto enviado a la terminal</div>
+        <div class="terminal-amount-display" id="terminalAmountDisplay">$0.00</div>
+        <div style="font-size: 0.78rem; color: #64748B;" id="terminalRefDisplay">Ref: ATOYAC-...</div>
+      </div>
+
+      <div class="terminal-status-log" id="terminalStatusLog">
+        Conectando con la terminal Point...
+      </div>
+
+      <button class="btn-terminal-confirm-ok" onclick="confirmTerminalSuccessManual()">
+        <span>✓ Pago Aprobado en Terminal</span>
+      </button>
+
+      <button class="btn-terminal-back" onclick="cancelTerminalAndBack()">
+        ← Volver al resumen
+      </button>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       6. PANTALLA DE ÉXITO Y TICKET DE COCINA
+       ======================================================================= -->
+  <section class="kiosk-stage" id="stage-success">
+    <div class="success-bubble-check">✓</div>
+    <div class="success-ticket-number" id="successTicketBadge">Pedido #105</div>
+    <h2 class="success-main-headline" id="successTitleText">¡Tu pedido está en cocina!</h2>
+    <p class="success-payment-detail" id="successDetailText">
+      Hemos recibido tu orden con éxito. Enseguida te la entregamos fresca y deliciosa.
+    </p>
+
+    <button class="btn-new-order-reset" onclick="resetToReposo()">
+      Hacer otro pedido ahora
+    </button>
+    <p class="success-timer-text" id="successTimerText">Volviendo al inicio en 6 segundos...</p>
+  </section>
+
+  <!-- =======================================================================
+       MODAL DE CONFIGURACIÓN DE TERMINAL ID (POINT)
+       ======================================================================= -->
+  <div class="config-modal-overlay" id="configModalOverlay">
+    <div class="config-modal-card">
+      <h3>⚙️ Configuración Point</h3>
+      <p>Ingresa el Terminal ID o Número de Serie de tu terminal Mercado Pago Point (lo encuentras detrás de la terminal o en sus Ajustes):</p>
+
+      <div class="config-input-group">
+        <label for="inputTerminalId">Point Terminal ID</label>
+        <input type="text" id="inputTerminalId" placeholder="Ej. NEWLAND_N950__N950NCC403258243" />
+      </div>
+
+      <div class="config-modal-btns">
+        <button class="btn-config-close" onclick="closeConfigModal()">Cancelar</button>
+        <button class="btn-config-save" onclick="saveTerminalIdConfig()">Guardar ID</button>
+      </div>
     </div>
   </div>
 
-  <!-- =======================================================================
-       4. PANTALLA DE ÉXITO / TICKET DE COCINA
-       ======================================================================= -->
-  <div class="kiosk-success-overlay" id="successOverlay">
-    <div class="success-icon-badge">✓</div>
-    <div class="success-ticket-pill" id="successTicketBadge">Pedido #101</div>
-    <h2 class="success-main-title">¡Tu pedido está en cocina!</h2>
-    <p class="success-main-desc">Hemos recibido tu orden con éxito. Enseguida te la entregamos lista y fresca.</p>
-
-    <button class="btn-new-kiosk-order" onclick="resetToReposo()">Hacer otro pedido</button>
-    <p class="success-timer-note" id="successCountdownNote">Volviendo al inicio en 6 segundos...</p>
-  </div>
-
-  <!-- SCRIPT LOGIC -->
+  <!-- STORE & SCRIPT LOGIC -->
   <script type="module">
     import { AtoyacStore } from './js/store.js';
 
@@ -1199,236 +1851,408 @@
       ]
     };
 
+    // Lista de complementos para el carrusel lento (bebidas + postres + antojitos)
+    const UPSELL_COMPLEMENTS = [
+      PRODUCTS.bebidas[0], // Café Americano
+      PRODUCTS.bebidas[1], // Café de Olla
+      PRODUCTS.bebidas[4], // Cappuccino
+      PRODUCTS.bebidas[5], // Tizana
+      PRODUCTS.bebidas[8], // Agua de Horchata
+      PRODUCTS.postres[1], // 4 Mini Donas
+      PRODUCTS.postres[0], // Galleta de Chocolate
+      PRODUCTS.postres[2], // Pastel de Zanahoria
+      PRODUCTS.postres[3], // Cheesecake
+      PRODUCTS.postres[4], // Plato de Fruta
+      PRODUCTS.chapatas[0] // Molletes Sencillos
+    ];
+
     const CAT_INFO = {
-      promociones: { title: "Promociones", desc: "Combos con el mejor sabor y precio para tu día" },
-      ensaladas: { title: "Ensaladas", desc: "Lo verde también se antoja · Aderezo ranch o mil islas" },
-      chilaquiles: { title: "Chilaquiles Verdes", desc: "Totopos horneados con salsa verde, crema, queso y cebolla" },
-      chapatas: { title: "Chapatas & Molletes", desc: "Crujientes y bien rellenas con papas o ensalada" },
-      bebidas: { title: "Café & Bebidas", desc: "Primero café, luego todo lo demás · Recién hecho" },
-      postres: { title: "Postres & Antojos", desc: "La vida es corta: pide el postre · El final feliz" }
+      promociones: { title: "Promociones", hint: "Combos con el mejor sabor y precio para tu día" },
+      ensaladas: { title: "Ensaladas", hint: "Lo verde también se antoja · Aderezo ranch o mil islas" },
+      chilaquiles: { title: "Chilaquiles Verdes", hint: "Totopos horneados con salsa verde, crema, queso y cebolla" },
+      chapatas: { title: "Chapatas & Molletes", hint: "Crujientes y bien rellenas con papas o ensalada" },
+      bebidas: { title: "Café & Bebidas", hint: "Primero café, luego todo lo demás · Recién hecho" },
+      postres: { title: "Postres & Antojos", hint: "La vida es corta: pide el postre · El final feliz" }
     };
 
-    // Estado de la app
-    let cart = {};
+    // Estado del Kiosco
+    let cart = {}; // { [id]: { item, qty } }
     let activeCat = 'promociones';
+    let lastChosenItem = null;
+    let activePaymentMethod = 'efectivo'; // 'efectivo' | 'terminal'
     let idleTimer = null;
-    let successResetInterval = null;
+    let successTimer = null;
+    let terminalPollingInterval = null;
+
+    // Helper de pantallas
+    function showStage(stageId) {
+      document.querySelectorAll('.kiosk-stage').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(stageId);
+      if (target) target.classList.add('active');
+      resetIdleTimer();
+    }
 
     // ===================================================================
-    // CONTROL DE PANTALLA DE REPOSO (IDLE SCREEN)
+    // 1. REPOSO (IDLE SCREEN)
     // ===================================================================
     window.exitReposo = function() {
-      document.getElementById('screenReposo').classList.add('hidden');
-      resetIdleTimer();
+      showStage('stage-menu');
+      window.renderMenuDishes();
     };
 
     window.goToReposo = function() {
       cart = {};
-      updateUI();
-      document.getElementById('paymentModal').classList.remove('active');
-      document.getElementById('successOverlay').classList.remove('active');
-      document.getElementById('screenReposo').classList.remove('hidden');
+      lastChosenItem = null;
+      if (terminalPollingInterval) clearInterval(terminalPollingInterval);
+      if (successTimer) clearInterval(successTimer);
+      updateCartFloatingBar();
+      showStage('stage-reposo');
     };
 
     function resetIdleTimer() {
       if (idleTimer) clearTimeout(idleTimer);
-      // Si no hay interacción en 75 segundos y no hay modal abierto, vuelve a reposo
+      // Tras 90 segundos de inactividad vuelve a reposo
       idleTimer = setTimeout(() => {
-        const modalActive = document.getElementById('paymentModal').classList.contains('active');
-        const successActive = document.getElementById('successOverlay').classList.contains('active');
-        if (!modalActive && !successActive) {
+        const isSuccess = document.getElementById('stage-success').classList.contains('active');
+        if (!isSuccess) {
           window.goToReposo();
         }
-      }, 75000);
+      }, 90000);
     }
 
-    // Detectar toques para resetear inactividad
     ['pointerdown', 'touchstart', 'click'].forEach(evt => {
       document.addEventListener(evt, resetIdleTimer, { passive: true });
     });
 
     // ===================================================================
-    // CATÁLOGO Y RENDERIZADO
+    // 2. CATÁLOGO / MENÚ
     // ===================================================================
     window.switchCategory = function(catKey) {
       activeCat = catKey;
-      document.querySelectorAll('.cat-pill-btn').forEach(btn => {
+      document.querySelectorAll('.cat-btn-pill').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('onclick').includes(catKey));
       });
 
       const info = CAT_INFO[catKey] || CAT_INFO['promociones'];
-      document.getElementById('catSectionTitle').textContent = info.title;
-      document.getElementById('catSectionDesc').textContent = info.desc;
+      document.getElementById('menuCatTitle').textContent = info.title;
+      document.getElementById('menuCatHint').textContent = info.hint;
 
-      renderDishes();
+      window.renderMenuDishes();
     };
 
-    function renderDishes() {
+    window.renderMenuDishes = function() {
       const items = PRODUCTS[activeCat] || [];
-      const grid = document.getElementById('dishesGrid');
+      const grid = document.getElementById('dishesCardsGrid');
 
-      grid.innerHTML = items.map(item => {
-        const inCartQty = cart[item.id] ? cart[item.id].qty : 0;
-        return `
-          <article class="dish-card" onclick="cardClicked(event, '${item.id}')">
-            <!-- FOTO COMPLETA (CONTAIN) -->
-            <div class="dish-photo-frame">
-              <img 
-                src="${item.image}" 
-                onerror="this.onerror=null; this.src='${item.fallback}';" 
-                alt="${item.name}" 
-                class="dish-photo-img" 
-                loading="lazy"
-              />
-              <span class="dish-badge-tag">${item.tag}</span>
+      grid.innerHTML = items.map(item => `
+        <article class="dish-card-item" onclick="onPickProduct('${item.id}')">
+          <div class="dish-img-holder">
+            <img 
+              src="${item.image}" 
+              onerror="this.onerror=null; this.src='${item.fallback}';" 
+              alt="${item.name}" 
+              loading="lazy"
+            />
+            <span class="dish-tag-badge">${item.tag}</span>
+          </div>
+
+          <div class="dish-card-body">
+            <div>
+              <h3 class="dish-card-title">${item.name}</h3>
+              <p class="dish-card-desc">${item.desc}</p>
             </div>
 
-            <div class="dish-info-box">
-              <div>
-                <h3 class="dish-title">${item.name}</h3>
-                <p class="dish-desc">${item.desc}</p>
-              </div>
-
-              <div class="dish-footer-row">
-                <div class="dish-price-text">$${item.price} <span>MXN</span></div>
-                
-                <button 
-                  class="btn-touch-add" 
-                  id="btnAdd_${item.id}" 
-                  style="${inCartQty > 0 ? 'display:none;' : ''}" 
-                  onclick="event.stopPropagation(); addItem('${item.id}')"
-                >
-                  + Agregar
-                </button>
-
-                <div class="touch-qty-selector ${inCartQty > 0 ? 'active' : ''}" id="qtyBox_${item.id}">
-                  <button class="touch-qty-btn" onclick="event.stopPropagation(); removeItem('${item.id}')">−</button>
-                  <span class="touch-qty-val" id="qtyVal_${item.id}">${inCartQty}</span>
-                  <button class="touch-qty-btn" onclick="event.stopPropagation(); addItem('${item.id}')">+</button>
-                </div>
-              </div>
+            <div class="dish-card-foot">
+              <div class="dish-card-price">$${item.price} <span>MXN</span></div>
+              <div class="dish-select-pill">Escoger +</div>
             </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    window.cardClicked = function(event, itemId) {
-      window.addItem(itemId);
+          </div>
+        </article>
+      `).join('');
     };
 
-    function findItem(itemId) {
-      for (const cat in PRODUCTS) {
-        const found = PRODUCTS[cat].find(p => p.id === itemId);
+    function findItemById(id) {
+      for (const k in PRODUCTS) {
+        const found = PRODUCTS[k].find(p => p.id === id);
         if (found) return found;
       }
       return null;
     }
 
-    window.addItem = function(itemId) {
-      const item = findItem(itemId);
+    // ===================================================================
+    // 3. PRODUCTO ESCOGIDO -> PANTALLA EN BLANCO + ANIMACIÓN + CARRUSEL LENTO
+    // ===================================================================
+    window.onPickProduct = function(productId) {
+      const item = findItemById(productId);
       if (!item) return;
 
-      if (!cart[itemId]) {
-        cart[itemId] = { item: item, qty: 1 };
+      lastChosenItem = item;
+
+      // Sumar al carrito
+      if (!cart[item.id]) {
+        cart[item.id] = { item: item, qty: 1 };
       } else {
-        cart[itemId].qty++;
+        cart[item.id].qty++;
       }
-      updateUI();
+
+      // Preparar pantalla de upsell blanca
+      document.getElementById('upsellHeroImg').src = item.image;
+      document.getElementById('upsellHeroImg').onerror = function() {
+        this.onerror = null;
+        this.src = item.fallback;
+      };
+      document.getElementById('upsellHeroName').textContent = item.name;
+      document.getElementById('upsellHeroPrice').textContent = `$${item.price} MXN`;
+
+      // Renderizar carrusel lento de complementos
+      renderUpsellCarousel();
+      updateUpsellActions();
+
+      // Cambiar inmediatamente a la pantalla en blanco
+      showStage('stage-upsell');
+
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('kiosk_select_product', { product_name: item.name, price: item.price });
+      }
     };
 
-    window.removeItem = function(itemId) {
-      if (!cart[itemId]) return;
-      cart[itemId].qty--;
-      if (cart[itemId].qty <= 0) {
-        delete cart[itemId];
+    function renderUpsellCarousel() {
+      const track = document.getElementById('upsellCarouselTrack');
+      
+      // Duplicamos los complementos para dar un efecto continuo sin saltos bruscos
+      const duplicated = [...UPSELL_COMPLEMENTS, ...UPSELL_COMPLEMENTS];
+
+      track.innerHTML = duplicated.map((comp, idx) => `
+        <div class="carousel-item-card" id="carouselCard_${comp.id}_${idx}" onclick="addComplementFromCarousel('${comp.id}', this)">
+          <div class="carousel-img-frame">
+            <img src="${comp.image}" onerror="this.onerror=null; this.src='${comp.fallback}';" alt="${comp.name}" loading="lazy" />
+          </div>
+          <div class="carousel-item-name">${comp.name}</div>
+          <div class="carousel-item-price">$${comp.price}</div>
+          <button class="btn-carousel-add">+ Agregar</button>
+        </div>
+      `).join('');
+    }
+
+    window.addComplementFromCarousel = function(itemId, cardEl) {
+      const item = findItemById(itemId);
+      if (!item) return;
+
+      if (!cart[item.id]) {
+        cart[item.id] = { item: item, qty: 1 };
+      } else {
+        cart[item.id].qty++;
       }
-      updateUI();
+
+      // Animación en la tarjeta tocada
+      if (cardEl) {
+        cardEl.classList.add('added-pulse');
+        setTimeout(() => cardEl.classList.remove('added-pulse'), 500);
+      }
+
+      updateUpsellActions();
     };
 
-    function updateUI() {
+    function updateUpsellActions() {
+      let count = 0;
+      for (const id in cart) count += cart[id].qty;
+      const pill = document.getElementById('upsellCartCountPill');
+      if (pill) pill.textContent = `${count}`;
+      updateCartFloatingBar();
+    }
+
+    window.goToMenuScreen = function() {
+      showStage('stage-menu');
+    };
+
+    function updateCartFloatingBar() {
       let totalQty = 0;
       let totalAmount = 0;
 
       for (const id in cart) {
-        const row = cart[id];
-        totalQty += row.qty;
-        totalAmount += (row.qty * row.item.price);
+        totalQty += cart[id].qty;
+        totalAmount += (cart[id].qty * cart[id].item.price);
       }
 
-      // Actualizar botón flotante tipo duckdns
-      const btnFloat = document.getElementById('btnFloatingOrder');
-      const badgeEl = document.getElementById('floatingBadge');
-      const totalEl = document.getElementById('floatingTotal');
+      const btnFloat = document.getElementById('btnFloatingCart');
+      const badge = document.getElementById('floatingBadgeCount');
+      const total = document.getElementById('floatingTotalText');
 
       if (totalQty > 0) {
         btnFloat.style.display = 'flex';
-        badgeEl.textContent = `${totalQty}`;
-        totalEl.textContent = `$${totalAmount} MXN`;
+        badge.textContent = `${totalQty}`;
+        total.textContent = `$${totalAmount} MXN`;
       } else {
         btnFloat.style.display = 'none';
-      }
-
-      // Actualizar botones de las tarjetas
-      for (const k in PRODUCTS) {
-        PRODUCTS[k].forEach(p => {
-          const btnAdd = document.getElementById(`btnAdd_${p.id}`);
-          const qtyBox = document.getElementById(`qtyBox_${p.id}`);
-          const qtyVal = document.getElementById(`qtyVal_${p.id}`);
-
-          if (btnAdd && qtyBox && qtyVal) {
-            const currentQty = cart[p.id] ? cart[p.id].qty : 0;
-            if (currentQty > 0) {
-              btnAdd.style.display = 'none';
-              qtyBox.classList.add('active');
-              qtyVal.textContent = currentQty;
-            } else {
-              btnAdd.style.display = 'inline-flex';
-              qtyBox.classList.remove('active');
-              qtyVal.textContent = '0';
-            }
-          }
-        });
       }
     }
 
     // ===================================================================
-    // FLUJO DE PAGO EN TERMINAL (MERCADO LIBRE POINT)
+    // 4. RESUMEN: "ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?"
     // ===================================================================
-    window.openPaymentModal = function() {
-      let total = 0;
-      let linesHtml = '';
+    window.goToSummaryScreen = function() {
+      renderSummaryItems();
+      showStage('stage-summary');
+    };
 
-      for (const id in cart) {
+    function renderSummaryItems() {
+      const container = document.getElementById('summaryItemsList');
+      let total = 0;
+      let count = 0;
+      let html = '';
+
+      const keys = Object.keys(cart);
+      if (keys.length === 0) {
+        container.innerHTML = `<p style="text-align: center; color: var(--c-texto-suave); padding: 1.5rem;">Tu orden está vacía. Escoge un platillo en el menú.</p>`;
+        document.getElementById('summaryTotalDisplay').innerHTML = `$0 <span>MXN</span>`;
+        return;
+      }
+
+      keys.forEach(id => {
         const row = cart[id];
-        const sub = row.qty * row.item.price;
-        total += sub;
-        linesHtml += `
-          <div class="receipt-item-line">
-            <span><strong>${row.qty}x</strong> ${row.item.name}</span>
-            <span>$${sub}</span>
+        const subtotal = row.qty * row.item.price;
+        total += subtotal;
+        count += row.qty;
+
+        html += `
+          <div class="summary-item-row">
+            <div class="summary-item-left">
+              <div class="summary-item-thumb">
+                <img src="${row.item.image}" onerror="this.onerror=null; this.src='${row.item.fallback}';" alt="${row.item.name}" />
+              </div>
+              <div>
+                <div class="summary-item-name">${row.item.name}</div>
+                <div class="summary-item-price-unit">$${row.item.price} c/u</div>
+              </div>
+            </div>
+
+            <div class="summary-item-controls">
+              <button class="summary-qty-btn" onclick="modifySummaryQty('${row.item.id}', -1)">−</button>
+              <span class="summary-qty-num">${row.qty}</span>
+              <button class="summary-qty-btn" onclick="modifySummaryQty('${row.item.id}', 1)">+</button>
+            </div>
+
+            <div class="summary-item-subtotal">$${subtotal}</div>
           </div>
         `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById('summaryTotalDisplay').innerHTML = `$${total} <span>MXN</span>`;
+      updateCartFloatingBar();
+    }
+
+    window.modifySummaryQty = function(itemId, delta) {
+      if (!cart[itemId]) return;
+      cart[itemId].qty += delta;
+      if (cart[itemId].qty <= 0) {
+        delete cart[itemId];
       }
+      renderSummaryItems();
+      if (Object.keys(cart).length === 0) {
+        window.goToMenuScreen();
+      }
+    };
+
+    // ===================================================================
+    // 5. PAGO: EFECTIVO EN MOSTRADOR O TERMINAL MERCADO LIBRE POINT
+    // ===================================================================
+    window.payWithCash = function() {
+      activePaymentMethod = 'efectivo';
+      finalizeOrderAndShowTicket('Efectivo (Mostrador)');
+    };
+
+    window.payWithTerminalPoint = function() {
+      activePaymentMethod = 'terminal';
+      let total = 0;
+      for (const id in cart) total += (cart[id].qty * cart[id].item.price);
 
       if (total <= 0) return;
 
-      document.getElementById('modalTotalPrice').textContent = `$${total}`;
-      document.getElementById('modalItemsList').innerHTML = linesHtml;
-      document.getElementById('paymentModal').classList.add('active');
+      const ref = 'ATOYAC-' + Date.now();
+      document.getElementById('terminalAmountDisplay').textContent = `$${total.toFixed(2)}`;
+      document.getElementById('terminalRefDisplay').textContent = `Ref: ${ref}`;
+      document.getElementById('terminalStatusLog').textContent = 'Transmitiendo orden a la terminal de Mercado Pago...';
 
-      if (typeof window.trackEvent === 'function') {
-        window.trackEvent('click_point_payment', { total_amount: total });
+      showStage('stage-terminal');
+
+      // Intentar enviar cobro a través de cobrar.php
+      sendOrderToPointAPI(total, ref);
+    };
+
+    // Comunicación con cobrar.php hacia Mercado Pago
+    async function sendOrderToPointAPI(monto, referencia) {
+      const savedTerminalId = localStorage.getItem('mp_terminal_id') || '';
+      try {
+        const payload = {
+          monto: monto,
+          referencia: referencia
+        };
+        if (savedTerminalId) {
+          payload.terminal_id = savedTerminalId;
+        }
+
+        const response = await fetch('cobrar.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+        console.log('Respuesta Point:', data);
+
+        if (response.ok && data.id) {
+          document.getElementById('terminalStatusLog').textContent = '¡Orden recibida en la terminal! Esperando tarjeta...';
+          startPollingPointStatus(data.id);
+        } else if (data && data.error) {
+          document.getElementById('terminalStatusLog').textContent = `Terminal: ${data.error || 'Listo para cobrar en terminal'}`;
+        } else {
+          document.getElementById('terminalStatusLog').textContent = 'Terminal lista. Acerca tu tarjeta contactless.';
+        }
+      } catch (err) {
+        console.warn('cobrar.php offline o sin backend PHP:', err);
+        document.getElementById('terminalStatusLog').textContent = 'Terminal lista. Pasa tu tarjeta en la Point y confirma abajo.';
       }
+    }
+
+    function startPollingPointStatus(orderId) {
+      if (terminalPollingInterval) clearInterval(terminalPollingInterval);
+      let attempts = 0;
+      terminalPollingInterval = setInterval(async () => {
+        attempts++;
+        if (attempts > 60) {
+          clearInterval(terminalPollingInterval);
+          return;
+        }
+        try {
+          const res = await fetch(`consultar_orden.php?id=${encodeURIComponent(orderId)}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.status === 'processed' || data.status === 'closed') {
+              clearInterval(terminalPollingInterval);
+              confirmTerminalSuccessManual();
+            }
+          }
+        } catch (e) {
+          // Polling silencioso
+        }
+      }, 2500);
+    }
+
+    window.confirmTerminalSuccessManual = function() {
+      if (terminalPollingInterval) clearInterval(terminalPollingInterval);
+      finalizeOrderAndShowTicket('Terminal (Mercado Pago Point)');
     };
 
-    window.closePaymentModal = function() {
-      document.getElementById('paymentModal').classList.remove('active');
+    window.cancelTerminalAndBack = function() {
+      if (terminalPollingInterval) clearInterval(terminalPollingInterval);
+      showStage('stage-summary');
     };
 
-    window.confirmPaymentAndFinish = function() {
-      window.closePaymentModal();
-
+    // ===================================================================
+    // 6. FINALIZAR ORDEN Y GENERAR TICKET DE COCINA
+    // ===================================================================
+    function finalizeOrderAndShowTicket(paymentName) {
       let total = 0;
       const formattedItems = [];
 
@@ -1446,57 +2270,94 @@
       }
 
       const randomTicket = Math.floor(100 + Math.random() * 900);
+      let ticketNum = randomTicket;
+
       try {
         if (typeof AtoyacStore !== 'undefined' && AtoyacStore.addOrder) {
           const created = AtoyacStore.addOrder({
             customerName: 'Cliente Kiosco',
             source: 'Kiosco iPad Directo',
             orderType: 'Para Llevar',
-            paymentMethod: 'Tarjeta (Point)',
-            paymentStatus: 'Pagado',
+            paymentMethod: paymentName,
+            paymentStatus: activePaymentMethod === 'terminal' ? 'Pagado' : 'Pendiente (Mostrador)',
             status: 'nuevo',
             items: formattedItems,
             total: total,
-            notes: 'Kiosco Atoyac'
+            notes: `Kiosco Atoyac · ${paymentName}`
           });
-          document.getElementById('successTicketBadge').textContent = `Pedido #${created?.ticketNumber || randomTicket}`;
-        } else {
-          document.getElementById('successTicketBadge').textContent = `Pedido #${randomTicket}`;
+          ticketNum = created?.ticketNumber || randomTicket;
         }
       } catch (e) {
-        document.getElementById('successTicketBadge').textContent = `Pedido #${randomTicket}`;
+        console.warn('AtoyacStore save error:', e);
       }
 
-      // Mostrar pantalla de éxito
-      const successOverlay = document.getElementById('successOverlay');
-      successOverlay.classList.add('active');
+      // Configurar pantalla de éxito
+      document.getElementById('successTicketBadge').textContent = `Pedido #${ticketNum}`;
 
+      if (activePaymentMethod === 'efectivo') {
+        document.getElementById('successTitleText').textContent = '¡Pedido enviado a cocina!';
+        document.getElementById('successDetailText').innerHTML = 
+          `Paga <strong>$${total} MXN</strong> en el mostrador mostrando tu ticket <strong>Pedido #${ticketNum}</strong>. ¡Ya lo estamos preparando!`;
+      } else {
+        document.getElementById('successTitleText').textContent = '¡Pago Aprobado con Éxito!';
+        document.getElementById('successDetailText').innerHTML = 
+          `Cobro procesado por <strong>$${total} MXN</strong> en la terminal Point. Conserva tu ticket <strong>Pedido #${ticketNum}</strong> para recoger tu orden.`;
+      }
+
+      // Vaciar carrito
       cart = {};
-      updateUI();
+      updateCartFloatingBar();
 
+      showStage('stage-success');
+
+      // Conteo regresivo de 6 segundos
       let seconds = 6;
-      const noteEl = document.getElementById('successCountdownNote');
-      if (noteEl) noteEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
+      const timerEl = document.getElementById('successTimerText');
+      if (timerEl) timerEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
 
-      if (successResetInterval) clearInterval(successResetInterval);
-      successResetInterval = setInterval(() => {
+      if (successTimer) clearInterval(successTimer);
+      successTimer = setInterval(() => {
         seconds--;
-        if (noteEl) noteEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
+        if (timerEl) timerEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
         if (seconds <= 0) {
-          clearInterval(successResetInterval);
+          clearInterval(successTimer);
           window.resetToReposo();
         }
       }, 1000);
-    };
+    }
 
     window.resetToReposo = function() {
-      if (successResetInterval) clearInterval(successResetInterval);
-      document.getElementById('successOverlay').classList.remove('active');
+      if (successTimer) clearInterval(successTimer);
+      if (terminalPollingInterval) clearInterval(terminalPollingInterval);
       window.goToReposo();
     };
 
-    // Inicializar catálogo en Promociones
-    renderDishes();
+    // ===================================================================
+    // CONFIGURACIÓN DE TERMINAL ID DE MERCADO PAGO POINT
+    // ===================================================================
+    window.openConfigModal = function() {
+      const savedId = localStorage.getItem('mp_terminal_id') || 'NEWLAND_N950__N950NCC403258243';
+      document.getElementById('inputTerminalId').value = savedId;
+      document.getElementById('configModalOverlay').classList.add('active');
+    };
+
+    window.closeConfigModal = function() {
+      document.getElementById('configModalOverlay').classList.remove('active');
+    };
+
+    window.saveTerminalIdConfig = function() {
+      const val = document.getElementById('inputTerminalId').value.trim();
+      if (val) {
+        localStorage.setItem('mp_terminal_id', val);
+      } else {
+        localStorage.removeItem('mp_terminal_id');
+      }
+      window.closeConfigModal();
+      alert('¡Terminal ID de Mercado Pago guardado con éxito!');
+    };
+
+    // Iniciar con pantalla de reposo
+    showStage('stage-reposo');
   </script>
 
 </body>
