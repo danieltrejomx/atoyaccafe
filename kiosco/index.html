@@ -713,261 +713,175 @@
     }
 
     /* ===================================================================
-       4. PANTALLA DE RESUMEN ("ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?")
+       4. PANTALLA: "TU PEDIDO" (SIN MARCO, SIN SCROLL, PAGA CON:)
        =================================================================== */
     #stage-summary {
       background: var(--c-papel);
-      padding: 1.5rem 1.5rem 2.5rem;
-      overflow-y: auto;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: none;
       align-items: center;
+      justify-content: center;
+      padding: 1.25rem 1.5rem;
+      box-sizing: border-box;
     }
 
-    .summary-card-container {
-      max-width: 680px;
+    #stage-summary.active {
+      display: flex;
+    }
+
+    .summary-clean-container {
       width: 100%;
-      margin: 0 auto;
+      max-width: 650px;
+      height: 100%;
+      max-height: 94vh;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .summary-header-box {
+      align-items: center;
+      justify-content: space-between;
       text-align: center;
     }
 
-    .summary-title-main {
+    .summary-top-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .summary-main-title {
       font-family: var(--f-titulo);
       font-size: clamp(2.2rem, 5vw, 3rem);
       font-weight: 800;
       color: var(--c-bosque);
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .summary-item-subtitle {
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      font-weight: 600;
+      color: var(--c-texto-suave);
+      margin-top: 0.25rem;
+    }
+
+    .summary-price-badge {
+      font-family: var(--f-titulo);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--c-hoja-fuerte);
       line-height: 1.1;
-      margin-bottom: 0.35rem;
+      margin-top: 0.25rem;
     }
 
-    .summary-subtitle-main {
-      font-size: 1.05rem;
-      color: var(--c-texto-suave);
-    }
-
-    /* CAJA DE PRODUCTOS */
-    .summary-items-box {
-      background: var(--c-blanco);
-      border-radius: 24px;
-      border: 1px solid var(--c-linea);
-      box-shadow: 0 4px 18px rgba(31, 45, 36, 0.05);
-      padding: 1.25rem 1.5rem;
-    }
-
-    .summary-item-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.95rem 0;
-      border-bottom: 1px solid var(--c-linea);
-    }
-
-    .summary-item-row:last-child {
-      border-bottom: none;
-    }
-
-    .summary-item-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex: 1;
-    }
-
-    .summary-item-thumb {
-      width: 58px;
-      height: 58px;
-      background: #FDFCF9;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border: 1px solid var(--c-linea);
-      flex-shrink: 0;
-    }
-
-    .summary-item-thumb img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .summary-item-name {
-      font-family: var(--f-titulo);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--c-bosque);
-    }
-
-    .summary-item-price-unit {
-      font-size: 0.85rem;
+    .summary-price-badge span {
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--c-salvia);
-      font-weight: 600;
     }
 
-    .summary-item-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--c-arena);
-      padding: 3px 6px;
-      border-radius: 999px;
-    }
-
-    .summary-qty-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: none;
-      background: #FFFFFF;
-      color: var(--c-bosque);
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
+    /* FOTOGRAFÍA GRANDE EN MEDIO SIN MARCO */
+    .summary-hero-photo-wrap {
+      flex: 1;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0.5rem 0;
+      overflow: hidden;
     }
 
-    .summary-qty-btn:active {
-      background: var(--c-hoja-fuerte);
-      color: #FFFFFF;
+    .summary-hero-photo-wrap img {
+      max-width: 92%;
+      max-height: 46vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      filter: drop-shadow(0 16px 32px rgba(31, 45, 36, 0.15));
+      animation: heroFloatSubtle 4s ease-in-out infinite;
     }
 
-    .summary-qty-num {
-      font-family: var(--f-titulo);
-      font-size: 1rem;
-      font-weight: 800;
-      min-width: 20px;
-      text-align: center;
+    @keyframes heroFloatSubtle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
-    .summary-item-subtotal {
-      font-family: var(--f-titulo);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--c-bosque);
-      min-width: 70px;
-      text-align: right;
-    }
-
-    /* TOTAL GENERAL */
-    .summary-total-banner {
-      background: var(--c-bosque);
-      color: #FFFFFF;
-      border-radius: 20px;
-      padding: 1.25rem 1.75rem;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      box-shadow: 0 8px 24px rgba(31, 45, 36, 0.2);
-    }
-
-    .summary-total-label {
-      font-family: var(--f-titulo);
-      font-size: 1.15rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--c-menta);
-    }
-
-    .summary-total-amount {
-      font-family: var(--f-titulo);
-      font-size: 2.5rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .summary-total-amount span {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--c-menta);
-    }
-
-    /* SECCIÓN DE MÉTODO DE PAGO */
-    .payment-options-card {
-      background: var(--c-blanco);
-      border-radius: 24px;
-      border: 1px solid var(--c-linea);
-      box-shadow: 0 4px 18px rgba(31, 45, 36, 0.05);
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .payment-prompt-title {
-      font-family: var(--f-titulo);
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--c-bosque);
-      margin-bottom: 0.25rem;
-    }
-
-    .payment-prompt-desc {
-      font-size: 0.92rem;
-      color: var(--c-texto-suave);
-      margin-bottom: 1.35rem;
-    }
-
-    .payment-buttons-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.15rem;
-    }
-
-    .btn-pay-option {
-      background: var(--c-arena);
-      border: 2px solid var(--c-linea-fuerte);
-      border-radius: 20px;
-      padding: 1.35rem 1.15rem;
+    /* PAGA CON: SIN DESCRIPCIÓN */
+    .summary-bottom-pay-zone {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .pay-with-text {
+      font-family: var(--f-titulo);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--c-bosque);
+    }
+
+    .pay-options-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .btn-pay-direct {
+      flex: 1;
+      height: 64px;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1.3rem;
+      font-weight: 800;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      border: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-pay-option:active {
-      transform: scale(0.97);
+    .btn-pay-direct:active {
+      transform: scale(0.96);
     }
 
-    .btn-pay-option.option-cash:hover {
-      border-color: #2F5D45;
-      background: var(--c-menta-suave);
+    .btn-pay-direct.pay-cash {
+      background: var(--c-bosque);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(31, 45, 36, 0.25);
     }
 
-    .btn-pay-option.option-card:hover {
-      border-color: #009EE3; /* Azul Mercado Libre / Mercado Pago */
-      background: #E8F6FD;
+    .btn-pay-direct.pay-card {
+      background: var(--c-hoja-fuerte);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(47, 93, 69, 0.32);
     }
 
-    .pay-option-icon {
-      font-size: 2.5rem;
-    }
-
-    .pay-option-title {
-      font-family: var(--f-titulo);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--c-bosque);
-      line-height: 1.1;
-    }
-
-    .pay-option-desc {
-      font-size: 0.78rem;
-      color: var(--c-texto-suave);
-      line-height: 1.3;
-    }
-
-    .btn-summary-add-more {
-      align-self: center;
+    .btn-back-menu-link {
       background: transparent;
+      border: none;
+      color: var(--c-salvia);
+      font-family: var(--f-titulo);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.35rem 0.75rem;
+      margin-top: 0.2rem;
+    }
       border: 1.5px solid var(--c-linea-fuerte);
       color: var(--c-bosque);
       padding: 0.75rem 1.5rem;
@@ -1418,54 +1332,40 @@
   </section>
 
   <!-- =======================================================================
-       4. PANTALLA DE RESUMEN: "ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?"
+       4. PANTALLA: "TU PEDIDO" (FOTO GRANDE EN MEDIO SIN MARCO + PAGA CON:)
        ======================================================================= -->
   <section class="kiosk-stage" id="stage-summary">
-    <div class="summary-card-container">
+    <div class="summary-clean-container">
       
-      <!-- ENCABEZADO -->
-      <div class="summary-header-box">
-        <h1 class="summary-title-main">Esto vas a pedir</h1>
-        <p class="summary-subtitle-main">Revisa tu orden antes de proceder al pago</p>
+      <!-- ENCABEZADO: TU PEDIDO + NOMBRE Y TOTAL -->
+      <div class="summary-top-header">
+        <h1 class="summary-main-title">Tu pedido</h1>
+        <div class="summary-item-subtitle" id="summaryHeroName">Chapata de Pollo</div>
+        <div class="summary-price-badge" id="summaryHeroPrice">$95 <span>MXN</span></div>
       </div>
 
-      <!-- LISTA DE PRODUCTOS ESCOGIDOS -->
-      <div class="summary-items-box" id="summaryItemsList">
-        <!-- Renglones de productos -->
+      <!-- FOTOGRAFÍA GRANDE EN MEDIO SIN MARCO -->
+      <div class="summary-hero-photo-wrap">
+        <img id="summaryHeroImg" src="" alt="Tu pedido" />
       </div>
 
-      <!-- BANNER DE TOTAL -->
-      <div class="summary-total-banner">
-        <span class="summary-total-label">Total a Pagar</span>
-        <div class="summary-total-amount" id="summaryTotalDisplay">$0 <span>MXN</span></div>
-      </div>
-
-      <!-- SECCIÓN: ¿CÓMO QUIERES PAGAR? -->
-      <div class="payment-options-card">
-        <h3 class="payment-prompt-title">¿Cómo quieres pagar?</h3>
-        <p class="payment-prompt-desc">Selecciona tu método de pago preferido para enviar tu orden a cocina:</p>
-
-        <div class="payment-buttons-grid">
-          <!-- OPCIÓN 1: EFECTIVO EN MOSTRADOR -->
-          <button class="btn-pay-option option-cash" onclick="payWithCash()">
-            <span class="pay-option-icon">💵</span>
-            <span class="pay-option-title">Efectivo en mostrador</span>
-            <span class="pay-option-desc">Pagas en caja con tu ticket al momento de recoger</span>
+      <!-- PAGA CON: SIN DESCRIPCIÓN (EFECTIVO O TARJETA) -->
+      <div class="summary-bottom-pay-zone">
+        <div class="pay-with-text">Paga con:</div>
+        
+        <div class="pay-options-row">
+          <button class="btn-pay-direct pay-cash" onclick="payWithCash()">
+            <span>💵</span> Efectivo
           </button>
-
-          <!-- OPCIÓN 2: TERMINAL CON TARJETA POINT -->
-          <button class="btn-pay-option option-card" onclick="payWithTerminalPoint()">
-            <span class="pay-option-icon">💳</span>
-            <span class="pay-option-title">Terminal con tarjeta</span>
-            <span class="pay-option-desc">Paga con tarjeta o contactless en la terminal Point</span>
+          <button class="btn-pay-direct pay-card" onclick="payWithTerminalPoint()">
+            <span>💳</span> Tarjeta
           </button>
         </div>
-      </div>
 
-      <!-- BOTÓN AGREGAR MÁS -->
-      <button class="btn-summary-add-more" onclick="goToMenuScreen()">
-        + Agregar más productos a mi orden
-      </button>
+        <button class="btn-back-menu-link" onclick="goToMenuScreen()">
+          ← Volver al menú
+        </button>
+      </div>
 
     </div>
   </section>
@@ -2088,70 +1988,46 @@
     }
 
     // ===================================================================
-    // 4. RESUMEN: "ESTO VAS A PEDIR" + "¿CÓMO QUIERES PAGAR?"
+    // 4. RESUMEN: "TU PEDIDO" (FOTO GRANDE EN MEDIO SIN MARCO + PAGA CON:)
     // ===================================================================
     window.goToSummaryScreen = function() {
-      renderSummaryItems();
-      showStage('stage-summary');
-    };
-
-    function renderSummaryItems() {
-      const container = document.getElementById('summaryItemsList');
       let total = 0;
       let count = 0;
-      let html = '';
+      let primaryItem = lastChosenItem;
 
       const keys = Object.keys(cart);
       if (keys.length === 0) {
-        container.innerHTML = `<p style="text-align: center; color: var(--c-texto-suave); padding: 1.5rem;">Tu orden está vacía. Escoge un platillo en el menú.</p>`;
-        document.getElementById('summaryTotalDisplay').innerHTML = `$0 <span>MXN</span>`;
+        window.goToMenuScreen();
         return;
       }
 
       keys.forEach(id => {
         const row = cart[id];
-        const subtotal = row.qty * row.item.price;
-        total += subtotal;
+        total += (row.qty * row.item.price);
         count += row.qty;
-
-        html += `
-          <div class="summary-item-row">
-            <div class="summary-item-left">
-              <div class="summary-item-thumb">
-                <img src="${row.item.image}" onerror="this.onerror=null; this.src='${row.item.fallback}';" alt="${row.item.name}" />
-              </div>
-              <div>
-                <div class="summary-item-name">${row.item.name}</div>
-                <div class="summary-item-price-unit">$${row.item.price} c/u</div>
-              </div>
-            </div>
-
-            <div class="summary-item-controls">
-              <button class="summary-qty-btn" onclick="modifySummaryQty('${row.item.id}', -1)">−</button>
-              <span class="summary-qty-num">${row.qty}</span>
-              <button class="summary-qty-btn" onclick="modifySummaryQty('${row.item.id}', 1)">+</button>
-            </div>
-
-            <div class="summary-item-subtotal">$${subtotal}</div>
-          </div>
-        `;
+        if (!primaryItem) primaryItem = row.item;
       });
 
-      container.innerHTML = html;
-      document.getElementById('summaryTotalDisplay').innerHTML = `$${total} <span>MXN</span>`;
-      updateCartFloatingBar();
-    }
+      // Subtítulo con el nombre y adicionales si los hay
+      if (count === 1) {
+        document.getElementById('summaryHeroName').textContent = primaryItem.name;
+      } else {
+        document.getElementById('summaryHeroName').textContent = `${primaryItem.name} + ${count - 1} ${count - 1 === 1 ? 'adicional' : 'adicionales'}`;
+      }
 
-    window.modifySummaryQty = function(itemId, delta) {
-      if (!cart[itemId]) return;
-      cart[itemId].qty += delta;
-      if (cart[itemId].qty <= 0) {
-        delete cart[itemId];
-      }
-      renderSummaryItems();
-      if (Object.keys(cart).length === 0) {
-        window.goToMenuScreen();
-      }
+      // Total en grande
+      document.getElementById('summaryHeroPrice').innerHTML = `$${total} <span>MXN</span>`;
+
+      // Fotografía grande en medio sin marco
+      const heroImg = document.getElementById('summaryHeroImg');
+      heroImg.src = primaryItem.image;
+      heroImg.onerror = function() {
+        this.onerror = null;
+        this.src = primaryItem.fallback;
+      };
+
+      updateCartFloatingBar();
+      showStage('stage-summary');
     };
 
     // ===================================================================
