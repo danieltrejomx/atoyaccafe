@@ -4,35 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <base href="/" />
-  <title>Punto de Venta Directo | ATOYAC · Healthy Kitchen · Coffee</title>
+  <title>Kiosco | Atoyac Café</title>
   
   <link rel="icon" type="image/svg+xml" href="/assets/img/logo.svg" />
   
-  <!-- Google Fonts: Montserrat + Instrument Serif + Outfit -->
+  <!-- Google Fonts: Outfit + Figtree + Instrument Serif -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Google Analytics 4 (GA4) -->
   <script src="/js/analytics.js" defer></script>
 
   <style>
     :root {
-      --bg-cream: #FAF8F5;
-      --bg-white: #FFFFFF;
-      --forest-dark: #1E2D22;
-      --forest-deep: #142017;
-      --forest-mid: #2C3E31;
-      --forest-sage: #5A6D5F;
-      --icon-green: #1EA355;
-      --green-light: #EBF8F0;
-      --card-border: #E8E4DC;
-      --btn-border: #D8D2C5;
-      --text-main: #1A281F;
-      --text-muted: #64748B;
-      --font-montserrat: 'Montserrat', sans-serif;
-      --font-display: 'Outfit', sans-serif;
-      --font-serif: 'Instrument Serif', Georgia, serif;
+      --c-papel: #F7F3EC;
+      --c-arena: #EFEAE2;
+      --c-blanco: #FFFFFF;
+      --c-linea: rgba(31, 45, 36, 0.12);
+      --c-linea-fuerte: rgba(31, 45, 36, 0.24);
+      --c-bosque: #1F2D24;
+      --c-bosque-2: #2F4336;
+      --c-hoja: #3E6B50;
+      --c-hoja-fuerte: #2F5D45;
+      --c-salvia: #698975;
+      --c-menta-tv: #A9C9B4;
+      --c-texto: #1F2D24;
+      --c-texto-suave: #55615A;
+      --c-texto-inverso: #F7F3EC;
+      --f-titulo: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --f-texto: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+      --f-acento: 'Instrument Serif', Georgia, serif;
     }
 
     * {
@@ -42,700 +44,745 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
-      background: var(--bg-cream);
-      color: var(--text-main);
-      font-family: var(--font-montserrat);
-      height: 100vh;
-      width: 100vw;
-      overflow-x: hidden;
-      overflow-y: auto;
-      user-select: none;
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--c-papel);
+      color: var(--c-texto);
+      font-family: var(--f-texto);
       -webkit-user-select: none;
-      padding-bottom: 95px; /* Espacio para barra fija inferior */
+      user-select: none;
+      touch-action: manipulation;
     }
 
     /* ===================================================================
-       HEADER SUPERIOR LIMPIO CON LOGOTIPO
+       1. PANTALLA INICIAL DE REPOSO (IDLE / ATTRACT SCREEN)
+       IGUAL A https://atoyac.appsoluciones.duckdns.org/kiosco
        =================================================================== */
-    .kiosk-navbar {
-      position: sticky;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(250, 248, 245, 0.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1.5px solid rgba(232, 228, 220, 0.9);
-      padding: 0.75rem 1.5rem;
+    .screen-reposo {
+      position: fixed;
+      inset: 0;
+      background: var(--c-bosque);
+      color: var(--c-texto-inverso);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      cursor: pointer;
+      z-index: 1000;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .screen-reposo.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .reposo-logo {
+      width: 220px;
+      max-width: 60vw;
+      filter: brightness(0) invert(1);
+      animation: reposo-pulso 3s ease-in-out infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes reposo-pulso {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(0.98); }
+    }
+
+    .reposo-title {
+      font-family: var(--f-titulo);
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .reposo-subtitle {
+      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+      color: var(--c-menta-tv);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .reposo-hint-tap {
+      margin-top: 1.75rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 0.75rem 1.75rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      animation: reposo-bounce 2s ease infinite;
+    }
+
+    @keyframes reposo-bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    /* ===================================================================
+       2. CONTENEDOR PRINCIPAL DEL MENÚ
+       =================================================================== */
+    .kiosk-app-wrap {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    /* TOPBAR / NAVBAR */
+    .kiosk-topbar {
+      background: var(--c-blanco);
+      border-bottom: 1px solid var(--c-linea);
+      padding: 0.85rem 1.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 100;
+      flex-shrink: 0;
+      z-index: 50;
     }
 
-    .kiosk-brand {
+    .kiosk-topbar-brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
+      gap: 0.85rem;
+      cursor: pointer;
     }
 
-    .kiosk-logo-img {
+    .kiosk-topbar-logo {
       width: 44px;
       height: 44px;
       object-fit: contain;
     }
 
-    .kiosk-brand-texts {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .kiosk-brand-name {
+    .kiosk-topbar-text h2 {
+      font-family: var(--f-titulo);
       font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      color: var(--forest-dark);
-      line-height: 1.1;
-    }
-
-    .kiosk-brand-sub {
-      font-size: 0.68rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--c-bosque);
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--forest-sage);
+      line-height: 1;
     }
 
-    .kiosk-header-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--bg-white);
-      border: 1px solid var(--btn-border);
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
+    .kiosk-topbar-text span {
+      font-size: 0.74rem;
+      color: var(--c-salvia);
       font-weight: 600;
-      color: var(--forest-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .kiosk-header-badge .dot-live {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--icon-green);
-      box-shadow: 0 0 0 3px rgba(30, 163, 85, 0.2);
+    .btn-exit-to-reposo {
+      background: var(--c-arena);
+      border: 1px solid var(--c-linea);
+      color: var(--c-texto);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
 
-    /* ===================================================================
-       SELECTOR DE CATEGORÍAS (TABS TÁCTILES)
-       =================================================================== */
-    .kiosk-categories-wrap {
-      max-width: 1200px;
-      margin: 0.85rem auto 0.5rem;
-      padding: 0 1.25rem;
+    .btn-exit-to-reposo:active {
+      background: var(--c-linea-fuerte);
+    }
+
+    /* SELECTOR DE CATEGORÍAS TIPO PÍLDORAS */
+    .kiosk-categories-bar {
+      background: var(--c-arena);
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.65rem;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid var(--c-linea);
+      flex-shrink: 0;
     }
 
-    .kiosk-categories-wrap::-webkit-scrollbar {
+    .kiosk-categories-bar::-webkit-scrollbar {
       display: none;
     }
 
-    .kiosk-cat-pill {
+    .cat-pill-btn {
       flex-shrink: 0;
-      border: 1.5px solid var(--btn-border);
-      background: var(--bg-white);
-      color: var(--forest-dark);
-      padding: 0.55rem 1.15rem;
+      background: var(--c-blanco);
+      border: 1.5px solid var(--c-linea-fuerte);
+      color: var(--c-texto);
+      padding: 0.65rem 1.35rem;
       border-radius: 999px;
-      font-family: var(--font-montserrat);
-      font-size: 0.88rem;
+      font-family: var(--f-titulo);
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .kiosk-cat-pill:hover, .kiosk-cat-pill:active {
-      transform: translateY(-1px);
-      border-color: var(--forest-dark);
+    .cat-pill-btn:active {
+      transform: scale(0.97);
     }
 
-    .kiosk-cat-pill.active {
-      background: var(--forest-dark);
+    .cat-pill-btn.active {
+      background: var(--c-hoja-fuerte);
+      border-color: var(--c-hoja-fuerte);
       color: #FFFFFF;
-      border-color: var(--forest-dark);
-      box-shadow: 0 4px 12px rgba(30, 45, 34, 0.2);
+      box-shadow: 0 4px 14px rgba(47, 93, 69, 0.25);
     }
 
-    /* Banner breve de categoría */
-    .kiosk-cat-banner {
-      max-width: 1200px;
-      margin: 0.4rem auto 0.85rem;
-      padding: 0 1.25rem;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.5rem;
+    /* ÁREA DE CONTENIDO SCROLLEABLE */
+    .kiosk-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 1.75rem 6.5rem; /* Margen inferior para botón flotante */
+      -webkit-overflow-scrolling: touch;
     }
 
-    .kiosk-cat-title {
-      font-size: 1.25rem;
+    .category-section-header {
+      margin-bottom: 1.25rem;
+    }
+
+    .category-section-title {
+      font-family: var(--f-titulo);
+      font-size: 1.85rem;
       font-weight: 700;
-      color: var(--forest-dark);
+      color: var(--c-bosque);
     }
 
-    .kiosk-cat-sub {
-      font-size: 0.8rem;
-      color: var(--forest-sage);
-      font-weight: 500;
+    .category-section-desc {
+      font-size: 0.95rem;
+      color: var(--c-texto-suave);
+      margin-top: 0.2rem;
+    }
+
+    /* REJILLA DE PLATILLOS */
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      gap: 1.35rem;
+      max-width: 1400px;
     }
 
     /* ===================================================================
-       CATÁLOGO DIRECTO DE PRODUCTOS (CUADRÍCULA DIRECTA)
+       TARJETA DE PLATILLO CON IMAGEN 100% COMPLETA (SIN CORTAR)
        =================================================================== */
-    .kiosk-catalog-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.25rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.15rem;
-    }
-
-    .kiosk-dish-card {
-      background: var(--bg-white);
-      border-radius: 20px;
-      border: 1.5px solid var(--card-border);
+    .dish-card {
+      background: var(--c-blanco);
+      border-radius: 22px;
+      border: 1px solid var(--c-linea);
+      box-shadow: 0 2px 10px rgba(31, 45, 36, 0.05);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .kiosk-dish-card:active {
+    .dish-card:active {
       transform: scale(0.985);
+      border-color: var(--c-hoja-fuerte);
     }
 
-    .kiosk-card-img-wrap {
+    /* CONTENEDOR DE FOTO: IMAGEN COMPLETA, NUNCA CORTADA */
+    .dish-photo-frame {
       width: 100%;
-      height: 205px;
-      background: #FFFFFF;
+      height: 220px;
+      background: #FDFCF9;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--c-linea);
       overflow: hidden;
     }
 
-    .kiosk-card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+    .dish-photo-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain; /* ¡Garantiza que la comida se vea completa al 100%! */
+      border-radius: 12px;
       transition: transform 0.3s ease;
     }
 
-    .kiosk-card-tag {
+    .dish-card:hover .dish-photo-img {
+      transform: scale(1.03);
+    }
+
+    .dish-badge-tag {
       position: absolute;
       top: 10px;
       left: 10px;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(6px);
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.68rem;
+      background: var(--c-arena);
+      color: var(--c-bosque);
+      font-family: var(--f-titulo);
+      font-size: 0.72rem;
       font-weight: 700;
-      color: var(--forest-dark);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--c-linea-fuerte);
     }
 
-    .kiosk-card-body {
-      padding: 1rem 1.15rem;
+    /* INFORMACIÓN DE LA TARJETA */
+    .dish-info-box {
+      padding: 1.15rem 1.25rem;
       display: flex;
       flex-direction: column;
+      flex: 1;
       justify-content: space-between;
-      flex-grow: 1;
     }
 
-    .kiosk-card-title {
-      font-size: 1.05rem;
+    .dish-title {
+      font-family: var(--f-titulo);
+      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--forest-dark);
-      margin-bottom: 0.25rem;
+      color: var(--c-bosque);
       line-height: 1.25;
+      margin-bottom: 0.35rem;
     }
 
-    .kiosk-card-desc {
-      font-size: 0.76rem;
-      color: var(--forest-sage);
-      line-height: 1.35;
-      margin-bottom: 0.85rem;
+    .dish-desc {
+      font-size: 0.82rem;
+      color: var(--c-texto-suave);
+      line-height: 1.4;
+      margin-bottom: 1rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .kiosk-card-foot {
+    .dish-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #F1EFEA;
-      padding-top: 0.75rem;
+      border-top: 1px solid var(--c-linea);
+      padding-top: 0.85rem;
       margin-top: auto;
     }
 
-    .kiosk-card-price {
-      font-size: 1.25rem;
+    .dish-price-text {
+      font-family: var(--f-titulo);
+      font-size: 1.4rem;
       font-weight: 800;
-      color: var(--forest-dark);
-      font-family: var(--font-display);
+      color: var(--c-bosque);
+      font-variant-numeric: tabular-nums;
     }
 
-    .kiosk-card-price span {
-      font-size: 0.7rem;
+    .dish-price-text span {
+      font-size: 0.75rem;
       font-weight: 600;
-      color: var(--forest-sage);
+      color: var(--c-salvia);
     }
 
-    /* Controles de agregar / cantidad */
-    .btn-add-item {
-      background: var(--forest-dark);
+    /* Botón de añadir y selector de cantidades */
+    .btn-touch-add {
+      background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border: none;
-      padding: 0.5rem 0.95rem;
+      padding: 0.6rem 1.1rem;
       border-radius: 999px;
-      font-family: var(--font-montserrat);
-      font-size: 0.82rem;
+      font-family: var(--f-titulo);
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(47, 93, 69, 0.25);
+      transition: all 0.15s ease;
     }
 
-    .btn-add-item:active {
+    .btn-touch-add:active {
       transform: scale(0.95);
-      background: #121B14;
+      background: #234734;
     }
 
-    .qty-control-box {
+    .touch-qty-selector {
       display: none;
       align-items: center;
-      background: var(--green-light);
-      border: 1.5px solid var(--icon-green);
+      background: var(--c-arena);
+      border: 1.5px solid var(--c-hoja-fuerte);
       border-radius: 999px;
-      padding: 2px 4px;
+      padding: 3px 5px;
       gap: 6px;
     }
 
-    .qty-control-box.active {
+    .touch-qty-selector.active {
       display: inline-flex;
     }
 
-    .qty-btn {
-      width: 28px;
-      height: 28px;
+    .touch-qty-btn {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: none;
       background: #FFFFFF;
-      color: var(--forest-dark);
-      font-size: 1rem;
-      font-weight: 700;
+      color: var(--c-bosque);
+      font-size: 1.1rem;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
     }
 
-    .qty-btn:active {
-      background: var(--forest-dark);
+    .touch-qty-btn:active {
+      background: var(--c-hoja-fuerte);
       color: #FFFFFF;
     }
 
-    .qty-number {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--forest-dark);
-      min-width: 20px;
-      text-align: center;
-      font-family: var(--font-display);
-    }
-
-    /* ===================================================================
-       BARRA INFERIOR FIJA: "PIDE AHORA"
-       =================================================================== */
-    .kiosk-bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(30, 45, 34, 0.97);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 0.9rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
-      z-index: 200;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .kiosk-bar-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .kiosk-bar-items-count {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #A3B8A8;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .kiosk-bar-total {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #FFFFFF;
-      font-family: var(--font-display);
-      line-height: 1.1;
-    }
-
-    .kiosk-bar-total span {
-      font-size: 0.85rem;
-      color: #A3B8A8;
-      font-weight: 600;
-    }
-
-    .kiosk-bar-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .btn-clear-cart {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #E2E8F0;
-      padding: 0.65rem 0.95rem;
-      border-radius: 999px;
-      font-family: var(--font-montserrat);
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-clear-cart:active {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-pide-ahora {
-      background: var(--icon-green);
-      color: #FFFFFF;
-      border: none;
-      padding: 0.85rem 1.65rem;
-      border-radius: 999px;
-      font-family: var(--font-montserrat);
+    .touch-qty-val {
+      font-family: var(--f-titulo);
       font-size: 1.05rem;
       font-weight: 800;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 16px rgba(30, 163, 85, 0.4);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-pide-ahora:active {
-      transform: scale(0.97);
-      background: #178344;
-    }
-
-    .btn-pide-ahora:disabled {
-      background: #475569;
-      box-shadow: none;
-      opacity: 0.6;
-      cursor: not-allowed;
+      color: var(--c-bosque);
+      min-width: 24px;
+      text-align: center;
     }
 
     /* ===================================================================
-       MODAL DE PAGO: TERMINAL MERCADO LIBRE POINT
+       3. BOTÓN FLOTANTE "VER TU PEDIDO / PIDE AHORA" (ESTILO DUCKDNS)
        =================================================================== */
-    .kiosk-modal-overlay {
+    .btn-floating-order {
+      position: fixed;
+      right: 1.75rem;
+      bottom: 1.75rem;
+      height: 64px;
+      padding: 0 1.85rem;
+      border-radius: 999px;
+      background: var(--c-bosque);
+      color: var(--c-texto-inverso);
+      font-family: var(--f-titulo);
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 0.85rem;
+      box-shadow: 0 14px 35px rgba(31, 45, 36, 0.35);
+      border: none;
+      cursor: pointer;
+      z-index: 150;
+      animation: floatPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes floatPop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .btn-floating-order:active {
+      transform: scale(0.97);
+    }
+
+    .floating-cart-badge {
+      background: var(--c-hoja);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    /* ===================================================================
+       4. MODAL DE PAGO: TERMINAL MERCADO LIBRE POINT
+       =================================================================== */
+    .kiosk-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(18, 28, 20, 0.75);
+      background: rgba(31, 45, 36, 0.72);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
-      z-index: 1000;
+      z-index: 1200;
       opacity: 0;
       visibility: hidden;
       transition: all 0.25s ease;
     }
 
-    .kiosk-modal-overlay.active {
+    .kiosk-modal-backdrop.active {
       opacity: 1;
       visibility: visible;
     }
 
-    .kiosk-modal-box {
-      background: #FFFFFF;
+    .kiosk-modal-card {
+      background: var(--c-blanco);
       border-radius: 28px;
       max-width: 480px;
       width: 100%;
       padding: 2.25rem 2rem;
       text-align: center;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 20px 48px rgba(31, 45, 36, 0.25);
       animation: popUp 0.25s ease;
     }
 
     @keyframes popUp {
-      from { transform: scale(0.94); opacity: 0; }
+      from { transform: scale(0.93); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
-    .modal-point-icon {
-      width: 72px;
-      height: 72px;
-      background: var(--green-light);
+    .modal-icon-circle {
+      width: 76px;
+      height: 76px;
+      background: var(--c-salvia-claro, #E2EBE5);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
-      margin: 0 auto 1rem;
-      box-shadow: 0 0 0 8px rgba(30, 163, 85, 0.12);
+      font-size: 2.4rem;
+      margin: 0 auto 1.15rem;
+      color: var(--c-hoja-fuerte);
     }
 
-    .modal-point-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--forest-dark);
+    .modal-title-text {
+      font-family: var(--f-titulo);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--c-bosque);
       margin-bottom: 0.35rem;
     }
 
-    .modal-point-desc {
-      font-size: 0.88rem;
-      color: var(--forest-sage);
-      margin-bottom: 1.25rem;
-      line-height: 1.4;
+    .modal-subtitle-text {
+      font-size: 0.92rem;
+      color: var(--c-texto-suave);
+      margin-bottom: 1.35rem;
+      line-height: 1.45;
     }
 
-    .modal-amount-card {
-      background: #F8F9FA;
-      border: 1.5px dashed #CBD5E1;
+    .modal-ticket-receipt {
+      background: var(--c-papel);
+      border: 1.5px dashed var(--c-linea-fuerte);
       border-radius: 18px;
-      padding: 1rem;
+      padding: 1.15rem;
       margin-bottom: 1.5rem;
+      text-align: left;
     }
 
-    .modal-amount-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-muted);
+    .receipt-total-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--c-linea);
+      padding-bottom: 0.65rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .receipt-total-label {
+      font-size: 0.85rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      color: var(--c-texto-suave);
     }
 
-    .modal-amount-num {
-      font-size: 2.4rem;
+    .receipt-total-price {
+      font-family: var(--f-titulo);
+      font-size: 2.2rem;
       font-weight: 800;
-      color: var(--forest-dark);
-      font-family: var(--font-display);
-      margin: 0.2rem 0;
+      color: var(--c-bosque);
+      font-variant-numeric: tabular-nums;
     }
 
-    .modal-cart-preview {
-      max-height: 120px;
+    .receipt-items-scroll {
+      max-height: 130px;
       overflow-y: auto;
-      text-align: left;
-      font-size: 0.8rem;
-      color: var(--forest-dark);
-      border-top: 1px solid #E2E8F0;
-      padding-top: 0.5rem;
-      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--c-texto);
     }
 
-    .modal-cart-item {
+    .receipt-item-line {
       display: flex;
       justify-content: space-between;
       padding: 0.25rem 0;
     }
 
-    .btn-confirm-payment {
+    .btn-point-confirm {
       width: 100%;
-      background: var(--icon-green);
+      background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border: none;
       padding: 1rem;
-      border-radius: 16px;
-      font-family: var(--font-montserrat);
-      font-size: 1.05rem;
-      font-weight: 800;
+      border-radius: 999px;
+      font-family: var(--f-titulo);
+      font-size: 1.15rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      box-shadow: 0 6px 18px rgba(30, 163, 85, 0.35);
+      box-shadow: 0 6px 20px rgba(47, 93, 69, 0.35);
       transition: all 0.2s ease;
       margin-bottom: 0.75rem;
     }
 
-    .btn-confirm-payment:active {
+    .btn-point-confirm:active {
       transform: scale(0.98);
-      background: #178344;
+      background: #234734;
     }
 
-    .btn-cancel-modal {
+    .btn-modal-cancel {
       background: transparent;
       border: none;
-      color: var(--forest-sage);
-      font-family: var(--font-montserrat);
-      font-size: 0.85rem;
+      color: var(--c-salvia);
+      font-family: var(--f-titulo);
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       padding: 0.5rem;
     }
 
     /* ===================================================================
-       PANTALLA DE ÉXITO Y TICKET DE COCINA
+       5. PANTALLA DE ÉXITO Y TICKET DE COCINA
        =================================================================== */
-    .kiosk-success-screen {
+    .kiosk-success-overlay {
       position: fixed;
       inset: 0;
-      background: var(--bg-cream);
+      background: var(--c-papel);
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 2.5rem;
       text-align: center;
       z-index: 2000;
       animation: fadeIn 0.3s ease;
     }
 
-    .kiosk-success-screen.active {
+    .kiosk-success-overlay.active {
       display: flex;
     }
 
-    .success-check-bubble {
-      width: 90px;
-      height: 90px;
-      background: var(--icon-green);
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .success-icon-badge {
+      width: 96px;
+      height: 96px;
+      background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 10px 25px rgba(30, 163, 85, 0.35);
+      font-size: 3.4rem;
+      margin-bottom: 1.35rem;
+      box-shadow: 0 12px 30px rgba(47, 93, 69, 0.3);
       animation: popUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .success-ticket-badge {
-      display: inline-block;
-      background: var(--forest-dark);
+    .success-ticket-pill {
+      background: var(--c-bosque);
       color: #FFFFFF;
-      font-family: var(--font-display);
-      font-size: 2.2rem;
+      font-family: var(--f-titulo);
+      font-size: 2.4rem;
       font-weight: 800;
-      padding: 0.65rem 1.75rem;
+      padding: 0.75rem 2.25rem;
       border-radius: 999px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.15rem;
       letter-spacing: 0.02em;
-      box-shadow: 0 8px 20px rgba(30, 45, 34, 0.2);
+      box-shadow: 0 8px 24px rgba(31, 45, 36, 0.25);
     }
 
-    .success-title {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--forest-dark);
-      margin-bottom: 0.4rem;
+    .success-main-title {
+      font-family: var(--f-titulo);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--c-bosque);
+      margin-bottom: 0.5rem;
     }
 
-    .success-subtitle {
-      font-size: 1rem;
-      color: var(--forest-sage);
-      max-width: 440px;
-      margin-bottom: 2rem;
+    .success-main-desc {
+      font-size: 1.05rem;
+      color: var(--c-texto-suave);
+      max-width: 460px;
+      margin-bottom: 2.25rem;
       line-height: 1.5;
     }
 
-    .btn-new-order {
-      background: var(--forest-dark);
+    .btn-new-kiosk-order {
+      background: var(--c-hoja-fuerte);
       color: #FFFFFF;
       border: none;
-      padding: 0.9rem 2rem;
+      padding: 0.95rem 2.25rem;
       border-radius: 999px;
-      font-family: var(--font-montserrat);
-      font-size: 0.95rem;
+      font-family: var(--f-titulo);
+      font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 16px rgba(47, 93, 69, 0.25);
     }
 
-    .auto-reset-note {
-      font-size: 0.75rem;
-      color: var(--forest-sage);
-      margin-top: 1.25rem;
-      opacity: 0.8;
+    .success-timer-note {
+      font-size: 0.8rem;
+      color: var(--c-salvia);
+      margin-top: 1.5rem;
     }
 
-    /* RESPONSIVE MÓVIL Y TABLET VERTICAL */
+    /* RESPONSIVE IPAD Y CELULAR */
     @media (max-width: 680px) {
-      body {
-        padding-bottom: 100px;
+      .kiosk-topbar {
+        padding: 0.65rem 1rem;
       }
-      .kiosk-catalog-grid {
+      .kiosk-scroll-area {
+        padding: 1rem 0.75rem 6.5rem;
+      }
+      .dishes-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
-        padding: 0 0.75rem 1.5rem;
       }
-      .kiosk-card-img-wrap {
-        height: 140px;
+      .dish-photo-frame {
+        height: 145px;
+        padding: 6px;
       }
-      .kiosk-card-body {
+      .dish-info-box {
         padding: 0.75rem;
       }
-      .kiosk-card-title {
+      .dish-title {
         font-size: 0.88rem;
       }
-      .kiosk-card-desc {
+      .dish-desc {
         display: none;
       }
-      .kiosk-card-price {
+      .dish-price-text {
+        font-size: 1.15rem;
+      }
+      .btn-touch-add {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.75rem;
+      }
+      .btn-floating-order {
+        right: 1rem;
+        bottom: 1rem;
+        height: 56px;
+        padding: 0 1.35rem;
         font-size: 1.05rem;
-      }
-      .btn-add-item {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.74rem;
-      }
-      .btn-pide-ahora {
-        padding: 0.75rem 1.25rem;
-        font-size: 0.92rem;
-      }
-      .kiosk-bar-total {
-        font-size: 1.35rem;
       }
     }
   </style>
@@ -743,104 +790,108 @@
 <body>
 
   <!-- =======================================================================
-       1. HEADER SUPERIOR CON LOGOTIPO
+       1. PANTALLA INICIAL DE REPOSO (IDLE / ATTRACT SCREEN)
+       IDÉNTICA A https://atoyac.appsoluciones.duckdns.org/kiosco
        ======================================================================= -->
-  <header class="kiosk-navbar">
-    <a href="/punto-de-venta" class="kiosk-brand">
-      <img src="/assets/img/logo.svg" alt="ATOYAC" class="kiosk-logo-img" />
-      <div class="kiosk-brand-texts">
-        <span class="kiosk-brand-name">ATOYAC</span>
-        <span class="kiosk-brand-sub">Healthy Kitchen · Coffee</span>
-      </div>
-    </a>
-
-    <div class="kiosk-header-badge">
-      <span class="dot-live"></span>
-      <span>Punto de Venta Directo</span>
-    </div>
-  </header>
+  <section class="screen-reposo" id="screenReposo" onclick="exitReposo()">
+    <img src="/assets/img/logo.svg" alt="Atoyac Café" class="reposo-logo" />
+    <h1 class="reposo-title">Toca para ordenar</h1>
+    <p class="reposo-subtitle">Fresco, rápido y a tu gusto</p>
+    <div class="reposo-hint-tap">Toca la pantalla para comenzar</div>
+  </section>
 
   <!-- =======================================================================
-       2. SELECTOR DE CATEGORÍAS
+       2. APLICACIÓN DEL KIOSCO (CATÁLOGO DIRECTO)
        ======================================================================= -->
-  <nav class="kiosk-categories-wrap" aria-label="Categorías del Menú">
-    <button class="kiosk-cat-pill active" onclick="switchKioskCategory('promociones')">Promociones</button>
-    <button class="kiosk-cat-pill" onclick="switchKioskCategory('ensaladas')">Ensaladas</button>
-    <button class="kiosk-cat-pill" onclick="switchKioskCategory('chilaquiles')">Chilaquiles</button>
-    <button class="kiosk-cat-pill" onclick="switchKioskCategory('chapatas')">Chapatas & Molletes</button>
-    <button class="kiosk-cat-pill" onclick="switchKioskCategory('bebidas')">Café & Bebidas</button>
-    <button class="kiosk-cat-pill" onclick="switchKioskCategory('postres')">Postres</button>
-  </nav>
-
-  <!-- Título y subtítulo dinámico de la categoría -->
-  <div class="kiosk-cat-banner">
-    <h2 class="kiosk-cat-title" id="kioskCatTitle">Promociones</h2>
-    <span class="kiosk-cat-sub" id="kioskCatSub">Toca cualquier platillo para agregarlo</span>
-  </div>
-
-  <!-- =======================================================================
-       3. CATÁLOGO DIRECTO DE PRODUCTOS (FOTO + PRECIO + TÍTULO + DESCRIPCIÓN)
-       ======================================================================= -->
-  <main class="kiosk-catalog-grid" id="kioskCatalogGrid">
-    <!-- Generado dinámicamente con JavaScript -->
-  </main>
-
-  <!-- =======================================================================
-       4. BARRA FIJA INFERIOR: RESUMEN Y "PIDE AHORA"
-       ======================================================================= -->
-  <footer class="kiosk-bottom-bar" id="kioskBottomBar">
-    <div class="kiosk-bar-info">
-      <span class="kiosk-bar-items-count" id="barItemsCount">0 productos</span>
-      <div class="kiosk-bar-total" id="barTotalAmount">$0 <span>MXN</span></div>
-    </div>
-
-    <div class="kiosk-bar-actions">
-      <button class="btn-clear-cart" id="btnClearCart" onclick="clearCart()" style="display: none;">Vaciar</button>
-      <button class="btn-pide-ahora" id="btnPideAhora" onclick="openPaymentModal()" disabled>
-        <span>Pide ahora</span> →
-      </button>
-    </div>
-  </footer>
-
-  <!-- =======================================================================
-       5. MODAL DE PAGO EN TERMINAL (MERCADO LIBRE POINT)
-       ======================================================================= -->
-  <div class="kiosk-modal-overlay" id="paymentModal">
-    <div class="kiosk-modal-box">
-      <div class="modal-point-icon">💳</div>
-      <h3 class="modal-point-title">Paga con tu Tarjeta</h3>
-      <p class="modal-point-desc">Acerca tu tarjeta contactless o insértala en la terminal de <strong>Mercado Pago Point</strong>.</p>
-
-      <div class="modal-amount-card">
-        <div class="modal-amount-label">Monto total a cobrar</div>
-        <div class="modal-amount-num" id="modalTotalAmount">$0</div>
-        
-        <div class="modal-cart-preview" id="modalCartList">
-          <!-- Lista de productos en la orden -->
+  <div class="kiosk-app-wrap" id="kioskAppWrap">
+    
+    <!-- TOPBAR / NAVBAR -->
+    <header class="kiosk-topbar">
+      <div class="kiosk-topbar-brand" onclick="goToReposo()">
+        <img src="/assets/img/logo.svg" alt="ATOYAC" class="kiosk-topbar-logo" />
+        <div class="kiosk-topbar-text">
+          <h2>ATOYAC</h2>
+          <span>Healthy Kitchen · Coffee</span>
         </div>
       </div>
 
-      <button class="btn-confirm-payment" onclick="processPaymentAndConfirm()">
+      <button class="btn-exit-to-reposo" onclick="goToReposo()">
+        ✕ Inicio
+      </button>
+    </header>
+
+    <!-- SELECTOR DE CATEGORÍAS -->
+    <nav class="kiosk-categories-bar" aria-label="Categorías del Menú">
+      <button class="cat-pill-btn active" onclick="switchCategory('promociones')">Promociones</button>
+      <button class="cat-pill-btn" onclick="switchCategory('ensaladas')">Ensaladas</button>
+      <button class="cat-pill-btn" onclick="switchCategory('chilaquiles')">Chilaquiles</button>
+      <button class="cat-pill-btn" onclick="switchCategory('chapatas')">Chapatas & Molletes</button>
+      <button class="cat-pill-btn" onclick="switchCategory('bebidas')">Café & Bebidas</button>
+      <button class="cat-pill-btn" onclick="switchCategory('postres')">Postres</button>
+    </nav>
+
+    <!-- ÁREA DE CATÁLOGO CON FOTOS COMPLETAS (OBJECT-FIT: CONTAIN) -->
+    <main class="kiosk-scroll-area" id="kioskScrollArea">
+      <div class="category-section-header">
+        <h1 class="category-section-title" id="catSectionTitle">Promociones</h1>
+        <p class="category-section-desc" id="catSectionDesc">Combos con el mejor sabor y precio</p>
+      </div>
+
+      <div class="dishes-grid" id="dishesGrid">
+        <!-- Renderizado dinámico -->
+      </div>
+    </main>
+
+    <!-- BOTÓN FLOTANTE DINÁMICO "PIDE AHORA" (ESTILO DUCKDNS) -->
+    <button class="btn-floating-order" id="btnFloatingOrder" onclick="openPaymentModal()">
+      <span>🛒</span>
+      <span class="floating-cart-badge" id="floatingBadge">0</span>
+      <span id="floatingTotal">$0 MXN</span>
+      <span>Pide ahora →</span>
+    </button>
+  </div>
+
+  <!-- =======================================================================
+       3. MODAL DE PAGO: TERMINAL MERCADO LIBRE POINT
+       ======================================================================= -->
+  <div class="kiosk-modal-backdrop" id="paymentModal">
+    <div class="kiosk-modal-card">
+      <div class="modal-icon-circle">💳</div>
+      <h3 class="modal-title-text">Paga con tu Tarjeta</h3>
+      <p class="modal-subtitle-text">Acerca tu tarjeta contactless o insértala en la terminal de <strong>Mercado Pago Point</strong>.</p>
+
+      <div class="modal-ticket-receipt">
+        <div class="receipt-total-row">
+          <span class="receipt-total-label">Total a Cobrar</span>
+          <span class="receipt-total-price" id="modalTotalPrice">$0</span>
+        </div>
+
+        <div class="receipt-items-scroll" id="modalItemsList">
+          <!-- Líneas de productos -->
+        </div>
+      </div>
+
+      <button class="btn-point-confirm" onclick="confirmPaymentAndFinish()">
         <span>Confirmar Pago en Terminal Point ✓</span>
       </button>
-      <button class="btn-cancel-modal" onclick="closePaymentModal()">← Seguir agregando platillos</button>
+      <button class="btn-modal-cancel" onclick="closePaymentModal()">← Seguir agregando</button>
     </div>
   </div>
 
   <!-- =======================================================================
-       6. PANTALLA DE ÉXITO / TICKET DE COCINA
+       4. PANTALLA DE ÉXITO / TICKET DE COCINA
        ======================================================================= -->
-  <section class="kiosk-success-screen" id="successScreen">
-    <div class="success-check-bubble">✓</div>
-    <div class="success-ticket-badge" id="successTicketNum">Pedido #101</div>
-    <h2 class="success-title">¡Tu pedido está en cocina!</h2>
-    <p class="success-subtitle">Hemos recibido tu orden con éxito. Enseguida la preparamos con cariño para ti.</p>
+  <div class="kiosk-success-overlay" id="successOverlay">
+    <div class="success-icon-badge">✓</div>
+    <div class="success-ticket-pill" id="successTicketBadge">Pedido #101</div>
+    <h2 class="success-main-title">¡Tu pedido está en cocina!</h2>
+    <p class="success-main-desc">Hemos recibido tu orden con éxito. Enseguida te la entregamos lista y fresca.</p>
 
-    <button class="btn-new-order" onclick="resetToNewOrder()">Hacer otro pedido ahora</button>
-    <p class="auto-reset-note" id="resetCountdownNote">Esta pantalla volverá al menú en 6 segundos...</p>
-  </section>
+    <button class="btn-new-kiosk-order" onclick="resetToReposo()">Hacer otro pedido</button>
+    <p class="success-timer-note" id="successCountdownNote">Volviendo al inicio en 6 segundos...</p>
+  </div>
 
-  <!-- STORE & SCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC -->
   <script type="module">
     import { AtoyacStore } from './js/store.js';
 
@@ -877,7 +928,7 @@
         {
           id: "promo-ensalada",
           name: "Ensalada de Pollo o Atún + Agua",
-          desc: "Ensalada a elegir con base fresca + agua fresca de 500 ml.",
+          desc: "Ensalada fresca a elegir + agua fresca artesanal de 500 ml.",
           price: 100,
           tag: "Promo Comida",
           image: "/assets/img/dishes/promo-ensalada.jpg",
@@ -1149,102 +1200,133 @@
     };
 
     const CAT_INFO = {
-      promociones: { title: "Promociones", sub: "Combos con el mejor sabor y precio" },
-      ensaladas: { title: "Ensaladas", sub: "Lo verde también se antoja · Aderezo ranch o mil islas" },
-      chilaquiles: { title: "Chilaquiles Verdes", sub: "Totopos horneados con crema, queso y cebolla" },
-      chapatas: { title: "Chapatas & Molletes", sub: "Crujientes y bien rellenas con papas o ensalada" },
-      bebidas: { title: "Café & Bebidas", sub: "Recién hecho, como debe ser" },
-      postres: { title: "Postres & Antojos", sub: "El final feliz de tu comida" }
+      promociones: { title: "Promociones", desc: "Combos con el mejor sabor y precio para tu día" },
+      ensaladas: { title: "Ensaladas", desc: "Lo verde también se antoja · Aderezo ranch o mil islas" },
+      chilaquiles: { title: "Chilaquiles Verdes", desc: "Totopos horneados con salsa verde, crema, queso y cebolla" },
+      chapatas: { title: "Chapatas & Molletes", desc: "Crujientes y bien rellenas con papas o ensalada" },
+      bebidas: { title: "Café & Bebidas", desc: "Primero café, luego todo lo demás · Recién hecho" },
+      postres: { title: "Postres & Antojos", desc: "La vida es corta: pide el postre · El final feliz" }
     };
 
-    // Estado del carrito { [productId]: { item, qty } }
+    // Estado de la app
     let cart = {};
-    let currentCategory = 'promociones';
-    let autoResetTimer = null;
-    let autoResetInterval = null;
+    let activeCat = 'promociones';
+    let idleTimer = null;
+    let successResetInterval = null;
 
-    // Renderizar catálogo
-    window.renderCatalog = function(catKey) {
-      currentCategory = catKey;
+    // ===================================================================
+    // CONTROL DE PANTALLA DE REPOSO (IDLE SCREEN)
+    // ===================================================================
+    window.exitReposo = function() {
+      document.getElementById('screenReposo').classList.add('hidden');
+      resetIdleTimer();
+    };
+
+    window.goToReposo = function() {
+      cart = {};
+      updateUI();
+      document.getElementById('paymentModal').classList.remove('active');
+      document.getElementById('successOverlay').classList.remove('active');
+      document.getElementById('screenReposo').classList.remove('hidden');
+    };
+
+    function resetIdleTimer() {
+      if (idleTimer) clearTimeout(idleTimer);
+      // Si no hay interacción en 75 segundos y no hay modal abierto, vuelve a reposo
+      idleTimer = setTimeout(() => {
+        const modalActive = document.getElementById('paymentModal').classList.contains('active');
+        const successActive = document.getElementById('successOverlay').classList.contains('active');
+        if (!modalActive && !successActive) {
+          window.goToReposo();
+        }
+      }, 75000);
+    }
+
+    // Detectar toques para resetear inactividad
+    ['pointerdown', 'touchstart', 'click'].forEach(evt => {
+      document.addEventListener(evt, resetIdleTimer, { passive: true });
+    });
+
+    // ===================================================================
+    // CATÁLOGO Y RENDERIZADO
+    // ===================================================================
+    window.switchCategory = function(catKey) {
+      activeCat = catKey;
+      document.querySelectorAll('.cat-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(catKey));
+      });
+
       const info = CAT_INFO[catKey] || CAT_INFO['promociones'];
-      document.getElementById('kioskCatTitle').textContent = info.title;
-      document.getElementById('kioskCatSub').textContent = info.sub;
+      document.getElementById('catSectionTitle').textContent = info.title;
+      document.getElementById('catSectionDesc').textContent = info.desc;
 
-      const items = PRODUCTS[catKey] || [];
-      const grid = document.getElementById('kioskCatalogGrid');
+      renderDishes();
+    };
+
+    function renderDishes() {
+      const items = PRODUCTS[activeCat] || [];
+      const grid = document.getElementById('dishesGrid');
 
       grid.innerHTML = items.map(item => {
         const inCartQty = cart[item.id] ? cart[item.id].qty : 0;
         return `
-          <article class="kiosk-dish-card" onclick="cardClicked(event, '${item.id}', '${catKey}')">
-            <div class="kiosk-card-img-wrap">
+          <article class="dish-card" onclick="cardClicked(event, '${item.id}')">
+            <!-- FOTO COMPLETA (CONTAIN) -->
+            <div class="dish-photo-frame">
               <img 
                 src="${item.image}" 
                 onerror="this.onerror=null; this.src='${item.fallback}';" 
                 alt="${item.name}" 
-                class="kiosk-card-img" 
+                class="dish-photo-img" 
                 loading="lazy"
               />
-              <span class="kiosk-card-tag">${item.tag}</span>
+              <span class="dish-badge-tag">${item.tag}</span>
             </div>
-            <div class="kiosk-card-body">
+
+            <div class="dish-info-box">
               <div>
-                <h3 class="kiosk-card-title">${item.name}</h3>
-                <p class="kiosk-card-desc">${item.desc}</p>
+                <h3 class="dish-title">${item.name}</h3>
+                <p class="dish-desc">${item.desc}</p>
               </div>
-              <div class="kiosk-card-foot">
-                <div class="kiosk-card-price">$${item.price} <span>MXN</span></div>
+
+              <div class="dish-footer-row">
+                <div class="dish-price-text">$${item.price} <span>MXN</span></div>
                 
                 <button 
-                  class="btn-add-item" 
+                  class="btn-touch-add" 
                   id="btnAdd_${item.id}" 
                   style="${inCartQty > 0 ? 'display:none;' : ''}" 
-                  onclick="event.stopPropagation(); addItem('${item.id}', '${catKey}')"
+                  onclick="event.stopPropagation(); addItem('${item.id}')"
                 >
                   + Agregar
                 </button>
 
-                <div class="qty-control-box ${inCartQty > 0 ? 'active' : ''}" id="qtyBox_${item.id}">
-                  <button class="qty-btn" onclick="event.stopPropagation(); removeItem('${item.id}')">−</button>
-                  <span class="qty-number" id="qtyNum_${item.id}">${inCartQty}</span>
-                  <button class="qty-btn" onclick="event.stopPropagation(); addItem('${item.id}', '${catKey}')">+</button>
+                <div class="touch-qty-selector ${inCartQty > 0 ? 'active' : ''}" id="qtyBox_${item.id}">
+                  <button class="touch-qty-btn" onclick="event.stopPropagation(); removeItem('${item.id}')">−</button>
+                  <span class="touch-qty-val" id="qtyVal_${item.id}">${inCartQty}</span>
+                  <button class="touch-qty-btn" onclick="event.stopPropagation(); addItem('${item.id}')">+</button>
                 </div>
               </div>
             </div>
           </article>
         `;
       }).join('');
+    }
+
+    window.cardClicked = function(event, itemId) {
+      window.addItem(itemId);
     };
 
-    // Cambiar categoría
-    window.switchKioskCategory = function(catKey) {
-      document.querySelectorAll('.kiosk-cat-pill').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('onclick').includes(catKey));
-      });
-      window.renderCatalog(catKey);
-    };
-
-    // Click en la tarjeta completa también suma 1
-    window.cardClicked = function(event, itemId, catKey) {
-      window.addItem(itemId, catKey);
-    };
-
-    // Buscar item en la base de datos
-    function findItem(itemId, catKey) {
-      if (catKey && PRODUCTS[catKey]) {
-        const found = PRODUCTS[catKey].find(p => p.id === itemId);
+    function findItem(itemId) {
+      for (const cat in PRODUCTS) {
+        const found = PRODUCTS[cat].find(p => p.id === itemId);
         if (found) return found;
-      }
-      for (const k in PRODUCTS) {
-        const f = PRODUCTS[k].find(p => p.id === itemId);
-        if (f) return f;
       }
       return null;
     }
 
-    // Agregar producto
-    window.addItem = function(itemId, catKey) {
-      const item = findItem(itemId, catKey);
+    window.addItem = function(itemId) {
+      const item = findItem(itemId);
       if (!item) return;
 
       if (!cart[itemId]) {
@@ -1252,11 +1334,9 @@
       } else {
         cart[itemId].qty++;
       }
-
       updateUI();
     };
 
-    // Quitar producto
     window.removeItem = function(itemId) {
       if (!cart[itemId]) return;
       cart[itemId].qty--;
@@ -1266,13 +1346,6 @@
       updateUI();
     };
 
-    // Vaciar carrito
-    window.clearCart = function() {
-      cart = {};
-      updateUI();
-    };
-
-    // Actualizar barra inferior y botones en tarjetas
     function updateUI() {
       let totalQty = 0;
       let totalAmount = 0;
@@ -1283,41 +1356,36 @@
         totalAmount += (row.qty * row.item.price);
       }
 
-      // Actualizar contadores en la barra inferior
-      const itemsCountEl = document.getElementById('barItemsCount');
-      const totalAmountEl = document.getElementById('barTotalAmount');
-      const btnPide = document.getElementById('btnPideAhora');
-      const btnClear = document.getElementById('btnClearCart');
+      // Actualizar botón flotante tipo duckdns
+      const btnFloat = document.getElementById('btnFloatingOrder');
+      const badgeEl = document.getElementById('floatingBadge');
+      const totalEl = document.getElementById('floatingTotal');
 
-      if (totalQty === 0) {
-        itemsCountEl.textContent = '0 productos seleccionados';
-        totalAmountEl.innerHTML = `$0 <span>MXN</span>`;
-        btnPide.disabled = true;
-        btnClear.style.display = 'none';
+      if (totalQty > 0) {
+        btnFloat.style.display = 'flex';
+        badgeEl.textContent = `${totalQty}`;
+        totalEl.textContent = `$${totalAmount} MXN`;
       } else {
-        itemsCountEl.textContent = `${totalQty} ${totalQty === 1 ? 'producto' : 'productos'} en tu orden`;
-        totalAmountEl.innerHTML = `$${totalAmount} <span>MXN</span>`;
-        btnPide.disabled = false;
-        btnClear.style.display = 'block';
+        btnFloat.style.display = 'none';
       }
 
-      // Actualizar controles en las tarjetas actualmente visibles
+      // Actualizar botones de las tarjetas
       for (const k in PRODUCTS) {
         PRODUCTS[k].forEach(p => {
           const btnAdd = document.getElementById(`btnAdd_${p.id}`);
           const qtyBox = document.getElementById(`qtyBox_${p.id}`);
-          const qtyNum = document.getElementById(`qtyNum_${p.id}`);
+          const qtyVal = document.getElementById(`qtyVal_${p.id}`);
 
-          if (btnAdd && qtyBox && qtyNum) {
+          if (btnAdd && qtyBox && qtyVal) {
             const currentQty = cart[p.id] ? cart[p.id].qty : 0;
             if (currentQty > 0) {
               btnAdd.style.display = 'none';
               qtyBox.classList.add('active');
-              qtyNum.textContent = currentQty;
+              qtyVal.textContent = currentQty;
             } else {
               btnAdd.style.display = 'inline-flex';
               qtyBox.classList.remove('active');
-              qtyNum.textContent = '0';
+              qtyVal.textContent = '0';
             }
           }
         });
@@ -1329,24 +1397,24 @@
     // ===================================================================
     window.openPaymentModal = function() {
       let total = 0;
-      let itemsListHtml = '';
+      let linesHtml = '';
 
       for (const id in cart) {
         const row = cart[id];
-        const subtotal = row.qty * row.item.price;
-        total += subtotal;
-        itemsListHtml += `
-          <div class="modal-cart-item">
+        const sub = row.qty * row.item.price;
+        total += sub;
+        linesHtml += `
+          <div class="receipt-item-line">
             <span><strong>${row.qty}x</strong> ${row.item.name}</span>
-            <span>$${subtotal}</span>
+            <span>$${sub}</span>
           </div>
         `;
       }
 
       if (total <= 0) return;
 
-      document.getElementById('modalTotalAmount').textContent = `$${total}`;
-      document.getElementById('modalCartList').innerHTML = itemsListHtml;
+      document.getElementById('modalTotalPrice').textContent = `$${total}`;
+      document.getElementById('modalItemsList').innerHTML = linesHtml;
       document.getElementById('paymentModal').classList.add('active');
 
       if (typeof window.trackEvent === 'function') {
@@ -1358,8 +1426,7 @@
       document.getElementById('paymentModal').classList.remove('active');
     };
 
-    // Procesar pago y confirmar ticket
-    window.processPaymentAndConfirm = function() {
+    window.confirmPaymentAndFinish = function() {
       window.closePaymentModal();
 
       let total = 0;
@@ -1367,8 +1434,7 @@
 
       for (const id in cart) {
         const row = cart[id];
-        const subtotal = row.qty * row.item.price;
-        total += subtotal;
+        total += (row.qty * row.item.price);
         formattedItems.push({
           id: row.item.id,
           name: row.item.name,
@@ -1379,66 +1445,58 @@
         });
       }
 
-      // Guardar en AtoyacStore (ERP / Cocina KDS)
-      const ticketNumber = Math.floor(100 + Math.random() * 900);
+      const randomTicket = Math.floor(100 + Math.random() * 900);
       try {
         if (typeof AtoyacStore !== 'undefined' && AtoyacStore.addOrder) {
           const created = AtoyacStore.addOrder({
-            customerName: 'Cliente iPad',
+            customerName: 'Cliente Kiosco',
             source: 'Kiosco iPad Directo',
             orderType: 'Para Llevar',
-            paymentMethod: 'Tarjeta (Point Mercado Libre)',
+            paymentMethod: 'Tarjeta (Point)',
             paymentStatus: 'Pagado',
             status: 'nuevo',
             items: formattedItems,
             total: total,
-            notes: 'Punto de venta iPad Directo'
+            notes: 'Kiosco Atoyac'
           });
-          if (created && created.ticketNumber) {
-            document.getElementById('successTicketNum').textContent = `Pedido #${created.ticketNumber}`;
-          } else {
-            document.getElementById('successTicketNum').textContent = `Pedido #${ticketNumber}`;
-          }
+          document.getElementById('successTicketBadge').textContent = `Pedido #${created?.ticketNumber || randomTicket}`;
         } else {
-          document.getElementById('successTicketNum').textContent = `Pedido #${ticketNumber}`;
+          document.getElementById('successTicketBadge').textContent = `Pedido #${randomTicket}`;
         }
-      } catch (err) {
-        console.warn('Error al guardar en store:', err);
-        document.getElementById('successTicketNum').textContent = `Pedido #${ticketNumber}`;
+      } catch (e) {
+        document.getElementById('successTicketBadge').textContent = `Pedido #${randomTicket}`;
       }
 
       // Mostrar pantalla de éxito
-      const successScreen = document.getElementById('successScreen');
-      successScreen.classList.add('active');
+      const successOverlay = document.getElementById('successOverlay');
+      successOverlay.classList.add('active');
 
-      // Limpiar carrito
       cart = {};
       updateUI();
 
-      // Temporizador de reinicio para el siguiente cliente (6 segundos)
-      let secondsLeft = 6;
-      const noteEl = document.getElementById('resetCountdownNote');
-      if (noteEl) noteEl.textContent = `Esta pantalla volverá al menú en ${secondsLeft} segundos...`;
+      let seconds = 6;
+      const noteEl = document.getElementById('successCountdownNote');
+      if (noteEl) noteEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
 
-      if (autoResetInterval) clearInterval(autoResetInterval);
-      autoResetInterval = setInterval(() => {
-        secondsLeft--;
-        if (noteEl) noteEl.textContent = `Esta pantalla volverá al menú en ${secondsLeft} segundos...`;
-        if (secondsLeft <= 0) {
-          clearInterval(autoResetInterval);
-          window.resetToNewOrder();
+      if (successResetInterval) clearInterval(successResetInterval);
+      successResetInterval = setInterval(() => {
+        seconds--;
+        if (noteEl) noteEl.textContent = `Volviendo al inicio en ${seconds} segundos...`;
+        if (seconds <= 0) {
+          clearInterval(successResetInterval);
+          window.resetToReposo();
         }
       }, 1000);
     };
 
-    window.resetToNewOrder = function() {
-      if (autoResetInterval) clearInterval(autoResetInterval);
-      document.getElementById('successScreen').classList.remove('active');
-      window.switchKioskCategory('promociones');
+    window.resetToReposo = function() {
+      if (successResetInterval) clearInterval(successResetInterval);
+      document.getElementById('successOverlay').classList.remove('active');
+      window.goToReposo();
     };
 
-    // Inicializar en promociones
-    window.renderCatalog('promociones');
+    // Inicializar catálogo en Promociones
+    renderDishes();
   </script>
 
 </body>
