@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <base href="/" />
   <title>Kiosco iPad · Punto de Venta | ATOYAC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -986,7 +987,7 @@
   <section class="kiosk-screen active" id="screen-welcome">
     <div class="welcome-container">
       <div class="welcome-logo-wrap">
-        <img src="assets/img/logo.svg" alt="ATOYAC" class="welcome-logo-img" />
+        <img src="/assets/img/logo.svg" alt="ATOYAC" class="welcome-logo-img" />
         <h1 class="welcome-brand-name">ATOYAC</h1>
         <p class="welcome-tagline">Comida para tu día a día · Sin hacer fila</p>
       </div>
@@ -1015,7 +1016,7 @@
   <section class="kiosk-screen" id="screen-name">
     <div class="kiosk-topbar">
       <div class="kiosk-mini-brand">
-        <img src="assets/img/logo.svg" alt="ATOYAC" />
+        <img src="/assets/img/logo.svg" alt="ATOYAC" />
         <span>ATOYAC</span>
       </div>
       <button class="kiosk-reset-btn" onclick="resetToWelcome()">Cancelar Orden</button>
@@ -1048,7 +1049,7 @@
   <section class="kiosk-screen" id="screen-menu">
     <div class="kiosk-topbar">
       <div class="kiosk-mini-brand">
-        <img src="assets/img/logo.svg" alt="ATOYAC" />
+        <img src="/assets/img/logo.svg" alt="ATOYAC" />
         <span>ATOYAC</span>
       </div>
       <div style="display: flex; gap: 0.75rem; align-items: center;">
@@ -1066,7 +1067,7 @@
     <div class="dishes-catalog-grid" id="dishes-grid">
       <!-- 1. SÁNDWICH O CROISSANT -->
       <div class="dish-card" onclick="openDishModal('sandwich')">
-        <img src="assets/img/dishes/sandwiches.jpg" alt="Sándwich o Croissant" class="dish-card-img" />
+        <img src="/assets/img/dishes/sandwiches.jpg" alt="Sándwich o Croissant" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Sándwich o Croissant</h3>
@@ -1081,7 +1082,7 @@
 
       <!-- 2. CHILAQUILES -->
       <div class="dish-card" onclick="openDishModal('chilaquiles')">
-        <img src="assets/img/dishes/sandwiches.jpg" alt="Chilaquiles Atoyac" class="dish-card-img" />
+        <img src="/assets/img/dishes/sandwiches.jpg" alt="Chilaquiles Atoyac" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Chilaquiles Caseros</h3>
@@ -1096,7 +1097,7 @@
 
       <!-- 3. MOLLETES -->
       <div class="dish-card" onclick="openDishModal('molletes')">
-        <img src="assets/img/dishes/baguettes.jpg" alt="Molletes Atoyac" class="dish-card-img" />
+        <img src="/assets/img/dishes/baguettes.jpg" alt="Molletes Atoyac" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Molletes Artesanales</h3>
@@ -1111,7 +1112,7 @@
 
       <!-- 4. FRUTA FRESCA -->
       <div class="dish-card" onclick="openDishModal('fruta')">
-        <img src="assets/img/dishes/drinks.jpg" alt="Fruta Fresca" class="dish-card-img" />
+        <img src="/assets/img/dishes/drinks.jpg" alt="Fruta Fresca" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Fruta Fresca</h3>
@@ -1126,7 +1127,7 @@
 
       <!-- 5. BEBIDAS & JUGOS -->
       <div class="dish-card" onclick="openDishModal('bebidas')">
-        <img src="assets/img/dishes/drinks.jpg" alt="Bebidas y Jugos" class="dish-card-img" />
+        <img src="/assets/img/dishes/drinks.jpg" alt="Bebidas y Jugos" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Jugos Naturales</h3>
@@ -1141,7 +1142,7 @@
 
       <!-- 6. CAFÉ MATUTINO -->
       <div class="dish-card" onclick="openDishModal('cafe')">
-        <img src="assets/img/dishes/drinks.jpg" alt="Café de Grano" class="dish-card-img" />
+        <img src="/assets/img/dishes/drinks.jpg" alt="Café de Grano" class="dish-card-img" />
         <div class="dish-card-body">
           <div>
             <h3 class="dish-card-title">Café Matutino</h3>
@@ -1206,7 +1207,7 @@
   <section class="kiosk-screen" id="screen-payment">
     <div class="kiosk-topbar">
       <div class="kiosk-mini-brand">
-        <img src="assets/img/logo.svg" alt="ATOYAC" />
+        <img src="/assets/img/logo.svg" alt="ATOYAC" />
         <span>ATOYAC</span>
       </div>
       <button class="kiosk-reset-btn" onclick="goToMenu()">← Agregar otro platillo</button>
