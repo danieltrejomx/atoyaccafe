@@ -106,9 +106,15 @@
 <style>
 	:global(html, body) { margin: 0; overflow: hidden; background: #1f2d24; }
 	.ventana { position: fixed; inset: 0; overflow: hidden; cursor: none; }
+	/* Rotar 90° para TV vertical que solo muestra horizontal */
 	.tv {
-		width: 100%;
-		height: 100%;
+		width: 100vh;
+		height: 100vw;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) rotate(90deg);
+		transform-origin: center center;
 		display: grid;
 		grid-template-rows: 20% 80%;
 		background: var(--c-papel);
