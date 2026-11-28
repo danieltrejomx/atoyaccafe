@@ -29,6 +29,15 @@ export interface AvisosResp {
 	usuarios: { id: number; nombre: string }[];
 }
 
+export interface HorarioCelda {
+	id: number;
+	semana: string;
+	dia: number;
+	hora: number;
+	empleado: string;
+	actualizadoEn: number;
+}
+
 export class ApiFallo extends Error {
 	constructor(
 		public status: number,
@@ -89,7 +98,11 @@ export function crearApi(f?: typeof fetch) {
 			const data = await r.json().catch(() => ({}));
 			if (!r.ok) throw new ApiFallo(r.status, data.error ?? 'Error al subir foto', data.detalle);
 			return data;
-		}
+		},
+		// Horarios
+		horarios: (semana: string) => pedir<HorarioCelda[]>(`/api/horarios?semana=${semana}`),
+		guardarCelda: (p: { semana: string; dia: number; hora: number; empleado: string }) => pedir('/api/horarios', 'PUT', p),
+		copiarSemana: (desde: string, hasta: string) => pedir<{ copiados: number }>('/api/horarios', 'POST', { desde, hasta })
 	};
 }
 

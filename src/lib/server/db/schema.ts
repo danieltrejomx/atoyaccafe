@@ -215,3 +215,25 @@ export const faltantes = sqliteTable(
 	},
 	(t) => [index('faltantes_fecha').on(t.fecha)]
 );
+
+/* ── Horarios semanales ── */
+
+export const horarios = sqliteTable(
+	'horarios',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		/** ISO week: "2026-W48" */
+		semana: text('semana').notNull(),
+		/** 0=Lunes … 5=Sábado */
+		dia: integer('dia').notNull(),
+		/** Hora de inicio del bloque: 8–18 */
+		hora: integer('hora').notNull(),
+		/** Nombre del empleado asignado (vacío = libre) */
+		empleado: text('empleado').notNull().default(''),
+		actualizadoEn: integer('actualizado_en').notNull().$defaultFn(ahora)
+	},
+	(t) => [
+		uniqueIndex('horarios_semana_dia_hora').on(t.semana, t.dia, t.hora),
+		index('horarios_semana').on(t.semana)
+	]
+);

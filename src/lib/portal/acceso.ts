@@ -5,6 +5,7 @@ export const NAV: { href: string; texto: string; roles: Rol[] }[] = [
 	{ href: '/portal/caja', texto: 'Caja', roles: ['admin', 'caja'] },
 	{ href: '/portal/recetas', texto: 'Recetario', roles: ['admin', 'caja', 'cocina'] },
 	{ href: '/portal/insumos', texto: 'Insumos', roles: ['admin'] },
+	{ href: '/portal/horarios', texto: 'Horarios', roles: ['admin', 'caja', 'cocina'] },
 	{ href: '/portal/avisos', texto: 'Avisos', roles: ['admin', 'caja', 'cocina'] },
 	{ href: '/portal/resumen', texto: 'Resumen', roles: ['admin'] }
 ];
