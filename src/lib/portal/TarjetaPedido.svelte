@@ -355,22 +355,30 @@
 	.countdown-txt { min-width: 3ch; }
 	@keyframes pulso-timer { from { opacity: 1; } to { opacity: 0.5; } }
 
-	/* Barra tipo YouTube */
+	/* Barra tipo semáforo */
 	.timer-bar-wrap {
 		margin: 0 calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4));
-		height: 6px;
+		height: 12px;
 		background: var(--c-linea);
 		border-radius: 0 0 var(--r-md) var(--r-md);
 		overflow: hidden;
 	}
 	.timer-bar {
 		height: 100%;
-		background: var(--c-hoja-fuerte);
-		border-radius: 0 3px 3px 0;
-		transition: width 1s linear;
+		border-radius: 0 6px 6px 0;
+		transition: width 1s linear, background 2s ease;
+		background: linear-gradient(90deg, #2ecc40, #8bc34a, #ffcc00, #ff9800, #e74c3c);
+		background-size: 200% 100%;
 	}
-	.timer-bar.warn { background: var(--c-preparando); }
-	.timer-bar.expired { background: var(--c-peligro); animation: pulso-timer 1s infinite alternate; width: 100% !important; }
+	.timer-bar.warn {
+		background: linear-gradient(90deg, #ff9800, #e74c3c);
+		background-size: 100% 100%;
+	}
+	.timer-bar.expired {
+		background: #e74c3c;
+		animation: pulso-timer 0.8s infinite alternate;
+		width: 100% !important;
+	}
 
 	/* Recipe tooltip */
 	.nombre-prod { position: relative; }
