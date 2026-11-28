@@ -72,6 +72,33 @@
 		if (voz) u.voice = voz;
 		speechSynthesis.speak(u);
 	}
+	const FRASES_MEGAFONO = [
+		'Buen provecho, disfruta tu comida.',
+		'Gracias por visitarnos, vuelve pronto.',
+		'Hecho con amor, servido con cariño.',
+		'Tu lugar favorito para comer sano.',
+		'Comer bien es quererte mucho.',
+		'Lo fresco siempre sabe mejor.',
+		'Frescura que se nota en cada bocado.',
+		'Comida que te hace sentir bien.',
+		'Simple, fresco, delicioso.',
+		'Santa Cruz Atoyac tiene sabor.',
+		'La vida es mejor con chilaquiles.',
+		'Que bonito es darse un gusto.',
+		'Alimenta tu cuerpo, alimenta tu alma.',
+		'Cocina real, ingredientes de verdad.',
+		'Donde lo healthy se vuelve tu favorito.',
+	];
+
+	function fraseAleatoria() {
+		return FRASES_MEGAFONO[Math.floor(Math.random() * FRASES_MEGAFONO.length)];
+	}
+
+	function megafono() {
+		if (!sonido) alternarSonido();
+		setTimeout(() => anunciar(fraseAleatoria()), sonido ? 0 : 600);
+	}
+
 	function alternarSonido() {
 		sonido = !sonido;
 		if (sonido) {
@@ -111,6 +138,9 @@
 			<label class="fila ver"><input type="checkbox" bind:checked={verCerrados} /> Ver cerrados</label>
 			<button class="btn quieto" onclick={alternarSonido} aria-pressed={sonido}>
 				<Icono nombre={sonido ? 'volumen' : 'silencio'} /> {sonido ? 'Sonido activo' : 'Activar sonido'}
+			</button>
+			<button class="btn sec megafono" onclick={megafono} title="Decir frase motivadora">
+				<Icono nombre="megafono" /> Frase
 			</button>
 			<button class="btn sec" onclick={() => (capturando = true)}><Icono nombre="plus" /> Capturar pedido</button>
 		</div>
@@ -185,5 +215,7 @@
 	@media (max-width: 1100px) {
 		.columnas { grid-template-columns: 1fr; }
 	}
+	.megafono { background: var(--c-maiz); color: var(--c-bosque); }
+	.megafono:hover { background: var(--c-maiz-claro); }
 	@media (prefers-reduced-motion: reduce) { .parpadea { animation: none; background: var(--c-maiz-claro); } }
 </style>

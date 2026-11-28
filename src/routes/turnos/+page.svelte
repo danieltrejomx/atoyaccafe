@@ -172,6 +172,12 @@
 		desbloquearAudio();
 		fraseActual = obtenerFrase();
 		const fraseInterval = setInterval(() => (fraseActual = obtenerFrase()), 20_000);
+		// Cada 20 minutos dice una frase motivadora en voz alta
+		const fraseVozInterval = setInterval(() => {
+			const frase = obtenerFrase();
+			fraseActual = frase;
+			hablar(frase);
+		}, 20 * 60_000);
 		stream.abrir();
 		let lock: WakeLockSentinel | undefined;
 		const pedirLock = () => navigator.wakeLock?.request('screen').then((l) => (lock = l)).catch(() => {});
@@ -182,6 +188,7 @@
 			document.removeEventListener('visibilitychange', pedirLock);
 			clearInterval(refresco);
 			clearInterval(fraseInterval);
+			clearInterval(fraseVozInterval);
 			clearTimeout(fin);
 			stream.cerrar();
 			lock?.release();
