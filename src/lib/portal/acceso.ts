@@ -2,7 +2,6 @@ import type { Canal, Rol } from '$lib/types';
 
 export const NAV: { href: string; texto: string; roles: Rol[] }[] = [
 	{ href: '/portal', texto: 'Monitor', roles: ['admin', 'caja', 'cocina'] },
-	{ href: '/portal/caja', texto: 'Caja', roles: ['admin', 'caja'] },
 	{ href: '/portal/insumos', texto: 'Insumos', roles: ['admin'] },
 	{ href: '/portal/recetas', texto: 'Recetas', roles: ['admin'] },
 	{ href: '/portal/resumen', texto: 'Resumen', roles: ['admin'] }
@@ -15,11 +14,11 @@ export const permitido = (rol: Rol, ruta: string) => {
 };
 
 export const ETIQUETA_CANAL: Record<Canal, string> = {
-	didi: 'DIDI', rappi: 'RAPPI', uber: 'UBER', interno: 'INTERNO', caja: 'CAJA', kiosco: 'KIOSCO'
+	didi: 'DIDI', rappi: 'RAPPI', uber: 'UBER', interno: 'INTERNO', kiosco: 'KIOSCO'
 };
-export const TABS: Canal[] = ['didi', 'rappi', 'uber', 'interno', 'caja', 'kiosco'];
+export const TABS: Canal[] = ['interno', 'kiosco'];
 export const NOMBRE_CANAL: Record<Canal, string> = {
-	didi: 'DiDi', rappi: 'Rappi', uber: 'Uber', interno: 'Interno', caja: 'Caja', kiosco: 'Kiosco'
+	didi: 'DiDi', rappi: 'Rappi', uber: 'Uber', interno: 'Interno', kiosco: 'Kiosco'
 };
 export const SIGUIENTE: Partial<Record<string, { estado: 'preparando' | 'listo' | 'entregado'; texto: string }>> = {
 	preparando: { estado: 'listo', texto: 'Marcar listo' },

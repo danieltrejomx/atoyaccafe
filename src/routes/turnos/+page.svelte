@@ -4,13 +4,11 @@
 	import { crearStream } from '$lib/stream.svelte';
 	import type { TurnosRespuesta } from '$lib/types';
 	import { campana, crearCola, desbloquearAudio, hablar } from '$lib/turnos/anuncios';
-	import VideoLoop from '$lib/turnos/VideoLoop.svelte';
 
 	const api = crearApi();
 	let datos = $state<TurnosRespuesta>({ actual: null, proximos: [], listos: [] });
-	let llamado = $state<number | null>(null); // turno resaltado (listo) durante 6 s
+	let llamado = $state<number | null>(null);
 	let activado = $state(false);
-	let escala = $state(1);
 
 	async function recargar() {
 		try {
@@ -39,8 +37,6 @@
 	);
 
 	const mostrado = $derived(llamado ?? datos.actual?.turno ?? null);
-	const productos = $derived(llamado ? [] : (datos.actual?.productos ?? []));
-	const lineas = $derived(productos.length > 3 ? [...productos.slice(0, 2), `+${productos.length - 2} más`] : productos);
 
 	function activar() {
 		activado = true;
@@ -48,17 +44,13 @@
 	}
 
 	onMount(() => {
-		const ajustar = () => (escala = Math.min(innerWidth / 1080, innerHeight / 1920));
-		ajustar();
-		addEventListener('resize', ajustar);
 		stream.abrir();
 		let lock: WakeLockSentinel | undefined;
 		const pedirLock = () => navigator.wakeLock?.request('screen').then((l) => (lock = l)).catch(() => {});
 		pedirLock();
 		document.addEventListener('visibilitychange', pedirLock);
-		const refresco = setInterval(recargar, 30_000); // red de seguridad si se perdiera un evento
+		const refresco = setInterval(recargar, 30_000);
 		return () => {
-			removeEventListener('resize', ajustar);
 			document.removeEventListener('visibilitychange', pedirLock);
 			clearInterval(refresco);
 			clearTimeout(fin);
@@ -71,37 +63,47 @@
 <svelte:head><title>Turnos | Atoyac Café</title></svelte:head>
 
 <div class="ventana">
-	<main class="tv lienzo" style:transform="translate(-50%, -50%) scale({escala})">
+	<main class="tv">
+		<!-- ARRIBA 20%: Turnos + QR -->
 		<section class="banda" class:llamado={llamado !== null}>
-			{#if mostrado === null}
-				<div class="vacio">
-					<img src="/img/logo.svg" alt="Atoyac Café" />
-					<p>Bienvenido a Atoyac. Ordena en el kiosco o en caja.</p>
-				</div>
-			{:else}
-				<div class="izq">
+			<div class="turno-info">
+				{#if mostrado === null}
+					<div class="sin-turno">
+						<img class="logo-chico" src="/img/logo.svg" alt="Atoyac Café" />
+						<p>Bienvenido a Atoyac</p>
+					</div>
+				{:else}
 					<span class="etq">TURNO</span>
 					{#key mostrado}
-						<span class="num" class:largo={mostrado > 99} aria-live="polite">{mostrado}</span>
+						<span class="num" aria-live="polite">{mostrado}</span>
 					{/key}
-				</div>
-				<ul class="centro">
 					{#if llamado}
-						<li class="listo">Tu pedido está listo</li>
-					{:else}
-						{#each lineas as l (l)}<li>{l}</li>{/each}
+						<span class="listo-txt">¡Tu pedido está listo!</span>
 					{/if}
-				</ul>
-				<aside class="der">
-					<img class="logo" src="/img/logo.svg" alt="" />
-					<span class="etq chica">PRÓXIMOS</span>
-					{#each datos.proximos as p (p)}<span class="prox">{p}</span>{/each}
-				</aside>
+				{/if}
+			</div>
+
+			{#if datos.proximos.length > 0}
+				<div class="proximos">
+					<span class="etq-chica">PRÓXIMOS</span>
+					<div class="prox-lista">
+						{#each datos.proximos as p (p)}<span class="prox">{p}</span>{/each}
+					</div>
+				</div>
 			{/if}
+
+			<div class="qr-zona">
+				<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
+				<span class="qr-texto">Ordena desde<br/>tu cel</span>
+			</div>
+
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
 		</section>
-		<section class="video"><VideoLoop src="/video/ensaladas.mp4" texto="Sándwiches y baguettes, hechos al momento" tono="bosque" /></section>
-		<section class="video"><VideoLoop src="/video/bebidas-calientes.mp4" texto="Pide tu bebida en combo y ahorra" tono="barro" /></section>
+
+		<!-- ABAJO 80%: Video del menú -->
+		<section class="video-zona">
+			<video src="/video/menu.mp4" muted loop autoplay playsinline></video>
+		</section>
 	</main>
 
 	{#if !activado}
@@ -110,82 +112,134 @@
 </div>
 
 <style>
-	:global(html, body) { margin: 0; overflow: hidden; background: var(--c-bosque); }
+	:global(html, body) { margin: 0; overflow: hidden; background: #1f2d24; }
 	.ventana { position: fixed; inset: 0; overflow: hidden; cursor: none; }
-	.lienzo {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: 1080px;
-		height: 1920px;
+	.tv {
+		width: 100%;
+		height: 100%;
 		display: grid;
-		grid-template-rows: 640px 640px 640px;
+		grid-template-rows: 20% 80%;
 		background: var(--c-papel);
 		font-family: var(--f-texto);
 		color: var(--c-texto);
-		transform-origin: center;
 	}
+
+	/* === BANDA SUPERIOR (20%) === */
 	.banda {
 		position: relative;
-		display: grid;
-		grid-template-columns: 390px 1fr 240px;
-		gap: 32px;
-		padding: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 24px 40px;
 		background: var(--c-arena);
 		transition: background var(--dur-3);
+		overflow: hidden;
 	}
 	.banda.llamado { background: var(--c-bosque); color: var(--c-texto-inverso); }
-	.izq { display: flex; flex-direction: column; }
-	.etq {
-		font: 700 var(--tv-titulo) var(--f-titulo);
-		letter-spacing: var(--ls-etiqueta);
-		color: var(--c-hoja);
-	}
-	.etq.chica { font-size: var(--tv-etiqueta); color: var(--c-bosque); letter-spacing: 0.04em; }
-	.num {
-		font: 700 var(--tv-numero)/0.9 var(--f-titulo);
-		font-variant-numeric: tabular-nums;
-		color: var(--c-hoja);
-		margin-top: 16px;
-		animation: entra var(--dur-4) var(--ease-rebote);
-	}
-	.num.largo { font-size: 220px; }
-	.llamado .etq, .llamado .num, .llamado .etq.chica { color: var(--c-texto-inverso); }
-	.centro {
-		list-style: none;
-		margin: 0;
-		padding: 0 32px 0 0;
-		border-right: 2px solid var(--c-linea-fuerte);
+
+	.turno-info {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		gap: 24px;
-		font-weight: 600;
-		font-size: var(--tv-texto);
-		line-height: 1.15;
+		align-items: flex-start;
+		gap: 4px;
+		flex: 1;
 	}
-	.centro .listo { font-family: var(--f-titulo); font-size: 56px; color: var(--c-menta-tv); }
-	.llamado .centro { border-color: rgba(247, 243, 236, 0.3); }
-	.der { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-	.logo { width: 96px; margin-bottom: 24px; }
-	.llamado .logo, .vacio img { filter: none; }
-	.llamado .logo { filter: brightness(0) invert(1); }
-	.prox { font: 700 var(--tv-proximo)/1.1 var(--f-titulo); font-variant-numeric: tabular-nums; color: var(--c-hoja); }
-	.llamado .prox { color: var(--c-menta-tv); }
-	.vacio { grid-column: 1 / -1; display: grid; place-content: center; justify-items: center; gap: 32px; text-align: center; }
-	.vacio img { width: 320px; }
-	.vacio p { margin: 0; font: 600 var(--tv-texto) var(--f-titulo); max-width: 800px; }
+	.sin-turno {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+	.logo-chico { width: 80px; }
+	.sin-turno p { margin: 0; font: 600 32px var(--f-titulo); }
+
+	.etq {
+		font: 700 24px var(--f-titulo);
+		letter-spacing: var(--ls-etiqueta);
+		color: var(--c-hoja);
+		text-transform: uppercase;
+	}
+	.num {
+		font: 700 120px/0.9 var(--f-titulo);
+		font-variant-numeric: tabular-nums;
+		color: var(--c-hoja);
+		animation: entra var(--dur-4) var(--ease-rebote);
+	}
+	.listo-txt {
+		font: 700 28px var(--f-titulo);
+		color: var(--c-menta-tv);
+		animation: parpadeo 1s ease-in-out infinite alternate;
+	}
+	.llamado .etq, .llamado .num { color: var(--c-texto-inverso); }
+	.llamado .listo-txt { color: var(--c-menta-tv); }
+
+	.proximos {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+	}
+	.etq-chica {
+		font: 700 16px var(--f-titulo);
+		letter-spacing: 0.06em;
+		color: var(--c-bosque);
+	}
+	.llamado .etq-chica { color: var(--c-texto-inverso); opacity: 0.7; }
+	.prox-lista { display: flex; gap: 12px; }
+	.prox {
+		font: 700 40px/1 var(--f-titulo);
+		font-variant-numeric: tabular-nums;
+		color: var(--c-hoja);
+		background: rgba(255,255,255,0.5);
+		border-radius: 12px;
+		padding: 8px 16px;
+	}
+	.llamado .prox { color: var(--c-menta-tv); background: rgba(255,255,255,0.1); }
+
+	.qr-zona {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		background: var(--c-blanco, #fff);
+		border-radius: 16px;
+		padding: 12px 20px;
+		box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+	}
+	.llamado .qr-zona { background: rgba(255,255,255,0.15); }
+	.qr-img {
+		width: 100px;
+		height: 100px;
+		border-radius: 8px;
+	}
+	.qr-texto {
+		font: 700 22px/1.2 var(--f-titulo);
+		color: var(--c-bosque);
+		text-align: center;
+	}
+	.llamado .qr-texto { color: var(--c-texto-inverso); }
+
 	.chip {
 		position: absolute;
-		left: 24px;
-		bottom: 16px;
-		padding: 4px 16px;
+		left: 16px;
+		bottom: 8px;
+		padding: 4px 12px;
 		border-radius: var(--r-pill);
 		background: var(--c-maiz-claro);
 		color: var(--c-preparando);
-		font: 600 var(--fs-20) var(--f-titulo);
+		font: 600 14px var(--f-titulo);
 	}
-	.video { border-top: 2px solid var(--c-papel); overflow: hidden; }
+
+	/* === VIDEO (80%) === */
+	.video-zona {
+		overflow: hidden;
+		background: #000;
+	}
+	.video-zona video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
 	.velo {
 		position: fixed;
 		inset: 0;
@@ -197,6 +251,8 @@
 		padding: 48px;
 		cursor: none;
 	}
-	@keyframes entra { from { transform: translateY(120px); opacity: 0; } }
-	@media (prefers-reduced-motion: reduce) { .num { animation: none; } .banda { transition: none; } }
+
+	@keyframes entra { from { transform: translateY(40px); opacity: 0; } }
+	@keyframes parpadeo { from { opacity: 1; } to { opacity: 0.4; } }
+	@media (prefers-reduced-motion: reduce) { .num { animation: none; } .banda { transition: none; } .listo-txt { animation: none; } }
 </style>

@@ -8,7 +8,7 @@
 
 	let { canal, onCreado }: { canal: Canal; onCreado?: () => void } = $props();
 	// Las apps cobran por su cuenta; solo mostrador y kiosco eligen forma de pago.
-	const local = $derived(canal === 'caja' || canal === 'kiosco');
+	const local = $derived(canal === 'interno' || canal === 'kiosco');
 
 	let productos = $state<Producto[] | null>(null);
 	let cant = $state<Record<number, number>>({});

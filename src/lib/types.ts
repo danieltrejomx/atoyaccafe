@@ -1,6 +1,6 @@
 // Tipos y constantes compartidos entre servidor y frontends. Sin dependencias de servidor.
 
-export const CANALES = ['caja', 'interno', 'kiosco', 'didi', 'rappi', 'uber'] as const;
+export const CANALES = ['interno', 'kiosco', 'didi', 'rappi', 'uber'] as const;
 export const PAGO_METODOS = ['efectivo', 'tarjeta', 'transferencia'] as const;
 export const PAGO_ESTADOS = ['pendiente', 'pagado'] as const;
 export const ESTADOS = ['nuevo', 'preparando', 'listo', 'entregado', 'cancelado'] as const;

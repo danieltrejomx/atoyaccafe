@@ -122,7 +122,7 @@ export function crearPedido(input: CrearPedidoInput): { pedido: Pedido; creado: 
 
 			const fecha = fechaNegocio();
 			const turno = siguienteTurno(tx, fecha);
-			const externoPagado = input.canal !== 'kiosco' && input.canal !== 'caja';
+			const externoPagado = input.canal !== 'kiosco';
 			const [fila] = tx
 				.insert(pedidos)
 				.values({
