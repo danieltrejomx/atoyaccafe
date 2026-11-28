@@ -255,13 +255,6 @@
 		<div class="cab-der">
 			{#if countdownTexto !== null}
 				<span class="countdown" class:vencido={restante !== null && restante <= 0}>
-					<svg class="countdown-ring" viewBox="0 0 36 36" width="32" height="32">
-						<circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--c-linea)" stroke-width="3" />
-						<circle cx="18" cy="18" r="15.9" fill="none"
-							stroke={restante !== null && restante <= 0 ? 'var(--c-peligro)' : restante !== null && restante < 60000 ? 'var(--c-preparando)' : 'var(--c-hoja-fuerte)'}
-							stroke-width="3" stroke-dasharray="100" stroke-dashoffset={100 - countdownPct * 100}
-							stroke-linecap="round" transform="rotate(-90 18 18)" />
-					</svg>
 					<span class="countdown-txt">{countdownTexto}</span>
 				</span>
 			{/if}
@@ -319,6 +312,16 @@
 			<button class="btn quieto cancelar" onclick={() => accion('cancelar', pedido)}>Cancelar pedido</button>
 		</div>
 	{/if}
+	{#if restante !== null}
+		<div class="timer-bar-wrap">
+			<div
+				class="timer-bar"
+				class:warn={restante !== null && restante < 60000 && restante > 0}
+				class:expired={restante !== null && restante <= 0}
+				style:width="{Math.max(0, (1 - countdownPct)) * 100}%"
+			></div>
+		</div>
+	{/if}
 </article>
 
 <style>
@@ -347,11 +350,27 @@
 	.cancelar { color: var(--c-cancelado) !important; padding-inline: var(--sp-2) !important; font-size: var(--fs-14) !important; }
 
 	/* Countdown timer */
-	.countdown { display: inline-flex; align-items: center; gap: var(--sp-1); font-variant-numeric: tabular-nums; font-weight: 600; font-size: var(--fs-14); color: var(--c-hoja-fuerte); }
+	.countdown { display: inline-flex; align-items: center; gap: var(--sp-1); font-variant-numeric: tabular-nums; font-weight: 700; font-size: var(--fs-16); color: var(--c-hoja-fuerte); }
 	.countdown.vencido { color: var(--c-peligro); animation: pulso-timer 1s infinite alternate; }
-	.countdown-ring { flex-shrink: 0; }
 	.countdown-txt { min-width: 3ch; }
 	@keyframes pulso-timer { from { opacity: 1; } to { opacity: 0.5; } }
+
+	/* Barra tipo YouTube */
+	.timer-bar-wrap {
+		margin: 0 calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4));
+		height: 6px;
+		background: var(--c-linea);
+		border-radius: 0 0 var(--r-md) var(--r-md);
+		overflow: hidden;
+	}
+	.timer-bar {
+		height: 100%;
+		background: var(--c-hoja-fuerte);
+		border-radius: 0 3px 3px 0;
+		transition: width 1s linear;
+	}
+	.timer-bar.warn { background: var(--c-preparando); }
+	.timer-bar.expired { background: var(--c-peligro); animation: pulso-timer 1s infinite alternate; width: 100% !important; }
 
 	/* Recipe tooltip */
 	.nombre-prod { position: relative; }
