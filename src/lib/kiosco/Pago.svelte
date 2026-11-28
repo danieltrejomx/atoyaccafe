@@ -15,8 +15,7 @@
 	let paraLlevar = $state(false);
 	const metodos: { id: PagoMetodo; nombre: string; icono: NombreIcono }[] = [
 		{ id: 'efectivo', nombre: 'Efectivo', icono: 'efectivo' },
-		{ id: 'tarjeta', nombre: 'Tarjeta', icono: 'tarjeta' },
-		{ id: 'transferencia', nombre: 'Transferencia', icono: 'transferencia' }
+		{ id: 'tarjeta', nombre: 'Tarjeta', icono: 'tarjeta' }
 	];
 </script>
 
