@@ -8,6 +8,14 @@
 	const api = crearApi();
 	let datos = $state<TurnosRespuesta>({ actual: null, proximos: [], listos: [] });
 	let llamado = $state<number | null>(null);
+	let sonidoActivo = $state(false);
+
+	function activarSonido() {
+		desbloquearAudio();
+		sonidoActivo = true;
+		campana(); // test beep
+	}
+
 	async function recargar() {
 		try {
 			datos = await api.turnos();
@@ -92,6 +100,7 @@
 			</div>
 
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
+			{#if !sonidoActivo}<button class="btn-sonido" onclick={activarSonido}>Activar sonido</button>{/if}
 		</section>
 
 		<!-- ABAJO 80%: Video del menú -->
@@ -236,6 +245,21 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+	}
+
+	.btn-sonido {
+		position: absolute;
+		right: 16px;
+		bottom: 8px;
+		padding: 8px 20px;
+		border: 0;
+		border-radius: 20px;
+		background: var(--c-bosque);
+		color: var(--c-texto-inverso);
+		font: 600 16px var(--f-titulo);
+		cursor: pointer;
+		z-index: 2;
+		animation: parpadeo 1.5s ease-in-out infinite alternate;
 	}
 
 	@keyframes entra { from { transform: translateY(40px); opacity: 0; } }
