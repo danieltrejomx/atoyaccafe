@@ -24,8 +24,15 @@
 		setTimeout(() => (destello = null), 3000);
 		if (sonido) {
 			pitar();
-			const productos = p.items.map(i => `${i.cantidad} ${i.nombre}`).join(', ');
-			anunciar(`Nuevo pedido, turno ${p.turno}. ${productos}`);
+			const detalles = p.items.map(i => {
+				let txt = `${i.cantidad} ${i.nombre}`;
+				const ops = i.opciones?.map(o => o.nombre).filter(Boolean);
+				if (ops?.length) txt += `, con ${ops.join(' y ')}`;
+				if (i.notas && i.notas.includes('Sin')) txt += `. ${i.notas}`;
+				return txt;
+			}).join('. ');
+			const nota = p.notas ? `. Nota: ${p.notas}` : '';
+			anunciar(`Nuevo pedido, turno ${p.turno}. ${detalles}${nota}`);
 		}
 	});
 	onMount(() => {
