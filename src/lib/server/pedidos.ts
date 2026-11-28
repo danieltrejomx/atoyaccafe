@@ -215,7 +215,7 @@ export function cambiarEstado(id: number, estado: Estado): Pedido {
 	tocar(id, { estado });
 	const nuevo = obtenerPedido(id)!;
 	publicar(nuevo);
-	if (estado === 'listo') emitir('turno.listo', { turno: nuevo.turno, pedidoId: id });
+	if (estado === 'listo') emitir('turno.listo', { turno: nuevo.turno, pedidoId: id, cliente: nuevo.cliente });
 	return nuevo;
 }
 
