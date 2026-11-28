@@ -150,7 +150,6 @@
 		campana();
 		const nombre = item.cliente ? `${item.cliente}, tu` : 'Tu';
 		const frase = obtenerFrase();
-		// Primero anuncia el turno, luego la frase bonita
 		hablar(`${nombre} pedido número ${item.turno} está listo. ${frase}`);
 		fraseActual = frase;
 		clearTimeout(fin);
@@ -166,13 +165,10 @@
 		{ alAbrir: recargar }
 	);
 
-	const mostrado = $derived(llamado ?? datos.actual?.turno ?? null);
-
 	onMount(() => {
 		desbloquearAudio();
 		fraseActual = obtenerFrase();
 		const fraseInterval = setInterval(() => (fraseActual = obtenerFrase()), 20_000);
-		// Cada 20 minutos dice una frase motivadora en voz alta
 		const fraseVozInterval = setInterval(() => {
 			const frase = obtenerFrase();
 			fraseActual = frase;
@@ -200,55 +196,42 @@
 
 <div class="ventana">
 	<main class="tv">
-		<!-- ARRIBA 20%: Turnos + QR -->
-		<section class="banda" class:llamado={llamado !== null}>
-			<div class="turno-info">
-				{#if mostrado === null}
-					<div class="sin-turno">
-						<img class="logo-chico" src="/img/logo.svg" alt="Atoyac Café" />
-					</div>
-				{:else}
-					<span class="etq">TURNO</span>
-					{#key mostrado}
-						<span class="num" aria-live="polite">{mostrado}</span>
+		<!-- Video fullscreen -->
+		<video src="/video/menu.mp4" muted loop autoplay playsinline></video>
+
+		<!-- QR siempre visible en esquina -->
+		<div class="qr-flotante">
+			<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
+			<span class="qr-texto">Pide desde<br/>tu celular</span>
+		</div>
+
+		<!-- Frase motivadora flotante -->
+		{#if fraseActual && !llamado}
+			<p class="frase-flotante">{fraseActual}</p>
+		{/if}
+
+		<!-- Overlay de turno cuando se llama -->
+		{#if llamado !== null}
+			<div class="overlay-turno">
+				<div class="overlay-contenido">
+					<span class="ov-etq">TURNO</span>
+					{#key llamado}
+						<span class="ov-num">{llamado}</span>
 					{/key}
-					{#if llamado}
-						<span class="listo-txt">¡Tu pedido está listo!</span>
-					{/if}
-				{/if}
-			</div>
-
-			{#if datos.proximos.length > 0}
-				<div class="proximos">
-					<span class="etq-chica">PRÓXIMOS</span>
-					<div class="prox-lista">
-						{#each datos.proximos as p (p)}<span class="prox">{p}</span>{/each}
-					</div>
+					<span class="ov-listo">Tu pedido está listo</span>
+					{#if fraseActual}<p class="ov-frase">{fraseActual}</p>{/if}
 				</div>
-			{/if}
-
-			<div class="qr-zona">
-				<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
-				<span class="qr-texto">Pide desde<br/>tu celular</span>
 			</div>
-			{#if fraseActual && llamado}<p class="frase">{fraseActual}</p>{/if}
-			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
-			{#if !sonidoActivo}<button class="btn-sonido" onclick={activarSonido}>Activar sonido</button>{/if}
-		</section>
+		{/if}
 
-		<!-- ABAJO 80%: Video del menú -->
-		<section class="video-zona">
-			<video src="/video/menu.mp4" muted loop autoplay playsinline></video>
-		</section>
+		{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
+		{#if !sonidoActivo}<button class="btn-sonido" onclick={activarSonido}>Activar sonido</button>{/if}
 	</main>
-
-
 </div>
 
 <style>
-	:global(html, body) { margin: 0; overflow: hidden; background: #1f2d24; }
+	:global(html, body) { margin: 0; overflow: hidden; background: #000; }
 	.ventana { position: fixed; inset: 0; overflow: hidden; cursor: none; }
-	/* Rotar 90° para TV vertical que solo muestra horizontal */
 	.tv {
 		width: 100vh;
 		height: 100vw;
@@ -257,120 +240,109 @@
 		left: 50%;
 		transform: translate(-50%, -50%) rotate(90deg);
 		transform-origin: center center;
-		display: grid;
-		grid-template-rows: 20% 80%;
-		background: var(--c-papel);
+		background: #000;
 		font-family: var(--f-texto);
 		color: var(--c-texto);
 	}
 
-	/* === BANDA SUPERIOR (20%) === */
-	.banda {
-		position: relative;
+	/* === VIDEO FULLSCREEN === */
+	video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	/* === QR FLOTANTE (esquina superior derecha) === */
+	.qr-flotante {
+		position: absolute;
+		top: 24px;
+		right: 24px;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		padding: 24px 40px;
-		background: var(--c-arena);
-		transition: background var(--dur-3);
-		overflow: hidden;
+		gap: 14px;
+		background: rgba(255, 255, 255, 0.92);
+		border-radius: 20px;
+		padding: 14px 20px;
+		box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+		z-index: 2;
 	}
-	.banda.llamado { background: var(--c-bosque); color: var(--c-texto-inverso); }
+	.qr-img {
+		width: 120px;
+		height: 120px;
+		border-radius: 10px;
+	}
+	.qr-texto {
+		font: 700 22px/1.2 var(--f-titulo);
+		color: var(--c-bosque);
+		text-align: center;
+	}
 
-	.turno-info {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 4px;
-		flex: 1;
+	/* === FRASE FLOTANTE (abajo, sobre el video) === */
+	.frase-flotante {
+		position: absolute;
+		bottom: 24px;
+		left: 32px;
+		right: 32px;
+		margin: 0;
+		text-align: center;
+		font: italic 600 24px/1.3 var(--f-titulo);
+		color: #fff;
+		text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+		z-index: 2;
+		animation: fadeUp 0.6s ease-out;
 	}
-	.sin-turno {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-	}
-	.logo-chico { width: 80px; }
-	.sin-turno p { margin: 0; font: 600 32px var(--f-titulo); }
+	@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-	.etq {
-		font: 700 24px var(--f-titulo);
-		letter-spacing: var(--ls-etiqueta);
-		color: var(--c-hoja);
-		text-transform: uppercase;
+	/* === OVERLAY TURNO (animación grande sobre el video) === */
+	.overlay-turno {
+		position: absolute;
+		inset: 0;
+		background: rgba(31, 45, 36, 0.88);
+		display: grid;
+		place-items: center;
+		z-index: 10;
+		animation: overlayIn 0.4s ease-out;
 	}
-	.num {
-		font: 700 120px/0.9 var(--f-titulo);
-		font-variant-numeric: tabular-nums;
-		color: var(--c-hoja);
-		animation: entra var(--dur-4) var(--ease-rebote);
-	}
-	.listo-txt {
-		font: 700 28px var(--f-titulo);
-		color: var(--c-menta-tv);
-		animation: parpadeo 1s ease-in-out infinite alternate;
-	}
-	.llamado .etq, .llamado .num { color: var(--c-texto-inverso); }
-	.llamado .listo-txt { color: var(--c-menta-tv); }
+	@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
 
-	.proximos {
+	.overlay-contenido {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 8px;
-	}
-	.etq-chica {
-		font: 700 16px var(--f-titulo);
-		letter-spacing: 0.06em;
-		color: var(--c-bosque);
-	}
-	.llamado .etq-chica { color: var(--c-texto-inverso); opacity: 0.7; }
-	.prox-lista { display: flex; gap: 12px; }
-	.prox {
-		font: 700 40px/1 var(--f-titulo);
-		font-variant-numeric: tabular-nums;
-		color: var(--c-hoja);
-		background: rgba(255,255,255,0.5);
-		border-radius: 12px;
-		padding: 8px 16px;
-	}
-	.llamado .prox { color: var(--c-menta-tv); background: rgba(255,255,255,0.1); }
-
-	.qr-zona {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-		background: var(--c-blanco, #fff);
-		border-radius: 16px;
-		padding: 16px 24px;
-		box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-	}
-	.llamado .qr-zona { background: rgba(255,255,255,0.15); }
-	.qr-img {
-		width: 240px;
-		height: 240px;
-		border-radius: 12px;
-	}
-	.qr-texto {
-		font: 700 28px/1.2 var(--f-titulo);
-		color: var(--c-bosque);
 		text-align: center;
 	}
-	.llamado .qr-texto { color: var(--c-texto-inverso); }
 
-	.frase {
-		position: absolute;
-		bottom: 10px;
-		left: 40px;
-		right: 280px;
-		margin: 0;
-		font: italic 500 18px/1.3 var(--f-titulo);
-		color: var(--c-hoja);
-		opacity: 0.9;
-		animation: fadeIn 0.5s ease-out;
+	.ov-etq {
+		font: 700 40px var(--f-titulo);
+		letter-spacing: 0.12em;
+		color: rgba(255,255,255,0.7);
+		text-transform: uppercase;
 	}
-	.llamado .frase { color: var(--c-menta-tv); }
-	@keyframes fadeIn { from { opacity: 0; y: 10px; } }
+	.ov-num {
+		font: 700 280px/0.9 var(--f-titulo);
+		font-variant-numeric: tabular-nums;
+		color: #fff;
+		animation: numEntra 0.5s var(--ease-rebote);
+	}
+	@keyframes numEntra { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+	.ov-listo {
+		font: 700 48px var(--f-titulo);
+		color: var(--c-menta-tv, #6ee7a0);
+		animation: parpadeo 1s ease-in-out infinite alternate;
+	}
+	.ov-frase {
+		margin: 24px 0 0;
+		max-width: 80%;
+		font: italic 500 28px/1.3 var(--f-titulo);
+		color: rgba(255,255,255,0.7);
+	}
+
+	/* === UTILIDADES === */
 	.chip {
 		position: absolute;
 		left: 16px;
@@ -380,48 +352,24 @@
 		background: var(--c-maiz-claro);
 		color: var(--c-preparando);
 		font: 600 14px var(--f-titulo);
+		z-index: 20;
 	}
-
-	/* === VIDEO (80%) === */
-	.video-zona {
-		overflow: hidden;
-		background: #000;
-	}
-	.video-zona video {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-	}
-
-	.frase {
-		position: absolute;
-		bottom: 12px;
-		left: 40px;
-		right: 200px;
-		margin: 0;
-		font: italic 500 18px/1.3 var(--f-titulo);
-		color: var(--c-hoja);
-		opacity: 0.8;
-	}
-	.llamado .frase { color: var(--c-menta-tv); opacity: 0.6; }
 
 	.btn-sonido {
 		position: absolute;
-		right: 16px;
-		bottom: 8px;
-		padding: 8px 20px;
+		left: 24px;
+		top: 24px;
+		padding: 10px 24px;
 		border: 0;
-		border-radius: 20px;
-		background: var(--c-bosque);
-		color: var(--c-texto-inverso);
-		font: 600 16px var(--f-titulo);
+		border-radius: 24px;
+		background: rgba(31, 45, 36, 0.8);
+		color: #fff;
+		font: 600 18px var(--f-titulo);
 		cursor: pointer;
-		z-index: 2;
+		z-index: 20;
 		animation: parpadeo 1.5s ease-in-out infinite alternate;
 	}
 
-	@keyframes entra { from { transform: translateY(40px); opacity: 0; } }
 	@keyframes parpadeo { from { opacity: 1; } to { opacity: 0.4; } }
-	@media (prefers-reduced-motion: reduce) { .num { animation: none; } .banda { transition: none; } .listo-txt { animation: none; } }
+	@media (prefers-reduced-motion: reduce) { .ov-num, .overlay-turno, .frase-flotante { animation: none; } .ov-listo { animation: none; } }
 </style>
