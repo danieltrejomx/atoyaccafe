@@ -338,12 +338,12 @@
 	}
 	.llamado .qr-zona { background: rgba(255,255,255,0.15); }
 	.qr-img {
-		width: 100px;
-		height: 100px;
-		border-radius: 8px;
+		width: 180px;
+		height: 180px;
+		border-radius: 12px;
 	}
 	.qr-texto {
-		font: 700 22px/1.2 var(--f-titulo);
+		font: 700 28px/1.2 var(--f-titulo);
 		color: var(--c-bosque);
 		text-align: center;
 	}
