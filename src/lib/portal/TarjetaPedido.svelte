@@ -47,22 +47,136 @@
 			: 0
 	);
 
-	// --- Recipe tooltip ---
+	// --- Recetas paso a paso ---
 	const RECETAS: Record<string, string[]> = {
-		'Ensalada Tradicional': ['80g lechuga + 30g espinaca', '5 tomates cherry, 30g zanahoria, 40g pepino', '\u00BC aguacate + 40g panela', '15g crotones + 1 cda semilla girasol', '40ml aderezo ranch o mil islas'],
-		'Ensalada Jam\u00F3n de pavo': ['Base de ensalada tradicional', '+ 3 rebanadas jam\u00F3n de pavo (60g)'],
-		'Ensalada de at\u00FAn': ['Base de ensalada tradicional', '+ 1 lata at\u00FAn Dolores escurrido (100g)'],
-		'Ensalada de pollo': ['Base de ensalada tradicional', '+ 120g pollo a la plancha'],
-		'Ensalada de res': ['Base de ensalada tradicional', '+ 120g fajitas de res'],
-		'Chilaquiles sencillos': ['1 taza (250ml) salsa verde + 120g totopos', '2 cdas crema, 30g queso, 15g cebolla', '\u00BC aguacate', 'Ramita de epazote', '100g frijoles al lado'],
-		'Chilaquiles con pollo': ['Igual que sencillos', '+ 100g pollo hasta arriba'],
-		'Chilaquiles con res': ['Igual que sencillos', '+ 100g res hasta arriba'],
-		'Molletes sencillos': ['Cortar 2 bolillos, calentar 2 min', '40g frijoles en cada pan', '2 rebanadas queso manchego', '60g pico de gallo'],
-		'Molletes Atoyac': ['Cortar 2 bolillos, calentar 2 min', '40g frijoles en cada pan', '60g pollo + 2 tiras tocino', '2 rebanadas queso manchego', '60g pico de gallo'],
-		'Chapata jam\u00F3n de pavo': ['Pan normal o integral, \u00BFmayonesa?', '4 rebanadas jam\u00F3n (80g) + cebolla', '1 panela + 1 manchego', '2 hojas lechuga + 3 rodajas tomate', '120g papas fritas'],
-		'Chapata de pollo': ['Pan normal o integral, \u00BFmayonesa?', '120g pollo + pimiento + cebolla caramelizada', '1 panela + 1 manchego', '2 hojas lechuga + 3 rodajas tomate', '120g papas fritas'],
-		'Chapata fajitas de res': ['Pan normal o integral, \u00BFmayonesa?', '120g fajitas + pimiento + cebolla caramelizada', '1 panela + 1 manchego', '2 hojas lechuga + 3 rodajas tomate', '120g papas fritas'],
-		'Plato de fruta': ['1 manzana chica + 1 pl\u00E1tano (200g total)', '100g yogurt natural', '2 cdas granola + 1 cdita miel'],
+		'Ensalada Tradicional': [
+			'Poner 80g de lechuga + 30g de espinaca (un buen puño)',
+			'Agregar 5 tomates cherry partidos a la mitad',
+			'Agregar 30g de zanahoria y 40g de pepino',
+			'Poner ¼ de aguacate y 40g de panela encima',
+			'Agregar 15g de crotones y 1 cda de semilla de girasol',
+			'Servir con 40ml del aderezo que pida: ranch o mil islas'
+		],
+		'Ensalada Jamón de pavo': [
+			'Poner 80g de lechuga + 30g de espinaca',
+			'Agregar 5 tomates cherry partidos a la mitad',
+			'Agregar 30g de zanahoria y 40g de pepino',
+			'Poner ¼ de aguacate y 40g de panela',
+			'Agregar 3 rebanadas de jamón de pavo (60g)',
+			'Agregar 15g de crotones y 1 cda de semilla de girasol',
+			'Servir con 40ml del aderezo: ranch o mil islas'
+		],
+		'Ensalada de atún': [
+			'Poner 80g de lechuga + 30g de espinaca',
+			'Agregar 5 tomates cherry partidos a la mitad',
+			'Agregar 30g de zanahoria y 40g de pepino',
+			'Poner ¼ de aguacate y 40g de panela',
+			'Agregar 1 lata de atún Dolores escurrido (100g)',
+			'Agregar 15g de crotones y 1 cda de semilla de girasol',
+			'Servir con 40ml del aderezo: ranch o mil islas'
+		],
+		'Ensalada de pollo': [
+			'Poner 80g de lechuga + 30g de espinaca',
+			'Agregar 5 tomates cherry partidos a la mitad',
+			'Agregar 30g de zanahoria y 40g de pepino',
+			'Poner ¼ de aguacate y 40g de panela',
+			'Cocinar 120g de pollo a la plancha y ponerlo encima',
+			'Agregar 15g de crotones y 1 cda de semilla de girasol',
+			'Servir con 40ml del aderezo: ranch o mil islas'
+		],
+		'Ensalada de res': [
+			'Poner 80g de lechuga + 30g de espinaca',
+			'Agregar 5 tomates cherry partidos a la mitad',
+			'Agregar 30g de zanahoria y 40g de pepino',
+			'Poner ¼ de aguacate y 40g de panela',
+			'Cocinar 120g de fajitas de res y ponerlas encima',
+			'Agregar 15g de crotones y 1 cda de semilla de girasol',
+			'Servir con 40ml del aderezo: ranch o mil islas'
+		],
+		'Chilaquiles sencillos': [
+			'Calentar 1 taza (250ml) de salsa verde',
+			'Mezclar con 120g de totopos',
+			'Servir en plato',
+			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
+			'Poner ¼ de aguacate',
+			'Decorar con una ramita de epazote',
+			'Acompañar siempre con 100g de frijoles al lado'
+		],
+		'Chilaquiles con pollo': [
+			'Calentar 1 taza (250ml) de salsa verde',
+			'Mezclar con 120g de totopos',
+			'Servir en plato',
+			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
+			'Poner ¼ de aguacate',
+			'Poner 100g de pollo hasta arriba',
+			'Decorar con una ramita de epazote',
+			'Acompañar siempre con 100g de frijoles al lado'
+		],
+		'Chilaquiles con res': [
+			'Calentar 1 taza (250ml) de salsa verde',
+			'Mezclar con 120g de totopos',
+			'Servir en plato',
+			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
+			'Poner ¼ de aguacate',
+			'Poner 100g de res hasta arriba',
+			'Decorar con una ramita de epazote',
+			'Acompañar siempre con 100g de frijoles al lado'
+		],
+		'Molletes sencillos': [
+			'Cortar 2 bolillos por la mitad',
+			'Calentar los bolillos por 2 minutos',
+			'Untar 40g de frijoles en cada pan',
+			'Poner 2 rebanadas de queso manchego',
+			'Gratinar hasta que funda el queso',
+			'Servir con 60g de pico de gallo como complemento'
+		],
+		'Molletes Atoyac': [
+			'Cortar 2 bolillos por la mitad',
+			'Calentar los bolillos por 2 minutos',
+			'Untar 40g de frijoles en cada pan',
+			'Poner 60g de pollo y 2 tiras de tocino dorado sobre los frijoles',
+			'Poner 2 rebanadas de queso manchego',
+			'Gratinar hasta que funda el queso',
+			'Servir con 60g de pico de gallo como complemento'
+		],
+		'Chapata jamón de pavo': [
+			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
+			'Abrir el pan y calentarlo',
+			'Si sí quiere, untar 1 cda de mayonesa',
+			'Poner 4 rebanadas de jamón de pavo (80g) y cebolla',
+			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
+			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
+			'Cerrar el pan',
+			'Servir acompañada de 120g de papas fritas'
+		],
+		'Chapata de pollo': [
+			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
+			'Abrir el pan y calentarlo',
+			'Si sí quiere, untar 1 cda de mayonesa',
+			'Cocinar 120g de pollo a la plancha con pimiento verde, rojo y cebolla caramelizada',
+			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
+			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
+			'Cerrar el pan',
+			'Servir acompañada de 120g de papas fritas'
+		],
+		'Chapata fajitas de res': [
+			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
+			'Abrir el pan y calentarlo',
+			'Si sí quiere, untar 1 cda de mayonesa',
+			'Cocinar 120g de fajitas de res con pimiento verde, rojo y cebolla caramelizada',
+			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
+			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
+			'Cerrar el pan',
+			'Servir acompañada de 120g de papas fritas'
+		],
+		'Plato de fruta': [
+			'Lavar y cortar 1 manzana chica en cubos',
+			'Pelar y rebanar 1 plátano (200g en total)',
+			'Servir en plato',
+			'Agregar 100g de yogurt natural encima',
+			'Poner 2 cdas de granola sobre el yogurt',
+			'Terminar con 1 cdita de miel'
+		],
 	};
 
 	let tooltipItem = $state<string | null>(null);
