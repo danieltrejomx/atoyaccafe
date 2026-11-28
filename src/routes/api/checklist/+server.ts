@@ -21,7 +21,8 @@ const TAREAS_VALIDAS = [
 	'revision_cocina',
 	'revision_salsas',
 	'revision_aderezos',
-	'revision_aguas'
+	'revision_aguas',
+	'revision_sonido'
 ];
 
 const MAX_SIZE = 5 * 1024 * 1024;

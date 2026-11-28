@@ -27,7 +27,8 @@
 		{ id: 'revision_cocina', nombre: 'Revisión cocina recogida', rondas: 3 },
 		{ id: 'revision_salsas', nombre: 'Revisión salsas llenas (roja, verde)', rondas: 3 },
 		{ id: 'revision_aderezos', nombre: 'Revisión aderezos (ranch, mil islas)', rondas: 3 },
-		{ id: 'revision_aguas', nombre: 'Revisión aguas de sabor (jamaica, horchata)', rondas: 3 }
+		{ id: 'revision_aguas', nombre: 'Revisión aguas de sabor (jamaica, horchata)', rondas: 3 },
+		{ id: 'revision_sonido', nombre: 'Revisión sonido TV y monitor (que se oigan los pedidos)', rondas: 3 }
 	];
 
 	let items = $state<ChecklistItem[]>([]);
