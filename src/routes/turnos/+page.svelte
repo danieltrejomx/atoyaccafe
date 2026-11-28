@@ -149,10 +149,13 @@
 		llamado = item.turno;
 		campana();
 		const nombre = item.cliente ? `${item.cliente}, tu` : 'Tu';
-		hablar(`${nombre} pedido número ${item.turno} está listo`);
+		const frase = obtenerFrase();
+		// Primero anuncia el turno, luego la frase bonita
+		hablar(`${nombre} pedido número ${item.turno} está listo. ${frase}`);
+		fraseActual = frase;
 		clearTimeout(fin);
-		fin = setTimeout(() => (llamado = null), 6000);
-	}, 8000);
+		fin = setTimeout(() => (llamado = null), 8000);
+	}, 12000);
 
 	const stream = crearStream(
 		{
@@ -220,6 +223,7 @@
 			<div class="qr-zona">
 				<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
 			</div>
+			{#if fraseActual && llamado}<p class="frase">{fraseActual}</p>{/if}
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
 			{#if !sonidoActivo}<button class="btn-sonido" onclick={activarSonido}>Activar sonido</button>{/if}
 		</section>
@@ -344,6 +348,20 @@
 		text-align: center;
 	}
 	.llamado .qr-texto { color: var(--c-texto-inverso); }
+
+	.frase {
+		position: absolute;
+		bottom: 10px;
+		left: 40px;
+		right: 280px;
+		margin: 0;
+		font: italic 500 18px/1.3 var(--f-titulo);
+		color: var(--c-hoja);
+		opacity: 0.9;
+		animation: fadeIn 0.5s ease-out;
+	}
+	.llamado .frase { color: var(--c-menta-tv); }
+	@keyframes fadeIn { from { opacity: 0; y: 10px; } }
 
 	.chip {
 		position: absolute;
