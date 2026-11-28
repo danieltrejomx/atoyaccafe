@@ -28,7 +28,10 @@
 			anunciar(`Nuevo pedido, turno ${p.turno}. ${productos}`);
 		}
 	});
-	onMount(pv.iniciar);
+	onMount(() => {
+		cargarVoces();
+		return pv.iniciar();
+	});
 
 	function pitar() {
 		if (!ctx) return;
@@ -44,12 +47,21 @@
 			o.stop(t + 0.4);
 		});
 	}
+	let voces: SpeechSynthesisVoice[] = [];
+	function cargarVoces() {
+		if (typeof speechSynthesis === 'undefined') return;
+		voces = speechSynthesis.getVoices();
+		if (!voces.length) speechSynthesis.addEventListener('voiceschanged', () => (voces = speechSynthesis.getVoices()), { once: true });
+	}
+
 	function anunciar(texto: string) {
 		if (typeof speechSynthesis === 'undefined') return;
+		speechSynthesis.cancel();
 		const u = new SpeechSynthesisUtterance(texto);
 		u.lang = 'es-MX';
 		u.rate = 0.9;
-		const voz = speechSynthesis.getVoices().find((v) => v.lang.replace('_', '-') === 'es-MX');
+		u.volume = 1;
+		const voz = voces.find((v) => v.lang.replace('_', '-') === 'es-MX') ?? voces.find((v) => v.lang.startsWith('es'));
 		if (voz) u.voice = voz;
 		speechSynthesis.speak(u);
 	}
@@ -57,8 +69,10 @@
 		sonido = !sonido;
 		if (sonido) {
 			ctx ??= new AudioContext();
+			void ctx.resume();
+			cargarVoces();
 			pitar();
-			anunciar('Sonido activado');
+			setTimeout(() => anunciar('Sonido activado'), 500);
 		}
 	}
 
