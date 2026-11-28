@@ -7,11 +7,24 @@
 		producto,
 		onagregar,
 		oncerrar
-	}: { producto: Producto | null; onagregar: (p: Producto, o: Opcion[], cantidad: number) => void; oncerrar: () => void } = $props();
+	}: { producto: Producto | null; onagregar: (p: Producto, o: Opcion[], cantidad: number, notas: string) => void; oncerrar: () => void } = $props();
 
 	let dlg: HTMLDialogElement;
 	let elegidas = $state<number[]>([]);
 	let cantidad = $state(1);
+	let quitados = $state<string[]>([]);
+
+	/** Ingredientes principales por categoría */
+	const INGREDIENTES: Record<string, string[]> = {
+		'Ensaladas': ['Lechuga', 'Espinaca', 'Tomate cherry', 'Zanahoria', 'Pepino', 'Aguacate', 'Panela', 'Crotones', 'Semilla de girasol'],
+		'Chilaquiles': ['Totopos', 'Salsa verde', 'Crema', 'Queso', 'Cebolla', 'Aguacate', 'Frijoles', 'Cilantro'],
+		'Molletes': ['Bolillo', 'Frijoles', 'Queso manchego', 'Pico de gallo'],
+		'Chapatas': ['Pan', 'Panela', 'Queso manchego', 'Lechuga', 'Tomate', 'Mayonesa'],
+		'Fruta': ['Manzana', 'Plátano', 'Yogurt', 'Granola', 'Miel'],
+	};
+
+	const ingredientes = $derived(INGREDIENTES[producto?.categoria ?? ''] ?? []);
+	const notasTexto = $derived(quitados.length ? 'Sin ' + quitados.join(', ') : '');
 
 	const grupos = $derived.by(() => {
 		const m = new Map<string, Opcion[]>();
@@ -23,10 +36,15 @@
 
 	$effect(() => {
 		cantidad = 1;
+		quitados = [];
 		elegidas = grupos.flatMap(([, ops]) => (ops[0].tipo === 'unica' ? [(ops.find((o) => o.porDefecto) ?? ops[0]).id] : ops.filter((o) => o.porDefecto).map((o) => o.id)));
 		if (producto && !dlg.open) dlg.showModal();
 		else if (!producto && dlg.open) dlg.close();
 	});
+
+	function toggleIngrediente(ing: string) {
+		quitados = quitados.includes(ing) ? quitados.filter(i => i !== ing) : [...quitados, ing];
+	}
 
 	function elegir(o: Opcion, ops: Opcion[]) {
 		if (o.tipo === 'unica') elegidas = [...elegidas.filter((id) => !ops.some((x) => x.id === id)), o.id];
@@ -67,6 +85,25 @@
 						{/if}
 					</fieldset>
 				{/each}
+				{#if ingredientes.length}
+					<fieldset>
+						<legend>Ingredientes <small>(desmarca lo que no quieras)</small></legend>
+						<div class="ingredientes">
+							{#each ingredientes as ing (ing)}
+								<button
+									role="checkbox"
+									aria-checked={!quitados.includes(ing)}
+									class="ing-pill"
+									class:quitado={quitados.includes(ing)}
+									onclick={() => toggleIngrediente(ing)}
+								>
+									{#if quitados.includes(ing)}✕{:else}✓{/if}
+									{ing}
+								</button>
+							{/each}
+						</div>
+					</fieldset>
+				{/if}
 			</div>
 		</div>
 		<footer>
@@ -75,7 +112,7 @@
 				<output>{cantidad}</output>
 				<button aria-label="Más" onclick={() => (cantidad = Math.min(50, cantidad + 1))}><Icono nombre="mas" /></button>
 			</div>
-			<Boton tamano="xl" onclick={() => (onagregar(producto, extras, cantidad), oncerrar())}>Agregar al pedido · ${total}</Boton>
+			<Boton tamano="xl" onclick={() => (onagregar(producto, extras, cantidad, notasTexto), oncerrar())}>Agregar al pedido · ${total}</Boton>
 		</footer>
 	{/if}
 </dialog>
@@ -114,6 +151,10 @@
 	.caja { width: 32px; height: 32px; border-radius: var(--r-sm); border: 2px solid var(--c-linea-fuerte); display: grid; place-items: center; }
 	.caja.on { background: var(--c-hoja-fuerte); border-color: var(--c-hoja-fuerte); color: #fff; }
 	.px { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+	legend small { font-weight: 400; color: var(--c-texto-suave); text-transform: none; letter-spacing: 0; }
+	.ingredientes { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+	.ing-pill { min-height: 40px; padding: 0 14px; border-radius: var(--r-pill); border: 1.5px solid var(--c-hoja-fuerte); background: var(--c-hoja-fuerte); color: #fff; font: 600 var(--fs-14) var(--f-texto); display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; }
+	.ing-pill.quitado { background: var(--c-blanco); color: var(--c-cancelado); border-color: var(--c-cancelado); text-decoration: line-through; opacity: 0.7; }
 	footer { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-4) var(--sp-6); border-top: 1px solid var(--c-linea); }
 	.cont { display: flex; align-items: center; gap: var(--sp-2); }
 	.cont button { width: var(--toque-kiosco); height: var(--toque-kiosco); border-radius: 50%; background: var(--c-arena); display: grid; place-items: center; }

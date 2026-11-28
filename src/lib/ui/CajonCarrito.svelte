@@ -32,6 +32,7 @@
 				<div class="info">
 					<strong>{l.producto.nombre}</strong>
 					{#if l.opciones.length}<span>{l.opciones.map((o) => o.nombre).join(' · ')}</span>{/if}
+					{#if l.notas}<span class="notas-line">{l.notas}</span>{/if}
 					{#if quitando === l.clave}
 						<span class="quitar" role="group" aria-label="Quitar producto">
 							¿Quitar?
@@ -84,6 +85,7 @@
 	li.vacio { display: block; color: var(--c-texto-suave); border: 0; padding-top: var(--sp-6); }
 	.info { display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-16); }
 	.info span { color: var(--c-texto-suave); font-size: var(--fs-14); }
+	.notas-line { color: var(--c-cancelado) !important; font-weight: 600; }
 	.quitar { display: flex; align-items: center; gap: var(--sp-2); color: var(--c-barro-texto) !important; font-weight: 600; }
 	.quitar button { border-radius: var(--r-pill); padding: 0 var(--sp-5); min-height: var(--toque-kiosco); background: var(--c-arena); font: 600 var(--fs-14) var(--f-titulo); }
 	.cont { display: flex; align-items: center; gap: var(--sp-1); }

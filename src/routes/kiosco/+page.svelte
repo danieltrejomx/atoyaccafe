@@ -63,8 +63,8 @@
 		paso = 'reposo';
 	}
 
-	function agregar(p: Producto, o: Opcion[], n: number) {
-		carrito.agregar(p, o, n);
+	function agregar(p: Producto, o: Opcion[], n: number, notas: string) {
+		carrito.agregar(p, o, n, notas);
 	}
 
 	async function pagar(metodo: PagoMetodo, cliente: string, paraLlevar: boolean) {
