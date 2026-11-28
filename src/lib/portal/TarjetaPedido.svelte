@@ -111,7 +111,7 @@
 		]},
 		'Chilaquiles sencillos': { categoria: 'chilaquiles', pasos: [
 			'🌶️ Calentar 1 taza (250ml) de salsa verde en un sartén a fuego medio',
-			'🔥 Cuando empiece a hervir, agregar 120g de totopos',
+			'🔥 Cuando empiece a hervir, agregar 80g de totopos (tortilla/totopos, se ponen de ambos lados)',
 			'🫗 Mezclar bien con una cuchara de madera para que se bañen de salsa (~1 min)',
 			'🍽️ Pasar los chilaquiles al plato',
 			'🫗 Poner encima 2 cucharadas de crema con una cuchara',
