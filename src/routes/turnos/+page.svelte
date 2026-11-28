@@ -196,7 +196,6 @@
 				{#if mostrado === null}
 					<div class="sin-turno">
 						<img class="logo-chico" src="/img/logo.svg" alt="Atoyac Café" />
-						<p>Bienvenido a Atoyac</p>
 					</div>
 				{:else}
 					<span class="etq">TURNO</span>
@@ -220,10 +219,7 @@
 
 			<div class="qr-zona">
 				<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
-				<span class="qr-texto">Ordena desde<br/>tu cel</span>
 			</div>
-
-			{#if fraseActual}<p class="frase">{fraseActual}</p>{/if}
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
 			{#if !sonidoActivo}<button class="btn-sonido" onclick={activarSonido}>Activar sonido</button>{/if}
 		</section>
@@ -333,13 +329,13 @@
 		gap: 16px;
 		background: var(--c-blanco, #fff);
 		border-radius: 16px;
-		padding: 12px 20px;
+		padding: 16px 24px;
 		box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 	}
 	.llamado .qr-zona { background: rgba(255,255,255,0.15); }
 	.qr-img {
-		width: 180px;
-		height: 180px;
+		width: 240px;
+		height: 240px;
 		border-radius: 12px;
 	}
 	.qr-texto {

@@ -29,6 +29,17 @@ export interface AvisosResp {
 	usuarios: { id: number; nombre: string }[];
 }
 
+export interface ChecklistItem {
+	id: number;
+	fecha: string;
+	tarea: string;
+	ronda: number;
+	foto: string | null;
+	nota: string | null;
+	usuarioId: number | null;
+	completadoEn: number;
+}
+
 export interface HorarioCelda {
 	id: number;
 	semana: string;
@@ -102,7 +113,20 @@ export function crearApi(f?: typeof fetch) {
 		// Horarios
 		horarios: (semana: string) => pedir<HorarioCelda[]>(`/api/horarios?semana=${semana}`),
 		guardarCelda: (p: { semana: string; dia: number; hora: number; empleado: string }) => pedir('/api/horarios', 'PUT', p),
-		copiarSemana: (desde: string, hasta: string) => pedir<{ copiados: number }>('/api/horarios', 'POST', { desde, hasta })
+		copiarSemana: (desde: string, hasta: string) => pedir<{ copiados: number }>('/api/horarios', 'POST', { desde, hasta }),
+		// Checklist
+		checklist: () => pedir<ChecklistItem[]>('/api/checklist'),
+		completarTarea: async (tarea: string, ronda: number, foto?: File, nota?: string) => {
+			const form = new FormData();
+			form.append('tarea', tarea);
+			form.append('ronda', String(ronda));
+			if (nota) form.append('nota', nota);
+			if (foto) form.append('foto', foto);
+			const r = await (f ?? fetch)('/api/checklist', { method: 'POST', body: form });
+			const data = await r.json().catch(() => ({}));
+			if (!r.ok) throw new ApiFallo(r.status, data.error ?? 'Error', data.detalle);
+			return data;
+		}
 	};
 }
 

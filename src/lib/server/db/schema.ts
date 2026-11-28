@@ -237,3 +237,23 @@ export const horarios = sqliteTable(
 		index('horarios_semana').on(t.semana)
 	]
 );
+
+/* ── Checklist diario de empleados ── */
+
+export const checklist = sqliteTable(
+	'checklist',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		fecha: text('fecha').notNull(),
+		tarea: text('tarea').notNull(),
+		ronda: integer('ronda').notNull().default(1),
+		foto: text('foto'),
+		nota: text('nota'),
+		usuarioId: integer('usuario_id').references(() => usuarios.id, { onDelete: 'set null' }),
+		completadoEn: integer('completado_en').notNull().$defaultFn(() => Date.now())
+	},
+	(t) => [
+		index('checklist_fecha').on(t.fecha),
+		uniqueIndex('checklist_fecha_tarea_ronda').on(t.fecha, t.tarea, t.ronda)
+	]
+);
