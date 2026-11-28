@@ -73,7 +73,7 @@
 			<label>Cliente (opcional)<input bind:value={cliente} maxlength="60" autocomplete="off" /></label>
 			{#if local}
 				<label>Forma de pago
-					<select bind:value={pago}>{#each PAGO_METODOS as m}<option value={m}>{m[0].toUpperCase() + m.slice(1)}</option>{/each}</select>
+					<select bind:value={pago}>{#each ['efectivo', 'tarjeta'] as m}<option value={m}>{m[0].toUpperCase() + m.slice(1)}</option>{/each}</select>
 				</label>
 			{:else}
 				<label>Número de pedido en {NOMBRE_CANAL[canal]}<input bind:value={externo} maxlength="80" autocomplete="off" /></label>
