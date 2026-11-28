@@ -222,6 +222,7 @@
 
 			<div class="qr-zona">
 				<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
+				<span class="qr-texto">Pide desde<br/>tu celular</span>
 			</div>
 			{#if fraseActual && llamado}<p class="frase">{fraseActual}</p>{/if}
 			{#if !stream.conectado}<span class="chip">Reconectando…</span>{/if}
