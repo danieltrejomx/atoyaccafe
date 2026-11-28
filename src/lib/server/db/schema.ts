@@ -146,3 +146,72 @@ export const usuarios = sqliteTable('usuarios', {
 	/** scrypt: "salt_hex:hash_hex" */
 	pinHash: text('pin_hash').notNull()
 });
+
+/* ── Caja: movimientos de efectivo ── */
+
+export const CAJA_TIPOS = ['fondo_inicial', 'venta_efectivo', 'retiro', 'gasto', 'ajuste'] as const;
+
+export const movimientosCaja = sqliteTable(
+	'movimientos_caja',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		fecha: text('fecha').notNull(),
+		tipo: text('tipo', { enum: CAJA_TIPOS }).notNull(),
+		monto: integer('monto').notNull(),
+		concepto: text('concepto'),
+		usuarioId: integer('usuario_id').references(() => usuarios.id, { onDelete: 'set null' }),
+		pedidoId: integer('pedido_id').references(() => pedidos.id, { onDelete: 'set null' }),
+		creadoEn: integer('creado_en').notNull().$defaultFn(ahora)
+	},
+	(t) => [index('caja_fecha').on(t.fecha)]
+);
+
+/* ── Avisos: asistencia del personal ── */
+
+export const asistencia = sqliteTable(
+	'asistencia',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		fecha: text('fecha').notNull(),
+		usuarioId: integer('usuario_id')
+			.notNull()
+			.references(() => usuarios.id, { onDelete: 'cascade' }),
+		entrada: integer('entrada'),
+		salida: integer('salida'),
+		creadoEn: integer('creado_en').notNull().$defaultFn(ahora)
+	},
+	(t) => [uniqueIndex('asistencia_fecha_usuario').on(t.fecha, t.usuarioId)]
+);
+
+/* ── Avisos: fotos de limpieza ── */
+
+export const ZONAS_LIMPIEZA = ['cocina', 'bano', 'mesas', 'general'] as const;
+
+export const fotosLimpieza = sqliteTable(
+	'fotos_limpieza',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		fecha: text('fecha').notNull(),
+		zona: text('zona', { enum: ZONAS_LIMPIEZA }).notNull(),
+		/** Ruta relativa al directorio de uploads */
+		ruta: text('ruta').notNull(),
+		usuarioId: integer('usuario_id').references(() => usuarios.id, { onDelete: 'set null' }),
+		creadoEn: integer('creado_en').notNull().$defaultFn(ahora)
+	},
+	(t) => [index('fotos_fecha').on(t.fecha)]
+);
+
+/* ── Avisos: ingredientes faltantes ── */
+
+export const faltantes = sqliteTable(
+	'faltantes',
+	{
+		id: integer('id').primaryKey({ autoIncrement: true }),
+		fecha: text('fecha').notNull(),
+		nombre: text('nombre').notNull(),
+		resuelto: integer('resuelto', { mode: 'boolean' }).notNull().default(false),
+		usuarioId: integer('usuario_id').references(() => usuarios.id, { onDelete: 'set null' }),
+		creadoEn: integer('creado_en').notNull().$defaultFn(ahora)
+	},
+	(t) => [index('faltantes_fecha').on(t.fecha)]
+);

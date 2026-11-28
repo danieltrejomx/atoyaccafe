@@ -2,8 +2,10 @@ import type { Canal, Rol } from '$lib/types';
 
 export const NAV: { href: string; texto: string; roles: Rol[] }[] = [
 	{ href: '/portal', texto: 'Monitor', roles: ['admin', 'caja', 'cocina'] },
+	{ href: '/portal/caja', texto: 'Caja', roles: ['admin', 'caja'] },
+	{ href: '/portal/recetas', texto: 'Recetario', roles: ['admin', 'caja', 'cocina'] },
 	{ href: '/portal/insumos', texto: 'Insumos', roles: ['admin'] },
-	{ href: '/portal/recetas', texto: 'Recetas', roles: ['admin'] },
+	{ href: '/portal/avisos', texto: 'Avisos', roles: ['admin', 'caja', 'cocina'] },
 	{ href: '/portal/resumen', texto: 'Resumen', roles: ['admin'] }
 ];
 

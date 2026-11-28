@@ -22,7 +22,11 @@
 	const pv = pedidosVivos((p) => {
 		destello = p.canal;
 		setTimeout(() => (destello = null), 3000);
-		if (sonido) pitar();
+		if (sonido) {
+			pitar();
+			const productos = p.items.map(i => `${i.cantidad} ${i.nombre}`).join(', ');
+			anunciar(`Nuevo pedido, turno ${p.turno}. ${productos}`);
+		}
 	});
 	onMount(pv.iniciar);
 
@@ -40,11 +44,21 @@
 			o.stop(t + 0.4);
 		});
 	}
+	function anunciar(texto: string) {
+		if (typeof speechSynthesis === 'undefined') return;
+		const u = new SpeechSynthesisUtterance(texto);
+		u.lang = 'es-MX';
+		u.rate = 0.9;
+		const voz = speechSynthesis.getVoices().find((v) => v.lang.replace('_', '-') === 'es-MX');
+		if (voz) u.voice = voz;
+		speechSynthesis.speak(u);
+	}
 	function alternarSonido() {
 		sonido = !sonido;
 		if (sonido) {
-			ctx ??= new AudioContext(); // el navegador exige un toque para activar el audio
+			ctx ??= new AudioContext();
 			pitar();
+			anunciar('Sonido activado');
 		}
 	}
 

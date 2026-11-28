@@ -11,6 +11,24 @@ import type {
 	TurnosRespuesta
 } from './types';
 
+export interface CajaMov {
+	id: number;
+	fecha: string;
+	tipo: string;
+	monto: number;
+	concepto: string | null;
+	usuarioId: number | null;
+	pedidoId: number | null;
+	creadoEn: number;
+}
+
+export interface AvisosResp {
+	registros: { id: number; fecha: string; usuarioId: number; entrada: number | null; salida: number | null }[];
+	faltantes: { id: number; fecha: string; nombre: string; resuelto: boolean; usuarioId: number | null; creadoEn: number }[];
+	fotos: { id: number; fecha: string; zona: string; ruta: string; usuarioId: number | null; creadoEn: number }[];
+	usuarios: { id: number; nombre: string }[];
+}
+
 export class ApiFallo extends Error {
 	constructor(
 		public status: number,
@@ -54,7 +72,24 @@ export function crearApi(f?: typeof fetch) {
 		guardarReceta: (productoId: number, r: RecetaInput) =>
 			pedir<RecetaRespuesta>(`/api/recetas/${productoId}`, 'PUT', r),
 		login: (pin: string) => pedir<{ id: number; nombre: string; rol: Rol }>('/api/login', 'POST', { pin }),
-		logout: () => pedir<{ ok: true }>('/api/logout', 'POST')
+		logout: () => pedir<{ ok: true }>('/api/logout', 'POST'),
+		// Caja
+		movimientosCaja: () => pedir<CajaMov[]>('/api/caja'),
+		crearMovCaja: (p: { tipo: string; monto: number; concepto?: string }) => pedir<CajaMov>('/api/caja', 'POST', p),
+		// Avisos
+		avisos: () => pedir<AvisosResp>('/api/avisos'),
+		checkin: (usuarioId: number, tipo: 'entrada' | 'salida') => pedir('/api/avisos/asistencia', 'POST', { usuarioId, tipo }),
+		crearFaltante: (nombre: string) => pedir('/api/avisos/faltantes', 'POST', { nombre }),
+		resolverFaltante: (id: number, resuelto: boolean) => pedir('/api/avisos/faltantes', 'PATCH', { id, resuelto }),
+		subirFoto: async (zona: string, archivo: File) => {
+			const form = new FormData();
+			form.append('zona', zona);
+			form.append('foto', archivo);
+			const r = await (f ?? fetch)('/api/avisos/fotos', { method: 'POST', body: form });
+			const data = await r.json().catch(() => ({}));
+			if (!r.ok) throw new ApiFallo(r.status, data.error ?? 'Error al subir foto', data.detalle);
+			return data;
+		}
 	};
 }
 
