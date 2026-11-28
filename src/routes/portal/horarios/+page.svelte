@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { api, type HorarioCelda } from '$lib/api';
 
-	const EMPLEADOS = ['', 'Claudia', 'Daniel'];
+	const EMPLEADOS = ['', 'Claudia', 'Daniel', 'Ambos'];
 	const DIAS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const HORAS = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 	const fmtHora = (h: number) => `${h.toString().padStart(2, '0')}:00`;
@@ -123,7 +123,7 @@
 						<td class="hora-col">{fmtHora(h)} - {fmtHora(h + 1)}</td>
 						{#each DIAS as _, di}
 							{@const emp = valor(di, h)}
-							<td class="celda" class:claudia={emp === 'Claudia'} class:daniel={emp === 'Daniel'} class:libre={emp === ''}>
+							<td class="celda" class:claudia={emp === 'Claudia'} class:daniel={emp === 'Daniel'} class:ambos={emp === 'Ambos'} class:libre={emp === ''}>
 								<select
 									value={emp}
 									onchange={(e) => cambiar(di, h, (e.target as HTMLSelectElement).value)}
@@ -201,6 +201,8 @@
 	.celda.claudia select { color: #8A6A1F; }
 	.celda.daniel { background: #2F5D4520; }
 	.celda.daniel select { color: #2F5D45; }
+	.celda.ambos { background: #d4a84740; }
+	.celda.ambos select { color: #6B4F1A; }
 	.celda.libre { background: var(--c-blanco); }
 	.celda.libre select { color: var(--c-texto-suave); }
 
