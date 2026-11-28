@@ -47,135 +47,148 @@
 			: 0
 	);
 
-	// --- Recetas paso a paso ---
+	// --- Recetas paso a paso (super detalladas para alguien que no sabe cocinar) ---
 	const RECETAS: Record<string, string[]> = {
 		'Ensalada Tradicional': [
-			'Poner 80g de lechuga + 30g de espinaca (un buen puño)',
-			'Agregar 5 tomates cherry partidos a la mitad',
-			'Agregar 30g de zanahoria y 40g de pepino',
-			'Poner ¼ de aguacate y 40g de panela encima',
-			'Agregar 15g de crotones y 1 cda de semilla de girasol',
-			'Servir con 40ml del aderezo que pida: ranch o mil islas'
+			'Lavar bien la lechuga y la espinaca con agua',
+			'Picar 80g de lechuga en trozos medianos con la mano (no cuchillo)',
+			'Agregar 30g de espinaca baby entera (un puño)',
+			'Cortar 5 tomates cherry a la mitad con cuchillo',
+			'Rallar 30g de zanahoria con el rallador grueso',
+			'Cortar 40g de pepino en rodajas delgadas',
+			'Cortar ¼ de aguacate en rebanadas y ponerlo encima',
+			'Cortar 40g de queso panela en cubitos pequeños',
+			'Poner 15g de crotones (el puñito de la bolsa) encima',
+			'Espolvorear 1 cucharada de semillas de girasol',
+			'Servir aparte 40ml del aderezo que pida: ranch o mil islas'
 		],
 		'Ensalada Jamón de pavo': [
-			'Poner 80g de lechuga + 30g de espinaca',
-			'Agregar 5 tomates cherry partidos a la mitad',
-			'Agregar 30g de zanahoria y 40g de pepino',
-			'Poner ¼ de aguacate y 40g de panela',
-			'Agregar 3 rebanadas de jamón de pavo (60g)',
-			'Agregar 15g de crotones y 1 cda de semilla de girasol',
-			'Servir con 40ml del aderezo: ranch o mil islas'
+			'Preparar la base igual que la Ensalada Tradicional (pasos 1-10)',
+			'Tomar 3 rebanadas de jamón de pavo (60g)',
+			'Enrollar cada rebanada y cortarla en tiritas',
+			'Poner las tiritas de jamón repartidas encima de la ensalada',
+			'Servir aparte 40ml del aderezo: ranch o mil islas'
 		],
 		'Ensalada de atún': [
-			'Poner 80g de lechuga + 30g de espinaca',
-			'Agregar 5 tomates cherry partidos a la mitad',
-			'Agregar 30g de zanahoria y 40g de pepino',
-			'Poner ¼ de aguacate y 40g de panela',
-			'Agregar 1 lata de atún Dolores escurrido (100g)',
-			'Agregar 15g de crotones y 1 cda de semilla de girasol',
-			'Servir con 40ml del aderezo: ranch o mil islas'
+			'Preparar la base igual que la Ensalada Tradicional (pasos 1-10)',
+			'Abrir 1 lata de atún Dolores y escurrirle todo el aceite/agua',
+			'Desmenuzar el atún (100g) con un tenedor',
+			'Repartir el atún desmenuzado encima de la ensalada',
+			'Servir aparte 40ml del aderezo: ranch o mil islas'
 		],
 		'Ensalada de pollo': [
-			'Poner 80g de lechuga + 30g de espinaca',
-			'Agregar 5 tomates cherry partidos a la mitad',
-			'Agregar 30g de zanahoria y 40g de pepino',
-			'Poner ¼ de aguacate y 40g de panela',
-			'Cocinar 120g de pollo a la plancha y ponerlo encima',
-			'Agregar 15g de crotones y 1 cda de semilla de girasol',
-			'Servir con 40ml del aderezo: ranch o mil islas'
+			'Preparar la base igual que la Ensalada Tradicional (pasos 1-10)',
+			'Sazonar 120g de pechuga de pollo con sal y pimienta',
+			'Cocinar en la plancha a fuego medio-alto ~4 min por lado hasta dorar',
+			'Dejar reposar 1 minuto y cortar en tiras gruesas',
+			'Poner las tiras de pollo encima de la ensalada',
+			'Servir aparte 40ml del aderezo: ranch o mil islas'
 		],
 		'Ensalada de res': [
-			'Poner 80g de lechuga + 30g de espinaca',
-			'Agregar 5 tomates cherry partidos a la mitad',
-			'Agregar 30g de zanahoria y 40g de pepino',
-			'Poner ¼ de aguacate y 40g de panela',
-			'Cocinar 120g de fajitas de res y ponerlas encima',
-			'Agregar 15g de crotones y 1 cda de semilla de girasol',
-			'Servir con 40ml del aderezo: ranch o mil islas'
+			'Preparar la base igual que la Ensalada Tradicional (pasos 1-10)',
+			'Sazonar 120g de fajitas de res con sal y pimienta',
+			'Cocinar en la plancha a fuego alto ~3 min por lado',
+			'Cortar en tiras delgadas',
+			'Poner las fajitas encima de la ensalada',
+			'Servir aparte 40ml del aderezo: ranch o mil islas'
 		],
 		'Chilaquiles sencillos': [
-			'Calentar 1 taza (250ml) de salsa verde',
-			'Mezclar con 120g de totopos',
-			'Servir en plato',
-			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
-			'Poner ¼ de aguacate',
-			'Decorar con una ramita de epazote',
-			'Acompañar siempre con 100g de frijoles al lado'
+			'Calentar 1 taza (250ml) de salsa verde en un sartén a fuego medio',
+			'Cuando empiece a hervir, agregar 120g de totopos',
+			'Mezclar bien con una cuchara de madera para que se bañen de salsa (~1 min)',
+			'Pasar los chilaquiles al plato',
+			'Poner encima 2 cucharadas de crema con una cuchara',
+			'Espolvorear 30g de queso fresco desmoronado',
+			'Picar 15g de cebolla en rodajas delgadas y ponerla encima',
+			'Cortar ¼ de aguacate en rebanadas y acomodar al lado',
+			'Poner una ramita de epazote fresco como decoración',
+			'Servir siempre con 100g de frijoles refritos al lado en el mismo plato'
 		],
 		'Chilaquiles con pollo': [
-			'Calentar 1 taza (250ml) de salsa verde',
-			'Mezclar con 120g de totopos',
-			'Servir en plato',
-			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
-			'Poner ¼ de aguacate',
-			'Poner 100g de pollo hasta arriba',
-			'Decorar con una ramita de epazote',
-			'Acompañar siempre con 100g de frijoles al lado'
+			'Preparar los chilaquiles igual que los sencillos (pasos 1-9)',
+			'Cocinar 100g de pollo en la plancha si no está listo',
+			'Cortar el pollo en tiras o cubos',
+			'Poner el pollo HASTA ARRIBA de los chilaquiles (lo último)',
+			'Servir con 100g de frijoles refritos al lado'
 		],
 		'Chilaquiles con res': [
-			'Calentar 1 taza (250ml) de salsa verde',
-			'Mezclar con 120g de totopos',
-			'Servir en plato',
-			'Agregar 2 cdas de crema, 30g de queso y 15g de cebolla',
-			'Poner ¼ de aguacate',
-			'Poner 100g de res hasta arriba',
-			'Decorar con una ramita de epazote',
-			'Acompañar siempre con 100g de frijoles al lado'
+			'Preparar los chilaquiles igual que los sencillos (pasos 1-9)',
+			'Cocinar 100g de fajitas de res en la plancha a fuego alto',
+			'Cortar en tiras',
+			'Poner la res HASTA ARRIBA de los chilaquiles (lo último)',
+			'Servir con 100g de frijoles refritos al lado'
 		],
 		'Molletes sencillos': [
-			'Cortar 2 bolillos por la mitad',
-			'Calentar los bolillos por 2 minutos',
-			'Untar 40g de frijoles en cada pan',
-			'Poner 2 rebanadas de queso manchego',
-			'Gratinar hasta que funda el queso',
-			'Servir con 60g de pico de gallo como complemento'
+			'Tomar 2 bolillos y cortar cada uno a la mitad con cuchillo de sierra',
+			'Poner las 4 mitades en la plancha o comal, con la parte cortada hacia abajo',
+			'Calentar 2 minutos hasta que estén crujientes',
+			'Voltear y untar 40g de frijoles refritos en cada mitad con cuchara',
+			'Poner encima 1 rebanada de queso manchego en cada una',
+			'Meter al horno o salamandra hasta que el queso se derrita y gratine',
+			'Sacar y servir en plato',
+			'Poner 60g de pico de gallo al lado como complemento'
 		],
 		'Molletes Atoyac': [
-			'Cortar 2 bolillos por la mitad',
-			'Calentar los bolillos por 2 minutos',
-			'Untar 40g de frijoles en cada pan',
-			'Poner 60g de pollo y 2 tiras de tocino dorado sobre los frijoles',
-			'Poner 2 rebanadas de queso manchego',
-			'Gratinar hasta que funda el queso',
-			'Servir con 60g de pico de gallo como complemento'
+			'Tomar 2 bolillos y cortar cada uno a la mitad con cuchillo de sierra',
+			'Poner las 4 mitades en la plancha, parte cortada hacia abajo, 2 minutos',
+			'Voltear y untar 40g de frijoles refritos en cada mitad',
+			'Dorar 2 tiras de tocino en la plancha hasta que estén crujientes',
+			'Poner 60g de pollo desmenuzado sobre los frijoles',
+			'Poner las tiras de tocino dorado encima del pollo',
+			'Cubrir con 1 rebanada de queso manchego en cada mitad',
+			'Meter al horno hasta que gratine el queso',
+			'Servir con 60g de pico de gallo al lado'
 		],
 		'Chapata jamón de pavo': [
-			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
-			'Abrir el pan y calentarlo',
-			'Si sí quiere, untar 1 cda de mayonesa',
-			'Poner 4 rebanadas de jamón de pavo (80g) y cebolla',
-			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
-			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
-			'Cerrar el pan',
-			'Servir acompañada de 120g de papas fritas'
+			'PREGUNTAR al cliente: ¿pan normal o integral? ¿quiere mayonesa?',
+			'Tomar el pan chapata y abrirlo por la mitad con cuchillo de sierra',
+			'Poner ambas mitades en la plancha para calentar ~1 min',
+			'Si pidió mayonesa: untar 1 cucharada en la parte de abajo del pan',
+			'Poner 4 rebanadas de jamón de pavo (80g) dobladas sobre el pan',
+			'Cortar cebolla en aros delgados y poner encima del jamón',
+			'Poner 1 rebanada de panela (40g) y 1 de manchego',
+			'Colocar 2 hojas de lechuga lavadas',
+			'Cortar 3 rodajas de tomate y ponerlas',
+			'Cerrar el pan con la otra mitad',
+			'Freír 120g de papas fritas y servir al lado'
 		],
 		'Chapata de pollo': [
-			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
-			'Abrir el pan y calentarlo',
-			'Si sí quiere, untar 1 cda de mayonesa',
-			'Cocinar 120g de pollo a la plancha con pimiento verde, rojo y cebolla caramelizada',
+			'PREGUNTAR al cliente: ¿pan normal o integral? ¿quiere mayonesa?',
+			'Abrir el pan chapata y calentarlo en la plancha ~1 min',
+			'Si pidió mayonesa: untar 1 cucharada en la parte de abajo',
+			'Cortar pimiento verde y rojo en tiritas, cebolla en aros',
+			'Cocinar 120g de pollo a la plancha con los pimientos y cebolla',
+			'Caramelizar la cebolla (dejar que se dore bien, ~3 min)',
+			'Poner el pollo con verduras sobre el pan',
 			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
-			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
+			'Colocar 2 hojas de lechuga y 3 rodajas de tomate',
 			'Cerrar el pan',
-			'Servir acompañada de 120g de papas fritas'
+			'Freír 120g de papas fritas y servir al lado',
+			'Si pide ensalada en vez de papas: lechuga, tomate, zanahoria, pepino y aguacate'
 		],
 		'Chapata fajitas de res': [
-			'Preguntar: ¿pan normal o integral? ¿lleva mayonesa?',
-			'Abrir el pan y calentarlo',
-			'Si sí quiere, untar 1 cda de mayonesa',
-			'Cocinar 120g de fajitas de res con pimiento verde, rojo y cebolla caramelizada',
+			'PREGUNTAR al cliente: ¿pan normal o integral? ¿quiere mayonesa?',
+			'Abrir el pan chapata y calentarlo en la plancha ~1 min',
+			'Si pidió mayonesa: untar 1 cucharada en la parte de abajo',
+			'Cortar pimiento verde y rojo en tiritas, cebolla en aros',
+			'Cocinar 120g de fajitas de res en la plancha a fuego alto con los pimientos y cebolla',
+			'Caramelizar la cebolla (dejar que se dore bien, ~3 min)',
+			'Poner las fajitas con verduras sobre el pan',
 			'Agregar 1 rebanada de panela (40g) y 1 de manchego',
-			'Poner 2 hojas de lechuga y 3 rodajas de tomate',
+			'Colocar 2 hojas de lechuga y 3 rodajas de tomate',
 			'Cerrar el pan',
-			'Servir acompañada de 120g de papas fritas'
+			'Freír 120g de papas fritas y servir al lado',
+			'Si pide ensalada en vez de papas: lechuga, tomate, zanahoria, pepino y aguacate'
 		],
 		'Plato de fruta': [
-			'Lavar y cortar 1 manzana chica en cubos',
-			'Pelar y rebanar 1 plátano (200g en total)',
-			'Servir en plato',
-			'Agregar 100g de yogurt natural encima',
-			'Poner 2 cdas de granola sobre el yogurt',
-			'Terminar con 1 cdita de miel'
+			'Lavar bien 1 manzana chica con agua',
+			'Cortar la manzana en cubitos pequeños (quitar el corazón con semillas)',
+			'Pelar 1 plátano y cortarlo en rodajas redondas',
+			'Total entre manzana y plátano debe ser 200g',
+			'Poner la fruta en un plato hondo o bowl',
+			'Agregar 100g de yogurt natural encima de la fruta',
+			'Poner 2 cucharadas de granola sobre el yogurt',
+			'Terminar con 1 cucharadita de miel de abeja por encima'
 		],
 	};
 
