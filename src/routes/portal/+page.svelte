@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import CapturaManual from '$lib/portal/CapturaManual.svelte';
 	import Icono from '$lib/portal/Icono.svelte';
-	import PanelInsumos from '$lib/portal/PanelInsumos.svelte';
+
 	import TarjetaPedido from '$lib/portal/TarjetaPedido.svelte';
 	import { ETIQUETA_CANAL, NOMBRE_CANAL, TABS } from '$lib/portal/acceso';
 	import { pedidosVivos } from '$lib/portal/pedidos.svelte';
@@ -135,7 +135,7 @@
 			</div>
 		{/if}
 	</section>
-	<PanelInsumos editable={data.usuario?.rol === 'admin'} />
+
 </div>
 
 {#if capturando}
@@ -157,7 +157,7 @@
 {/if}
 
 <style>
-	.monitor { display: grid; grid-template-columns: minmax(0, 1fr) 360px; height: calc(100dvh - 52px); transition: box-shadow var(--dur-2); }
+	.monitor { display: grid; grid-template-columns: 1fr; height: calc(100dvh - 52px); transition: box-shadow var(--dur-2); }
 	.monitor.flash { box-shadow: inset 0 0 0 6px var(--c-maiz); }
 	.pedidos { padding: 0 var(--sp-5) var(--sp-5); overflow-y: auto; display: grid; gap: var(--sp-4); align-content: start; }
 	.barra { display: flex; gap: var(--sp-3); align-items: center; justify-content: flex-end; flex-wrap: wrap; padding-bottom: var(--sp-3); position: sticky; top: 0; background: var(--c-papel); z-index: 1; }
@@ -176,8 +176,6 @@
 	.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--sp-4); align-items: start; }
 	.reconecta { margin: 0; justify-self: start; background: var(--c-maiz-claro); color: var(--c-preparando); padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); font-size: var(--fs-14); font-weight: 600; }
 	@media (max-width: 1100px) {
-		.monitor { grid-template-columns: 1fr; height: auto; }
-		.monitor :global(aside) { display: none; } /* los insumos quedan en el menú superior */
 		.columnas { grid-template-columns: 1fr; }
 	}
 	@media (prefers-reduced-motion: reduce) { .parpadea { animation: none; background: var(--c-maiz-claro); } }
