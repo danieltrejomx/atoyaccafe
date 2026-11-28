@@ -199,12 +199,6 @@
 		<!-- Video fullscreen -->
 		<video src="/video/menu.mp4" muted loop autoplay playsinline></video>
 
-		<!-- QR siempre visible en esquina -->
-		<div class="qr-flotante">
-			<img class="qr-img" src="/img/qr-kiosco.svg" alt="QR para ordenar" />
-			<span class="qr-texto">Pide desde<br/>tu celular</span>
-		</div>
-
 		<!-- Frase motivadora flotante -->
 		{#if fraseActual && !llamado}
 			<p class="frase-flotante">{fraseActual}</p>
@@ -253,31 +247,6 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
-	}
-
-	/* === QR FLOTANTE (esquina superior derecha) === */
-	.qr-flotante {
-		position: absolute;
-		top: 24px;
-		right: 24px;
-		display: flex;
-		align-items: center;
-		gap: 14px;
-		background: rgba(255, 255, 255, 0.92);
-		border-radius: 20px;
-		padding: 14px 20px;
-		box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-		z-index: 2;
-	}
-	.qr-img {
-		width: 120px;
-		height: 120px;
-		border-radius: 10px;
-	}
-	.qr-texto {
-		font: 700 22px/1.2 var(--f-titulo);
-		color: var(--c-bosque);
-		text-align: center;
 	}
 
 	/* === FRASE FLOTANTE (abajo, sobre el video) === */
