@@ -4,14 +4,13 @@
 	import { NAV } from '$lib/portal/acceso';
 
 	let { data, children } = $props();
-	const enCaja = $derived(page.url.pathname.replace(/\/$/, '') === '/portal/caja');
 	const items = $derived(data.usuario ? NAV.filter((n) => n.roles.includes(data.usuario!.rol)) : []);
 </script>
 
 <svelte:head><title>Portal | Atoyac Café</title></svelte:head>
 
 <div class="portal">
-	{#if data.usuario && !enCaja}
+	{#if data.usuario}
 		<nav>
 			<strong class="marca">Atoyac</strong>
 			{#each items as n}
