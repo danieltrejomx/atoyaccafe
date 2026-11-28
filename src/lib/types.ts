@@ -106,6 +106,7 @@ export interface EventosSSE {
 	'pedido.actualizado': Pedido;
 	'turno.listo': { turno: number; pedidoId: number; cliente: string | null };
 	'insumo.actualizado': Insumo;
+	'frase.hablar': { texto: string };
 }
 export type NombreEvento = keyof EventosSSE;
 

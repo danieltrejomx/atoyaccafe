@@ -95,8 +95,11 @@
 	}
 
 	function megafono() {
-		if (!sonido) alternarSonido();
-		setTimeout(() => anunciar(fraseAleatoria()), sonido ? 0 : 600);
+		fetch('/api/frase', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ texto: fraseAleatoria() })
+		});
 	}
 
 	function alternarSonido() {

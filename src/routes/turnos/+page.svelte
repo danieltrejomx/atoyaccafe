@@ -160,7 +160,12 @@
 		{
 			'turno.listo': (d) => cola.agregar({ turno: d.turno, cliente: d.cliente }),
 			'pedido.creado': recargar,
-			'pedido.actualizado': recargar
+			'pedido.actualizado': recargar,
+			'frase.hablar': (d) => {
+				const texto = d.texto || obtenerFrase();
+				fraseActual = texto;
+				hablar(texto);
+			}
 		},
 		{ alAbrir: recargar }
 	);
