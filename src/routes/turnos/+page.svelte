@@ -8,8 +8,6 @@
 	const api = crearApi();
 	let datos = $state<TurnosRespuesta>({ actual: null, proximos: [], listos: [] });
 	let llamado = $state<number | null>(null);
-	let activado = $state(false);
-
 	async function recargar() {
 		try {
 			datos = await api.turnos();
@@ -38,12 +36,8 @@
 
 	const mostrado = $derived(llamado ?? datos.actual?.turno ?? null);
 
-	function activar() {
-		activado = true;
-		desbloquearAudio();
-	}
-
 	onMount(() => {
+		desbloquearAudio();
 		stream.abrir();
 		let lock: WakeLockSentinel | undefined;
 		const pedirLock = () => navigator.wakeLock?.request('screen').then((l) => (lock = l)).catch(() => {});
@@ -106,9 +100,7 @@
 		</section>
 	</main>
 
-	{#if !activado}
-		<button class="velo" onclick={activar}>Toca la pantalla para activar el sonido</button>
-	{/if}
+
 </div>
 
 <style>
@@ -238,18 +230,6 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
-	}
-
-	.velo {
-		position: fixed;
-		inset: 0;
-		z-index: 10;
-		border: 0;
-		background: rgba(31, 45, 36, 0.92);
-		color: var(--c-texto-inverso);
-		font: 600 56px var(--f-titulo);
-		padding: 48px;
-		cursor: none;
 	}
 
 	@keyframes entra { from { transform: translateY(40px); opacity: 0; } }
