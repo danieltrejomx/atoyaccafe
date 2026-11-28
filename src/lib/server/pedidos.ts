@@ -2,6 +2,7 @@ import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import type { CrearPedidoInput } from '../schemas';
 import type { Canal, Estado, Pedido, PagoMetodo } from '../types';
 import { getDb, schema, type Db, type Tx } from './db';
+import { env } from './env';
 import { ErrorNegocio } from './http';
 import { moverStock, obtenerInsumo } from './insumos';
 import { emitir } from './sse';
@@ -120,9 +121,10 @@ export function crearPedido(input: CrearPedidoInput): { pedido: Pedido; creado: 
 				return { it, p, elegidas, precioUnit };
 			});
 
+			const cuponValido = !!input.cupon && env.cuponesDueno.includes(input.cupon.toLowerCase());
 			const fecha = fechaNegocio();
 			const turno = siguienteTurno(tx, fecha);
-			const externoPagado = input.canal !== 'kiosco';
+			const externoPagado = input.canal !== 'kiosco' || cuponValido;
 			const [fila] = tx
 				.insert(pedidos)
 				.values({
@@ -132,12 +134,12 @@ export function crearPedido(input: CrearPedidoInput): { pedido: Pedido; creado: 
 					externoId: input.externoId,
 					cliente: input.cliente,
 					telefono: input.telefono,
-					pagoMetodo: input.pagoMetodo,
+					pagoMetodo: cuponValido ? 'efectivo' : input.pagoMetodo,
 					pagoEstado: externoPagado ? 'pagado' : 'pendiente',
 					// Pagado = la cocina lo prepara de inmediato; no hay paso "Empezar a preparar".
 					estado: externoPagado ? 'preparando' : 'nuevo',
-					total,
-					notas: input.notas
+					total: cuponValido ? 0 : total,
+					notas: cuponValido ? [input.notas, `Cupón dueño: ${input.cupon}`].filter(Boolean).join(' · ') : input.notas
 				})
 				.returning()
 				.all();

@@ -23,7 +23,8 @@ export const env = {
 	mpToken: process.env.MP_TOKEN ?? '',
 	mpTerminal: process.env.MP_TERMINAL ?? '',
 	waToken: process.env.WA_TOKEN ?? '',
-	waPhoneId: process.env.WA_PHONE_ID ?? ''
+	waPhoneId: process.env.WA_PHONE_ID ?? '',
+	cuponesDueno: (process.env.CUPONES_DUENO || (prod ? '' : 'aldo,fer')).split(',').filter(Boolean)
 };
 
 /** Se llama al arrancar el servidor (no al importar: el build de SvelteKit importa los módulos). */

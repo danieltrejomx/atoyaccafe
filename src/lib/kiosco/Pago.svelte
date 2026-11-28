@@ -9,10 +9,12 @@
 		ocupado,
 		onpagar,
 		onvolver
-	}: { error: string; ocupado: boolean; onpagar: (m: PagoMetodo, cliente: string, paraLlevar: boolean) => void; onvolver: () => void } = $props();
+	}: { error: string; ocupado: boolean; onpagar: (m: PagoMetodo, cliente: string, paraLlevar: boolean, cupon?: string) => void; onvolver: () => void } = $props();
 
 	let cliente = $state('');
 	let paraLlevar = $state(false);
+	let mostrarCupon = $state(false);
+	let cupon = $state('');
 	const metodos: { id: PagoMetodo; nombre: string; icono: NombreIcono }[] = [
 		{ id: 'efectivo', nombre: 'Efectivo', icono: 'efectivo' },
 		{ id: 'tarjeta', nombre: 'Tarjeta', icono: 'tarjeta' }
@@ -52,6 +54,17 @@
 				</button>
 			{/each}
 		</div>
+		{#if mostrarCupon}
+			<div class="cupon-zona">
+				<label>
+					<span>Clave de dueño</span>
+					<input bind:value={cupon} maxlength="30" autocomplete="off" placeholder="Ingresa tu clave" />
+				</label>
+				<Boton tamano="lg" disabled={!cupon.trim() || ocupado} onclick={() => onpagar('efectivo', cliente.trim(), paraLlevar, cupon.trim())}>Aplicar cupón</Boton>
+			</div>
+		{:else}
+			<button class="link-cupon" onclick={() => (mostrarCupon = true)}>Tengo un cupón</button>
+		{/if}
 	</section>
 </div>
 
@@ -78,4 +91,7 @@
 	.metodo:active { transform: scale(0.97); }
 	.metodo:disabled { opacity: 0.45; }
 	button:focus-visible { outline: none; box-shadow: var(--foco); }
+	.link-cupon { border: 0; background: none; color: var(--c-texto-suave); font: 400 var(--fs-16) var(--f-texto); text-decoration: underline; cursor: pointer; align-self: center; }
+	.cupon-zona { display: flex; gap: var(--sp-3); align-items: flex-end; }
+	.cupon-zona label { flex: 1; }
 </style>

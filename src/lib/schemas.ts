@@ -13,6 +13,7 @@ export const crearPedidoSchema = z.object({
 	telefono: z.string().regex(/^\d{10,15}$/).optional(),
 	pagoMetodo: z.enum(PAGO_METODOS).optional(),
 	notas: z.string().max(300).optional(),
+	cupon: z.string().max(30).optional(),
 	items: z
 		.array(
 			z.object({

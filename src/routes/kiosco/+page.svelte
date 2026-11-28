@@ -67,7 +67,7 @@
 		carrito.agregar(p, o, n, notas);
 	}
 
-	async function pagar(metodo: PagoMetodo, cliente: string, paraLlevar: boolean) {
+	async function pagar(metodo: PagoMetodo, cliente: string, paraLlevar: boolean, cupon?: string) {
 		ocupado = true;
 		error = '';
 		try {
@@ -76,9 +76,11 @@
 				cliente: cliente || undefined,
 				pagoMetodo: metodo,
 				notas: paraLlevar ? 'Para llevar' : 'Comer aquí',
+				cupon: cupon || undefined,
 				items: carrito.items()
 			});
-			if (metodo === 'tarjeta') await cobrar(pedido);
+			if (cupon && pedido.pagoEstado === 'pagado') paso = 'turno';
+			else if (metodo === 'tarjeta') await cobrar(pedido);
 			else paso = 'ticket';
 		} catch (e) {
 			error = (e as Error).message;
