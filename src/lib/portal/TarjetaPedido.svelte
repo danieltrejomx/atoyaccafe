@@ -300,12 +300,17 @@
 							<span class="pan-badge">🥖 {panBadge(it)}</span>
 						{/if}
 						{#if tooltipItem === it.nombre && RECETAS[it.nombre]}
-							<span class="tooltip-receta {RECETAS[it.nombre].categoria}">
-								<strong class="tooltip-header">{it.nombre}</strong>
-								{#each RECETAS[it.nombre].pasos as paso, i}
-									<span class="paso">{i + 1}. {paso}</span>
-								{/each}
-							</span>
+							<div class="receta-panel {RECETAS[it.nombre].categoria}">
+								<div class="receta-head">
+									{#if FOTOS[it.nombre]}<img class="receta-foto" src={FOTOS[it.nombre]} alt="" />{/if}
+									<strong>{it.nombre}</strong>
+								</div>
+								<ol class="receta-pasos">
+									{#each RECETAS[it.nombre].pasos as paso, i}
+										<li>{paso}</li>
+									{/each}
+								</ol>
+							</div>
 						{/if}
 					</span>
 					{#if it.opciones.length}<span class="op">{it.opciones.map((o) => opcionConEmoji(o.nombre)).join(' · ')}</span>{/if}
@@ -397,29 +402,79 @@
 		width: 100% !important;
 	}
 
-	/* Recipe tooltip */
+	/* Receta panel grande */
 	.nombre-prod { position: relative; }
 	.tiene-receta { text-decoration: underline dotted var(--c-texto-suave); text-underline-offset: 3px; cursor: help; }
-	.tooltip-receta {
-		position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 10;
-		background: var(--c-papel, #fefef5); border: 1px solid var(--c-linea); border-radius: var(--r-sm);
-		box-shadow: var(--sh-2, 0 4px 12px rgba(0,0,0,.12));
-		padding: 0; min-width: 340px; max-width: 440px;
-		display: grid; gap: 2px; font-size: 13px; line-height: 1.5;
-		pointer-events: none; white-space: normal; overflow: hidden;
+	.receta-panel {
+		position: fixed;
+		top: 80px;
+		right: 24px;
+		z-index: 100;
+		width: 420px;
+		max-height: calc(100vh - 120px);
+		overflow-y: auto;
+		background: #fff;
+		border-radius: 16px;
+		box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+		pointer-events: none;
 	}
-	.tooltip-header {
-		display: block; padding: var(--sp-2) var(--sp-3); font-size: var(--fs-14, 14px); margin: 0;
-		color: white; background: var(--c-hoja-fuerte, #2d6a4f);
+	.receta-head {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 20px 24px;
+		color: #fff;
+		font-size: 20px;
+		font-family: var(--f-titulo);
+		border-radius: 16px 16px 0 0;
+		background: var(--c-hoja-fuerte, #2d6a4f);
 	}
-	.tooltip-receta.ensalada .tooltip-header { background: #2d6a4f; }
-	.tooltip-receta.chilaquiles .tooltip-header { background: #c2410c; }
-	.tooltip-receta.molletes .tooltip-header { background: #92400e; }
-	.tooltip-receta.chapata .tooltip-header { background: #7c3aed; }
-	.tooltip-receta.postre .tooltip-header { background: #be185d; }
-	.tooltip-receta .paso { display: block; color: var(--c-texto-suave); padding: 0 var(--sp-3); }
-	.tooltip-receta .paso:last-child { padding-bottom: var(--sp-2); }
-	.tooltip-receta .paso:first-of-type { padding-top: var(--sp-2); }
+	.receta-panel.ensalada .receta-head { background: #2d6a4f; }
+	.receta-panel.chilaquiles .receta-head { background: #c2410c; }
+	.receta-panel.molletes .receta-head { background: #92400e; }
+	.receta-panel.chapata .receta-head { background: #7c3aed; }
+	.receta-panel.postre .receta-head { background: #be185d; }
+	.receta-panel.fruta .receta-head { background: #16a34a; }
+	.receta-foto {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 3px solid rgba(255,255,255,0.4);
+		flex-shrink: 0;
+	}
+	.receta-pasos {
+		list-style: none;
+		margin: 0;
+		padding: 16px 0;
+		counter-reset: paso;
+	}
+	.receta-pasos li {
+		counter-increment: paso;
+		display: flex;
+		gap: 14px;
+		align-items: flex-start;
+		padding: 10px 24px;
+		font-size: 16px;
+		line-height: 1.5;
+		color: #333;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	.receta-pasos li:last-child { border-bottom: none; }
+	.receta-pasos li::before {
+		content: counter(paso);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: #f0ebe0;
+		color: #4a5d23;
+		font-weight: 700;
+		font-size: 14px;
+		flex-shrink: 0;
+	}
 
 	/* Customer modifications */
 	.modificacion { color: var(--c-cancelado) !important; font-weight: 600; }
