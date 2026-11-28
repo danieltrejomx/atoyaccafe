@@ -35,24 +35,23 @@
 	);
 	let yaAviso = $state(false);
 
+	$effect(() => {
+		if (restante === null || restante > 0) { yaAviso = false; return; }
+		if (yaAviso || typeof speechSynthesis === 'undefined') return;
+		yaAviso = true;
+		const productos = pedido.items.map(i => i.nombre).join(', ');
+		const u = new SpeechSynthesisUtterance(`Atención, el turno ${pedido.turno} se pasó del tiempo. Apúrale con: ${productos}`);
+		u.lang = 'es-MX';
+		u.rate = 1;
+		u.volume = 1;
+		const voz = speechSynthesis.getVoices().find(v => v.lang.replace('_','-') === 'es-MX') ?? speechSynthesis.getVoices().find(v => v.lang.startsWith('es'));
+		if (voz) u.voice = voz;
+		speechSynthesis.speak(u);
+	});
+
 	const countdownTexto = $derived.by(() => {
 		if (restante === null) return null;
-		if (restante <= 0) {
-			// Avisar por voz una sola vez cuando se pasa del tiempo
-			if (!yaAviso && typeof speechSynthesis !== 'undefined') {
-				yaAviso = true;
-				const productos = pedido.items.map(i => i.nombre).join(', ');
-				const u = new SpeechSynthesisUtterance(`Atención, el turno ${pedido.turno} se pasó del tiempo. Apúrale con: ${productos}`);
-				u.lang = 'es-MX';
-				u.rate = 1;
-				u.volume = 1;
-				const voz = speechSynthesis.getVoices().find(v => v.lang.replace('_','-') === 'es-MX') ?? speechSynthesis.getVoices().find(v => v.lang.startsWith('es'));
-				if (voz) u.voice = voz;
-				speechSynthesis.speak(u);
-			}
-			return '\u23F0 Tiempo!';
-		}
-		yaAviso = false;
+		if (restante <= 0) return '\u23F0 Tiempo!';
 		const segs = Math.ceil(restante / 1000);
 		const m = Math.floor(segs / 60);
 		const s = segs % 60;
