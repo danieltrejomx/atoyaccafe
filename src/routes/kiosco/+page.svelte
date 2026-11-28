@@ -8,8 +8,7 @@
 	import { cobro, enviarTicket } from '$lib/kiosco/cliente';
 	import HojaProducto from '$lib/kiosco/HojaProducto.svelte';
 	import Pago from '$lib/kiosco/Pago.svelte';
-	import Reposo from '$lib/kiosco/Reposo.svelte';
-	import Ticket from '$lib/kiosco/Ticket.svelte';
+import Ticket from '$lib/kiosco/Ticket.svelte';
 	import Turno from '$lib/kiosco/Turno.svelte';
 	import Boton from '$lib/ui/Boton.svelte';
 	import CajonCarrito from '$lib/ui/CajonCarrito.svelte';
@@ -22,8 +21,8 @@
 	const IDLE_CUENTA = 15;
 
 	let { data }: PageProps = $props();
-	type Paso = 'reposo' | 'menu' | 'pago' | 'tarjeta' | 'ticket' | 'turno';
-	let paso = $state<Paso>('reposo');
+	type Paso = 'menu' | 'pago' | 'tarjeta' | 'ticket' | 'turno';
+	let paso = $state<Paso>('menu');
 	let categoria = $state<string>(CATEGORIAS[0]);
 	let elegido = $state<Producto | null>(null);
 	let cajon = $state(false);
@@ -41,7 +40,7 @@
 		stream.abrir();
 		const t = setInterval(() => {
 			inactivo++;
-			if (inactivo >= IDLE_AVISO + IDLE_CUENTA && !['reposo', 'tarjeta', 'turno'].includes(paso)) reposo();
+			if (inactivo >= IDLE_AVISO + IDLE_CUENTA && !['menu', 'tarjeta', 'turno'].includes(paso)) reposo();
 		}, 1000);
 		return () => (clearInterval(t), stream.cerrar());
 	});
@@ -53,14 +52,14 @@
 		return () => clearTimeout(t);
 	});
 
-	const avisando = $derived(inactivo >= IDLE_AVISO && !['reposo', 'tarjeta', 'turno'].includes(paso));
+	const avisando = $derived(inactivo >= IDLE_AVISO && !['menu', 'tarjeta', 'turno'].includes(paso));
 
 	function reposo() {
 		intento++;
 		carrito.vaciar();
 		(elegido = null), (cajon = false), (pedido = null), (error = ''), (ocupado = false);
 		categoria = CATEGORIAS[0];
-		paso = 'reposo';
+		paso = 'menu';
 	}
 
 	function agregar(p: Producto, o: Opcion[], n: number, notas: string) {
@@ -133,9 +132,7 @@
 <svelte:window onpointerdown={() => (inactivo = 0)} oncontextmenu={(e) => e.preventDefault()} />
 
 <main>
-	{#if paso === 'reposo'}
-		<Reposo onentrar={() => (paso = 'menu')} />
-	{:else if paso === 'menu'}
+	{#if paso === 'menu'}
 		<div class="menu">
 			<nav>
 				<img src="/img/logo.svg" alt="Atoyac Café" />
@@ -245,5 +242,14 @@
 	[role='alertdialog'] h2 { margin: 0; font: 600 var(--fs-56) var(--f-titulo); }
 	[role='alertdialog'] p { font-size: var(--fs-24); color: var(--c-texto-suave); font-variant-numeric: tabular-nums; }
 	[role='alertdialog'] div { display: flex; gap: var(--sp-4); justify-content: center; }
+	@media (max-width: 640px) {
+		.menu { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+		nav { flex-direction: row; padding: var(--sp-3); gap: var(--sp-3); overflow-x: auto; }
+		nav img { width: 40px; }
+		section { padding: var(--sp-4); }
+		h1 { font-size: var(--fs-24); margin-bottom: var(--sp-3); }
+		.rejilla { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--sp-3); padding-bottom: 80px; }
+		.flotante { right: var(--sp-3); bottom: var(--sp-3); font-size: var(--fs-18); padding: 0 var(--sp-4); height: 56px; }
+	}
 	@media (prefers-reduced-motion: reduce) { .entra, .flotante { animation: none; } }
 </style>
