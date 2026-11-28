@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { Pedido } from '$lib/types';
 	import Boton from '$lib/ui/Boton.svelte';
+	import { hablar } from '$lib/turnos/anuncios';
 
 	let { pedido, clabe, alTerminar }: { pedido: Pedido; clabe: string; alTerminar: () => void } = $props();
+
+	onMount(() => {
+		hablar('En breve tu turno aparecerá en pantalla. Recuerda regresar cubiertos y platos a la ventanilla. Gracias.');
+	});
 </script>
 
 <div class="turno">
